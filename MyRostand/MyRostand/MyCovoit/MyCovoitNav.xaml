@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="MyRostand.MyCovoit.MyCovoitNav">
+  <ContentView.Content>
+        <!-- Création de la barre inférieur de menu  -->
+        <Grid BackgroundColor="#44bd32" VerticalOptions="EndAndExpand" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60" />
+            </Grid.RowDefinitions>
+
+            <!-- Ajout des icons de la barre inférieur  -->
+            <ImageButton Source="MyCovoitAjouter.png" 
+           BackgroundColor="#44bd32"
+           HorizontalOptions="Start"
+           VerticalOptions="End"
+           Margin="15, 10, 0, 10"
+           />
+
+            <ImageButton Source="MyCovoitRechercher.png" 
+           BackgroundColor="#44bd32"
+           HorizontalOptions="Start"
+           VerticalOptions="End"
+           Margin="80, 10, 0, 10"
+           />
+
+            <ImageButton Source="MyCovoitDemander.png" 
+           BackgroundColor="#44bd32"
+           HorizontalOptions="Start"
+           VerticalOptions="End"
+           Margin="150, 10, 0, 10"
+           />
+
+            <ImageButton Source="MyCovoitMessagerie.png" 
+           BackgroundColor="#44bd32"
+           HorizontalOptions="Start"
+           VerticalOptions="End"
+           Margin="215, 10, 0, 10"
+           />
+
+            <ImageButton Source="MyCovoitHistorique.png" 
+           BackgroundColor="#44bd32"
+           HorizontalOptions="Start"
+           VerticalOptions="End"
+           Clicked="GoMesReservations"
+           Margin="285, 10, 0, 10"
+           />
+
+            <ImageButton Source="MyCovoitProfil.png" 
+           BackgroundColor="#44bd32"
+           HorizontalOptions="Start"
+           VerticalOptions="End"
+           Clicked="GoMyProfil"
+           Margin="350, 10, 15, 10"
+           />
+
+
+            <?Fin des ajouts des icons de la barre inférieur ----------------------------------------------------------------------- ?>
+        </Grid>
+        <?Fin des créations de la barre inférieur de menu ----------------------------------------------------------------------- ?>
+    </ContentView.Content>
+</ContentView>

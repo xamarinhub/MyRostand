@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="MyRostand.MyCovoit.ProfilUser">
+    <StackLayout>
+        <Label Text="Photo:" />
+        <Label x:Name="nomUser" Text="Nom:" />
+        <Label x:Name="PrenomUser" Text="Prenom:" />
+        <Label x:Name="DateNaissance" Text="Date de Naissance:" />
+        <Label x:Name="Bio" Text="Biographie:" />
+        <Label x:Name="Fumeur" Text="Fumeur: " />
+        <Label x:Name="Parleur" Text="Parleur: " />
+        <Label x:Name="Musique" Text="Musique: " />
+        <Label x:Name="Animaux" Text="Animaux: " />
+        <Label x:Name="NbAnnul" Text="Nombre d'Annulation: " />
+        <Label x:Name="Note" Text="Note: " />
+        <Label x:Name="Commentaire" Text="Commentaire: " />
+    </StackLayout>
+</ContentPage>

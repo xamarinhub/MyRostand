@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             xmlns:views="clr-namespace:MyRostand.MyCovoit"
+             x:Class="MyRostand.MyCovoitAccueil">
+    <ContentPage.Content>
+        <StackLayout>
+            <StackLayout Margin="30">
+            <Label Text="Recherche de trajet" HorizontalOptions="Center" TextColor="Black" FontSize="25">
+            </Label>
+            <Entry x:Name="Depart" Placeholder="Depart" WidthRequest="50" ></Entry>
+            <Entry x:Name="Arriver" Placeholder="Arriver" WidthRequest="50" ></Entry>
+            </StackLayout>
+            <StackLayout>
+                <Label HorizontalOptions="Center" Text="Date" FontSize="20" TextColor="Black" />
+                <DatePicker HorizontalOptions="Center" x:Name="Date"/>
+            </StackLayout>
+
+            <StackLayout>
+                <Label Text="Heure du depart" HorizontalOptions="Center" VerticalOptions="End" FontSize="20" TextColor="Black"/>
+                <TimePicker HorizontalOptions="Center" x:Name="Time" />
+            </StackLayout>
+
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                <Button x:Name ="rechercherBouton" Clicked="rechercherTrajets" TextColor="Black" Text="Rechercher" BackgroundColor="#44bd32" />
+            </StackLayout>
+
+            <!-- Import du menu de navigation  -->
+            <StackLayout VerticalOptions="EndAndExpand">
+                <views:MyCovoitNav/>
+            </StackLayout>
+            <!-- Fin import du menu de navigation -->
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
