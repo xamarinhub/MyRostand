@@ -18,6 +18,7 @@
            HorizontalOptions="Start"
            VerticalOptions="End"
            Margin="15, 10, 0, 10"
+           Clicked="GoMyCovoitAjout"
            />
 
             <ImageButton Source="MyCovoitRechercher.png" 
@@ -32,6 +33,7 @@
            HorizontalOptions="Start"
            VerticalOptions="End"
            Margin="150, 10, 0, 10"
+           Clicked="GoMyCovoitDemande"
            />
 
             <ImageButton Source="MyCovoitMessagerie.png" 

@@ -307,5 +307,32 @@ namespace MyRostand.Database
 
         }
 
+        public static void DemanderTrajet(string depart, string arrivee, string date, string frequence, string heureDepart)
+        {
+            try
+            {
+                MySqlConnection cnx = MySQL.getCnx();
+                cnx.Ping();
+                string requete = "INSERT INTO demandetrajet VALUES (NULL,@depart,@arrivee,@date,@frequence,@heure)";
+                using (MySqlCommand cmd = new MySqlCommand(requete, cnx))
+                {
+                    cmd.Parameters.AddWithValue("@depart", depart);
+                    cmd.Parameters.AddWithValue("@arrivee", arrivee);
+                    cmd.Parameters.AddWithValue("@date", date);
+                    cmd.Parameters.AddWithValue("@frequence", frequence);
+                    cmd.Parameters.AddWithValue("@heure", heureDepart);
+                    cmd.ExecuteNonQuery();
+                }
+
+            }
+            catch (MySqlException e)
+            {
+                Console.WriteLine("Error: " + e);
+                Console.WriteLine(e.StackTrace);
+            }
+        }
+
+
+
     }
 }

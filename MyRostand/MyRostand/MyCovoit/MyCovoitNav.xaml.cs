@@ -27,5 +27,17 @@ namespace MyRostand.MyCovoit
         {
             await Navigation.PushAsync(new ProfilUser());
         }
+
+        async void GoMyCovoitAjout(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new MyCovoitAjoutTrajet());
+        }
+
+        async void GoMyCovoitDemande(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new MyCovoitDemandeTrajet());
+        }
+
+
     }
 }
