@@ -6,10 +6,43 @@
              mc:Ignorable="d"
              x:Class="MyRostand.MySonnerie.MySonnerieAccueil">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <Grid Margin="20,35,20,20">
+            <!-- Définitions du nombre de colonnes : 3 du nombre de lignes :5 -->
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="50" />
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Label x:Name="titreSondage" Grid.Column="1" Grid.Row="0"  />
+            <!-- Checkbox et Label de la musique n°1 -->
+            <CheckBox x:Name="BoxMusique1" Grid.Column="0" Grid.Row="1"  VerticalOptions="Center" Color="LightGreen" CheckedChanged="OnCheckBoxCheckedChanged1"/>
+            <Label x:Name="LabelMusique1" Grid.Column="1" Grid.Row="1" />
+
+            <!-- Checkbox et Label de la musique n°2 -->
+            <CheckBox x:Name="BoxMusique2" Grid.Column="0" Grid.Row="2" VerticalOptions="Center" Color="LightGreen" CheckedChanged="OnCheckBoxCheckedChanged2"/>
+            <Label x:Name="LabelMusique2" Grid.Column="1" Grid.Row="2" />
+
+            <!-- Checkbox et Label de la musique n°3 -->
+            <CheckBox x:Name="BoxMusique3" Grid.Column="0" Grid.Row="3" VerticalOptions="Center" Color="LightGreen" CheckedChanged="OnCheckBoxCheckedChanged3"/>
+            <Label x:Name="LabelMusique3" Grid.Column="1" Grid.Row="3" />
+
+            <!-- Checkbox et Label de la musique n°4 -->
+            <CheckBox x:Name="BoxMusique4" Grid.Column="0" Grid.Row="4" VerticalOptions="Center" Color="LightGreen" CheckedChanged="OnCheckBoxCheckedChanged4"/>
+            <Label x:Name="LabelMusique4" Grid.Column="1" Grid.Row="4" />
+
+            <!-- Boutton d'envoie -->
+            <Button Text="Valider" Grid.Row="5" Grid.Column="1" HorizontalOptions="Center" Clicked="OnClickValide" />
+
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

@@ -16,22 +16,37 @@ namespace MyRostand
         Image splashImage;
         public SplashPage()
         {
-            NavigationPage.SetHasNavigationBar(this, false);
-            BackgroundImageSource = "woow.jpg";
-            /*var sub = new StackLayout
+            Title = "MyRostand";
+            StackLayout stackPrincipal = new StackLayout()
             {
-                BackgroundColor = Color.FromHex("#429de3")
+                Padding = new Thickness(0, 20, 0, 0),
+                HorizontalOptions = LayoutOptions.CenterAndExpand
+            };
+
+            Label titrePrincipal = new Label()
+            {
+                Text = "MyRostand",
+                FontSize = 25
+            };
+
+            stackPrincipal.Children.Add(titrePrincipal);
+
+
+            NavigationPage.SetHasNavigationBar(this, false);
+            var sub = new StackLayout
+            {
+                BackgroundColor = Color.FromHex("#f7f1e3")
             };
 
             splashImage = new Image
             {
-                Source = "car.png",
-                WidthRequest = 100,
-                HeightRequest = 100
+                Source = "slapshscreen.png",
+                WidthRequest = 700,
+                HeightRequest = 700,
             };
             sub.Children.Add(splashImage);
-            
-            this.Content = sub;*/
+
+            this.Content = sub;
         }
     }
 }
