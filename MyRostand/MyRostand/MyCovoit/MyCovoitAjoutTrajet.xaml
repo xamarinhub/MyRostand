@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="MyRostand.MyCovoit.MyCovoitAjoutTrajet">
+    <ContentPage.Content>
+        <StackLayout>
+            <StackLayout Margin="30">
+                <Label Text="Ajouter un trajet" HorizontalOptions="Center" TextColor="Black" FontSize="25">
+                </Label>
+                <Entry x:Name="Depart" Placeholder="Depart" WidthRequest="50" ></Entry>
+                <Entry x:Name="Arriver" Placeholder="Arriver" WidthRequest="50" ></Entry>
+            </StackLayout>
+
+            <StackLayout>
+                <Label  Text="Date" FontSize="20" TextColor="Black" />
+                <DatePicker  x:Name="Date"/>
+                <Picker Title="Fréquence" x:Name="ListeFrequence" SelectedIndex="{Binding Industry}" HorizontalOptions="FillAndExpand">
+                    <Picker.Items>
+                        <x:String>Tous les Lundi</x:String>
+                        <x:String>Tous les Mardi</x:String>
+                        <x:String>Tous les Mercredi</x:String>
+                        <x:String>Tous les Jeudi</x:String>
+                        <x:String>Tous les Vendredi</x:String>
+                        <x:String>Tous les Samedi</x:String>
+                        <x:String>Tous les Dimanche</x:String>
+                        <x:String>Tous les Jours</x:String>
+                    </Picker.Items>
+                </Picker>
+            </StackLayout>
+
+            <StackLayout>
+                <Label Text="Heure du depart" HorizontalOptions="Start" VerticalOptions="Start" FontSize="20" TextColor="Black"/>
+                <TimePicker HorizontalOptions="Start" x:Name="heuredepart" />
+
+                <Label Text="Heure d'arrivée" HorizontalOptions="End" VerticalOptions="End" FontSize="20" TextColor="Black"/>
+                <TimePicker HorizontalOptions="End" x:Name="heurearriver" />
+            </StackLayout>
+
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                <Button TextColor="Black" Text="Valider" BackgroundColor="#44bd32" />
+            </StackLayout>
+
+
+
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
