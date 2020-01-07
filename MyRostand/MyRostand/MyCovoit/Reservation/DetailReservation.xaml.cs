@@ -143,7 +143,6 @@ namespace MyRostand.MyCovoit.Reservation
             boutonStakLayout.Children.Add(boutonAnnuler);
 
             descTrajet.Children.Add(description);
-
             titreTrajet.Children.Add(titre);
             stackCardTrajet.Children.Add(titreTrajet);
             stackCardTrajet.Children.Add(descTrajet);
