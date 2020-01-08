@@ -23,6 +23,8 @@ namespace MyRostand.MyCantine
         Label jourLaitage = new Label() { FontSize = 20 };
         Label jourDesserts = new Label() { FontSize = 20 };
 
+
+
         DateTime ancienneDate = DateTime.Today;
         public MyCantineAccueil()
         {
@@ -54,22 +56,21 @@ namespace MyRostand.MyCantine
                 string nummois;
                 string nommois = "";
                 string libelleJour = "";
-
                 numjour = $"{ancienneDate.Day}";
                 nummois = $"{ancienneDate.Month}";
                 libelleJour = $"{ ancienneDate.DayOfWeek }";
                 /*============JOURS==============*/
-                if (libelleJour == "Tuesday")
+                if (libelleJour == "Monday")
+                {
+                    libelleJour = "Lundi";
+                }
+                else if (libelleJour == "Tuesday")
                 {
                     libelleJour = "Mardi";
                 }
-                else if (libelleJour == "Wednesday ")
+                else if (libelleJour == "Wednesday")
                 {
                     libelleJour = "Mercredi";
-                }
-                else if (libelleJour == "Monday")
-                {
-                    libelleJour = "Lundi";
                 }
                 else if (libelleJour == "Thursday")
                 {
@@ -133,10 +134,7 @@ namespace MyRostand.MyCantine
                 {
                     nommois = "Décembre";
                 }
-
-                /*==========================*/
-
-                string jourcomplet = libelleJour + "\n"+numjour+"\n" + nommois;
+                string jourcomplet = libelleJour + "\n" + numjour + "\n" + nommois;
                 Button bouton = new Button()
                 {
                     Margin = new Thickness(1, 1, 1, 1),
@@ -145,10 +143,10 @@ namespace MyRostand.MyCantine
                     BorderWidth = 2,
                     CornerRadius = 10,
                     Text = jourcomplet,
+                    IsVisible = true,
                     TextColor = Color.White,
 
                 };
-
                 bouton.Clicked += Bouton_Clicked; //QUAND ON CLIQUE, ON AFFICHE LE MENU
 
                 jourScroll.Children.Add(bouton);
@@ -168,6 +166,141 @@ namespace MyRostand.MyCantine
             //IL FAUT FAIRE LE RESTE !
 
             /*--------------------------------------------------*/
+            /*---------------------ENTRÉES----------------------*/
+            /*--------------------------------------------------*/
+
+            StackLayout stackCardEntree = new StackLayout();
+
+            Frame frameEntree = new Frame()
+            {
+                CornerRadius = 10,
+                BorderColor = Color.FromHex("#27ae60"),
+                Margin = new Thickness(100, 20, 100, 20),
+                Padding = new Thickness(0, 0, 0, 0)
+            };
+            StackLayout titreEntree = new StackLayout()
+            {
+                HorizontalOptions = LayoutOptions.Fill,
+                BackgroundColor = Color.FromHex("#27ae60"),
+                HeightRequest = 35,
+                Padding = new Thickness(0, 10, 0, 0)
+            };
+            Label titre2 = new Label()
+            {
+                HorizontalTextAlignment = TextAlignment.Center,
+                VerticalTextAlignment = TextAlignment.Center,
+                Text = "Entrées",
+                FontSize = 20,
+                TextColor = Color.White
+            };
+
+            StackLayout descEntree = new StackLayout()
+            {
+                Padding = new Thickness(10, 0, 10, 20)
+            };
+            Label DescEntree = new Label()
+            {
+                Text = "Ce genre d'entrées",
+                FontSize = 20
+            };
+
+            descEntree.Children.Add(jourEntree);
+            titreEntree.Children.Add(titre2);
+            stackCardEntree.Children.Add(titreEntree);
+            stackCardEntree.Children.Add(descEntree);
+            frameEntree.Content = stackCardEntree;
+
+            /*--------------------------------------------------*/
+            /*-PLATS ( VIANDES même si il ya du poisson ...)----*/
+            /*--------------------------------------------------*/
+
+            StackLayout stackCardViande = new StackLayout();
+
+            Frame frameViande = new Frame()
+            {
+                CornerRadius = 10,
+                BorderColor = Color.FromHex("#27ae60"),
+                Margin = new Thickness(100, 0, 100, 20),
+                Padding = new Thickness(0, 0, 0, 0)
+            };
+            StackLayout titreViande = new StackLayout()
+            {
+                HorizontalOptions = LayoutOptions.Fill,
+                BackgroundColor = Color.FromHex("#27ae60"),
+                HeightRequest = 35,
+                Padding = new Thickness(0, 10, 0, 0)
+            };
+            Label titre3 = new Label()
+            {
+                HorizontalTextAlignment = TextAlignment.Center,
+                VerticalTextAlignment = TextAlignment.Center,
+                Text = "Plats de résistance",
+                FontSize = 20,
+                TextColor = Color.White
+            };
+
+            StackLayout descViande = new StackLayout()
+            {
+                Padding = new Thickness(10, 0, 10, 20)
+            };
+            Label DescViande = new Label()
+            {
+                Text = "Ce genre de Plat",
+                FontSize = 20
+            };
+
+            descViande.Children.Add(jourViande);
+            titreViande.Children.Add(titre3);
+            stackCardViande.Children.Add(titreViande);
+            stackCardViande.Children.Add(descViande);
+            frameViande.Content = stackCardViande;
+
+            /*--------------------------------------------------*/
+            /*---------------------ACCOMPAGNEMENT---------------*/
+            /*--------------------------------------------------*/
+
+            StackLayout stackCardAccompagnement = new StackLayout();
+
+            Frame frameAccompagnement = new Frame()
+            {
+                CornerRadius = 10,
+                BorderColor = Color.FromHex("#27ae60"),
+                Margin = new Thickness(100, 0, 100, 20),
+                Padding = new Thickness(0, 0, 0, 0)
+            };
+            StackLayout titreAccompagnement = new StackLayout()
+            {
+                HorizontalOptions = LayoutOptions.Fill,
+                BackgroundColor = Color.FromHex("#27ae60"),
+                HeightRequest = 35,
+                Padding = new Thickness(0, 10, 0, 0)
+            };
+            Label titre4 = new Label()
+            {
+                HorizontalTextAlignment = TextAlignment.Center,
+                VerticalTextAlignment = TextAlignment.Center,
+                Text = "Accompagnements",
+                FontSize = 20,
+                TextColor = Color.White
+            };
+
+            StackLayout descAccompagnement = new StackLayout()
+            {
+                Padding = new Thickness(10, 0, 10, 20)
+            };
+            Label DescAccompagnement = new Label()
+            {
+                Text = jourEntree.Text,
+                FontSize = 20
+            };
+
+            descAccompagnement.Children.Add(jourAccompagnement);
+            titreAccompagnement.Children.Add(titre4);
+            stackCardAccompagnement.Children.Add(titreAccompagnement);
+            stackCardAccompagnement.Children.Add(descAccompagnement);
+            frameAccompagnement.Content = stackCardAccompagnement;
+
+            /*--------------------------------------------------*/
             /*---------------------LAITAGE----------------------*/
             /*--------------------------------------------------*/
 
@@ -177,7 +310,7 @@ namespace MyRostand.MyCantine
             {
                 CornerRadius = 10,
                 BorderColor = Color.FromHex("#27ae60"),
-                Margin = new Thickness(20, 0, 20, 20),
+                Margin = new Thickness(100, 0, 100, 20),
                 Padding = new Thickness(0, 0, 0, 0)
             };
             StackLayout titreLaitage = new StackLayout()
@@ -187,7 +320,7 @@ namespace MyRostand.MyCantine
                 HeightRequest = 35,
                 Padding = new Thickness(0, 10, 0, 0)
             };
-            Label titre4 = new Label()
+            Label titre5 = new Label()
             {
                 HorizontalTextAlignment = TextAlignment.Center,
                 VerticalTextAlignment = TextAlignment.Center,
@@ -207,7 +340,7 @@ namespace MyRostand.MyCantine
             };
 
             descLaitage.Children.Add(jourLaitage);
-            titreLaitage.Children.Add(titre4);
+            titreLaitage.Children.Add(titre5);
             stackCardLaitage.Children.Add(titreLaitage);
             stackCardLaitage.Children.Add(descLaitage);
             frameLaitage.Content = stackCardLaitage;
@@ -222,7 +355,7 @@ namespace MyRostand.MyCantine
             {
                 CornerRadius = 10,
                 BorderColor = Color.FromHex("#27ae60"),
-                Margin = new Thickness(20, 0, 20, 20),
+                Margin = new Thickness(100, 0, 100, 20),
                 Padding = new Thickness(0, 0, 0, 0)
             };
             StackLayout titreDessert = new StackLayout()
@@ -232,7 +365,7 @@ namespace MyRostand.MyCantine
                 HeightRequest = 35,
                 Padding = new Thickness(0, 10, 0, 0)
             };
-            Label titre5 = new Label()
+            Label titre6 = new Label()
             {
                 HorizontalTextAlignment = TextAlignment.Center,
                 VerticalTextAlignment = TextAlignment.Center,
@@ -247,30 +380,62 @@ namespace MyRostand.MyCantine
             };
 
             descDessert.Children.Add(jourDesserts);
-            titreDessert.Children.Add(titre5);
+            titreDessert.Children.Add(titre6);
             stackCardDessert.Children.Add(titreDessert);
             stackCardDessert.Children.Add(descDessert);
             frameDessert.Content = stackCardDessert;
 
             /*------------------------------------------*/
 
-            menuStack.Children.Add(jourChoisi);
-            menuStack.Children.Add(jourEntree);
-            menuStack.Children.Add(jourViande);
-            menuStack.Children.Add(jourAccompagnement);
+            menuStack.Children.Add(frameEntree);
+            menuStack.Children.Add(frameViande);
+            menuStack.Children.Add(frameAccompagnement);
             menuStack.Children.Add(frameLaitage);
             menuStack.Children.Add(frameDessert);
 
             /*==================================================*/
             /*==================================================*/
+            Label reserver = new Label()
+            {
+                HorizontalTextAlignment = TextAlignment.Center,
+                VerticalTextAlignment = TextAlignment.Center,
+                BackgroundColor = Color.FromHex("#27ae60"),
+                Margin = new Thickness(120, 30, 120,0),
+                Text = "Réserver mon repas",
+                FontSize = 30,
+                TextColor = Color.White
+            };
 
+            Label Selectionjour = new Label()
+            {
+                HorizontalTextAlignment = TextAlignment.Center,
+                VerticalTextAlignment = TextAlignment.Center,
+                BackgroundColor = Color.FromHex("#27ae60"),
+                Margin = new Thickness(0, 0, 0, 20),
+                Text = "Veuillez sélectionner un jour pour réserver votre repas",
+                FontSize = 20,
+                TextColor = Color.White
+            };
+            Label Cuisto = new Label()
+            {
+                HorizontalTextAlignment = TextAlignment.Center,
+                VerticalTextAlignment = TextAlignment.Center,
+                BackgroundColor = Color.Red,
+                Margin = new Thickness(120, 10, 120, 0),
+                Text = "Accès Cuisinier",
+                FontSize = 30,
+                TextColor = Color.White
+        };
+
+            stackPrincipal.Children.Add(Selectionjour);
             stackPrincipal.Children.Add(barJours);
             stackPrincipal.Children.Add(menuStack);
+            stackPrincipal.Children.Add(reserver);
+            stackPrincipal.Children.Add(Cuisto);
             Content = stackPrincipal;
 
     }
-
-        private void Bouton_Clicked(object sender, EventArgs e)
+            private void Bouton_Clicked(object sender, EventArgs e)
         {
             //cette variable sert à récupérer le jour en question, et afficher les menus correspondants
             string jourcomplet = ((Button)sender).Text;
@@ -279,7 +444,7 @@ namespace MyRostand.MyCantine
             
             jourChoisi.Text = "Jour choisi : "+jourcomplet;
 
-            jourEntree.Text = $" Entrées :";
+            jourEntree.Text = $" - ";
 
             List<Entree> lesEntrees = Database.MyCantineSQL.getLesEntrees();
 
@@ -290,7 +455,7 @@ namespace MyRostand.MyCantine
             }
 
 
-            jourViande.Text = $" Viandes :";
+            jourViande.Text = $" - ";
 
             List<Resistance> lesResistances = Database.MyCantineSQL.getlesResistances();
             for (int i = 0; i < lesResistances.Count; i++)
@@ -299,16 +464,16 @@ namespace MyRostand.MyCantine
                 jourViande.Text += uneResistance.Libelle + ", ";
             }
 
-            jourAccompagnement.Text = $" Accompagnement :";
+            jourAccompagnement.Text = $" -";
             List<Accompagnement> lesAccompagnements = Database.MyCantineSQL.getlesAccompagnements();
             for (int i = 0; i < lesAccompagnements.Count; i++)
             {
                 Accompagnement unAccompagnement = lesAccompagnements[i];
-                jourAccompagnement.Text += unAccompagnement.Libelle + ", ";
+                jourAccompagnement.Text += unAccompagnement.Libelle + "";
             }
 
-            jourLaitage.Text = $" Laitage :";
-            jourDesserts.Text = $" Desserts :";           
+            jourLaitage.Text = $" - ";
+            jourDesserts.Text = $" - ";           
         }
        
     }
