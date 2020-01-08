@@ -395,17 +395,15 @@ namespace MyRostand.MyCantine
 
             /*==================================================*/
             /*==================================================*/
-            Label reserver = new Label()
+            Button reserver = new Button()
             {
-                HorizontalTextAlignment = TextAlignment.Center,
-                VerticalTextAlignment = TextAlignment.Center,
                 BackgroundColor = Color.FromHex("#27ae60"),
-                Margin = new Thickness(120, 30, 120,0),
+                Margin = new Thickness(120, 30, 120,0),               
                 Text = "Réserver mon repas",
-                FontSize = 30,
+                FontSize = 20,
                 TextColor = Color.White
             };
-
+////////////////////////////////////////////////////////////////////////////////////////
             Label Selectionjour = new Label()
             {
                 HorizontalTextAlignment = TextAlignment.Center,
@@ -416,20 +414,25 @@ namespace MyRostand.MyCantine
                 FontSize = 20,
                 TextColor = Color.White
             };
+
+///////////////////////////////////////////////////////////////////////////////////////
             Button Cuisto = new Button()
             {
                 BackgroundColor = Color.Red,
                 Margin = new Thickness(120, 10, 120, 0),
                 Text = "Accès Cuisinier",
-                FontSize = 30,
+                FontSize = 20,
                 TextColor = Color.White
-        };
+            };
+
             Cuisto.Clicked += Cuisto_Clicked;
 
             async void Cuisto_Clicked(object sender, EventArgs e)
             {
                 await Navigation.PushAsync(new ToutMenu());
             }
+//////////////////////////////////////////////////////////////////////////////////
+
 
             stackPrincipal.Children.Add(Selectionjour);
             stackPrincipal.Children.Add(barJours);
