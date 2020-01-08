@@ -416,16 +416,20 @@ namespace MyRostand.MyCantine
                 FontSize = 20,
                 TextColor = Color.White
             };
-            Label Cuisto = new Label()
+            Button Cuisto = new Button()
             {
-                HorizontalTextAlignment = TextAlignment.Center,
-                VerticalTextAlignment = TextAlignment.Center,
                 BackgroundColor = Color.Red,
                 Margin = new Thickness(120, 10, 120, 0),
                 Text = "Accès Cuisinier",
                 FontSize = 30,
                 TextColor = Color.White
         };
+            Cuisto.Clicked += Cuisto_Clicked;
+
+            async void Cuisto_Clicked(object sender, EventArgs e)
+            {
+                await Navigation.PushAsync(new ToutMenu());
+            }
 
             stackPrincipal.Children.Add(Selectionjour);
             stackPrincipal.Children.Add(barJours);
@@ -435,7 +439,8 @@ namespace MyRostand.MyCantine
             Content = stackPrincipal;
 
     }
-            private void Bouton_Clicked(object sender, EventArgs e)
+
+        private void Bouton_Clicked(object sender, EventArgs e)
         {
             //cette variable sert à récupérer le jour en question, et afficher les menus correspondants
             string jourcomplet = ((Button)sender).Text;

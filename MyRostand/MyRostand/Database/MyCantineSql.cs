@@ -166,6 +166,35 @@ namespace MyRostand.Database
                 return lesResistances;
             }
         }
+        public static List<Resistance> getTouteslesResistances()
+        {
+            List<Resistance> TouteslesResistances = new List<Resistance>();
+
+            try
+            {
+                MySqlConnection cnx = MySQL.getCnx();
+                cnx.Ping();
+                string requete = "SELECT RES_LIBELLE, RES_DESCRIPTION FROM resistance, repasresistance, repas WHERE RES_ID = RR_RESISTANCE AND RR_REPAS = REP_ID AND REP_DATE = '2019-12-10'";
+                MySqlCommand cmd = new MySqlCommand(requete, cnx);
+                var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    Resistance unResistance = new Resistance();
+                    unResistance.Libelle = reader.GetString(0);
+                    unResistance.Description = reader.GetString(1);
+                    TouteslesResistances.Add(unResistance);
+                }
+                cnx.Close();
+                return TouteslesResistances;
+            }
+            catch (MySqlException ex)
+            {
+                Resistance erreurSQL = new Resistance();
+                erreurSQL.Description = (ex.ToString());
+                TouteslesResistances.Add(erreurSQL);
+                return TouteslesResistances;
+            }
+        }
     }
 }
 
