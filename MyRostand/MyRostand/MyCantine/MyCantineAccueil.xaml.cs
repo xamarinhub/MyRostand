@@ -48,7 +48,7 @@ namespace MyRostand.MyCantine
                 Orientation = StackOrientation.Horizontal
             };
 
-            for (int i = 1; i <= 33; i++)
+            for (int i = 1; i <= 14; i++)
             {
                 string numjour;
                 string nummois;
@@ -202,7 +202,7 @@ namespace MyRostand.MyCantine
             };
             Label description = new Label()
             {
-                Text = "Ce genre de laitage mamène",
+                Text = "Ce genre de laitage",
                 FontSize = 20
             };
 
@@ -272,7 +272,7 @@ namespace MyRostand.MyCantine
 
         private void Bouton_Clicked(object sender, EventArgs e)
         {
-            //cette variable sert à récupérer le jour en question, et afficher les menus correspondants (a vous de le faire)
+            //cette variable sert à récupérer le jour en question, et afficher les menus correspondants
             string jourcomplet = ((Button)sender).Text;
 
             menuStack.IsVisible = true;
