@@ -39,6 +39,8 @@ namespace MyRostand.MyCantine
 
             StackLayout barJours = new StackLayout();
 
+            ScrollView scroll = new ScrollView();
+
             ScrollView horizontalScroll = new ScrollView()
             {
                 Orientation = ScrollOrientation.Horizontal,
@@ -211,7 +213,7 @@ namespace MyRostand.MyCantine
             frameEntree.Content = stackCardEntree;
 
             /*--------------------------------------------------*/
-            /*-PLATS ( VIANDES même si il ya du poisson ...)----*/
+            /*--------------PLATS DE RESISTANCES ---------------*/
             /*--------------------------------------------------*/
 
             StackLayout stackCardViande = new StackLayout();
@@ -452,36 +454,49 @@ namespace MyRostand.MyCantine
             
             jourChoisi.Text = "Jour choisi : "+jourcomplet;
 
-            jourEntree.Text = $" - ";
+            jourEntree.Text = $"";
 
             List<Entree> lesEntrees = Database.MyCantineSQL.getLesEntrees();
 
             for (int i = 0; i < lesEntrees.Count; i++)
             {
                 Entree uneEntree = lesEntrees[i];
-                jourEntree.Text += uneEntree.Libelle + ", ";
+                jourEntree.Text += uneEntree.Libelle + "\n";
             }
 
 
-            jourViande.Text = $" - ";
+            jourViande.Text = $"";
 
             List<Resistance> lesResistances = Database.MyCantineSQL.getlesResistances();
             for (int i = 0; i < lesResistances.Count; i++)
             {
                 Resistance uneResistance = lesResistances[i];
-                jourViande.Text += uneResistance.Libelle + ", ";
+                jourViande.Text += uneResistance.Libelle + "\n";
             }
 
-            jourAccompagnement.Text = $" -";
+            jourAccompagnement.Text = $"";
             List<Accompagnement> lesAccompagnements = Database.MyCantineSQL.getlesAccompagnements();
             for (int i = 0; i < lesAccompagnements.Count; i++)
             {
                 Accompagnement unAccompagnement = lesAccompagnements[i];
-                jourAccompagnement.Text += unAccompagnement.Libelle + "";
+                jourAccompagnement.Text += unAccompagnement.Libelle + "\n";
             }
 
-            jourLaitage.Text = $" - ";
-            jourDesserts.Text = $" - ";           
+            jourLaitage.Text = $"";
+            List<Laitage> lesLaitages = Database.MyCantineSQL.getlesLaitages();
+            for (int i = 0; i < lesLaitages.Count; i++)
+            {
+                Laitage unLaitage = lesLaitages[i];
+                jourLaitage.Text += unLaitage.Libelle + "\n";
+            }
+
+            jourDesserts.Text = $"";
+            List<Dessert> lesDesserts = Database.MyCantineSQL.getLesDesserts();
+            for (int i = 0; i < lesDesserts.Count; i++)
+            {
+                Dessert unDessert = lesDesserts[i];
+                jourDesserts.Text += unDessert.Libelle + "\n";
+            }
         }
        
     }
