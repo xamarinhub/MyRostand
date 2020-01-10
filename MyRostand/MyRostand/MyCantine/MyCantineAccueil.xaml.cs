@@ -22,7 +22,7 @@ namespace MyRostand.MyCantine
         Label jourAccompagnement = new Label() { FontSize = 20 };
         Label jourLaitage = new Label() { FontSize = 20 };
         Label jourDesserts = new Label() { FontSize = 20 };
-
+        CheckBox checkBoxAccompagnement = new CheckBox { IsChecked = true };
 
 
         DateTime ancienneDate = DateTime.Today;
@@ -471,7 +471,7 @@ namespace MyRostand.MyCantine
             for (int i = 0; i < lesResistances.Count; i++)
             {
                 Resistance uneResistance = lesResistances[i];
-                jourViande.Text += uneResistance.Libelle + "\n";
+                jourViande.Text += uneResistance.Libelle + checkBoxAccompagnement  + "\n";
             }
 
             jourAccompagnement.Text = $"";
