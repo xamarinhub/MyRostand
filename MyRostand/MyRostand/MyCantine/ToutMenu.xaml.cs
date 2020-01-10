@@ -165,11 +165,100 @@ namespace MyRostand.MyCantine
 
             menuStack.IsVisible = false; //SI ON CLIQUE SUR UN JOUR ON PASSE A TRUE (voir la fonction clicked)
 
+            /*--------------------------------------------------*/
+            /*--------------PLATS DE RESISTANCES ---------------*/
+            /*--------------------------------------------------*/
+
+            StackLayout stackCardToutesresistances = new StackLayout();
+
+            Frame frameToutesresistances = new Frame()
+            {
+                CornerRadius = 10,
+                BorderColor = Color.FromHex("#27ae60"),
+                Margin = new Thickness(100, 0, 100, 20),
+                Padding = new Thickness(0, 0, 0, 0)
+            };
+            StackLayout titreToutesresistances = new StackLayout()
+            {
+                HorizontalOptions = LayoutOptions.Fill,
+                BackgroundColor = Color.FromHex("#27ae60"),
+                HeightRequest = 35,
+                Padding = new Thickness(0, 10, 0, 0)
+            };
+            Label titre3 = new Label()
+            {
+                HorizontalTextAlignment = TextAlignment.Center,
+                VerticalTextAlignment = TextAlignment.Center,
+                Text = "Plats de résistance",
+                FontSize = 20,
+                TextColor = Color.White
+            };
+
+            StackLayout descToutesresistances = new StackLayout()
+            {
+                Padding = new Thickness(10, 0, 10, 20)
+            };
+            Label DescToutesresistances = new Label()
+            {
+                Text = "Ce genre de Plat",
+                FontSize = 20
+            };
+
+            descToutesresistances.Children.Add(toutesresistances);
+            titreToutesresistances.Children.Add(titre3);
+            stackCardToutesresistances.Children.Add(titreToutesresistances);
+            stackCardToutesresistances.Children.Add(descToutesresistances);
+            frameToutesresistances.Content = stackCardToutesresistances;
+
+            /*--------------------------------------------------*/
+            /*---------------------ACCOMPAGNEMENT---------------*/
+            /*--------------------------------------------------*/
+
+            StackLayout stackCardAccompagnement = new StackLayout();
+
+            Frame frameAccompagnement = new Frame()
+            {
+                CornerRadius = 10,
+                BorderColor = Color.FromHex("#27ae60"),
+                Margin = new Thickness(100, 0, 100, 20),
+                Padding = new Thickness(0, 0, 0, 0)
+            };
+            StackLayout titreAccompagnement = new StackLayout()
+            {
+                HorizontalOptions = LayoutOptions.Fill,
+                BackgroundColor = Color.FromHex("#27ae60"),
+                HeightRequest = 35,
+                Padding = new Thickness(0, 10, 0, 0)
+            };
+            Label titre4 = new Label()
+            {
+                HorizontalTextAlignment = TextAlignment.Center,
+                VerticalTextAlignment = TextAlignment.Center,
+                Text = "Accompagnements",
+                FontSize = 20,
+                TextColor = Color.White
+            };
+
+            StackLayout descAccompagnement = new StackLayout()
+            {
+                Padding = new Thickness(10, 0, 10, 20)
+            };
+            Label DescAccompagnement = new Label()
+            {
+                Text = jourAccompagnement.Text,
+                FontSize = 20
+            };
+
+            descAccompagnement.Children.Add(jourAccompagnement);
+            titreAccompagnement.Children.Add(titre4);
+            stackCardAccompagnement.Children.Add(titreAccompagnement);
+            stackCardAccompagnement.Children.Add(descAccompagnement);
+            frameAccompagnement.Content = stackCardAccompagnement;
+
             /*------------------------------------------*/
 
-            menuStack.Children.Add(jourChoisi);
-            menuStack.Children.Add(toutesresistances);
-            menuStack.Children.Add(jourAccompagnement);
+            menuStack.Children.Add(frameToutesresistances);
+            menuStack.Children.Add(frameAccompagnement);
 
             /*==================================================*/
             /*==================================================*/
@@ -190,7 +279,7 @@ namespace MyRostand.MyCantine
             jourChoisi.Text = "Jour choisi : " + jourcomplet;
 
 
-            toutesresistances.Text = $" Viandes :";
+            toutesresistances.Text = $"";
             String Viande = "";
             int c = 0;
             List<Resistance> TouteslesResistances = Database.MyCantineSQL.getTouteslesResistances();
@@ -211,7 +300,7 @@ namespace MyRostand.MyCantine
                     }
                     else
                     {
-                        toutesresistances.Text += Viande + ": " + c + ",";
+                        toutesresistances.Text += Viande + ": " + c + "\n";
                         toutesresistances.Text += uneResistance.Libelle + ": " + 1;
                     }
                 }
@@ -221,18 +310,18 @@ namespace MyRostand.MyCantine
                 }
                 else if (Viande != uneResistance.Libelle)
                 {
-                    toutesresistances.Text += Viande + ": " + c + ", ";
+                    toutesresistances.Text += Viande + ": " + c + "\n";
                     Viande = uneResistance.Libelle;
                     c = 1;
                 }
                 else
                 {
-                    toutesresistances.Text += uneResistance.Libelle + ", ";
+                    toutesresistances.Text += uneResistance.Libelle + "\n";
                 }
 
             }
 
-            jourAccompagnement.Text = $" Accompagnement :";
+            jourAccompagnement.Text = $"";
             String Accompagnement = "";
             int a = 0;
             List<Accompagnement> lesAccompagnements = Database.MyCantineSQL.getlesAccompagnements();
@@ -249,21 +338,21 @@ namespace MyRostand.MyCantine
                     if (Accompagnement == unAccompagnement.Libelle)
                     {
                         a++;
-                        jourAccompagnement.Text += Accompagnement + ": " + a + " soit " + a * 100 + " g, ";
+                        jourAccompagnement.Text += Accompagnement + ": " + a + " soit " + a * 100 + " g\n";
                     }
                     else if (Accompagnement != unAccompagnement.Libelle)
                     {
                         if (Accompagnement == "Légumes du moment")
                         {
-                            jourAccompagnement.Text += Accompagnement + ": " + a + " soit " + a * 120 + " g, ";
+                            jourAccompagnement.Text += Accompagnement + ": " + a + " soit " + a * 120 + " g\n ";
                             a = 1;
-                            jourAccompagnement.Text += unAccompagnement.Libelle + ": " + a + " soit " + a * 100 + " g ";
+                            jourAccompagnement.Text += unAccompagnement.Libelle + ": " + a + " soit " + a * 100 + " g\n";
                         }
                         else
                         {
                             jourAccompagnement.Text += Accompagnement + ": " + a + " soit " + a * 120 + ", ";
                             a = 1;
-                            jourAccompagnement.Text += unAccompagnement.Libelle + ": " + a + " soit " + a * 100 + " g ";
+                            jourAccompagnement.Text += unAccompagnement.Libelle + ": " + a + " soit " + a * 100 + " g\n";
                         }
                     }
                     else if (Accompagnement == unAccompagnement.Libelle)
@@ -273,7 +362,7 @@ namespace MyRostand.MyCantine
                     }
                     else
                     {
-                        jourAccompagnement.Text += Accompagnement + ": " + a + ", ";
+                        jourAccompagnement.Text += Accompagnement + ": " + a + "\n ";
                         jourAccompagnement.Text += unAccompagnement.Libelle + ": " + 1;
                     }
                 }
@@ -283,25 +372,25 @@ namespace MyRostand.MyCantine
                 }
                 else if (Accompagnement != unAccompagnement.Libelle && Accompagnement == "Salade verte")
                 {
-                    jourAccompagnement.Text += Accompagnement + ": " + a + " soit " + a * 150 + " g, ";
+                    jourAccompagnement.Text += Accompagnement + ": \n" + a + " soit " + a * 150 + " g\n ";
                     Accompagnement = unAccompagnement.Libelle;
                     a = 1;
                 }
                 else if (Accompagnement != unAccompagnement.Libelle && Accompagnement == "riz")
                 {
-                    jourAccompagnement.Text += Accompagnement + ": " + a + " soit " + a * 100 + " g de riz, ";
+                    jourAccompagnement.Text += Accompagnement + ": \n" + a + " soit " + a * 100 + " g de riz \n ";
                     Accompagnement = unAccompagnement.Libelle;
                     a = 1;
                 }
                 else if (Accompagnement != unAccompagnement.Libelle)
                 {
-                    jourAccompagnement.Text += Accompagnement + ": " + a + ", ";
+                    jourAccompagnement.Text += Accompagnement + ": \n" + a + ", \n ";
                     Accompagnement = unAccompagnement.Libelle;
                     a = 1;
                 }
                 else
                 {
-                    jourAccompagnement.Text += unAccompagnement.Libelle + ", ";
+                    jourAccompagnement.Text += unAccompagnement.Libelle + ", \n";
                 }
             }
         }
