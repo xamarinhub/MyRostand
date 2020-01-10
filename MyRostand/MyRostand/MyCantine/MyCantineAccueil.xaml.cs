@@ -471,7 +471,7 @@ namespace MyRostand.MyCantine
             for (int i = 0; i < lesResistances.Count; i++)
             {
                 Resistance uneResistance = lesResistances[i];
-                jourViande.Text += uneResistance.Libelle + checkBoxAccompagnement  + "\n";
+                jourViande.Text += uneResistance.Libelle + "\n";
             }
 
             jourAccompagnement.Text = $"";
