@@ -341,25 +341,15 @@ namespace MyRostand.MyCantine
                     if (Accompagnement == unAccompagnement.Libelle)
                     {
                         a++;
-                        jourAccompagnement.Text += Accompagnement + ": " + a + " soit " + a * prop + " g\n";
+                        jourAccompagnement.Text += Accompagnement + ": " + a + " soit " + a * prop + " g";
                     }
                     else if (Accompagnement != unAccompagnement.Libelle)
                     {
                             jourAccompagnement.Text += Accompagnement + ": " + a + " soit " + a * prop + " g\n";
                             a = 1;
                             prop = unAccompagnement.Gramme;
-                            jourAccompagnement.Text += unAccompagnement.Libelle + ": " + a + " soit " + a * prop + " g\n";
-                    }
-                    else if (Accompagnement == unAccompagnement.Libelle)
-                    {
-                        a++;
-                        jourAccompagnement.Text += Accompagnement + ": " + a;
-                    }
-                    else
-                    {
-                        jourAccompagnement.Text += Accompagnement + ": " + a + "\n ";
-                        jourAccompagnement.Text += unAccompagnement.Libelle + ": " + 1 + prop;
-                    }
+                            jourAccompagnement.Text += unAccompagnement.Libelle + ": " + a + " soit " + a * prop + " g";
+                    }                                  
                 }
                 else if (Accompagnement == unAccompagnement.Libelle)
                 {
