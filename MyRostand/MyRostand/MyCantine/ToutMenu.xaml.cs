@@ -19,6 +19,8 @@ namespace MyRostand.MyCantine
         Label jourChoisi = new Label() { FontSize = 20 };
         Label toutesresistances = new Label() { FontSize = 20 };
         Label jourAccompagnement = new Label() { FontSize = 20 };
+        Label uneresistances = new Label() { FontSize = 20 };
+        Label nbResistances = new Label() { FontSize = 20 };
 
         DateTime ancienneDate = DateTime.Today;
         public ToutMenu()
@@ -190,20 +192,117 @@ namespace MyRostand.MyCantine
 
             toutesresistances.Text = $" Viandes :";
             String Viande = "";
+            int c = 0;
             List<Resistance> TouteslesResistances = Database.MyCantineSQL.getTouteslesResistances();
             for (int i = 0; i < TouteslesResistances.Count; i++)
             {
                 Resistance uneResistance = TouteslesResistances[i];
-                Viande = uneResistance.Libelle;
-                toutesresistances.Text += uneResistance.Libelle + ", ";
+                if (Viande == "")
+                {
+                    Viande = uneResistance.Libelle;
+                    c++;
+                }
+                else if (i + 1 == TouteslesResistances.Count)
+                {
+                    if (Viande == uneResistance.Libelle)
+                    {
+                        c++;
+                        toutesresistances.Text += Viande + ": " + c;
+                    }
+                    else
+                    {
+                        toutesresistances.Text += Viande + ": " + c + ",";
+                        toutesresistances.Text += uneResistance.Libelle + ": " + 1;
+                    }
+                }
+                else if (Viande == uneResistance.Libelle)
+                {
+                    c++;
+                }
+                else if (Viande != uneResistance.Libelle)
+                {
+                    toutesresistances.Text += Viande + ": " + c + ", ";
+                    Viande = uneResistance.Libelle;
+                    c = 1;
+                }
+                else
+                {
+                    toutesresistances.Text += uneResistance.Libelle + ", ";
+                }
+
             }
 
             jourAccompagnement.Text = $" Accompagnement :";
+            String Accompagnement = "";
+            int a = 0;
             List<Accompagnement> lesAccompagnements = Database.MyCantineSQL.getlesAccompagnements();
             for (int i = 0; i < lesAccompagnements.Count; i++)
             {
                 Accompagnement unAccompagnement = lesAccompagnements[i];
-                jourAccompagnement.Text += unAccompagnement.Libelle + ", ";
+                if (Accompagnement == "")
+                {
+                    Accompagnement = unAccompagnement.Libelle;
+                    a++;
+                }
+                else if (i + 1 == lesAccompagnements.Count)
+                {
+                    if (Accompagnement == unAccompagnement.Libelle)
+                    {
+                        a++;
+                        jourAccompagnement.Text += Accompagnement + ": " + a + " soit " + a * 100 + " g, ";
+                    }
+                    else if (Accompagnement != unAccompagnement.Libelle)
+                    {
+                        if (Accompagnement == "Légumes du moment")
+                        {
+                            jourAccompagnement.Text += Accompagnement + ": " + a + " soit " + a * 120 + " g, ";
+                            a = 1;
+                            jourAccompagnement.Text += unAccompagnement.Libelle + ": " + a + " soit " + a * 100 + " g ";
+                        }
+                        else
+                        {
+                            jourAccompagnement.Text += Accompagnement + ": " + a + " soit " + a * 120 + ", ";
+                            a = 1;
+                            jourAccompagnement.Text += unAccompagnement.Libelle + ": " + a + " soit " + a * 100 + " g ";
+                        }
+                    }
+                    else if (Accompagnement == unAccompagnement.Libelle)
+                    {
+                        a++;
+                        jourAccompagnement.Text += Accompagnement + ": " + a;
+                    }
+                    else
+                    {
+                        jourAccompagnement.Text += Accompagnement + ": " + a + ", ";
+                        jourAccompagnement.Text += unAccompagnement.Libelle + ": " + 1;
+                    }
+                }
+                else if (Accompagnement == unAccompagnement.Libelle)
+                {
+                    a++;
+                }
+                else if (Accompagnement != unAccompagnement.Libelle && Accompagnement == "Salade verte")
+                {
+                    jourAccompagnement.Text += Accompagnement + ": " + a + " soit " + a * 150 + " g, ";
+                    Accompagnement = unAccompagnement.Libelle;
+                    a = 1;
+                }
+                else if (Accompagnement != unAccompagnement.Libelle && Accompagnement == "riz")
+                {
+                    jourAccompagnement.Text += Accompagnement + ": " + a + " soit " + a * 100 + " g de riz, ";
+                    Accompagnement = unAccompagnement.Libelle;
+                    a = 1;
+                }
+                else if (Accompagnement != unAccompagnement.Libelle)
+                {
+                    jourAccompagnement.Text += Accompagnement + ": " + a + ", ";
+                    Accompagnement = unAccompagnement.Libelle;
+                    a = 1;
+                }
+                else
+                {
+                    jourAccompagnement.Text += unAccompagnement.Libelle + ", ";
+                }
             }
         }
     }
