@@ -112,7 +112,7 @@ namespace MyRostand.Database
             {
                 MySqlConnection cnx = MySQL.getCnx();
                 cnx.Ping();
-                string requete = "SELECT ACC_ID, ACC_LIBELLE, ACC_DESCRIPTION FROM accompagnement, repasaccompagnement, repas WHERE ACC_ID=RA_ACCOMPAGNEMENT AND RA_REPAS=REP_ID AND REP_DATE= '2020-01-09' ";
+                string requete = "SELECT ACC_ID, ACC_LIBELLE, ACC_DESCRIPTION, pro_gramme FROM accompagnement, repasaccompagnement, repas, proportion WHERE ACC_ID=RA_ACCOMPAGNEMENT AND RA_REPAS=REP_ID AND pro_id=ACC_PROP AND REP_DATE= '2020-01-09' ";
                 MySqlCommand cmd = new MySqlCommand(requete, cnx);
                 var reader = cmd.ExecuteReader();
                 while (reader.Read())
@@ -121,6 +121,7 @@ namespace MyRostand.Database
                     unAccompagnement.Id = reader.GetInt32(0);
                     unAccompagnement.Libelle = reader.GetString(1);
                     unAccompagnement.Description = reader.GetString(2);
+                    unAccompagnement.Gramme = reader.GetInt32(3);
                     lesAccompagnements.Add(unAccompagnement);
                 }
                 cnx.Close();

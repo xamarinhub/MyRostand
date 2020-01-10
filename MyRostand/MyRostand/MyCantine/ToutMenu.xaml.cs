@@ -278,6 +278,7 @@ namespace MyRostand.MyCantine
 
             jourChoisi.Text = "Jour choisi : " + jourcomplet;
 
+///////////////////////////////////////////////////////////////Fonction Afficher toutes les Résistances////////////////////////////////////////////////
 
             toutesresistances.Text = $"";
             String Viande = "";
@@ -320,10 +321,11 @@ namespace MyRostand.MyCantine
                 }
 
             }
-
+///////////////////////////////////////////////////////////////Fonction Afficher tout les Accompagnements////////////////////////////////////////////////
             jourAccompagnement.Text = $"";
             String Accompagnement = "";
             int a = 0;
+            int prop = 0;
             List<Accompagnement> lesAccompagnements = Database.MyCantineSQL.getlesAccompagnements();
             for (int i = 0; i < lesAccompagnements.Count; i++)
             {
@@ -332,28 +334,21 @@ namespace MyRostand.MyCantine
                 {
                     Accompagnement = unAccompagnement.Libelle;
                     a++;
+                    prop = unAccompagnement.Gramme;
                 }
                 else if (i + 1 == lesAccompagnements.Count)
                 {
                     if (Accompagnement == unAccompagnement.Libelle)
                     {
                         a++;
-                        jourAccompagnement.Text += Accompagnement + ": " + a + " soit " + a * 100 + " g\n";
+                        jourAccompagnement.Text += Accompagnement + ": " + a + " soit " + a * prop + " g\n";
                     }
                     else if (Accompagnement != unAccompagnement.Libelle)
                     {
-                        if (Accompagnement == "Légumes du moment")
-                        {
-                            jourAccompagnement.Text += Accompagnement + ": " + a + " soit " + a * 120 + " g\n ";
+                            jourAccompagnement.Text += Accompagnement + ": " + a + " soit " + a * prop + " g\n";
                             a = 1;
-                            jourAccompagnement.Text += unAccompagnement.Libelle + ": " + a + " soit " + a * 100 + " g\n";
-                        }
-                        else
-                        {
-                            jourAccompagnement.Text += Accompagnement + ": " + a + " soit " + a * 120 + ", ";
-                            a = 1;
-                            jourAccompagnement.Text += unAccompagnement.Libelle + ": " + a + " soit " + a * 100 + " g\n";
-                        }
+                            prop = unAccompagnement.Gramme;
+                            jourAccompagnement.Text += unAccompagnement.Libelle + ": " + a + " soit " + a * prop + " g\n";
                     }
                     else if (Accompagnement == unAccompagnement.Libelle)
                     {
@@ -363,34 +358,23 @@ namespace MyRostand.MyCantine
                     else
                     {
                         jourAccompagnement.Text += Accompagnement + ": " + a + "\n ";
-                        jourAccompagnement.Text += unAccompagnement.Libelle + ": " + 1;
+                        jourAccompagnement.Text += unAccompagnement.Libelle + ": " + 1 + prop;
                     }
                 }
                 else if (Accompagnement == unAccompagnement.Libelle)
                 {
                     a++;
-                }
-                else if (Accompagnement != unAccompagnement.Libelle && Accompagnement == "Salade verte")
-                {
-                    jourAccompagnement.Text += Accompagnement + ": \n" + a + " soit " + a * 150 + " g\n ";
-                    Accompagnement = unAccompagnement.Libelle;
-                    a = 1;
-                }
-                else if (Accompagnement != unAccompagnement.Libelle && Accompagnement == "riz")
-                {
-                    jourAccompagnement.Text += Accompagnement + ": \n" + a + " soit " + a * 100 + " g de riz \n ";
-                    Accompagnement = unAccompagnement.Libelle;
-                    a = 1;
-                }
+                }             
                 else if (Accompagnement != unAccompagnement.Libelle)
                 {
-                    jourAccompagnement.Text += Accompagnement + ": \n" + a + ", \n ";
+                    jourAccompagnement.Text += Accompagnement + ": " + a + " soit " + a * prop + " g\n";
                     Accompagnement = unAccompagnement.Libelle;
+                    prop = unAccompagnement.Gramme;
                     a = 1;
                 }
                 else
                 {
-                    jourAccompagnement.Text += unAccompagnement.Libelle + ", \n";
+                    jourAccompagnement.Text += unAccompagnement.Libelle + " soit " + a * prop + ", \n";
                 }
             }
         }
