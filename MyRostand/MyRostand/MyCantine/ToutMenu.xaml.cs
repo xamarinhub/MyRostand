@@ -92,34 +92,42 @@ namespace MyRostand.MyCantine
                 if (nummois == "1")
                 {
                     nommois = "Janvier";
+                    nummois = "01";
                 }
                 else if (nummois == "2")
                 {
                     nommois = "Février";
+                    nummois = "02";
                 }
                 else if (nummois == "3")
                 {
                     nommois = "Mars";
+                    nummois = "03";
                 }
                 else if (nummois == "4")
                 {
                     nommois = "Avril";
+                    nummois = "04";
                 }
                 else if (nummois == "5")
                 {
                     nommois = "Mai";
+                    nummois = "05";
                 }
                 else if (nummois == "6")
                 {
                     nommois = "Juin";
+                    nummois = "06";
                 }
                 else if (nummois == "7")
                 {
                     nommois = "Juillet";
+                    nummois = "07";
                 }
                 else if (nummois == "9")
                 {
                     nommois = "Septembre";
+                    nummois = "09";
                 }
                 else if (nummois == "10")
                 {
@@ -277,7 +285,6 @@ namespace MyRostand.MyCantine
             //cette variable sert à récupérer le jour en question, et afficher les menus correspondants
             string jourcomplet = ((Button)sender).Text;
             string daterequete = ((Button)sender).StyleId;
-
             menuStack.IsVisible = true;
 
             jourChoisi.Text = "Jour choisi : " + jourcomplet;
@@ -291,9 +298,16 @@ namespace MyRostand.MyCantine
             for (int i = 0; i < TouteslesResistances.Count; i++)
             {
                 Resistance uneResistance = TouteslesResistances[i];
-                if (Viande == "")
+                if (Viande == "" && TouteslesResistances.Count == 1)
                 {
                     Viande = uneResistance.Libelle;
+                    c++;
+                    toutesresistances.Text += Viande + ": " + c;
+                }
+                else if (Viande == "" && TouteslesResistances.Count > 1)
+                {
+                    Viande
+                        = uneResistance.Libelle;
                     c++;
                 }
                 else if (i + 1 == TouteslesResistances.Count)
@@ -334,7 +348,14 @@ namespace MyRostand.MyCantine
             for (int i = 0; i < lesAccompagnements.Count; i++)
             {
                 Accompagnement unAccompagnement = lesAccompagnements[i];
-                if (Accompagnement == "")
+                if (Accompagnement == "" && lesAccompagnements.Count == 1)
+                {
+                    Accompagnement = unAccompagnement.Libelle;
+                    a++;
+                    prop = unAccompagnement.Gramme;
+                    jourAccompagnement.Text += Accompagnement + ": " + a + " soit " + a * prop + " g";
+                }
+                else if (Accompagnement == "" && lesAccompagnements.Count > 1)
                 {
                     Accompagnement = unAccompagnement.Libelle;
                     a++;
@@ -349,16 +370,16 @@ namespace MyRostand.MyCantine
                     }
                     else if (Accompagnement != unAccompagnement.Libelle)
                     {
-                            jourAccompagnement.Text += Accompagnement + ": " + a + " soit " + a * prop + " g\n";
-                            a = 1;
-                            prop = unAccompagnement.Gramme;
-                            jourAccompagnement.Text += unAccompagnement.Libelle + ": " + a + " soit " + a * prop + " g";
-                    }                                  
+                        jourAccompagnement.Text += Accompagnement + ": " + a + " soit " + a * prop + " g\n";
+                        a = 1;
+                        prop = unAccompagnement.Gramme;
+                        jourAccompagnement.Text += unAccompagnement.Libelle + ": " + a + " soit " + a * prop + " g";
+                    }
                 }
                 else if (Accompagnement == unAccompagnement.Libelle)
                 {
                     a++;
-                }             
+                }
                 else if (Accompagnement != unAccompagnement.Libelle)
                 {
                     jourAccompagnement.Text += Accompagnement + ": " + a + " soit " + a * prop + " g\n";
