@@ -137,6 +137,7 @@ namespace MyRostand.MyCantine
                 /*==========================*/
 
                 string jourcomplet = libelleJour + "\n" + numjour + "\n" + nommois;
+                string daterequete = DateTime.Today.Year + "-" + nummois + "-" + numjour;
                 Button bouton = new Button()
                 {
                     Margin = new Thickness(1, 1, 1, 1),
@@ -145,6 +146,8 @@ namespace MyRostand.MyCantine
                     BorderWidth = 2,
                     CornerRadius = 10,
                     Text = jourcomplet,
+                    StyleId = daterequete,
+                    IsVisible = true,
                     TextColor = Color.White,
 
                 };
@@ -273,6 +276,7 @@ namespace MyRostand.MyCantine
         {
             //cette variable sert à récupérer le jour en question, et afficher les menus correspondants
             string jourcomplet = ((Button)sender).Text;
+            string daterequete = ((Button)sender).StyleId;
 
             menuStack.IsVisible = true;
 
@@ -283,7 +287,7 @@ namespace MyRostand.MyCantine
             toutesresistances.Text = $"";
             String Viande = "";
             int c = 0;
-            List<Resistance> TouteslesResistances = Database.MyCantineSQL.getTouteslesResistances();
+            List<Resistance> TouteslesResistances = Database.MyCantineSQL.getTouteslesResistances(daterequete);
             for (int i = 0; i < TouteslesResistances.Count; i++)
             {
                 Resistance uneResistance = TouteslesResistances[i];
@@ -326,7 +330,7 @@ namespace MyRostand.MyCantine
             String Accompagnement = "";
             int a = 0;
             int prop = 0;
-            List<Accompagnement> lesAccompagnements = Database.MyCantineSQL.getlesAccompagnements();
+            List<Accompagnement> lesAccompagnements = Database.MyCantineSQL.getlesAccompagnements(daterequete);
             for (int i = 0; i < lesAccompagnements.Count; i++)
             {
                 Accompagnement unAccompagnement = lesAccompagnements[i];

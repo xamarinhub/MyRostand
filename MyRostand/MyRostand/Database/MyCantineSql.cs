@@ -10,15 +10,15 @@ namespace MyRostand.Database
     {
 
         ///////////////////////////////////////////////////////////////REQUÊTE AFIN DE RECUPERER LES ENTREES /////////////////////////////////////////////////////////////
-        public static List<Entree> getLesEntrees()
+        public static List<Entree> getLesEntrees(string daterequete)
         {
             List<Entree> lesEntrees = new List<Entree>();
 
             try
             {
                 MySqlConnection cnx = MySQL.getCnx();
-                cnx.Ping();
-                string requete = "SELECT ENT_ID, ENT_LIBELLE, ENT_DESCRIPTION FROM entree, repasentree, repas WHERE ENT_ID=RE_ENTREE AND RE_REPAS=REP_ID AND REP_DATE= '2020-01-09'";
+                cnx.Ping(); 
+                string requete = "SELECT ENT_ID, ENT_LIBELLE, ENT_DESCRIPTION FROM entree, repasentree, repas WHERE ENT_ID=RE_ENTREE AND RE_REPAS=REP_ID AND REP_DATE= '"+daterequete+"' ";
                 MySqlCommand cmd = new MySqlCommand(requete, cnx);
                 var reader = cmd.ExecuteReader();
                 while (reader.Read())
@@ -41,7 +41,7 @@ namespace MyRostand.Database
             }
         }
         /////////////////////////////////////////////////////////////REQUÊTE AFIN DE RECUPERER LES DESSERTS ///////////////////////////////////////////////////////////////////////////////////////////////
-        public static List<Dessert> getLesDesserts()
+        public static List<Dessert> getLesDesserts(string daterequete)
         {
             List<Dessert> lesDesserts = new List<Dessert>();
 
@@ -49,7 +49,7 @@ namespace MyRostand.Database
             {
                 MySqlConnection cnx = MySQL.getCnx();
                 cnx.Ping();
-                string requete = "SELECT DES_ID, DES_LIBELLE, DES_DESCRIPTION FROM dessert, repasdessert, repas WHERE DES_ID=RD_DESSERT AND RD_REPAS=REP_ID AND REP_DATE= '2020-01-09' ";
+                string requete = "SELECT DES_ID, DES_LIBELLE, DES_DESCRIPTION FROM dessert, repasdessert, repas WHERE DES_ID=RD_DESSERT AND RD_REPAS=REP_ID AND REP_DATE= '" + daterequete + "' ";
                 MySqlCommand cmd = new MySqlCommand(requete, cnx);
                 var reader = cmd.ExecuteReader();
                 while (reader.Read())
@@ -72,7 +72,7 @@ namespace MyRostand.Database
             }
         }
         ///////////////////////////////////////////////////////////////////////////////////////////////REQUÊTE AFIN DE RECUPERER LES LAITAGES/////////////////////////////////////////////////////////////////////////////////////////////////////////
-        public static List<Laitage> getlesLaitages()
+        public static List<Laitage> getlesLaitages(string daterequete)
         {
             List<Laitage> lesLaitages = new List<Laitage>();
 
@@ -80,7 +80,7 @@ namespace MyRostand.Database
             {
                 MySqlConnection cnx = MySQL.getCnx();
                 cnx.Ping();
-                string requete = "SELECT LAI_ID, LAI_LIBELLE, LAI_DESCRIPTION FROM laitage, repaslaitage, repas WHERE LAI_ID=RL_LAITAGE AND RL_REPAS=REP_ID AND REP_DATE= '2020-01-09' ";
+                string requete = "SELECT LAI_ID, LAI_LIBELLE, LAI_DESCRIPTION FROM laitage, repaslaitage, repas WHERE LAI_ID=RL_LAITAGE AND RL_REPAS=REP_ID AND REP_DATE= '" + daterequete + "' ";
                 MySqlCommand cmd = new MySqlCommand(requete, cnx);
                 var reader = cmd.ExecuteReader();
                 while (reader.Read())
@@ -104,7 +104,7 @@ namespace MyRostand.Database
         }
 
         ///////////////////////////////////////////////////////////////////////////////////////////////REQUÊTE AFIN DE RECUPERER LES ACCOMPAGNEMENTS/////////////////////////////////////////////////////////////////////////////////////////////////////////
-        public static List<Accompagnement> getlesAccompagnements()
+        public static List<Accompagnement> getlesAccompagnements(string daterequete)
         {
             List<Accompagnement> lesAccompagnements = new List<Accompagnement>();
 
@@ -112,7 +112,7 @@ namespace MyRostand.Database
             {
                 MySqlConnection cnx = MySQL.getCnx();
                 cnx.Ping();
-                string requete = "SELECT ACC_ID, ACC_LIBELLE, ACC_DESCRIPTION, pro_gramme FROM accompagnement, repasaccompagnement, repas, proportion WHERE ACC_ID=RA_ACCOMPAGNEMENT AND RA_REPAS=REP_ID AND pro_id=ACC_PROP AND REP_DATE= '2020-01-09' ";
+                string requete = "SELECT ACC_ID, ACC_LIBELLE, ACC_DESCRIPTION, pro_gramme FROM accompagnement, repasaccompagnement, repas, proportion WHERE ACC_ID=RA_ACCOMPAGNEMENT AND RA_REPAS=REP_ID AND pro_id=ACC_PROP AND REP_DATE= '" + daterequete + "' ";
                 MySqlCommand cmd = new MySqlCommand(requete, cnx);
                 var reader = cmd.ExecuteReader();
                 while (reader.Read())
@@ -137,7 +137,7 @@ namespace MyRostand.Database
         }
 
         ///////////////////////////////////////////////////////////////////////////////////////////////REQUÊTE AFIN DE RECUPERER LES VIANDES/////////////////////////////////////////////////////////////////////////////////////////////////////////
-        public static List<Resistance> getlesResistances()
+        public static List<Resistance> getlesResistances(string daterequete)
         {
             List<Resistance> lesResistances = new List<Resistance>();
 
@@ -145,7 +145,7 @@ namespace MyRostand.Database
             {
                 MySqlConnection cnx = MySQL.getCnx();
                 cnx.Ping();
-                string requete = "SELECT RES_ID, RES_LIBELLE, RES_DESCRIPTION FROM resistance, repasresistance, repas WHERE RES_ID=RR_RESISTANCE AND RR_REPAS=REP_ID AND REP_DATE= '2020-01-09' ";
+                string requete = "SELECT RES_ID, RES_LIBELLE, RES_DESCRIPTION FROM resistance, repasresistance, repas WHERE RES_ID=RR_RESISTANCE AND RR_REPAS=REP_ID AND REP_DATE= '" + daterequete + "' ";
                 MySqlCommand cmd = new MySqlCommand(requete, cnx);
                 var reader = cmd.ExecuteReader();
                 while (reader.Read())
@@ -167,7 +167,7 @@ namespace MyRostand.Database
                 return lesResistances;
             }
         }
-        public static List<Resistance> getTouteslesResistances()
+        public static List<Resistance> getTouteslesResistances(string daterequete)
         {
             List<Resistance> TouteslesResistances = new List<Resistance>();
 
@@ -175,7 +175,7 @@ namespace MyRostand.Database
             {
                 MySqlConnection cnx = MySQL.getCnx();
                 cnx.Ping();
-                string requete = "SELECT RES_LIBELLE, RES_DESCRIPTION FROM resistance, repasresistance, repas WHERE RES_ID = RR_RESISTANCE AND RR_REPAS = REP_ID AND REP_DATE = '2019-12-10'";
+                string requete = "SELECT RES_LIBELLE, RES_DESCRIPTION FROM resistance, repasresistance, repas WHERE RES_ID = RR_RESISTANCE AND RR_REPAS = REP_ID AND REP_DATE = '" + daterequete + "'";
                 MySqlCommand cmd = new MySqlCommand(requete, cnx);
                 var reader = cmd.ExecuteReader();
                 while (reader.Read())

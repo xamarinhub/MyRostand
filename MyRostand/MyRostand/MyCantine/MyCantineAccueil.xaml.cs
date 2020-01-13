@@ -51,7 +51,6 @@ namespace MyRostand.MyCantine
             {
                 Orientation = StackOrientation.Horizontal
             };
-
             for (int i = 1; i <= 14; i++)
             {
                 string numjour;
@@ -95,34 +94,42 @@ namespace MyRostand.MyCantine
                 if (nummois == "1")
                 {
                     nommois = "Janvier";
+                    nummois = "01";
                 }
                 else if (nummois == "2")
                 {
                     nommois = "Février";
+                    nummois = "02";
                 }
                 else if (nummois == "3")
                 {
                     nommois = "Mars";
+                    nummois = "03";
                 }
                 else if (nummois == "4")
                 {
                     nommois = "Avril";
+                    nummois = "04";
                 }
                 else if (nummois == "5")
                 {
                     nommois = "Mai";
+                    nummois = "05";
                 }
                 else if (nummois == "6")
                 {
                     nommois = "Juin";
+                    nummois = "06";
                 }
                 else if (nummois == "7")
                 {
                     nommois = "Juillet";
+                    nummois = "07";
                 }
                 else if (nummois == "9")
                 {
                     nommois = "Septembre";
+                    nummois = "09";
                 }
                 else if (nummois == "10")
                 {
@@ -137,6 +144,7 @@ namespace MyRostand.MyCantine
                     nommois = "Décembre";
                 }
                 string jourcomplet = libelleJour + "\n" + numjour + "\n" + nommois;
+                string daterequete = DateTime.Today.Year + "-" + nummois + "-" + numjour;
                 Button bouton = new Button()
                 {
                     Margin = new Thickness(1, 1, 1, 1),
@@ -145,6 +153,7 @@ namespace MyRostand.MyCantine
                     BorderWidth = 2,
                     CornerRadius = 10,
                     Text = jourcomplet,
+                    StyleId = daterequete,
                     IsVisible = true,
                     TextColor = Color.White,
 
@@ -397,14 +406,7 @@ namespace MyRostand.MyCantine
 
             /*==================================================*/
             /*==================================================*/
-            Button reserver = new Button()
-            {
-                BackgroundColor = Color.FromHex("#27ae60"),
-                Margin = new Thickness(120, 30, 120,0),               
-                Text = "Réserver mon repas",
-                FontSize = 20,
-                TextColor = Color.White
-            };
+
 ////////////////////////////////////////////////////////////////////////////////////////
             Label Selectionjour = new Label()
             {
@@ -417,7 +419,8 @@ namespace MyRostand.MyCantine
                 TextColor = Color.White
             };
 
-///////////////////////////////////////////////////////////////////////////////////////
+
+            ///////////////////////////////////////////////////////////////////////////////////////
             Button Cuisto = new Button()
             {
                 BackgroundColor = Color.Red,
@@ -433,13 +436,11 @@ namespace MyRostand.MyCantine
             {
                 await Navigation.PushAsync(new ToutMenu());
             }
-//////////////////////////////////////////////////////////////////////////////////
-
+            //////////////////////////////////////////////////////////////////////////////////
 
             stackPrincipal.Children.Add(Selectionjour);
             stackPrincipal.Children.Add(barJours);
             stackPrincipal.Children.Add(menuStack);
-            stackPrincipal.Children.Add(reserver);
             stackPrincipal.Children.Add(Cuisto);
             Content = stackPrincipal;
 
@@ -449,14 +450,13 @@ namespace MyRostand.MyCantine
         {
             //cette variable sert à récupérer le jour en question, et afficher les menus correspondants
             string jourcomplet = ((Button)sender).Text;
-
+            string daterequete = ((Button)sender).StyleId;
             menuStack.IsVisible = true;
             
-            jourChoisi.Text = "Jour choisi : "+jourcomplet;
 
             jourEntree.Text = $"";
 
-            List<Entree> lesEntrees = Database.MyCantineSQL.getLesEntrees();
+            List<Entree> lesEntrees = Database.MyCantineSQL.getLesEntrees(daterequete);
 
             for (int i = 0; i < lesEntrees.Count; i++)
             {
@@ -467,7 +467,7 @@ namespace MyRostand.MyCantine
 
             jourViande.Text = $"";
 
-            List<Resistance> lesResistances = Database.MyCantineSQL.getlesResistances();
+            List<Resistance> lesResistances = Database.MyCantineSQL.getlesResistances(daterequete);
             for (int i = 0; i < lesResistances.Count; i++)
             {
                 Resistance uneResistance = lesResistances[i];
@@ -475,7 +475,7 @@ namespace MyRostand.MyCantine
             }
 
             jourAccompagnement.Text = $"";
-            List<Accompagnement> lesAccompagnements = Database.MyCantineSQL.getlesAccompagnements();
+            List<Accompagnement> lesAccompagnements = Database.MyCantineSQL.getlesAccompagnements(daterequete);
             for (int i = 0; i < lesAccompagnements.Count; i++)
             {
                 Accompagnement unAccompagnement = lesAccompagnements[i];
@@ -483,7 +483,7 @@ namespace MyRostand.MyCantine
             }
 
             jourLaitage.Text = $"";
-            List<Laitage> lesLaitages = Database.MyCantineSQL.getlesLaitages();
+            List<Laitage> lesLaitages = Database.MyCantineSQL.getlesLaitages(daterequete);
             for (int i = 0; i < lesLaitages.Count; i++)
             {
                 Laitage unLaitage = lesLaitages[i];
@@ -491,7 +491,7 @@ namespace MyRostand.MyCantine
             }
 
             jourDesserts.Text = $"";
-            List<Dessert> lesDesserts = Database.MyCantineSQL.getLesDesserts();
+            List<Dessert> lesDesserts = Database.MyCantineSQL.getLesDesserts(daterequete);
             for (int i = 0; i < lesDesserts.Count; i++)
             {
                 Dessert unDessert = lesDesserts[i];
