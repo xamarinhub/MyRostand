@@ -146,25 +146,44 @@ namespace MyRostand.MyCantine
 
                 string jourcomplet = libelleJour + "\n" + numjour + "\n" + nommois;
                 string daterequete = DateTime.Today.Year + "-" + nummois + "-" + numjour;
-                Button bouton = new Button()
+                if (libelleJour == "Dimanche" | libelleJour == "Samedi")
                 {
-                    Margin = new Thickness(1, 1, 1, 1),
-                    BackgroundColor = Color.FromHex("#27ae60"),
-                    BorderColor = Color.GhostWhite,
-                    BorderWidth = 2,
-                    CornerRadius = 10,
-                    Text = jourcomplet,
-                    StyleId = daterequete,
-                    IsVisible = true,
-                    TextColor = Color.White,
+                    Button boutonferme = new Button()
+                    {
+                        Margin = new Thickness(1, 1, 1, 1),
+                        BackgroundColor = Color.Gray,
+                        BorderColor = Color.Gold,
+                        BorderWidth = 2,
+                        CornerRadius = 10,
+                        Text = jourcomplet,
+                        StyleId = daterequete,
+                        IsVisible = true,
+                        TextColor = Color.White,
+                    };
+                    jourScroll.Children.Add(boutonferme);
+                }
+                else
+                {
+                    Button bouton = new Button()
+                    {
+                        Margin = new Thickness(1, 1, 1, 1),
+                        BackgroundColor = Color.FromHex("#27ae60"),
+                        BorderColor = Color.GhostWhite,
+                        BorderWidth = 2,
+                        CornerRadius = 10,
+                        Text = jourcomplet,
+                        StyleId = daterequete,
+                        IsVisible = true,
+                        TextColor = Color.White,
+                    };
 
-                };
 
-                bouton.Clicked += Bouton_Clicked; //QUAND ON CLIQUE, ON AFFICHE LE MENU
+                    bouton.Clicked += Bouton_Clicked; //QUAND ON CLIQUE, ON AFFICHE LE MENU
 
-                jourScroll.Children.Add(bouton);
-
+                    jourScroll.Children.Add(bouton);
+                }
                 ancienneDate = ancienneDate.AddDays(1);
+
             }
 
             horizontalScroll.Content = jourScroll;
@@ -289,7 +308,7 @@ namespace MyRostand.MyCantine
 
             jourChoisi.Text = "Jour choisi : " + jourcomplet;
 
-///////////////////////////////////////////////////////////////Fonction Afficher toutes les Résistances////////////////////////////////////////////////
+            ///////////////////////////////////////////////////////////////Fonction Afficher toutes les Résistances////////////////////////////////////////////////
 
             toutesresistances.Text = $"";
             String Viande = "";
@@ -339,7 +358,7 @@ namespace MyRostand.MyCantine
                 }
 
             }
-///////////////////////////////////////////////////////////////Fonction Afficher tout les Accompagnements////////////////////////////////////////////////
+            ///////////////////////////////////////////////////////////////Fonction Afficher tout les Accompagnements////////////////////////////////////////////////
             jourAccompagnement.Text = $"";
             String Accompagnement = "";
             int a = 0;

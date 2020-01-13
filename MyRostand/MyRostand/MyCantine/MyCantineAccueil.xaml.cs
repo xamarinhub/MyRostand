@@ -22,6 +22,7 @@ namespace MyRostand.MyCantine
         Label jourAccompagnement = new Label() { FontSize = 20 };
         Label jourLaitage = new Label() { FontSize = 20 };
         Label jourDesserts = new Label() { FontSize = 20 };
+        Button joursEntree = new Button();
         CheckBox checkBoxAccompagnement = new CheckBox { IsChecked = true };
 
 
@@ -145,26 +146,46 @@ namespace MyRostand.MyCantine
                 }
                 string jourcomplet = libelleJour + "\n" + numjour + "\n" + nommois;
                 string daterequete = DateTime.Today.Year + "-" + nummois + "-" + numjour;
-                Button bouton = new Button()
+                if (libelleJour == "Dimanche" | libelleJour == "Samedi")
                 {
-                    Margin = new Thickness(1, 1, 1, 1),
-                    BackgroundColor = Color.FromHex("#27ae60"),
-                    BorderColor = Color.GhostWhite,
-                    BorderWidth = 2,
-                    CornerRadius = 10,
-                    Text = jourcomplet,
-                    StyleId = daterequete,
-                    IsVisible = true,
-                    TextColor = Color.White,
+                    Button boutonferme = new Button()
+                    {
+                        Margin = new Thickness(1, 1, 1, 1),
+                        BackgroundColor = Color.Gray,
+                        BorderColor = Color.Gold,
+                        BorderWidth = 2,
+                        CornerRadius = 10,
+                        Text = jourcomplet,
+                        StyleId = daterequete,
+                        IsVisible = true,
+                        TextColor = Color.White,
+                    };
+                    jourScroll.Children.Add(boutonferme);
+                }
+                else
+                {
+                    Button bouton = new Button()
+                    {
+                        Margin = new Thickness(1, 1, 1, 1),
+                        BackgroundColor = Color.FromHex("#27ae60"),
+                        BorderColor = Color.GhostWhite,
+                        BorderWidth = 2,
+                        CornerRadius = 10,
+                        Text = jourcomplet,
+                        StyleId = daterequete,
+                        IsVisible = true,
+                        TextColor = Color.White,
+                    };
 
-                };
-                bouton.Clicked += Bouton_Clicked; //QUAND ON CLIQUE, ON AFFICHE LE MENU
 
-                jourScroll.Children.Add(bouton);
+                    bouton.Clicked += Bouton_Clicked; //QUAND ON CLIQUE, ON AFFICHE LE MENU
 
+                    jourScroll.Children.Add(bouton);
+                }
                 ancienneDate = ancienneDate.AddDays(1);
+
             }
-           
+
             horizontalScroll.Content = jourScroll;
             barJours.Children.Add(horizontalScroll);
 
@@ -174,240 +195,301 @@ namespace MyRostand.MyCantine
 
             menuStack.IsVisible = false; //SI ON CLIQUE SUR UN JOUR ON PASSE A TRUE (voir la fonction clicked)
 
-            //IL FAUT FAIRE LE RESTE !
+            //IL FAUT FAIRE LE RESTE !       
 
-            /*--------------------------------------------------*/
-            /*---------------------ENTRÉES----------------------*/
-            /*--------------------------------------------------*/
-
-            StackLayout stackCardEntree = new StackLayout();
-
-            Frame frameEntree = new Frame()
+            async void Bouton_Clicked(object sender, EventArgs e)
             {
-                CornerRadius = 10,
-                BorderColor = Color.FromHex("#27ae60"),
-                Margin = new Thickness(100, 20, 100, 20),
-                Padding = new Thickness(0, 0, 0, 0)
-            };
-            StackLayout titreEntree = new StackLayout()
-            {
-                HorizontalOptions = LayoutOptions.Fill,
-                BackgroundColor = Color.FromHex("#27ae60"),
-                HeightRequest = 35,
-                Padding = new Thickness(0, 10, 0, 0)
-            };
-            Label titre2 = new Label()
-            {
-                HorizontalTextAlignment = TextAlignment.Center,
-                VerticalTextAlignment = TextAlignment.Center,
-                Text = "Entrées",
-                FontSize = 20,
-                TextColor = Color.White
-            };
+                //cette variable sert à récupérer le jour en question, et afficher les menus correspondants
+                string jourcomplet = ((Button)sender).Text;
+                string daterequete = ((Button)sender).StyleId;
+                menuStack.IsVisible = true;
 
-            StackLayout descEntree = new StackLayout()
-            {
-                Padding = new Thickness(10, 0, 10, 20)
-            };
-            Label DescEntree = new Label()
-            {
-                Text = "Ce genre d'entrées",
-                FontSize = 20
-            };
+                /*--------------------------------------------------*/
+                /*---------------------ENTRÉES----------------------*/
+                /*--------------------------------------------------*/
 
-            descEntree.Children.Add(jourEntree);
-            titreEntree.Children.Add(titre2);
-            stackCardEntree.Children.Add(titreEntree);
-            stackCardEntree.Children.Add(descEntree);
-            frameEntree.Content = stackCardEntree;
+                StackLayout stackCardEntree = new StackLayout();
 
-            /*--------------------------------------------------*/
-            /*--------------PLATS DE RESISTANCES ---------------*/
-            /*--------------------------------------------------*/
+                Frame frameEntree = new Frame()
+                {
+                    CornerRadius = 10,
+                    BorderColor = Color.FromHex("#27ae60"),
+                    Margin = new Thickness(100, 20, 100, 20),
+                    Padding = new Thickness(0, 0, 0, 0)
+                };
+                StackLayout titreEntree = new StackLayout()
+                {
+                    HorizontalOptions = LayoutOptions.Fill,
+                    BackgroundColor = Color.FromHex("#27ae60"),
+                    HeightRequest = 35,
+                    Padding = new Thickness(0, 10, 0, 0)
+                };
+                Label titre2 = new Label()
+                {
+                    HorizontalTextAlignment = TextAlignment.Center,
+                    VerticalTextAlignment = TextAlignment.Center,
+                    Text = "Entrées",
+                    FontSize = 20,
+                    TextColor = Color.White
+                };
 
-            StackLayout stackCardViande = new StackLayout();
+                titreEntree.Children.Add(titre2);
+                stackCardEntree.Children.Add(titreEntree);
+                frameEntree.Content = stackCardEntree;
+                menuStack.Children.Add(frameEntree);
 
-            Frame frameViande = new Frame()
-            {
-                CornerRadius = 10,
-                BorderColor = Color.FromHex("#27ae60"),
-                Margin = new Thickness(100, 0, 100, 20),
-                Padding = new Thickness(0, 0, 0, 0)
-            };
-            StackLayout titreViande = new StackLayout()
-            {
-                HorizontalOptions = LayoutOptions.Fill,
-                BackgroundColor = Color.FromHex("#27ae60"),
-                HeightRequest = 35,
-                Padding = new Thickness(0, 10, 0, 0)
-            };
-            Label titre3 = new Label()
-            {
-                HorizontalTextAlignment = TextAlignment.Center,
-                VerticalTextAlignment = TextAlignment.Center,
-                Text = "Plats de résistance",
-                FontSize = 20,
-                TextColor = Color.White
-            };
+                ////////////////////////////////////////////////////////////////////////////////////////
 
-            StackLayout descViande = new StackLayout()
-            {
-                Padding = new Thickness(10, 0, 10, 20)
-            };
-            Label DescViande = new Label()
-            {
-                Text = "Ce genre de Plat",
-                FontSize = 20
-            };
+                jourEntree.Text = $"";
 
-            descViande.Children.Add(jourViande);
-            titreViande.Children.Add(titre3);
-            stackCardViande.Children.Add(titreViande);
-            stackCardViande.Children.Add(descViande);
-            frameViande.Content = stackCardViande;
+                List<Entree> lesEntrees = Database.MyCantineSQL.getLesEntrees(daterequete);
 
-            /*--------------------------------------------------*/
-            /*---------------------ACCOMPAGNEMENT---------------*/
-            /*--------------------------------------------------*/
+                for (int i = 0; i < lesEntrees.Count; i++)
+                {
+                    Entree uneEntree = lesEntrees[i];
 
-            StackLayout stackCardAccompagnement = new StackLayout();
+                    StackLayout stackCardEntree2 = new StackLayout();
 
-            Frame frameAccompagnement = new Frame()
-            {
-                CornerRadius = 10,
-                BorderColor = Color.FromHex("#27ae60"),
-                Margin = new Thickness(100, 0, 100, 20),
-                Padding = new Thickness(0, 0, 0, 0)
-            };
-            StackLayout titreAccompagnement = new StackLayout()
-            {
-                HorizontalOptions = LayoutOptions.Fill,
-                BackgroundColor = Color.FromHex("#27ae60"),
-                HeightRequest = 35,
-                Padding = new Thickness(0, 10, 0, 0)
-            };
-            Label titre4 = new Label()
-            {
-                HorizontalTextAlignment = TextAlignment.Center,
-                VerticalTextAlignment = TextAlignment.Center,
-                Text = "Accompagnements",
-                FontSize = 20,
-                TextColor = Color.White
-            };
+                    Button boutonEntree = new Button
+                    {
+                        TextColor = Color.White,
+                        Margin = new Thickness(120, 5, 120, 5),
+                        Text = uneEntree.Libelle + "\n",
+                        FontSize = 10
+                    };
 
-            StackLayout descAccompagnement = new StackLayout()
-            {
-                Padding = new Thickness(10, 0, 10, 20)
-            };
-            Label DescAccompagnement = new Label()
-            {
-                Text = jourEntree.Text,
-                FontSize = 20
-            };
+                    stackCardEntree2.Children.Add(boutonEntree);
 
-            descAccompagnement.Children.Add(jourAccompagnement);
-            titreAccompagnement.Children.Add(titre4);
-            stackCardAccompagnement.Children.Add(titreAccompagnement);
-            stackCardAccompagnement.Children.Add(descAccompagnement);
-            frameAccompagnement.Content = stackCardAccompagnement;
+                    menuStack.Children.Add(stackCardEntree2);
 
-            /*--------------------------------------------------*/
-            /*---------------------LAITAGE----------------------*/
-            /*--------------------------------------------------*/
+                };
 
-            StackLayout stackCardLaitage = new StackLayout();
+                ////////////////////////////////////////////////////////////////////////////////////////
+                /*--------------------------------------------------*/
+                /*--------------PLATS DE RESISTANCES ---------------*/
+                /*--------------------------------------------------*/
 
-            Frame frameLaitage = new Frame()
-            {
-                CornerRadius = 10,
-                BorderColor = Color.FromHex("#27ae60"),
-                Margin = new Thickness(100, 0, 100, 20),
-                Padding = new Thickness(0, 0, 0, 0)
-            };
-            StackLayout titreLaitage = new StackLayout()
-            {
-                HorizontalOptions = LayoutOptions.Fill,
-                BackgroundColor = Color.FromHex("#27ae60"),
-                HeightRequest = 35,
-                Padding = new Thickness(0, 10, 0, 0)
-            };
-            Label titre5 = new Label()
-            {
-                HorizontalTextAlignment = TextAlignment.Center,
-                VerticalTextAlignment = TextAlignment.Center,
-                Text = "Laitages",
-                FontSize = 20,
-                TextColor = Color.White
-            };
+                StackLayout stackCardViande = new StackLayout();
 
-            StackLayout descLaitage = new StackLayout()
-            {
-                Padding = new Thickness(10, 0, 10, 20)
-            };
-            Label description = new Label()
-            {
-                Text = "Ce genre de laitage",
-                FontSize = 20
-            };
+                Frame frameViande = new Frame()
+                {
+                    CornerRadius = 10,
+                    BorderColor = Color.FromHex("#27ae60"),
+                    Margin = new Thickness(100, 0, 100, 20),
+                    Padding = new Thickness(0, 0, 0, 0)
+                };
+                StackLayout titreViande = new StackLayout()
+                {
+                    HorizontalOptions = LayoutOptions.Fill,
+                    BackgroundColor = Color.FromHex("#27ae60"),
+                    HeightRequest = 35,
+                    Padding = new Thickness(0, 10, 0, 0)
+                };
+                Label titre3 = new Label()
+                {
+                    HorizontalTextAlignment = TextAlignment.Center,
+                    VerticalTextAlignment = TextAlignment.Center,
+                    Text = "Plats de résistance",
+                    FontSize = 20,
+                    TextColor = Color.White
+                };
 
-            descLaitage.Children.Add(jourLaitage);
-            titreLaitage.Children.Add(titre5);
-            stackCardLaitage.Children.Add(titreLaitage);
-            stackCardLaitage.Children.Add(descLaitage);
-            frameLaitage.Content = stackCardLaitage;
 
-            /*--------------------------------------------------*/
-            /*---------------------DESSERT----------------------*/
-            /*--------------------------------------------------*/
+                titreViande.Children.Add(titre3);
+                stackCardViande.Children.Add(titreViande);
+                frameViande.Content = stackCardViande;
 
-            StackLayout stackCardDessert = new StackLayout();
+                menuStack.Children.Add(frameViande);
+                ////////////////////////////////////////////////////////////
+                jourViande.Text = $"";
 
-            Frame frameDessert = new Frame()
-            {
-                CornerRadius = 10,
-                BorderColor = Color.FromHex("#27ae60"),
-                Margin = new Thickness(100, 0, 100, 20),
-                Padding = new Thickness(0, 0, 0, 0)
-            };
-            StackLayout titreDessert = new StackLayout()
-            {
-                HorizontalOptions = LayoutOptions.Fill,
-                BackgroundColor = Color.FromHex("#27ae60"),
-                HeightRequest = 35,
-                Padding = new Thickness(0, 10, 0, 0)
-            };
-            Label titre6 = new Label()
-            {
-                HorizontalTextAlignment = TextAlignment.Center,
-                VerticalTextAlignment = TextAlignment.Center,
-                Text = "Desserts",
-                FontSize = 20,
-                TextColor = Color.White
-            };
+                List<Resistance> lesResistances = Database.MyCantineSQL.getlesResistances(daterequete);
+                for (int i = 0; i < lesResistances.Count; i++)
+                {
+                    Resistance uneResistance = lesResistances[i];
+                    StackLayout stackCardResistance = new StackLayout();
 
-            StackLayout descDessert = new StackLayout()
-            {
-                Padding = new Thickness(10, 0, 10, 20)
-            };
+                    Button boutonResistance = new Button
+                    {
+                        TextColor = Color.White,
+                        Margin = new Thickness(120, 5, 120, 5),
+                        Text = uneResistance.Libelle + "\n",
+                        FontSize = 10
+                    };
 
-            descDessert.Children.Add(jourDesserts);
-            titreDessert.Children.Add(titre6);
-            stackCardDessert.Children.Add(titreDessert);
-            stackCardDessert.Children.Add(descDessert);
-            frameDessert.Content = stackCardDessert;
+                    stackCardResistance.Children.Add(boutonResistance);
 
-            /*------------------------------------------*/
+                    menuStack.Children.Add(stackCardResistance);
+                }
+                ////////////////////////////////////////////////////////////////////////////////////////
+                /*--------------------------------------------------*/
+                /*---------------------ACCOMPAGNEMENT---------------*/
+                /*--------------------------------------------------*/
 
-            menuStack.Children.Add(frameEntree);
-            menuStack.Children.Add(frameViande);
-            menuStack.Children.Add(frameAccompagnement);
-            menuStack.Children.Add(frameLaitage);
-            menuStack.Children.Add(frameDessert);
+                StackLayout stackCardAccompagnement = new StackLayout();
+
+                Frame frameAccompagnement = new Frame()
+                {
+                    CornerRadius = 10,
+                    BorderColor = Color.FromHex("#27ae60"),
+                    Margin = new Thickness(100, 0, 100, 20),
+                    Padding = new Thickness(0, 0, 0, 0)
+                };
+                StackLayout titreAccompagnement = new StackLayout()
+                {
+                    HorizontalOptions = LayoutOptions.Fill,
+                    BackgroundColor = Color.FromHex("#27ae60"),
+                    HeightRequest = 35,
+                    Padding = new Thickness(0, 10, 0, 0)
+                };
+                Label titre4 = new Label()
+                {
+                    HorizontalTextAlignment = TextAlignment.Center,
+                    VerticalTextAlignment = TextAlignment.Center,
+                    Text = "Accompagnements",
+                    FontSize = 20,
+                    TextColor = Color.White
+                };
+                titreAccompagnement.Children.Add(titre4);
+                stackCardAccompagnement.Children.Add(titreAccompagnement);
+                frameAccompagnement.Content = stackCardAccompagnement;
+                menuStack.Children.Add(frameAccompagnement);
+
+                jourAccompagnement.Text = $"";
+                List<Accompagnement> lesAccompagnements = Database.MyCantineSQL.getlesAccompagnements(daterequete);
+                for (int i = 0; i < lesAccompagnements.Count; i++)
+                {
+                    Accompagnement unAccompagnement = lesAccompagnements[i];
+                    StackLayout stackCardAccompagnement2 = new StackLayout();
+
+                    Button boutonAccompagnement = new Button
+                    {
+                        TextColor = Color.White,
+                        Margin = new Thickness(120, 5, 120, 5),
+                        Text = unAccompagnement.Libelle + "\n",
+                        FontSize = 10
+                    };
+
+                    stackCardAccompagnement2.Children.Add(boutonAccompagnement);
+
+                    menuStack.Children.Add(stackCardAccompagnement2);
+                }
+
+                ////////////////////////////////////////////////////////////////////////////////////////
+                /*--------------------------------------------------*/
+                /*---------------------LAITAGE----------------------*/
+                /*--------------------------------------------------*/
+
+                StackLayout stackCardLaitage = new StackLayout();
+
+                Frame frameLaitage = new Frame()
+                {
+                    CornerRadius = 10,
+                    BorderColor = Color.FromHex("#27ae60"),
+                    Margin = new Thickness(100, 0, 100, 20),
+                    Padding = new Thickness(0, 0, 0, 0)
+                };
+                StackLayout titreLaitage = new StackLayout()
+                {
+                    HorizontalOptions = LayoutOptions.Fill,
+                    BackgroundColor = Color.FromHex("#27ae60"),
+                    HeightRequest = 35,
+                    Padding = new Thickness(0, 10, 0, 0)
+                };
+                Label titre5 = new Label()
+                {
+                    HorizontalTextAlignment = TextAlignment.Center,
+                    VerticalTextAlignment = TextAlignment.Center,
+                    Text = "Laitages",
+                    FontSize = 20,
+                    TextColor = Color.White
+                };
+
+                titreLaitage.Children.Add(titre5);
+                stackCardLaitage.Children.Add(titreLaitage);
+                frameLaitage.Content = stackCardLaitage;
+                menuStack.Children.Add(frameLaitage);
+
+                jourLaitage.Text = $"";
+                List<Laitage> lesLaitages = Database.MyCantineSQL.getlesLaitages(daterequete);
+                for (int i = 0; i < lesLaitages.Count; i++)
+                {
+                    Laitage unLaitage = lesLaitages[i];
+                    StackLayout stackCardALaitage = new StackLayout();
+
+                    Button boutonLaitage = new Button
+                    {
+                        TextColor = Color.White,
+                        Margin = new Thickness(120, 5, 120, 5),
+                        Text = unLaitage.Libelle + "\n",
+                        FontSize = 10
+                    };
+
+                    stackCardALaitage.Children.Add(boutonLaitage);
+
+                    menuStack.Children.Add(stackCardALaitage);
+                }
+                ////////////////////////////////////////////////////////////////////////////////////////
+                /*--------------------------------------------------*/
+                /*---------------------DESSERT----------------------*/
+                /*--------------------------------------------------*/
+
+                StackLayout stackCardDessert = new StackLayout();
+
+                Frame frameDessert = new Frame()
+                {
+                    CornerRadius = 10,
+                    BorderColor = Color.FromHex("#27ae60"),
+                    Margin = new Thickness(100, 0, 100, 20),
+                    Padding = new Thickness(0, 0, 0, 0)
+                };
+                StackLayout titreDessert = new StackLayout()
+                {
+                    HorizontalOptions = LayoutOptions.Fill,
+                    BackgroundColor = Color.FromHex("#27ae60"),
+                    HeightRequest = 35,
+                    Padding = new Thickness(0, 10, 0, 0)
+                };
+                Label titre6 = new Label()
+                {
+                    HorizontalTextAlignment = TextAlignment.Center,
+                    VerticalTextAlignment = TextAlignment.Center,
+                    Text = "Desserts",
+                    FontSize = 20,
+                    TextColor = Color.White
+                };
+
+                titreDessert.Children.Add(titre6);
+                stackCardDessert.Children.Add(titreDessert);
+                frameDessert.Content = stackCardDessert;
+                menuStack.Children.Add(frameDessert);
+                /*------------------------------------------*/
+                jourDesserts.Text = $"";
+                List<Dessert> lesDesserts = Database.MyCantineSQL.getLesDesserts(daterequete);
+                for (int i = 0; i < lesDesserts.Count; i++)
+                {
+                    Dessert unDessert = lesDesserts[i];
+                    StackLayout stackCardDessert2 = new StackLayout();
+
+                    Button boutonDessert = new Button
+                    {
+                        TextColor = Color.White,
+                        Margin = new Thickness(120, 5, 120, 5),
+                        Text = unDessert.Libelle + "\n",
+                        FontSize = 10
+                    };
+
+                    stackCardDessert2.Children.Add(boutonDessert);
+
+                    menuStack.Children.Add(stackCardDessert2);
+                }
+                ////////////////////////////////////////////////////////////////////////////////////////
+            }
 
             /*==================================================*/
             /*==================================================*/
 
-////////////////////////////////////////////////////////////////////////////////////////
+            ////////////////////////////////////////////////////////////////////////////////////////
             Label Selectionjour = new Label()
             {
                 HorizontalTextAlignment = TextAlignment.Center,
@@ -418,7 +500,6 @@ namespace MyRostand.MyCantine
                 FontSize = 20,
                 TextColor = Color.White
             };
-
 
             ///////////////////////////////////////////////////////////////////////////////////////
             Button Cuisto = new Button()
@@ -444,60 +525,8 @@ namespace MyRostand.MyCantine
             stackPrincipal.Children.Add(Cuisto);
             Content = stackPrincipal;
 
-    }
-
-        private void Bouton_Clicked(object sender, EventArgs e)
-        {
-            //cette variable sert à récupérer le jour en question, et afficher les menus correspondants
-            string jourcomplet = ((Button)sender).Text;
-            string daterequete = ((Button)sender).StyleId;
-            menuStack.IsVisible = true;
-            
-
-            jourEntree.Text = $"";
-
-            List<Entree> lesEntrees = Database.MyCantineSQL.getLesEntrees(daterequete);
-
-            for (int i = 0; i < lesEntrees.Count; i++)
-            {
-                Entree uneEntree = lesEntrees[i];
-                jourEntree.Text += uneEntree.Libelle + "\n";
-            }
-
-
-            jourViande.Text = $"";
-
-            List<Resistance> lesResistances = Database.MyCantineSQL.getlesResistances(daterequete);
-            for (int i = 0; i < lesResistances.Count; i++)
-            {
-                Resistance uneResistance = lesResistances[i];
-                jourViande.Text += uneResistance.Libelle + "\n";
-            }
-
-            jourAccompagnement.Text = $"";
-            List<Accompagnement> lesAccompagnements = Database.MyCantineSQL.getlesAccompagnements(daterequete);
-            for (int i = 0; i < lesAccompagnements.Count; i++)
-            {
-                Accompagnement unAccompagnement = lesAccompagnements[i];
-                jourAccompagnement.Text += unAccompagnement.Libelle + "\n";
-            }
-
-            jourLaitage.Text = $"";
-            List<Laitage> lesLaitages = Database.MyCantineSQL.getlesLaitages(daterequete);
-            for (int i = 0; i < lesLaitages.Count; i++)
-            {
-                Laitage unLaitage = lesLaitages[i];
-                jourLaitage.Text += unLaitage.Libelle + "\n";
-            }
-
-            jourDesserts.Text = $"";
-            List<Dessert> lesDesserts = Database.MyCantineSQL.getLesDesserts(daterequete);
-            for (int i = 0; i < lesDesserts.Count; i++)
-            {
-                Dessert unDessert = lesDesserts[i];
-                jourDesserts.Text += unDessert.Libelle + "\n";
-            }
+            ////////////////////////////////////////////////////////////////////////////////////////
         }
-       
+
     }
 }
