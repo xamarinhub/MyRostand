@@ -1,13 +1,8 @@
-﻿using System;
+﻿using MyRostand.Models;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using MyRostand.Models;
-using MyRostand.Database;
 
 namespace MyRostand.MyCantine
 {
@@ -23,13 +18,12 @@ namespace MyRostand.MyCantine
         Label nbResistances = new Label() { FontSize = 20 };
 
         DateTime ancienneDate = DateTime.Today;
+
         public ToutMenu()
         {
             InitializeComponent();
             Title = "Tout les plats de resistances du jour";
             StackLayout stackPrincipal = new StackLayout();
-
-
 
             /*==================================================*/
             /*==============NAVBAR DES JOURS====================*/
@@ -412,5 +406,7 @@ namespace MyRostand.MyCantine
                 }
             }
         }
+        ///////////////////////////////////////////////////////////////////Fin des Algorithmes//////////////////////////////////////////////////
+
     }
 }

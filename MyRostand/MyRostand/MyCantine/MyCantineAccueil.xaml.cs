@@ -15,7 +15,7 @@ namespace MyRostand.MyCantine
     public partial class MyCantineAccueil : ContentPage
     {
         //ON DECLARE LES LABELS AU DEBUT POUR LES APPELER DANS L'ENSEMBLE DES FONCTIONS (ça sera utile pour la suite !)
-        StackLayout menuStack = new StackLayout();
+        Frame menuStack = new Frame();
         Label jourChoisi = new Label() { FontSize = 20 };
         Label jourEntree = new Label() { FontSize = 20 };
         Label jourViande = new Label() { FontSize = 20 };
@@ -39,13 +39,14 @@ namespace MyRostand.MyCantine
             /*==================================================*/
 
             StackLayout barJours = new StackLayout();
+            barJours.Margin = new Thickness(10, 10, 10, 30);
 
             ScrollView scroll = new ScrollView();
 
             ScrollView horizontalScroll = new ScrollView()
             {
                 Orientation = ScrollOrientation.Horizontal,
-                HeightRequest = 90,
+                HeightRequest = 120,
             };
 
             StackLayout jourScroll = new StackLayout()
@@ -195,7 +196,19 @@ namespace MyRostand.MyCantine
 
             menuStack.IsVisible = false; //SI ON CLIQUE SUR UN JOUR ON PASSE A TRUE (voir la fonction clicked)
 
-            //IL FAUT FAIRE LE RESTE !       
+            //IL FAUT FAIRE LE RESTE !   
+
+            ScrollView VerticalScroll = new ScrollView()
+            {
+                Orientation = ScrollOrientation.Vertical,
+                HeightRequest = 1800,
+            };
+
+            StackLayout MenuScroll = new StackLayout()
+            {
+                Orientation = StackOrientation.Horizontal
+            };
+            VerticalScroll.Content = menuStack;
 
             async void Bouton_Clicked(object sender, EventArgs e)
             {
@@ -203,6 +216,13 @@ namespace MyRostand.MyCantine
                 string jourcomplet = ((Button)sender).Text;
                 string daterequete = ((Button)sender).StyleId;
                 menuStack.IsVisible = true;
+
+
+                //FRAME PRINCIPAL QUI RECUPERE TOUTE LES CARDS
+                Frame frameMenu = new Frame();
+
+                //STACKLAYOUT QUI SERA LE CONTENU DE FRAMEMENU
+                StackLayout stackCardMenu = new StackLayout();
 
                 /*--------------------------------------------------*/
                 /*---------------------ENTRÉES----------------------*/
@@ -236,7 +256,8 @@ namespace MyRostand.MyCantine
                 titreEntree.Children.Add(titre2);
                 stackCardEntree.Children.Add(titreEntree);
                 frameEntree.Content = stackCardEntree;
-                menuStack.Children.Add(frameEntree);
+                //STACKCARDMENU recupère cette card
+                stackCardMenu.Children.Add(frameEntree);
 
                 ////////////////////////////////////////////////////////////////////////////////////////
 
@@ -260,7 +281,7 @@ namespace MyRostand.MyCantine
 
                     stackCardEntree2.Children.Add(boutonEntree);
 
-                    menuStack.Children.Add(stackCardEntree2);
+                    stackCardMenu.Children.Add(stackCardEntree2);
 
                 };
 
@@ -298,8 +319,9 @@ namespace MyRostand.MyCantine
                 titreViande.Children.Add(titre3);
                 stackCardViande.Children.Add(titreViande);
                 frameViande.Content = stackCardViande;
+                //STACKCARDMENU recupère cette card
+                stackCardMenu.Children.Add(frameViande);
 
-                menuStack.Children.Add(frameViande);
                 ////////////////////////////////////////////////////////////
                 jourViande.Text = $"";
 
@@ -319,7 +341,7 @@ namespace MyRostand.MyCantine
 
                     stackCardResistance.Children.Add(boutonResistance);
 
-                    menuStack.Children.Add(stackCardResistance);
+                    stackCardMenu.Children.Add(stackCardResistance);
                 }
                 ////////////////////////////////////////////////////////////////////////////////////////
                 /*--------------------------------------------------*/
@@ -353,7 +375,8 @@ namespace MyRostand.MyCantine
                 titreAccompagnement.Children.Add(titre4);
                 stackCardAccompagnement.Children.Add(titreAccompagnement);
                 frameAccompagnement.Content = stackCardAccompagnement;
-                menuStack.Children.Add(frameAccompagnement);
+                //STACKCARDMENU recupère cette card
+                stackCardMenu.Children.Add(frameAccompagnement);
 
                 jourAccompagnement.Text = $"";
                 List<Accompagnement> lesAccompagnements = Database.MyCantineSQL.getlesAccompagnements(daterequete);
@@ -372,7 +395,7 @@ namespace MyRostand.MyCantine
 
                     stackCardAccompagnement2.Children.Add(boutonAccompagnement);
 
-                    menuStack.Children.Add(stackCardAccompagnement2);
+                    stackCardMenu.Children.Add(stackCardAccompagnement2);
                 }
 
                 ////////////////////////////////////////////////////////////////////////////////////////
@@ -408,7 +431,8 @@ namespace MyRostand.MyCantine
                 titreLaitage.Children.Add(titre5);
                 stackCardLaitage.Children.Add(titreLaitage);
                 frameLaitage.Content = stackCardLaitage;
-                menuStack.Children.Add(frameLaitage);
+                //STACKCARDMENU recupère cette card
+                stackCardMenu.Children.Add(frameLaitage);
 
                 jourLaitage.Text = $"";
                 List<Laitage> lesLaitages = Database.MyCantineSQL.getlesLaitages(daterequete);
@@ -427,7 +451,7 @@ namespace MyRostand.MyCantine
 
                     stackCardALaitage.Children.Add(boutonLaitage);
 
-                    menuStack.Children.Add(stackCardALaitage);
+                    stackCardMenu.Children.Add(stackCardALaitage);
                 }
                 ////////////////////////////////////////////////////////////////////////////////////////
                 /*--------------------------------------------------*/
@@ -462,7 +486,8 @@ namespace MyRostand.MyCantine
                 titreDessert.Children.Add(titre6);
                 stackCardDessert.Children.Add(titreDessert);
                 frameDessert.Content = stackCardDessert;
-                menuStack.Children.Add(frameDessert);
+                //STACKCARDMENU recupère cette card
+                stackCardMenu.Children.Add(frameDessert);
                 /*------------------------------------------*/
                 jourDesserts.Text = $"";
                 List<Dessert> lesDesserts = Database.MyCantineSQL.getLesDesserts(daterequete);
@@ -481,9 +506,14 @@ namespace MyRostand.MyCantine
 
                     stackCardDessert2.Children.Add(boutonDessert);
 
-                    menuStack.Children.Add(stackCardDessert2);
+                    stackCardMenu.Children.Add(stackCardDessert2);
                 }
                 ////////////////////////////////////////////////////////////////////////////////////////
+                //FRAMEMENU RECUPERE STACKCARDMENU QUI LUI MEME RECUPERE TOUTE LES CARD ET ITEMS DU MENU
+                frameMenu.Content = stackCardMenu;
+
+                //ET DONC LE CONTENU ACTUEL DE MENUSTACK EST REMPLACE PAR CE FRAMEMENU MIS A JOUR
+                menuStack.Content = frameMenu;
             }
 
             /*==================================================*/
@@ -521,7 +551,7 @@ namespace MyRostand.MyCantine
 
             stackPrincipal.Children.Add(Selectionjour);
             stackPrincipal.Children.Add(barJours);
-            stackPrincipal.Children.Add(menuStack);
+            stackPrincipal.Children.Add(VerticalScroll);
             stackPrincipal.Children.Add(Cuisto);
             Content = stackPrincipal;
 
