@@ -167,6 +167,9 @@ namespace MyRostand.Database
                 return lesResistances;
             }
         }
+
+////////////////////////////////////////////////////////////REQUÊTE AFIN DE RECUPERER TOUTES LES VIANDES//////////////////////////////////////////////
+
         public static List<Resistance> getTouteslesResistances(string daterequete)
         {
             List<Resistance> TouteslesResistances = new List<Resistance>();
@@ -194,6 +197,38 @@ namespace MyRostand.Database
                 erreurSQL.Description = (ex.ToString());
                 TouteslesResistances.Add(erreurSQL);
                 return TouteslesResistances;
+            }
+        }
+        //////////////////////////////////////////////////////////////////REQUÊTE AFIN DE RECUPERER TOUT LES ACCOMPAGNEMENTS////////////////////////////
+        public static List<Accompagnement> getToutlesAccompagnements(string daterequete)
+        {
+            List<Accompagnement> ToutlesAccompagnements = new List<Accompagnement>();
+
+            try
+            {
+                MySqlConnection cnx = MySQL.getCnx();
+                cnx.Ping();
+                string requete = "SELECT ACC_ID, ACC_LIBELLE, ACC_DESCRIPTION, pro_gramme FROM accompagnement, repasaccompagnement, repas, proportion WHERE ACC_ID=RA_ACCOMPAGNEMENT AND RA_REPAS=REP_ID AND pro_id=ACC_PROP AND REP_DATE= '" + daterequete + "' ";
+                MySqlCommand cmd = new MySqlCommand(requete, cnx);
+                var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    Accompagnement unAccompagnement = new Accompagnement();
+                    unAccompagnement.Id = reader.GetInt32(0);
+                    unAccompagnement.Libelle = reader.GetString(1);
+                    unAccompagnement.Description = reader.GetString(2);
+                    unAccompagnement.Gramme = reader.GetInt32(3);
+                    ToutlesAccompagnements.Add(unAccompagnement);
+                }
+                cnx.Close();
+                return ToutlesAccompagnements;
+            }
+            catch (MySqlException ex)
+            {
+                Accompagnement erreurSQL = new Accompagnement();
+                erreurSQL.Description = (ex.ToString());
+                ToutlesAccompagnements.Add(erreurSQL);
+                return ToutlesAccompagnements;
             }
         }
     }

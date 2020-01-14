@@ -363,7 +363,7 @@ namespace MyRostand.MyCantine
             String Accompagnement = "";
             int a = 0;
             int prop = 0;
-            List<Accompagnement> lesAccompagnements = Database.MyCantineSQL.getlesAccompagnements(daterequete);
+            List<Accompagnement> lesAccompagnements = Database.MyCantineSQL.getToutlesAccompagnements(daterequete);
             for (int i = 0; i < lesAccompagnements.Count; i++)
             {
                 Accompagnement unAccompagnement = lesAccompagnements[i];
