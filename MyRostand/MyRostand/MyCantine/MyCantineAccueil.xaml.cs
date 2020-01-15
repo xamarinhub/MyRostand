@@ -153,7 +153,7 @@ namespace MyRostand.MyCantine
                     {
                         Margin = new Thickness(1, 1, 1, 1),
                         BackgroundColor = Color.Gray,
-                        BorderColor = Color.Gold,
+                        BorderColor = Color.Black,
                         BorderWidth = 2,
                         CornerRadius = 10,
                         Text = jourcomplet,
