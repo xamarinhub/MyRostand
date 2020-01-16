@@ -22,11 +22,14 @@ namespace MyRostand.MyCantine
         Label jourAccompagnement = new Label() { FontSize = 20 };
         Label jourLaitage = new Label() { FontSize = 20 };
         Label jourDesserts = new Label() { FontSize = 20 };
+        Label notificationJour = new Label() { FontSize = 20 };
         Button joursEntree = new Button();
         CheckBox checkBoxAccompagnement = new CheckBox { IsChecked = true };
 
 
         DateTime ancienneDate = DateTime.Today;
+        DateTime lendemainDate = DateTime.Today.AddDays(1);
+        DateTime WeekenDate = DateTime.Today.AddDays(3);
         private bool boutonlaitageClicked;
 
         public MyCantineAccueil()
@@ -61,9 +64,19 @@ namespace MyRostand.MyCantine
                 string nummois;
                 string nommois = "";
                 string libelleJour = "";
+                string numlendemain;
+                string nummoislendemain;
+                string numweekend;
+                string nummoisweekend;
+
                 numjour = $"{ancienneDate.Day}";
                 nummois = $"{ancienneDate.Month}";
                 libelleJour = $"{ ancienneDate.DayOfWeek }";
+                numlendemain = $"{lendemainDate.Day}";
+                nummoislendemain = $"{lendemainDate.Month}";
+                numweekend = $"{WeekenDate.Day}";
+                nummoisweekend = $"{WeekenDate.Month}";
+
                 /*============JOURS==============*/
                 if (libelleJour == "Monday")
                 {
@@ -147,8 +160,14 @@ namespace MyRostand.MyCantine
                 {
                     nommois = "Décembre";
                 }
+
+
                 string jourcomplet = libelleJour + "\n" + numjour + "\n" + nommois;
                 string daterequete = DateTime.Today.Year + "-" + nummois + "-" + numjour;
+                string datecount = DateTime.Today.Year + "-" + nummoislendemain + "-" + numlendemain;
+                string datecountweekend = DateTime.Today.Year + "-" + nummoisweekend + "-" + numweekend;
+
+
                 if (libelleJour == "Dimanche" | libelleJour == "Samedi")
                 {
                     Button boutonferme = new Button()
@@ -160,6 +179,8 @@ namespace MyRostand.MyCantine
                         CornerRadius = 10,
                         Text = jourcomplet,
                         StyleId = daterequete,
+                        ClassId = datecount,
+                        AutomationId = datecountweekend,
                         IsVisible = true,
                         TextColor = Color.White,
                     };
@@ -176,6 +197,8 @@ namespace MyRostand.MyCantine
                         CornerRadius = 10,
                         Text = jourcomplet,
                         StyleId = daterequete,
+                        ClassId = datecount,
+                        AutomationId = datecountweekend,
                         IsVisible = true,
                         TextColor = Color.White,
                     };
@@ -186,6 +209,8 @@ namespace MyRostand.MyCantine
                     jourScroll.Children.Add(bouton);
                 }
                 ancienneDate = ancienneDate.AddDays(1);
+                lendemainDate = lendemainDate.AddDays(1);
+                WeekenDate = WeekenDate.AddDays(1);
 
             }
 
@@ -217,6 +242,9 @@ namespace MyRostand.MyCantine
                 //cette variable sert à récupérer le jour en question, et afficher les menus correspondants
                 string jourcomplet = ((Button)sender).Text;
                 string daterequete = ((Button)sender).StyleId;
+                string datecount = ((Button)sender).ClassId;
+                string datecountweekend = ((Button)sender).AutomationId;
+
                 menuStack.IsVisible = true;
 
 
@@ -225,6 +253,52 @@ namespace MyRostand.MyCantine
 
                 //STACKLAYOUT QUI SERA LE CONTENU DE FRAMEMENU
                 StackLayout stackCardMenu = new StackLayout();
+
+                /*-------------------------------------------------------*/
+                /*---------------------Notification----------------------*/
+                /*-------------------------------------------------------*/
+                StackLayout stackCardNotification = new StackLayout();
+
+                Frame frameNotification = new Frame()
+                {
+                    CornerRadius = 10,
+                    BorderColor = Color.FromHex("#27ae60"),
+                    Margin = new Thickness(100, 0, 100, 20),
+                    Padding = new Thickness(0, 0, 0, 0)
+                };
+                StackLayout titreNotification = new StackLayout()
+                {
+                    HorizontalOptions = LayoutOptions.Fill,
+                    BackgroundColor = Color.FromHex("#27ae60"),
+                    HeightRequest = 35,
+                    Padding = new Thickness(0, 10, 0, 0)
+                };
+                Label titre7 = new Label()
+                {
+                    HorizontalTextAlignment = TextAlignment.Center,
+                    VerticalTextAlignment = TextAlignment.Center,
+                    Text = "Notification",
+                    FontSize = 20,
+                    TextColor = Color.White
+                };
+
+                StackLayout descNotification = new StackLayout()
+                {
+                    Padding = new Thickness(10, 0, 10, 20)
+                };
+                Label DescNotification = new Label()
+                {
+                    Text = notificationJour.Text,
+                    FontSize = 20
+                };
+
+                descNotification.Children.Add(notificationJour);
+                titreNotification.Children.Add(titre7);
+                stackCardNotification.Children.Add(titreNotification);
+                stackCardNotification.Children.Add(descNotification);
+                frameNotification.Content = stackCardNotification;
+                stackCardMenu.Children.Add(frameNotification);
+
 
                 /*--------------------------------------------------*/
                 /*---------------------ENTRÉES----------------------*/
@@ -348,6 +422,10 @@ namespace MyRostand.MyCantine
                 jourViande.Text = $"";
 
                 List<Resistance> lesResistances = Database.MyCantineSQL.getlesResistances(daterequete);
+                List<Resistance> lesResistancesNotifDate = Database.MyCantineSQL.getlesResistances(datecount);
+                List<Resistance> lesResistancesNotifDateWeekEnd = Database.MyCantineSQL.getlesResistances(datecountweekend);
+                int ViandeC = lesResistancesNotifDate.Count;
+                int ViandeCWE = lesResistancesNotifDateWeekEnd.Count;
                 for (int i = 0; i < lesResistances.Count; i++)
                 {
                     Resistance uneResistance = lesResistances[i];
@@ -423,6 +501,10 @@ namespace MyRostand.MyCantine
 
                 jourAccompagnement.Text = $"";
                 List<Accompagnement> lesAccompagnements = Database.MyCantineSQL.getlesAccompagnements(daterequete);
+                List<Accompagnement> NotifDate = Database.MyCantineSQL.getlesAccompagnements(datecount);
+                List<Accompagnement> NotifDateWeekEnd = Database.MyCantineSQL.getlesAccompagnements(datecountweekend);
+                int AccompC = NotifDate.Count;
+                int AccompCWE = NotifDateWeekEnd.Count;
                 for (int i = 0; i < lesAccompagnements.Count; i++)
                 {
                     Accompagnement unAccompagnement = lesAccompagnements[i];
@@ -619,6 +701,64 @@ namespace MyRostand.MyCantine
 
                 //ET DONC LE CONTENU ACTUEL DE MENUSTACK EST REMPLACE PAR CE FRAMEMENU MIS A JOUR
                 menuStack.Content = frameMenu;
+
+                string day = $"{WeekenDate.DayOfWeek}";
+                notificationJour.Text = $"";
+                string TextNotificationAccomp = " Vous n'avez pas choisi l'accompagnement  du ";
+                string TextNotificationViande = " Vous n'avez pas choisi le plat de résistance du ";
+                string TextNotificationWeekend = " N'oubliez pas de saisir vos futur repas  ";
+
+                if (day == "Sunday")
+                {
+                    if (ViandeC != 0 && AccompC != 0)
+                    {
+                        notificationJour.IsVisible = false;
+                    }
+                    else if (ViandeC != 0 && AccompC == 0)
+                    {
+                        notificationJour.IsVisible = true;
+                        notificationJour.Text = TextNotificationAccomp + " " + datecount;
+                    }
+                    else if (ViandeC == 0 && AccompC != 0)
+                    {
+                        notificationJour.IsVisible = true;
+                        notificationJour.Text = TextNotificationViande + " " + datecount;
+                    }
+                    else if (ViandeCWE == 0 && AccompCWE == 0)
+                    {
+                        notificationJour.IsVisible = true;
+                        notificationJour.Text = TextNotificationWeekend;
+                    }
+                    else if (ViandeC == 0 && AccompC == 0)
+                    {
+                        notificationJour.IsVisible = true;
+                        notificationJour.Text = TextNotificationWeekend;
+                    }
+                    else
+                    {
+                        notificationJour.IsVisible = false;
+                    }
+                }
+                else if (ViandeC == 0 && AccompC == 0)
+                {
+                    notificationJour.IsVisible = true;
+                    notificationJour.Text = TextNotificationWeekend + " " + datecount;
+                }
+                else if (ViandeC != 0 && AccompC == 0)
+                {
+                    notificationJour.IsVisible = true;
+                    notificationJour.Text = TextNotificationAccomp + " !! " + datecount;
+                }
+                else if (ViandeC == 0 && AccompC != 0)
+                {
+                    notificationJour.IsVisible = true;
+                    notificationJour.Text = TextNotificationViande + " !! " + datecount;
+                }
+                else
+                {
+                    notificationJour.IsVisible = false;
+                }
+
             }
 
             /*==================================================*/
