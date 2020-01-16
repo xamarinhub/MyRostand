@@ -27,6 +27,8 @@ namespace MyRostand.MyCantine
 
 
         DateTime ancienneDate = DateTime.Today;
+        private bool boutonlaitageClicked;
+
         public MyCantineAccueil()
         {
             InitializeComponent();
@@ -275,6 +277,7 @@ namespace MyRostand.MyCantine
                     {
                         TextColor = Color.White,
                         Margin = new Thickness(120, 5, 120, 5),
+                        BackgroundColor = Color.LightGray,
                         Text = uneEntree.Libelle + "\n",
                         FontSize = 10
                     };
@@ -282,6 +285,25 @@ namespace MyRostand.MyCantine
                     stackCardEntree2.Children.Add(boutonEntree);
 
                     stackCardMenu.Children.Add(stackCardEntree2);
+                    string textbouton = boutonEntree.Text;
+                    boutonEntree.Clicked += boutonEntree_Click;
+                    async void boutonEntree_Click(object senders, EventArgs ex)
+                    {
+                        if (boutonEntree.BackgroundColor == Color.LightGray)
+                        {
+                            string textuncheck = textbouton;
+                            boutonEntree.BackgroundColor = Color.LightGreen;
+                            boutonEntree.Text = "vide";
+                            boutonEntree.Text = textuncheck + "✓";
+                        }
+                        else 
+                        {
+                            string textchecked = textbouton;
+                            boutonEntree.BackgroundColor = Color.LightGray;
+                            boutonEntree.Text = "vide2";
+                            boutonEntree.Text = textchecked + "";
+                        }
+                    }
 
                 };
 
@@ -335,13 +357,33 @@ namespace MyRostand.MyCantine
                     {
                         TextColor = Color.White,
                         Margin = new Thickness(120, 5, 120, 5),
+                        BackgroundColor = Color.LightGray,
                         Text = uneResistance.Libelle + "\n",
                         FontSize = 10
                     };
 
                     stackCardResistance.Children.Add(boutonResistance);
-
+                    string textbouton = boutonResistance.Text;
                     stackCardMenu.Children.Add(stackCardResistance);
+
+                    boutonResistance.Clicked += boutonResistance_Click;
+                    async void boutonResistance_Click(object senders, EventArgs ex)
+                    {
+                        if (boutonResistance.BackgroundColor == Color.LightGray)
+                        {
+                            string textuncheck = textbouton;
+                            boutonResistance.BackgroundColor = Color.LightGreen;
+                            boutonResistance.Text = "vide";
+                            boutonResistance.Text = textuncheck + "✓";
+                        }
+                        else
+                        {
+                            string textchecked = textbouton;
+                            boutonResistance.BackgroundColor = Color.LightGray;
+                            boutonResistance.Text = "vide2";
+                            boutonResistance.Text = textchecked + "";
+                        }
+                    }
                 }
                 ////////////////////////////////////////////////////////////////////////////////////////
                 /*--------------------------------------------------*/
@@ -349,6 +391,7 @@ namespace MyRostand.MyCantine
                 /*--------------------------------------------------*/
 
                 StackLayout stackCardAccompagnement = new StackLayout();
+
 
                 Frame frameAccompagnement = new Frame()
                 {
@@ -389,13 +432,33 @@ namespace MyRostand.MyCantine
                     {
                         TextColor = Color.White,
                         Margin = new Thickness(120, 5, 120, 5),
+                        BackgroundColor = Color.LightGray,
                         Text = unAccompagnement.Libelle + "\n",
                         FontSize = 10
                     };
 
                     stackCardAccompagnement2.Children.Add(boutonAccompagnement);
-
+                    string textbouton = boutonAccompagnement.Text;
                     stackCardMenu.Children.Add(stackCardAccompagnement2);
+
+                    boutonAccompagnement.Clicked += boutonAccompagnement_Click;
+                    async void boutonAccompagnement_Click(object senders, EventArgs ex)
+                    {
+                        if (boutonAccompagnement.BackgroundColor == Color.LightGray)
+                        {
+                            string textuncheck = textbouton;
+                            boutonAccompagnement.BackgroundColor = Color.LightGreen;
+                            boutonAccompagnement.Text = "vide";
+                            boutonAccompagnement.Text = textuncheck + "✓";
+                        }
+                        else
+                        {
+                            string textchecked = textbouton;
+                            boutonAccompagnement.BackgroundColor = Color.LightGray;
+                            boutonAccompagnement.Text = "vide2";
+                            boutonAccompagnement.Text = textchecked + "";
+                        }
+                    }
                 }
 
                 ////////////////////////////////////////////////////////////////////////////////////////
@@ -445,14 +508,36 @@ namespace MyRostand.MyCantine
                     {
                         TextColor = Color.White,
                         Margin = new Thickness(120, 5, 120, 5),
+                        BackgroundColor = Color.LightGray,
                         Text = unLaitage.Libelle + "\n",
                         FontSize = 10
+
                     };
-
+                    string textbouton = boutonLaitage.Text;
+                    boutonLaitage.Clicked += boutonlaitage_Click;
                     stackCardALaitage.Children.Add(boutonLaitage);
-
                     stackCardMenu.Children.Add(stackCardALaitage);
+                    
+                    async void boutonlaitage_Click(object senders, EventArgs ex)
+                    {
+                        if (boutonLaitage.BackgroundColor == Color.LightGray)
+                        {
+                            string textuncheck = textbouton;
+                            boutonLaitage.BackgroundColor = Color.LightGreen;
+                            boutonLaitage.Text = "vide";
+                            boutonLaitage.Text = textuncheck + "✓";
+                        }
+                        else
+                        {
+                            string textchecked = textbouton;
+                            boutonLaitage.BackgroundColor = Color.LightGray;
+                            boutonLaitage.Text = "vide2";
+                            boutonLaitage.Text = textchecked + "";
+                        }
+                    }
+
                 }
+         
                 ////////////////////////////////////////////////////////////////////////////////////////
                 /*--------------------------------------------------*/
                 /*---------------------DESSERT----------------------*/
@@ -500,13 +585,33 @@ namespace MyRostand.MyCantine
                     {
                         TextColor = Color.White,
                         Margin = new Thickness(120, 5, 120, 5),
+                        BackgroundColor = Color.LightGray,
                         Text = unDessert.Libelle + "\n",
                         FontSize = 10
                     };
 
                     stackCardDessert2.Children.Add(boutonDessert);
-
+                    string textbouton = boutonDessert.Text;
                     stackCardMenu.Children.Add(stackCardDessert2);
+
+                    boutonDessert.Clicked += boutonDessert_Click;
+                    async void boutonDessert_Click(object senders, EventArgs ex)
+                    {
+                        if (boutonDessert.BackgroundColor == Color.LightGray)
+                        {
+                            string textuncheck = textbouton;
+                            boutonDessert.BackgroundColor = Color.LightGreen;
+                            boutonDessert.Text = "vide";
+                            boutonDessert.Text = textuncheck + "✓";
+                        }
+                        else
+                        {
+                            string textchecked = textbouton;
+                            boutonDessert.BackgroundColor = Color.LightGray;
+                            boutonDessert.Text = "vide2";
+                            boutonDessert.Text = textchecked + "";
+                        }
+                    }
                 }
                 ////////////////////////////////////////////////////////////////////////////////////////
                 //FRAMEMENU RECUPERE STACKCARDMENU QUI LUI MEME RECUPERE TOUTE LES CARD ET ITEMS DU MENU
@@ -547,6 +652,7 @@ namespace MyRostand.MyCantine
             {
                 await Navigation.PushAsync(new ToutMenu());
             }
+
             //////////////////////////////////////////////////////////////////////////////////
 
             stackPrincipal.Children.Add(Selectionjour);
