@@ -112,7 +112,7 @@ namespace MyRostand.Database
             {
                 MySqlConnection cnx = MySQL.getCnx();
                 cnx.Ping();
-                string requete = "SELECT ACC_ID, ACC_LIBELLE, ACC_DESCRIPTION, pro_gramme FROM accompagnement, repasaccompagnement, repas, proportion WHERE ACC_ID=RA_ACCOMPAGNEMENT AND RA_REPAS=REP_ID AND pro_id=ACC_PROP AND REP_DATE= '" + daterequete + "' ";
+                string requete = "SELECT ACC_ID, ACC_LIBELLE, ACC_DESCRIPTION, ACC_PROP FROM accompagnement, repasaccompagnement, repas WHERE ACC_ID=RA_ACCOMPAGNEMENT AND RA_REPAS=REP_ID AND REP_DATE= '" + daterequete + "' ";
                 MySqlCommand cmd = new MySqlCommand(requete, cnx);
                 var reader = cmd.ExecuteReader();
                 while (reader.Read())
@@ -208,7 +208,7 @@ namespace MyRostand.Database
             {
                 MySqlConnection cnx = MySQL.getCnx();
                 cnx.Ping();
-                string requete = "SELECT ACC_ID, ACC_LIBELLE, ACC_DESCRIPTION, pro_gramme FROM accompagnement, repasaccompagnement, repas, proportion WHERE ACC_ID=RA_ACCOMPAGNEMENT AND RA_REPAS=REP_ID AND pro_id=ACC_PROP AND REP_DATE= '" + daterequete + "' ";
+                string requete = "SELECT ACC_ID, ACC_LIBELLE, ACC_DESCRIPTION, ACC_PROP FROM accompagnement, repasaccompagnement, repas WHERE ACC_ID=RA_ACCOMPAGNEMENT AND RA_REPAS=REP_ID AND REP_DATE= '" + daterequete + "' ";
                 MySqlCommand cmd = new MySqlCommand(requete, cnx);
                 var reader = cmd.ExecuteReader();
                 while (reader.Read())
@@ -230,6 +230,100 @@ namespace MyRostand.Database
                 ToutlesAccompagnements.Add(erreurSQL);
                 return ToutlesAccompagnements;
             }
+          
+        }
+        //////////////////////////////////////////////////////////////////REQUÊTE AFIN DE RECUPERER UN ACCOMPAGNEMENTS////////////////////////////
+        public static List<Accompagnement> getUnAccompagnements()
+        {
+            List<Accompagnement> UnAccompagnements = new List<Accompagnement>();
+
+            try
+            {
+                MySqlConnection cnx = MySQL.getCnx();
+                cnx.Ping();
+                string requete = "SELECT ACC_ID, ACC_LIBELLE, ACC_DESCRIPTION, ACC_PROP FROM accompagnement";
+                MySqlCommand cmd = new MySqlCommand(requete, cnx);
+                var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    Accompagnement unAccompagnement = new Accompagnement();
+                    unAccompagnement.Id = reader.GetInt32(0);
+                    unAccompagnement.Libelle = reader.GetString(1);
+                    unAccompagnement.Description = reader.GetString(2);
+                    unAccompagnement.Gramme = reader.GetInt32(3);
+                    UnAccompagnements.Add(unAccompagnement);
+                }
+                cnx.Close();
+                return UnAccompagnements;
+            }
+            catch (MySqlException ex)
+            {
+                Accompagnement erreurSQL = new Accompagnement();
+                erreurSQL.Description = (ex.ToString());
+                UnAccompagnements.Add(erreurSQL);
+                return UnAccompagnements;
+            }
+
+        }
+        //////////////////////////////////////////////////////////////////REQUÊTE AFIN DE RECUPERER UN GRAMMAGE D'UN ACCOMPAGNEMENTS////////////////////////////
+        public static List<Accompagnement> getUnGrammage(string AccompName)
+        {
+            List<Accompagnement> UnGrammage = new List<Accompagnement>();
+
+            try
+            {
+                MySqlConnection cnx = MySQL.getCnx();
+                cnx.Ping();
+                string requete = "SELECT ACC_PROP FROM accompagnement WHERE ACC_LIBELLE='"+ AccompName + "'";
+                MySqlCommand cmd = new MySqlCommand(requete, cnx);
+                var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    Accompagnement LeGrammage = new Accompagnement();
+                    LeGrammage.Gramme = reader.GetInt32(0);
+                    UnGrammage.Add(LeGrammage);
+                }
+                cnx.Close();
+                return UnGrammage;
+            }
+            catch (MySqlException ex)
+            {
+                Accompagnement erreurSQL = new Accompagnement();
+                erreurSQL.Description = (ex.ToString());
+                UnGrammage.Add(erreurSQL);
+                return UnGrammage;
+            }
+
+        }
+        //////////////////////////////////////////////////////////////////REQUÊTE AFIN DE UPDATE UN GRAMMAGE D'UN ACCOMPAGNEMENTS////////////////////////////
+        public static List<Accompagnement> setUnGrammage(string AccompGrame, string AccompName)
+        {
+            List<Accompagnement> NewGrammage = new List<Accompagnement>();
+
+            try
+            {
+                MySqlConnection cnx = MySQL.getCnx();
+                cnx.Ping();
+                string requete = "UPDATE accompagnement SET ACC_PROP = '" + AccompGrame + "'  WHERE ACC_LIBELLE='" + AccompName + "'";
+                MySqlCommand cmd = new MySqlCommand(requete, cnx);
+                var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    Accompagnement LeGrammage = new Accompagnement();
+                    LeGrammage.Gramme = reader.GetInt32(0);
+                    NewGrammage.Add(LeGrammage);
+                }
+                cnx.Close();
+                return NewGrammage;
+            }
+            catch (MySqlException ex)
+            {
+                Accompagnement erreurSQL = new Accompagnement();
+                erreurSQL.Description = (ex.ToString());
+                NewGrammage.Add(erreurSQL);
+                return NewGrammage;
+            }
+
         }
     }
 }

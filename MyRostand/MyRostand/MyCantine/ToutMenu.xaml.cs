@@ -14,8 +14,6 @@ namespace MyRostand.MyCantine
         Label jourChoisi = new Label() { FontSize = 20 };
         Label toutesresistances = new Label() { FontSize = 20 };
         Label jourAccompagnement = new Label() { FontSize = 20 };
-        Label uneresistances = new Label() { FontSize = 20 };
-        Label nbResistances = new Label() { FontSize = 20 };
 
         DateTime ancienneDate = DateTime.Today;
 
@@ -284,11 +282,28 @@ namespace MyRostand.MyCantine
             menuStack.Children.Add(frameToutesresistances);
             menuStack.Children.Add(frameAccompagnement);
 
+            Button Cuisto = new Button()
+            {
+                BackgroundColor = Color.Red,
+                Margin = new Thickness(120, 10, 120, 0),
+                Text = "Accès Grammage",
+                FontSize = 20,
+                TextColor = Color.White
+            };
+
+            Cuisto.Clicked += Cuisto_Clicked;
+
+            async void Cuisto_Clicked(object sender, EventArgs e)
+            {
+                await Navigation.PushAsync(new ModifGrammage());
+            }
+
             /*==================================================*/
             /*==================================================*/
 
             stackPrincipal.Children.Add(barJours);
             stackPrincipal.Children.Add(menuStack);
+            stackPrincipal.Children.Add(Cuisto);
             Content = stackPrincipal;
 
         }
@@ -319,8 +334,7 @@ namespace MyRostand.MyCantine
                 }
                 else if (Viande == "" && TouteslesResistances.Count > 1)
                 {
-                    Viande
-                        = uneResistance.Libelle;
+                    Viande = uneResistance.Libelle;
                     c++;
                 }
                 else if (i + 1 == TouteslesResistances.Count)
@@ -405,8 +419,8 @@ namespace MyRostand.MyCantine
                     jourAccompagnement.Text += unAccompagnement.Libelle + " soit " + a * prop + ", \n";
                 }
             }
+
         }
         ///////////////////////////////////////////////////////////////////Fin des Algorithmes//////////////////////////////////////////////////
-
     }
 }

@@ -6,13 +6,15 @@ namespace MyRostand.Models
 {
     class Proportion
     {
-        private int Id;
-        private int Gramme;
+        public int Id;
+        public int Gramme;
 
-        public Proportion(int pId, int pGramme)
+        public string Description { get; internal set; }
+
+        public Proportion(int id, int gramme)
         {
-            this.Id = pId;
-            this.Gramme = pGramme;
+            this.Id = id;
+            this.Gramme = gramme;
         }
         public Proportion()
         {

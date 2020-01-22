@@ -729,11 +729,6 @@ namespace MyRostand.MyCantine
                         notificationJour.IsVisible = true;
                         notificationJour.Text = TextNotificationWeekend;
                     }
-                    else if (ViandeC == 0 && AccompC == 0)
-                    {
-                        notificationJour.IsVisible = true;
-                        notificationJour.Text = TextNotificationWeekend;
-                    }
                     else
                     {
                         notificationJour.IsVisible = false;
@@ -742,17 +737,17 @@ namespace MyRostand.MyCantine
                 else if (ViandeC == 0 && AccompC == 0)
                 {
                     notificationJour.IsVisible = true;
-                    notificationJour.Text = TextNotificationWeekend + " " + datecount;
+                    notificationJour.Text = TextNotificationWeekend;
                 }
                 else if (ViandeC != 0 && AccompC == 0)
                 {
                     notificationJour.IsVisible = true;
-                    notificationJour.Text = TextNotificationAccomp + " !! " + datecount;
+                    notificationJour.Text = TextNotificationAccomp + " " + datecount;
                 }
                 else if (ViandeC == 0 && AccompC != 0)
                 {
                     notificationJour.IsVisible = true;
-                    notificationJour.Text = TextNotificationViande + " !! " + datecount;
+                    notificationJour.Text = TextNotificationViande + " " + datecount;
                 }
                 else
                 {
