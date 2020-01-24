@@ -285,8 +285,8 @@ namespace MyRostand.MyCantine
             Button Cuisto = new Button()
             {
                 BackgroundColor = Color.Red,
-                Margin = new Thickness(120, 10, 120, 0),
-                Text = "Accès Grammage",
+                Margin = new Thickness(60, 10, 20, 0),
+                Text = "Gestion des quantitées",
                 FontSize = 20,
                 TextColor = Color.White
             };

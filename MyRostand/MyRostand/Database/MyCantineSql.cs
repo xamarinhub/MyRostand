@@ -112,7 +112,7 @@ namespace MyRostand.Database
             {
                 MySqlConnection cnx = MySQL.getCnx();
                 cnx.Ping();
-                string requete = "SELECT ACC_ID, ACC_LIBELLE, ACC_DESCRIPTION, ACC_PROP FROM accompagnement, repasaccompagnement, repas WHERE ACC_ID=RA_ACCOMPAGNEMENT AND RA_REPAS=REP_ID AND REP_DATE= '" + daterequete + "' ";
+                string requete = "SELECT ACC_ID, ACC_LIBELLE, ACC_DESCRIPTION, AT_POIDS FROM accompagnement, repasaccompagnement, repas, accompagnementtype WHERE ACC_ID=RA_ACCOMPAGNEMENT AND RA_REPAS=REP_ID AND AT_ID=ACC_TYPE AND REP_DATE= '" + daterequete + "' ";
                 MySqlCommand cmd = new MySqlCommand(requete, cnx);
                 var reader = cmd.ExecuteReader();
                 while (reader.Read())
@@ -208,7 +208,7 @@ namespace MyRostand.Database
             {
                 MySqlConnection cnx = MySQL.getCnx();
                 cnx.Ping();
-                string requete = "SELECT ACC_ID, ACC_LIBELLE, ACC_DESCRIPTION, ACC_PROP FROM accompagnement, repasaccompagnement, repas WHERE ACC_ID=RA_ACCOMPAGNEMENT AND RA_REPAS=REP_ID AND REP_DATE= '" + daterequete + "' ";
+                string requete = "SELECT ACC_ID, ACC_LIBELLE, ACC_DESCRIPTION, AT_POIDS FROM accompagnement, repasaccompagnement, repas, accompagnementtype WHERE ACC_ID=RA_ACCOMPAGNEMENT AND RA_REPAS=REP_ID AND AT_ID=ACC_TYPE AND REP_DATE= '" + daterequete + "' ";
                 MySqlCommand cmd = new MySqlCommand(requete, cnx);
                 var reader = cmd.ExecuteReader();
                 while (reader.Read())
@@ -241,7 +241,7 @@ namespace MyRostand.Database
             {
                 MySqlConnection cnx = MySQL.getCnx();
                 cnx.Ping();
-                string requete = "SELECT ACC_ID, ACC_LIBELLE, ACC_DESCRIPTION, ACC_PROP FROM accompagnement";
+                string requete = "SELECT ACC_ID, ACC_LIBELLE, ACC_DESCRIPTION, AT_POIDS FROM accompagnement, accompagnementtype WHERE AT_ID=ACC_TYPE";
                 MySqlCommand cmd = new MySqlCommand(requete, cnx);
                 var reader = cmd.ExecuteReader();
                 while (reader.Read())
@@ -265,21 +265,52 @@ namespace MyRostand.Database
             }
 
         }
-        //////////////////////////////////////////////////////////////////REQUÊTE AFIN DE RECUPERER UN GRAMMAGE D'UN ACCOMPAGNEMENTS////////////////////////////
-        public static List<Accompagnement> getUnGrammage(string AccompName)
+        //////////////////////////////////////////////////////////////////REQUÊTE AFIN DE RECUPERER UN TYPE////////////////////////////
+        public static List<TypeAC> getType()
         {
-            List<Accompagnement> UnGrammage = new List<Accompagnement>();
+            List<TypeAC> UnType = new List<TypeAC>();
 
             try
             {
                 MySqlConnection cnx = MySQL.getCnx();
                 cnx.Ping();
-                string requete = "SELECT ACC_PROP FROM accompagnement WHERE ACC_LIBELLE='"+ AccompName + "'";
+                string requete = "SELECT AT_LIBELLE, AT_POIDS FROM accompagnementtype ";
                 MySqlCommand cmd = new MySqlCommand(requete, cnx);
                 var reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    Accompagnement LeGrammage = new Accompagnement();
+                    TypeAC LeGrammage = new TypeAC();
+                    LeGrammage.Libelle = reader.GetString(0);
+                    LeGrammage.Gramme = reader.GetInt32(1);
+                    UnType.Add(LeGrammage);
+                }
+                cnx.Close();
+                return UnType;
+            }
+            catch (MySqlException ex)
+            {
+                TypeAC erreurSQL = new TypeAC();
+                erreurSQL.Description = (ex.ToString());
+                UnType.Add(erreurSQL);
+                return UnType;
+            }
+
+        }
+        //////////////////////////////////////////////////////////////////REQUÊTE AFIN DE RECUPERER UN GRAMMAGE D'UN TYPE////////////////////////////
+        public static List<TypeAC> getUnGrammage(string typeaccomp)
+        {
+            List<TypeAC> UnGrammage = new List<TypeAC>();
+
+            try
+            {
+                MySqlConnection cnx = MySQL.getCnx();
+                cnx.Ping();
+                string requete = "SELECT AT_POIDS FROM accompagnementtype WHERE AT_LIBELLE = '" + typeaccomp + "' ";
+                MySqlCommand cmd = new MySqlCommand(requete, cnx);
+                var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    TypeAC LeGrammage = new TypeAC();
                     LeGrammage.Gramme = reader.GetInt32(0);
                     UnGrammage.Add(LeGrammage);
                 }
@@ -288,28 +319,28 @@ namespace MyRostand.Database
             }
             catch (MySqlException ex)
             {
-                Accompagnement erreurSQL = new Accompagnement();
+                TypeAC erreurSQL = new TypeAC();
                 erreurSQL.Description = (ex.ToString());
                 UnGrammage.Add(erreurSQL);
                 return UnGrammage;
             }
 
         }
-        //////////////////////////////////////////////////////////////////REQUÊTE AFIN DE UPDATE UN GRAMMAGE D'UN ACCOMPAGNEMENTS////////////////////////////
-        public static List<Accompagnement> setUnGrammage(string AccompGrame, string AccompName)
+        //////////////////////////////////////////////////////////////////REQUÊTE AFIN DE UPDATE UN GRAMMAGE D'UN TYPE////////////////////////////
+        public static List<TypeAC> setUnGrammage(string poidtype, string typeaccomp)
         {
-            List<Accompagnement> NewGrammage = new List<Accompagnement>();
+            List<TypeAC> NewGrammage = new List<TypeAC>();
 
             try
             {
                 MySqlConnection cnx = MySQL.getCnx();
                 cnx.Ping();
-                string requete = "UPDATE accompagnement SET ACC_PROP = '" + AccompGrame + "'  WHERE ACC_LIBELLE='" + AccompName + "'";
+                string requete = "UPDATE accompagnementtype SET AT_POIDS = '" + poidtype + "'  WHERE AT_LIBELLE='" + typeaccomp + "'";
                 MySqlCommand cmd = new MySqlCommand(requete, cnx);
                 var reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    Accompagnement LeGrammage = new Accompagnement();
+                    TypeAC LeGrammage = new TypeAC();
                     LeGrammage.Gramme = reader.GetInt32(0);
                     NewGrammage.Add(LeGrammage);
                 }
@@ -318,7 +349,7 @@ namespace MyRostand.Database
             }
             catch (MySqlException ex)
             {
-                Accompagnement erreurSQL = new Accompagnement();
+                TypeAC erreurSQL = new TypeAC();
                 erreurSQL.Description = (ex.ToString());
                 NewGrammage.Add(erreurSQL);
                 return NewGrammage;

@@ -9,14 +9,13 @@ using Xamarin.Forms.Xaml;
 namespace MyRostand.MyCantine
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
+    [Xamarin.Forms.TypeConverter(typeof(Xamarin.Forms.KeyboardTypeConverter))]
     public partial class ModifGrammage : ContentPage
     {
         //ON DECLARE LES LABELS AU DEBUT POUR LES APPELER DANS L'ENSEMBLE DES FONCTIONS (ça sera utile pour la suite !)
         StackLayout menuStack = new StackLayout();
         Label jourAccompagnement = new Label() { FontSize = 20 };
 
-
-        List<Accompagnement> UnAccompagnements = Database.MyCantineSQL.getUnAccompagnements();
 
 
 
@@ -25,128 +24,45 @@ namespace MyRostand.MyCantine
             Title = "Modification des grammage de chaque accompagnements";
             StackLayout stackPrincipal = new StackLayout();
 
-            menuStack.IsVisible = true;
-            /*--------------------------------------------------*/
-            /*---------------------ACCOMPAGNEMENT---------------*/
-            /*--------------------------------------------------*/
 
-            StackLayout stackCardAccompagnement = new StackLayout();
-
-            Frame frameAccompagnement = new Frame()
+            Label header = new Label
             {
-                CornerRadius = 10,
-                BorderColor = Color.FromHex("#27ae60"),
-                Margin = new Thickness(100, 0, 100, 20),
-                Padding = new Thickness(0, 0, 0, 0)
-            };
-            StackLayout titreAccompagnement = new StackLayout()
-            {
-                HorizontalOptions = LayoutOptions.Fill,
-                BackgroundColor = Color.FromHex("#27ae60"),
-                HeightRequest = 35,
-                Padding = new Thickness(0, 10, 0, 0)
-            };
-            Label titre4 = new Label()
-            {
-                HorizontalTextAlignment = TextAlignment.Center,
-                VerticalTextAlignment = TextAlignment.Center,
-                Text = "Accompagnements",
-                FontSize = 20,
-                TextColor = Color.White
+                Text = "Type d'Accompagnement",
+                FontSize = Device.GetNamedSize(NamedSize.Large, typeof(EntryCell)),
+                HorizontalOptions = LayoutOptions.Center
             };
 
-            StackLayout descAccompagnement = new StackLayout()
-            {
-                Padding = new Thickness(10, 0, 10, 20)
-            };
-            Label DescAccompagnement = new Label()
-            {
-                Text = jourAccompagnement.Text,
-                FontSize = 20
-            };
-
-            descAccompagnement.Children.Add(jourAccompagnement);
-            titreAccompagnement.Children.Add(titre4);
-            stackCardAccompagnement.Children.Add(titreAccompagnement);
-            stackCardAccompagnement.Children.Add(descAccompagnement);
-            frameAccompagnement.Content = stackCardAccompagnement;
-
-
-
-
-
-            
-        
-            jourAccompagnement.Text = $"";
             String Accompagnement = "";
-            int a = 0;
             int prop = 0;
-            List<Accompagnement> lesAccompagnements = Database.MyCantineSQL.getUnAccompagnements();
+            String Accompagnement2 = "";
+            int prop2 = 0;
+            String Accompagnement3 = "";
+            int prop3 = 0;
+
+            List<TypeAC> lesAccompagnements = Database.MyCantineSQL.getType();
             for (int i = 0; i < lesAccompagnements.Count; i++)
             {
-                Accompagnement unAccompagnement = lesAccompagnements[i];
-                Accompagnement = unAccompagnement.Libelle;
-                prop = unAccompagnement.Gramme;
-                jourAccompagnement.Text += Accompagnement + ": " + prop + " g\n";
-            }
-
-
-            Picker picker = new Picker
-            {
-                Title = "Accompagnements",
-                VerticalOptions = LayoutOptions.CenterAndExpand
-            };
-
-            String AccompNam = "";
-            String AccompName = "";
-            for (int i = 0; i < UnAccompagnements.Count; i++)
-            {
-                Accompagnement unAccompagnement = UnAccompagnements[i];
-                AccompNam = unAccompagnement.Libelle;
-                picker.Items.Add(AccompNam);
-            }
-
-            // Create BoxView for displaying picked Color
-            BoxView boxView = new BoxView
-            {
-                WidthRequest = 150,
-                HeightRequest = 150,
-                HorizontalOptions = LayoutOptions.Center,
-                VerticalOptions = LayoutOptions.CenterAndExpand
-            };
-
-
-            int AccompGrame = 0;
-            String Grammerequete = "";
-            var MyEntry = new Entry { Text = "", Placeholder = "Poid en G"};
-            picker.SelectedIndexChanged += (sender, args) =>
-            {
-                AccompName = picker.Items[picker.SelectedIndex];
-                List<Accompagnement> Laproportion = Database.MyCantineSQL.getUnGrammage(AccompName);
-                if (picker.SelectedIndex == -1)
+                TypeAC unAccompagnement = lesAccompagnements[i];
+                if (Accompagnement == "")
                 {
-                    for (int i = 0; i < Laproportion.Count; i++)
-                    {
-                        Accompagnement uneProp = Laproportion[i];
-                        AccompGrame = uneProp.Gramme;
-                        MyEntry.Text = null;
-                        MyEntry.Text += AccompGrame;
-                        Grammerequete = MyEntry.Text;
-
-                    }
+                    Accompagnement = unAccompagnement.Libelle;
+                    prop = unAccompagnement.Gramme;
+                }
+                else if (i + 1 == lesAccompagnements.Count)
+                {
+                    Accompagnement3 = unAccompagnement.Libelle;
+                    prop3 = unAccompagnement.Gramme;
                 }
                 else
                 {
-                    for (int i = 0; i < Laproportion.Count; i++)
-                    {
-                        Accompagnement uneProp = Laproportion[i];
-                        AccompGrame = uneProp.Gramme;
-                        MyEntry.Text = null;
-                        MyEntry.Text += AccompGrame;
-                        Grammerequete = MyEntry.Text;
-                    }
+                    Accompagnement2 = unAccompagnement.Libelle;
+                    prop2 = unAccompagnement.Gramme;
                 }
-            };
+            }
+            var MyEntry = new Entry { Text = "", Placeholder = Accompagnement + " : " + prop + " g/p", ClassId = Accompagnement, Keyboard = Keyboard.Numeric };
+            var MyEntry2 = new Entry { Text = "", Placeholder = Accompagnement2 + " : " + prop2 + " g/p", ClassId = Accompagnement2, Keyboard = Keyboard.Numeric };
+            var MyEntry3 = new Entry { Text = "", Placeholder = Accompagnement3 + " : " + prop3 + " g/p", ClassId = Accompagnement3, Keyboard = Keyboard.Numeric };
+
 
             Button bouton = new Button()
             {
@@ -156,35 +72,91 @@ namespace MyRostand.MyCantine
                 BorderWidth = 2,
                 CornerRadius = 10,
                 Text = "Validation",
-                ClassId = AccompName,
                 IsVisible = true,
                 TextColor = Color.White,
             };
             bouton.Clicked += Validation;
 
-            void Validation(object sender, EventArgs e)
+
+            async void Validation(object sender, EventArgs e)
             {
-                AccompName = picker.Items[picker.SelectedIndex];
-                Database.MyCantineSQL.setUnGrammage(MyEntry.Text, AccompName);
+                if (MyEntry.Text != "")
+                {
+                    if (MyEntry2.Text != "" && MyEntry3.Text != "")
+                    {
+                        Database.MyCantineSQL.setUnGrammage(MyEntry.Text, Accompagnement);
+                        Database.MyCantineSQL.setUnGrammage(MyEntry2.Text, Accompagnement2);
+                        Database.MyCantineSQL.setUnGrammage(MyEntry3.Text, Accompagnement3);
+                    }
+                    else if (MyEntry2.Text != "" && MyEntry3.Text == "")
+                    {
+                        Database.MyCantineSQL.setUnGrammage(MyEntry.Text, Accompagnement);
+                        Database.MyCantineSQL.setUnGrammage(MyEntry2.Text, Accompagnement2);
+                    }
+                    else if (MyEntry2.Text == "" && MyEntry3.Text != "")
+                    {
+                        Database.MyCantineSQL.setUnGrammage(MyEntry.Text, Accompagnement);
+                        Database.MyCantineSQL.setUnGrammage(MyEntry3.Text, Accompagnement3);
+                    }
+                    else
+                    {
+                        Database.MyCantineSQL.setUnGrammage(MyEntry.Text, Accompagnement);
+                    }
+
+                }
+                else if (MyEntry2.Text != "")
+                {
+                    if (MyEntry.Text != "" && MyEntry3.Text != "")
+                    {
+
+                        Database.MyCantineSQL.setUnGrammage(MyEntry.Text, Accompagnement);
+                        Database.MyCantineSQL.setUnGrammage(MyEntry2.Text, Accompagnement2);
+                        Database.MyCantineSQL.setUnGrammage(MyEntry3.Text, Accompagnement3);
+                    }
+                    else if (MyEntry.Text == "" && MyEntry3.Text != "")
+                    {
+                        Database.MyCantineSQL.setUnGrammage(MyEntry2.Text, Accompagnement2);
+                        Database.MyCantineSQL.setUnGrammage(MyEntry3.Text, Accompagnement3);
+                    }                  
+                    else
+                    {
+                        Database.MyCantineSQL.setUnGrammage(MyEntry2.Text, Accompagnement2);
+                    }
+                }
+                else if (MyEntry3.Text != "")
+                {
+                    if (MyEntry.Text != "" && MyEntry2.Text != "")
+                    {
+
+                        Database.MyCantineSQL.setUnGrammage(MyEntry.Text, Accompagnement);
+                        Database.MyCantineSQL.setUnGrammage(MyEntry2.Text, Accompagnement2);
+                        Database.MyCantineSQL.setUnGrammage(MyEntry3.Text, Accompagnement3);
+                    }               
+                    else
+                    {
+                        Database.MyCantineSQL.setUnGrammage(MyEntry3.Text, Accompagnement3);
+                    }
+                    
+                }
+                await Navigation.PushAsync(new ModifGrammage());
             }
+                // Accomodate iPhone status bar.
+                this.Padding = new Thickness(10, Device.OnPlatform(20, 0, 0), 10, 5);
+
+                this.Content = new StackLayout
+                {
+                    Children =
+                {
+                        MyEntry,
+                        MyEntry2,
+                        MyEntry3,
+                        bouton
+                }
+                };
 
 
 
-            // Accomodate iPhone status bar.
-            this.Padding = new Thickness(10, Device.OnPlatform(20, 0, 0), 10, 5);
-
-            menuStack.Children.Add(frameAccompagnement);
-            menuStack.Children.Add(picker);
-            menuStack.Children.Add(MyEntry);
-            menuStack.Children.Add(bouton);
-
-
-            stackPrincipal.Children.Add(menuStack);
-            Content = stackPrincipal;      
-
-       
         }
-
     }
 }
         
