@@ -178,7 +178,7 @@ namespace MyRostand.Database
             {
                 MySqlConnection cnx = MySQL.getCnx();
                 cnx.Ping();
-                string requete = "SELECT RES_LIBELLE, RES_DESCRIPTION FROM resistance, repasresistance, repas WHERE RES_ID = RR_RESISTANCE AND RR_REPAS = REP_ID AND REP_DATE = '" + daterequete + "'";
+                string requete = "SELECT RES_LIBELLE, RES_DESCRIPTION FROM resistance, reservationmenu, repas WHERE resistance.RES_ID = res_plat AND res_repas = REP_ID AND REP_DATE = '" + daterequete + "'";
                 MySqlCommand cmd = new MySqlCommand(requete, cnx);
                 var reader = cmd.ExecuteReader();
                 while (reader.Read())

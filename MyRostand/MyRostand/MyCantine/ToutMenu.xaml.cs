@@ -318,7 +318,6 @@ namespace MyRostand.MyCantine
             jourChoisi.Text = "Jour choisi : " + jourcomplet;
 
             ///////////////////////////////////////////////////////////////Fonction Afficher toutes les Résistances////////////////////////////////////////////////
-
             toutesresistances.Text = $"";
             String Viande = "";
             int c = 0;
@@ -330,7 +329,8 @@ namespace MyRostand.MyCantine
                 {
                     Viande = uneResistance.Libelle;
                     c++;
-                    toutesresistances.Text += Viande + ": " + c;
+                    double p = ((double)c / TouteslesResistances.Count);
+                    toutesresistances.Text += Viande + ": " + c + " soit " + p * 100 + "%";
                 }
                 else if (Viande == "" && TouteslesResistances.Count > 1)
                 {
@@ -342,12 +342,16 @@ namespace MyRostand.MyCantine
                     if (Viande == uneResistance.Libelle)
                     {
                         c++;
-                        toutesresistances.Text += Viande + ": " + c;
+                        double p = ((double)c / TouteslesResistances.Count);
+                        toutesresistances.Text += Viande + ": " + c + " soit " + p * 100 + "%";
                     }
                     else
                     {
-                        toutesresistances.Text += Viande + ": " + c + "\n";
-                        toutesresistances.Text += uneResistance.Libelle + ": " + 1;
+                        double p = ((double)c / TouteslesResistances.Count);
+                        toutesresistances.Text += Viande + ": " + c + " soit " + p * 100 + "%" + "\n";
+                        c = 1;
+                        double pp = ((double)c / TouteslesResistances.Count);
+                        toutesresistances.Text += Viande + ": " + c + " soit " + pp * 100 + "%";
                     }
                 }
                 else if (Viande == uneResistance.Libelle)
@@ -356,7 +360,8 @@ namespace MyRostand.MyCantine
                 }
                 else if (Viande != uneResistance.Libelle)
                 {
-                    toutesresistances.Text += Viande + ": " + c + "\n";
+                    double p = ((double)c / TouteslesResistances.Count);
+                    toutesresistances.Text += Viande + ": " + c + " soit " + p * 100 + "%" + "\n";
                     Viande = uneResistance.Libelle;
                     c = 1;
                 }
