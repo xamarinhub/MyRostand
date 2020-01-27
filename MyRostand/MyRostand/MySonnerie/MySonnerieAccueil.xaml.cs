@@ -8,6 +8,7 @@ using MyRostand.Models;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using MyRostand.Database;
+using System.Globalization;
 
 namespace MyRostand.MySonnerie
 {
@@ -17,8 +18,8 @@ namespace MyRostand.MySonnerie
         public MySonnerieAccueil()
         {
             InitializeComponent();
-
-            Sondage unSondage = Database.MySonnerie.getUnSondage(51);
+            int semaine = CultureInfo.InvariantCulture.Calendar.GetWeekOfYear(DateTime.Now, CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday);
+            Sondage unSondage = Database.MySonnerie.getUnSondage(semaine);
             titreSondage.Text = unSondage.titre;
             LabelMusique1.Text = unSondage.musique1;
             LabelMusique2.Text = unSondage.musique2;

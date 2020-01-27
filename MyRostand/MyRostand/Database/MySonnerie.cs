@@ -18,7 +18,7 @@ namespace MyRostand.Database
             {
                 MySqlConnection cnx = MySQL.getCnx();
                 cnx.Ping();
-                string requete = "SELECT * FROM `sondage` WHERE SON_SEMAINE='" + semaine + "'";
+                string requete = "SELECT SON_ID,SON_titre, SON_MUSIQUEUN,SON_MUSIQUEDEUX,SON_MUSIQUETROIS,SON_MUSIQUEQUATRE FROM sondage WHERE SON_DATE='" + semaine + "'";
                 MySqlCommand cmd = new MySqlCommand(requete, cnx);
                 var reader = cmd.ExecuteReader();
                 if (reader.Read())

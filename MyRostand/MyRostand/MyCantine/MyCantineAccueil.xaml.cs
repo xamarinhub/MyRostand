@@ -25,7 +25,8 @@ namespace MyRostand.MyCantine
         Label notificationJour = new Label() { FontSize = 20 };
         Button joursEntree = new Button();
         CheckBox checkBoxAccompagnement = new CheckBox { IsChecked = true };
-
+        int idutilisateur = 3;
+        bool RepasDejaReserve = false;
 
         DateTime ancienneDate = DateTime.Today;
         DateTime lendemainDate = DateTime.Today.AddDays(1);
@@ -58,17 +59,20 @@ namespace MyRostand.MyCantine
             {
                 Orientation = StackOrientation.Horizontal
             };
+
+
+            string numjour;
+            string nummois;
+            string nommois = "";
+            string libelleJour = "";
+            string numlendemain;
+            string nummoislendemain;
+            string numweekend;
+            string nummoisweekend;
+
+
             for (int i = 1; i <= 14; i++)
             {
-                string numjour;
-                string nummois;
-                string nommois = "";
-                string libelleJour = "";
-                string numlendemain;
-                string nummoislendemain;
-                string numweekend;
-                string nummoisweekend;
-
                 numjour = $"{ancienneDate.Day}";
                 nummois = $"{ancienneDate.Month}";
                 libelleJour = $"{ ancienneDate.DayOfWeek }";
@@ -216,7 +220,6 @@ namespace MyRostand.MyCantine
 
             horizontalScroll.Content = jourScroll;
             barJours.Children.Add(horizontalScroll);
-
             /*==================================================*/
             /*=============AFFICHAGE DU MENU====================*/
             /*==================================================*/
@@ -236,7 +239,6 @@ namespace MyRostand.MyCantine
                 Orientation = StackOrientation.Horizontal
             };
             VerticalScroll.Content = menuStack;
-
             async void Bouton_Clicked(object sender, EventArgs e)
             {
                 //cette variable sert à récupérer le jour en question, et afficher les menus correspondants
@@ -244,6 +246,25 @@ namespace MyRostand.MyCantine
                 string daterequete = ((Button)sender).StyleId;
                 string datecount = ((Button)sender).ClassId;
                 string datecountweekend = ((Button)sender).AutomationId;
+                int idrepas = Database.MyCantineSQL.getIdRepas(daterequete);
+                int idReservationMenu = Database.MyCantineSQL.getIdReservationMenu(idrepas);
+                bool RepasDejaReserve =  Database.MyCantineSQL.getStatutReserver(daterequete, idutilisateur);
+                Button AnnulerReservation;
+                if (RepasDejaReserve == false)
+                {
+                    Database.MyCantineSQL.AjouterReservationMenu(idrepas, idutilisateur);
+                }
+                else
+                {
+                    AnnulerReservation = new Button()
+                    {
+                        Text = "Annuler ma réservation",
+                        TextColor = Color.Red,
+                        FontSize = 16
+                    };
+
+                        stackPrincipal.Children.Add(AnnulerReservation);
+                }
 
                 menuStack.IsVisible = true;
 
@@ -297,7 +318,7 @@ namespace MyRostand.MyCantine
                 stackCardNotification.Children.Add(titreNotification);
                 stackCardNotification.Children.Add(descNotification);
                 frameNotification.Content = stackCardNotification;
-                stackCardMenu.Children.Add(frameNotification);
+                //stackCardMenu.Children.Add(frameNotification);
 
 
                 /*--------------------------------------------------*/
@@ -350,10 +371,11 @@ namespace MyRostand.MyCantine
                     Button boutonEntree = new Button
                     {
                         TextColor = Color.White,
-                        Margin = new Thickness(120, 5, 120, 5),
+                        Margin = new Thickness(120, 10, 120, 10),
+                        Padding = new Thickness(0, 10, 0, -10),
                         BackgroundColor = Color.LightGray,
                         Text = uneEntree.Libelle + "\n",
-                        FontSize = 10
+                        FontSize = 16
                     };
 
                     stackCardEntree2.Children.Add(boutonEntree);
@@ -392,7 +414,7 @@ namespace MyRostand.MyCantine
                 {
                     CornerRadius = 10,
                     BorderColor = Color.FromHex("#27ae60"),
-                    Margin = new Thickness(100, 0, 100, 20),
+                    Margin = new Thickness(100, 20, 100, 10),
                     Padding = new Thickness(0, 0, 0, 0)
                 };
                 StackLayout titreViande = new StackLayout()
@@ -406,7 +428,7 @@ namespace MyRostand.MyCantine
                 {
                     HorizontalTextAlignment = TextAlignment.Center,
                     VerticalTextAlignment = TextAlignment.Center,
-                    Text = "Plats de résistance",
+                    Text = "Plats",
                     FontSize = 20,
                     TextColor = Color.White
                 };
@@ -434,12 +456,13 @@ namespace MyRostand.MyCantine
                     Button boutonResistance = new Button
                     {
                         TextColor = Color.White,
-                        Margin = new Thickness(120, 5, 120, 5),
+                        Margin = new Thickness(120, 10, 120, 10),
+                        Padding = new Thickness(0, 10, 0, -10),
                         BackgroundColor = Color.LightGray,
                         Text = uneResistance.Libelle + "\n",
-                        FontSize = 10
+                        FontSize = 16
                     };
-
+                    int idresistance = uneResistance.Id;
                     stackCardResistance.Children.Add(boutonResistance);
                     string textbouton = boutonResistance.Text;
                     stackCardMenu.Children.Add(stackCardResistance);
@@ -450,9 +473,14 @@ namespace MyRostand.MyCantine
                         if (boutonResistance.BackgroundColor == Color.LightGray)
                         {
                             string textuncheck = textbouton;
+                            string DateToday = DateTime.Today.Year + "-" + nummois + "-" + DateTime.Today.Day;
                             boutonResistance.BackgroundColor = Color.LightGreen;
                             boutonResistance.Text = "vide";
                             boutonResistance.Text = textuncheck + "✓";
+                            if (daterequete != DateToday)
+                            {
+                                Database.MyCantineSQL.AjouterResistance(idrepas, idReservationMenu, idresistance, idutilisateur);
+                            }
                         }
                         else
                         {
@@ -460,6 +488,11 @@ namespace MyRostand.MyCantine
                             boutonResistance.BackgroundColor = Color.LightGray;
                             boutonResistance.Text = "vide2";
                             boutonResistance.Text = textchecked + "";
+                            string DateToday = DateTime.Today + "-" + DateTime.Today.Month;
+                            if (daterequete != DateToday)
+                            {
+                                Database.MyCantineSQL.SupprimerResistance(idrepas, idReservationMenu, idutilisateur);
+                            }
                         }
                     }
                 }
@@ -475,7 +508,7 @@ namespace MyRostand.MyCantine
                 {
                     CornerRadius = 10,
                     BorderColor = Color.FromHex("#27ae60"),
-                    Margin = new Thickness(100, 0, 100, 20),
+                    Margin = new Thickness(100, 20, 100, 10),
                     Padding = new Thickness(0, 0, 0, 0)
                 };
                 StackLayout titreAccompagnement = new StackLayout()
@@ -513,12 +546,13 @@ namespace MyRostand.MyCantine
                     Button boutonAccompagnement = new Button
                     {
                         TextColor = Color.White,
-                        Margin = new Thickness(120, 5, 120, 5),
+                        Margin = new Thickness(120, 10, 120, 10),
+                        Padding = new Thickness(0, 10, 0, -10),
                         BackgroundColor = Color.LightGray,
                         Text = unAccompagnement.Libelle + "\n",
-                        FontSize = 10
+                        FontSize = 16
                     };
-
+                    int idaccompagnement = unAccompagnement.Id;
                     stackCardAccompagnement2.Children.Add(boutonAccompagnement);
                     string textbouton = boutonAccompagnement.Text;
                     stackCardMenu.Children.Add(stackCardAccompagnement2);
@@ -532,6 +566,7 @@ namespace MyRostand.MyCantine
                             boutonAccompagnement.BackgroundColor = Color.LightGreen;
                             boutonAccompagnement.Text = "vide";
                             boutonAccompagnement.Text = textuncheck + "✓";
+                            Database.MyCantineSQL.AjouterAccompagnement(idReservationMenu, idaccompagnement);
                         }
                         else
                         {
@@ -554,7 +589,7 @@ namespace MyRostand.MyCantine
                 {
                     CornerRadius = 10,
                     BorderColor = Color.FromHex("#27ae60"),
-                    Margin = new Thickness(100, 0, 100, 20),
+                    Margin = new Thickness(100, 20, 100, 10),
                     Padding = new Thickness(0, 0, 0, 0)
                 };
                 StackLayout titreLaitage = new StackLayout()
@@ -589,10 +624,11 @@ namespace MyRostand.MyCantine
                     Button boutonLaitage = new Button
                     {
                         TextColor = Color.White,
-                        Margin = new Thickness(120, 5, 120, 5),
+                        Margin = new Thickness(120, 10, 120, 10),
+                        Padding = new Thickness(0, 10, 0, -10),
                         BackgroundColor = Color.LightGray,
                         Text = unLaitage.Libelle + "\n",
-                        FontSize = 10
+                        FontSize = 16
 
                     };
                     string textbouton = boutonLaitage.Text;
@@ -631,7 +667,7 @@ namespace MyRostand.MyCantine
                 {
                     CornerRadius = 10,
                     BorderColor = Color.FromHex("#27ae60"),
-                    Margin = new Thickness(100, 0, 100, 20),
+                    Margin = new Thickness(100, 20, 100, 10),
                     Padding = new Thickness(0, 0, 0, 0)
                 };
                 StackLayout titreDessert = new StackLayout()
@@ -666,10 +702,11 @@ namespace MyRostand.MyCantine
                     Button boutonDessert = new Button
                     {
                         TextColor = Color.White,
-                        Margin = new Thickness(120, 5, 120, 5),
+                        Margin = new Thickness(120, 10, 120, 10),
+                        Padding = new Thickness(0, 10, 0, -10),
                         BackgroundColor = Color.LightGray,
                         Text = unDessert.Libelle + "\n",
-                        FontSize = 10
+                        FontSize = 16
                     };
 
                     stackCardDessert2.Children.Add(boutonDessert);
@@ -793,7 +830,7 @@ namespace MyRostand.MyCantine
             stackPrincipal.Children.Add(Selectionjour);
             stackPrincipal.Children.Add(barJours);
             stackPrincipal.Children.Add(VerticalScroll);
-            stackPrincipal.Children.Add(Cuisto);
+            //stackPrincipal.Children.Add(Cuisto);
             Content = stackPrincipal;
 
             ////////////////////////////////////////////////////////////////////////////////////////

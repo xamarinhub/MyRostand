@@ -25,13 +25,15 @@ namespace MyRostand
                 Padding = new Thickness(0, 40, 0, 0),
                 HorizontalOptions = LayoutOptions.CenterAndExpand
             };
+            Image LogoAccueil = new Image()
+            {
+                Source = "myrostandaccueil.jpg"
+            };
+        /*==================================================================*/
+        /*==========================MY CANTINE==============================*/
+        /*==================================================================*/
 
-            /*==================================================================*/
-            /*==========================MY CANTINE==============================*/
-            /*==================================================================*/
-
-
-            Frame frameCantine = new Frame()
+        Frame frameCantine = new Frame()
             {
                 Margin = new Thickness(40, 20, 40, 0),
                 BackgroundColor = Color.FromHex("#27ae60"),
@@ -160,13 +162,59 @@ namespace MyRostand
             blocSonnerie.Children.Add(stackTitreSonnerie);
             frameSonnerie.Content = blocSonnerie;
 
+
+            /*==================================================================*/
+            /*==========================ACCES CUISINE=============================*/
+            /*==================================================================*/
+
+            Frame frameCUISINE = new Frame()
+            {
+                Margin = new Thickness(40, 20, 40, 0),
+                BackgroundColor = Color.DarkOrchid,
+                CornerRadius = 10,
+                HasShadow = true
+            };
+            var tapCUISINE = new TapGestureRecognizer();
+            tapCUISINE.Tapped += (s, e) =>
+            {
+                //ACTION A EFFECTUER QUAND ON CLIQUE SUR LES INFOS DU TRAJET
+                Navigation.PushAsync(new ToutMenu());
+            };
+            frameCUISINE.GestureRecognizers.Add(tapCUISINE);
+
+            StackLayout blocCUISINE = new StackLayout()
+            {
+                Padding = new Thickness(15, 15, 15, 15)
+            };
+            StackLayout stackTitreCUISINE = new StackLayout()
+            {
+                Padding = new Thickness(30, 0, 30, 0)
+            };
+            StackLayout stackImageCUISINE = new StackLayout();
+            Label titreCUISINE = new Label()
+            {
+                Text = "MyCUISINE",
+                FontSize = 20
+            };
+            Image imageCUISINE = new Image()
+            {
+                Source = "mycantine.png"
+            };
+
+            stackImageCUISINE.Children.Add(imageCUISINE);
+            stackTitreCUISINE.Children.Add(titreCUISINE);
+            blocCUISINE.Children.Add(stackImageCUISINE);
+            blocCUISINE.Children.Add(stackTitreCUISINE);
+            frameCUISINE.Content = blocCUISINE;
+
             /*==================================================================*/
             /*============================CONTENT===============================*/
             /*==================================================================*/
-
+            stackPrincipal.Children.Add(LogoAccueil);
             stackPrincipal.Children.Add(frameCantine);
             stackPrincipal.Children.Add(frameCovoit);
             stackPrincipal.Children.Add(frameSonnerie);
+            stackPrincipal.Children.Add(frameCUISINE);
             Content = stackPrincipal;
         }
     }

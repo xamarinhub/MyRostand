@@ -356,6 +356,196 @@ namespace MyRostand.Database
             }
 
         }
+        public static int getIdRepas(string daterequete)
+        {
+            int idRepas = 0;
+
+            MySqlConnection cnx = MySQL.getCnx();
+            cnx.Ping();
+            string requete = "SELECT REP_ID FROM repas WHERE REP_DATE= '" + daterequete + "' ";
+            MySqlCommand cmd = new MySqlCommand(requete, cnx);
+            var reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                idRepas = reader.GetInt32(0);
+            }
+            cnx.Close();
+            return idRepas;
+
+        }
+
+        public static bool getStatutReserver(string daterequete, int idUtilisateur)
+        {
+            bool reserve = false;
+            int cpt = 0;
+
+            try
+            {
+                MySqlConnection cnx = MySQL.getCnx();
+                cnx.Ping();
+                string requete = "SELECT COUNT(res_id) FROM reservationmenu WHERE res_repas = " + getIdRepas(daterequete) + " and res_uti = " + idUtilisateur + ";";
+                MySqlCommand cmd = new MySqlCommand(requete, cnx);
+                var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    cpt = reader.GetInt32(0);
+                }
+                cnx.Close();
+            }
+            catch (MySqlException ex)
+            {
+                Console.WriteLine("Error: " + ex);
+                Console.WriteLine(ex.StackTrace);
+            }
+
+            //DEJA RESERVE
+            if (cpt > 0)
+            {
+                reserve = true;
+                return reserve;
+            }
+            else
+            {
+                return reserve;
+            }
+        }
+
+        public static int getIdReservationMenu(int idrepas)
+        {
+            int idReservationMenu = 0;
+
+            MySqlConnection cnx = MySQL.getCnx();
+            cnx.Ping();
+            string requete = "SELECT RES_ID FROM reservationmenu WHERE RES_REPAS= '" + idrepas + "' ";
+            MySqlCommand cmd = new MySqlCommand(requete, cnx);
+            var reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                idReservationMenu = reader.GetInt32(0);
+            }
+            cnx.Close();
+            return idReservationMenu;
+
+        }
+
+        public static void AjouterReservationMenu(int idrepas, int idutilisateur)
+        {
+            try
+            {
+                MySqlConnection cnx = MySQL.getCnx();
+                cnx.Ping();
+                string requete = "INSERT INTO reservationmenu VALUES (@RES_ID,@RES_REPAS,@RES_PLAT,@RES_UTI)";
+                using (MySqlCommand cmd = new MySqlCommand(requete, cnx))
+                {
+                    cmd.Parameters.AddWithValue("RES_ID", null);
+                    cmd.Parameters.AddWithValue("@RES_REPAS", idrepas);
+                    cmd.Parameters.AddWithValue("@RES_PLAT", null);
+                    cmd.Parameters.AddWithValue("@RES_UTI", idutilisateur);
+                    cmd.ExecuteNonQuery();
+                }
+
+            }
+            catch (MySqlException e)
+            {
+                Console.WriteLine("Error: " + e);
+                Console.WriteLine(e.StackTrace);
+            }
+        }
+
+        //////////////////////////
+        public static void AjouterResistance(int idrepas, int idReservationMenu, int idresistance, int idutilisateur)
+        {
+            try
+            {
+                MySqlConnection cnx = MySQL.getCnx();
+                cnx.Ping();
+                string requete = "UPDATE reservationmenu SET res_plat=@RES_PLAT where res_id=@RES_ID and res_repas=@RES_REPAS AND res_uti=@RES_UTI";
+                using (MySqlCommand cmd = new MySqlCommand(requete, cnx))
+                {
+                    cmd.Parameters.AddWithValue("@RES_ID", idReservationMenu);
+                    cmd.Parameters.AddWithValue("@RES_REPAS", idrepas);
+                    cmd.Parameters.AddWithValue("@RES_PLAT", idresistance);
+                    cmd.Parameters.AddWithValue("@RES_UTI", idutilisateur);
+                    cmd.ExecuteNonQuery();
+                }
+
+            }
+            catch (MySqlException e)
+            {
+                Console.WriteLine("Error: " + e);
+                Console.WriteLine(e.StackTrace);
+            }
+        }
+
+        //////////////////////////
+
+        public static void SupprimerResistance(int idrepas, int idReservationMenu, int idutilisateur)
+        {
+            try
+            {
+                MySqlConnection cnx = MySQL.getCnx();
+                cnx.Ping();
+                string requete = "UPDATE reservationmenu SET res_plat = NULL WHERE res_id = idReservationMenu AND res_repas = idrepas  AND res_uti = idutilisateur";
+                using (MySqlCommand cmd = new MySqlCommand(requete, cnx))
+                {
+                    cmd.ExecuteNonQuery();
+                }
+
+            }
+            catch (MySqlException e)
+            {
+                Console.WriteLine("Error: " + e);
+                Console.WriteLine(e.StackTrace);
+            }
+        }
+
+
+
+        //////////////////////////
+        public static void AjouterAccompagnement(int idReservationMenu, int idaccompagnement)
+        {
+            try
+            {
+                MySqlConnection cnx = MySQL.getCnx();
+                cnx.Ping();
+                string requete = "INSERT INTO concerner VALUES (@con_res_id,@con_accompagnement)";
+                using (MySqlCommand cmd = new MySqlCommand(requete, cnx))
+                {
+                    cmd.Parameters.AddWithValue("@con_res_id", idReservationMenu);
+                    cmd.Parameters.AddWithValue("@con_accompagnement", idaccompagnement);
+                    cmd.ExecuteNonQuery();
+                }
+
+            }
+            catch (MySqlException e)
+            {
+                Console.WriteLine("Error: " + e);
+                Console.WriteLine(e.StackTrace);
+            }
+        }
+
+        public static void SupprimerAccompagnement(int idReservationMenu, int idaccompagnement)
+        {
+            try
+            {
+                MySqlConnection cnx = MySQL.getCnx();
+                cnx.Ping();
+                string requete = "DELETE FROM concerner VALUES (@con_res_id,@con_accompagnement) WHERE @con_res_id=idReservationMenu AND @con_accompagnement=idaccompagnement";
+                using (MySqlCommand cmd = new MySqlCommand(requete, cnx))
+                {
+                    cmd.Parameters.AddWithValue("@con_res_id", idReservationMenu);
+                    cmd.Parameters.AddWithValue("@con_accompagnement", idaccompagnement);
+                    cmd.ExecuteNonQuery();
+                }
+
+            }
+            catch (MySqlException e)
+            {
+                Console.WriteLine("Error: " + e);
+                Console.WriteLine(e.StackTrace);
+            }
+        }
+
     }
 }
 
