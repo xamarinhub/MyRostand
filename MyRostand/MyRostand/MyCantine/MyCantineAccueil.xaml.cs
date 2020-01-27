@@ -25,7 +25,7 @@ namespace MyRostand.MyCantine
         Label notificationJour = new Label() { FontSize = 20 };
         Button joursEntree = new Button();
         CheckBox checkBoxAccompagnement = new CheckBox { IsChecked = true };
-        int idutilisateur = 3;
+        int idutilisateur = 1;
         bool RepasDejaReserve = false;
 
         DateTime ancienneDate = DateTime.Today;

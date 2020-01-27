@@ -14,6 +14,8 @@ namespace MyRostand.MyCantine
     {
         //ON DECLARE LES LABELS AU DEBUT POUR LES APPELER DANS L'ENSEMBLE DES FONCTIONS (ça sera utile pour la suite !)
         StackLayout menuStack = new StackLayout();
+        StackLayout menuStack2 = new StackLayout();
+        StackLayout menuStack3 = new StackLayout();
         Label jourAccompagnement = new Label() { FontSize = 20 };
 
 
@@ -21,7 +23,7 @@ namespace MyRostand.MyCantine
 
         public ModifGrammage()
         {
-            Title = "Modification des grammage de chaque accompagnements";
+            Title = "Modification des quantités de chaque famille d'accompagnements";
             StackLayout stackPrincipal = new StackLayout();
 
 
@@ -59,9 +61,53 @@ namespace MyRostand.MyCantine
                     prop2 = unAccompagnement.Gramme;
                 }
             }
-            var MyEntry = new Entry { Text = "", Placeholder = Accompagnement + " : " + prop + " g/p", ClassId = Accompagnement, Keyboard = Keyboard.Numeric };
-            var MyEntry2 = new Entry { Text = "", Placeholder = Accompagnement2 + " : " + prop2 + " g/p", ClassId = Accompagnement2, Keyboard = Keyboard.Numeric };
-            var MyEntry3 = new Entry { Text = "", Placeholder = Accompagnement3 + " : " + prop3 + " g/p", ClassId = Accompagnement3, Keyboard = Keyboard.Numeric };
+
+            StackLayout Layout1 = new StackLayout
+            {
+                Orientation = StackOrientation.Horizontal
+            };
+
+            var label1 = new Label
+            {
+                Text = Accompagnement + " : ",
+                FontSize = 20
+            };
+            var MyEntry = new Entry { Text = "", Placeholder = prop + "", ClassId = Accompagnement, Keyboard = Keyboard.Numeric };
+            var label11 = new Label
+            {
+                Text = " g/p\n",
+                FontSize = 20
+            };
+            StackLayout Layout2 = new StackLayout
+            {
+                Orientation = StackOrientation.Horizontal
+            };
+            var label2 = new Label
+            {
+                Text = Accompagnement2 + " : ",
+                FontSize = 20
+            };
+            var MyEntry2 = new Entry { Text = "", Placeholder = prop2 + "", ClassId = Accompagnement2, Keyboard = Keyboard.Numeric };
+            var label22 = new Label
+            {
+                Text = " g/p\n",
+                FontSize = 20
+            };
+            StackLayout Layout3 = new StackLayout
+            {
+                Orientation = StackOrientation.Horizontal
+            };
+            var label3 = new Label
+            {
+                Text = Accompagnement3 + " : ",
+                FontSize = 20
+            };
+            var MyEntry3 = new Entry { Text = "", Placeholder = prop3 + "", ClassId = Accompagnement3, Keyboard = Keyboard.Numeric };
+            var label33 = new Label
+            {
+                Text = " g/p\n",
+                FontSize = 20
+            };
 
 
             Button bouton = new Button()
@@ -117,7 +163,7 @@ namespace MyRostand.MyCantine
                     {
                         Database.MyCantineSQL.setUnGrammage(MyEntry2.Text, Accompagnement2);
                         Database.MyCantineSQL.setUnGrammage(MyEntry3.Text, Accompagnement3);
-                    }                  
+                    }
                     else
                     {
                         Database.MyCantineSQL.setUnGrammage(MyEntry2.Text, Accompagnement2);
@@ -131,32 +177,46 @@ namespace MyRostand.MyCantine
                         Database.MyCantineSQL.setUnGrammage(MyEntry.Text, Accompagnement);
                         Database.MyCantineSQL.setUnGrammage(MyEntry2.Text, Accompagnement2);
                         Database.MyCantineSQL.setUnGrammage(MyEntry3.Text, Accompagnement3);
-                    }               
+                    }
                     else
                     {
                         Database.MyCantineSQL.setUnGrammage(MyEntry3.Text, Accompagnement3);
                     }
-                    
+
                 }
                 await Navigation.PushAsync(new ModifGrammage());
             }
-                // Accomodate iPhone status bar.
-                this.Padding = new Thickness(10, Device.OnPlatform(20, 0, 0), 10, 5);
+            // Accomodate iPhone status bar.
+            this.Padding = new Thickness(10, Device.OnPlatform(20, 0, 0), 10, 5);
 
-                this.Content = new StackLayout
+            Layout1.Children.Add(label1);
+            Layout1.Children.Add(MyEntry);
+            Layout1.Children.Add(label11);
+            menuStack.Children.Add(Layout1);
+
+            Layout2.Children.Add(label2);
+            Layout2.Children.Add(MyEntry2);
+            Layout2.Children.Add(label22);
+            menuStack2.Children.Add(Layout2);
+
+            Layout3.Children.Add(label3);
+            Layout3.Children.Add(MyEntry3);
+            Layout3.Children.Add(label33);
+            menuStack3.Children.Add(Layout3);
+
+            this.Content = new StackLayout
+            {
+                Children =
                 {
-                    Children =
-                {
-                        MyEntry,
-                        MyEntry2,
-                        MyEntry3,
+                        menuStack,
+                        menuStack2,
+                        menuStack3,
                         bouton
                 }
-                };
+            };
 
 
 
         }
     }
 }
-        
