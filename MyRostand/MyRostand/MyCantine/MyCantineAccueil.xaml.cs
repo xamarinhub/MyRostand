@@ -24,6 +24,8 @@ namespace MyRostand.MyCantine
         Label jourDesserts = new Label() { FontSize = 20 };
         Label notificationJour = new Label() { FontSize = 20 };
         Button joursEntree = new Button();
+        Button AnnulerReservation;
+        Button Nevienspas;
         CheckBox checkBoxAccompagnement = new CheckBox { IsChecked = true };
         int idutilisateur = 3;
         bool RepasDejaReserve = false;
@@ -256,82 +258,7 @@ namespace MyRostand.MyCantine
                 //STACKLAYOUT QUI SERA LE CONTENU DE FRAMEMENU
                 StackLayout stackCardMenu = new StackLayout();
 
-                Button AnnulerReservation;
-                if (RepasDejaReserve == false)
-                {
-                    Database.MyCantineSQL.AjouterReservationMenu(idrepas, idutilisateur);
-                }
-                else
-                {
-                    string DateToday = DateTime.Today.Year + "-" + "01" + "-" + DateTime.Today.Day;
-                    if (daterequete != DateToday)
-                    {
-                        AnnulerReservation = new Button()
-                        {
-                            Text = "Annuler ma réservation",
-                            TextColor = Color.Red,
-                            FontSize = 16
-                        };
-                        stackCardMenu.Children.Add(AnnulerReservation);
-                        AnnulerReservation.Clicked += AnnulerReservation_Clicked;
-                    }
-                }
-                async void AnnulerReservation_Clicked(object senders, EventArgs ex)
-                {
-                    AnnulerReservation.Text = "Annulation de votre réservation avec succès !";
-                    AnnulerReservation.TextColor = Color.Green;
-                    AnnulerReservation.BorderColor = Color.Green;
-                    Database.MyCantineSQL.AnnulerReservationMenu(idrepas, idReservationMenu, idutilisateur);
-                    stackCardMenu.Children.Remove(AnnulerReservation);
-                }
                 menuStack.IsVisible = true;
-
-
-                /*-------------------------------------------------------*/
-                /*---------------------Notification----------------------*/
-                /*-------------------------------------------------------*/
-                StackLayout stackCardNotification = new StackLayout();
-
-                Frame frameNotification = new Frame()
-                {
-                    CornerRadius = 10,
-                    BorderColor = Color.FromHex("#27ae60"),
-                    Margin = new Thickness(100, 0, 100, 20),
-                    Padding = new Thickness(0, 0, 0, 0)
-                };
-                StackLayout titreNotification = new StackLayout()
-                {
-                    HorizontalOptions = LayoutOptions.Fill,
-                    BackgroundColor = Color.FromHex("#27ae60"),
-                    HeightRequest = 35,
-                    Padding = new Thickness(0, 10, 0, 0)
-                };
-                Label titre7 = new Label()
-                {
-                    HorizontalTextAlignment = TextAlignment.Center,
-                    VerticalTextAlignment = TextAlignment.Center,
-                    Text = "Notification",
-                    FontSize = 20,
-                    TextColor = Color.White
-                };
-
-                StackLayout descNotification = new StackLayout()
-                {
-                    Padding = new Thickness(10, 0, 10, 20)
-                };
-                Label DescNotification = new Label()
-                {
-                    Text = notificationJour.Text,
-                    FontSize = 20
-                };
-
-                descNotification.Children.Add(notificationJour);
-                titreNotification.Children.Add(titre7);
-                stackCardNotification.Children.Add(titreNotification);
-                stackCardNotification.Children.Add(descNotification);
-                frameNotification.Content = stackCardNotification;
-                //stackCardMenu.Children.Add(frameNotification);
-
 
                 /*--------------------------------------------------*/
                 /*---------------------ENTRÉES----------------------*/
@@ -754,64 +681,103 @@ namespace MyRostand.MyCantine
                     }
                 }
                 ////////////////////////////////////////////////////////////////////////////////////////
+                ///
+
+                /*-------------------------------------------------------*/
+                /*---------------------ANNULATION----------------------*/
+                /*-------------------------------------------------------*/
+                StackLayout stackCardAnnulation = new StackLayout();
+
+                Frame frameAnnulation = new Frame()
+                {
+                    CornerRadius = 10,
+                    BackgroundColor = Color.Crimson,
+                    BorderColor = Color.Crimson,
+                    Margin = new Thickness(100, 0, 100, 20),
+                    Padding = new Thickness(0, 0, 0, 0)
+                };
+                StackLayout titreAnnulation = new StackLayout()
+                {
+                    HorizontalOptions = LayoutOptions.Fill,
+                    BackgroundColor = Color.Crimson,
+                    HeightRequest = 35,
+                    Padding = new Thickness(0, 10, 0, 0)
+                };
+                Label titre7 = new Label()
+                {
+                    HorizontalTextAlignment = TextAlignment.Center,
+                    VerticalTextAlignment = TextAlignment.Center,
+                    Text = "ACTIONS",
+                    FontSize = 20,
+                    TextColor = Color.AntiqueWhite
+                };
+
+
+
+                Button AnnulerReservation;
+                Button Nevienspas;
+                if (RepasDejaReserve == false)
+                {
+                    Database.MyCantineSQL.AjouterReservationMenu(idrepas, idutilisateur);
+                }
+                else
+                {
+                    string DateToday = DateTime.Today.Year + "-" + "01" + "-" + DateTime.Today.Day;
+                    if (daterequete != DateToday)
+                    {
+                        AnnulerReservation = new Button()
+                        {
+                            Text = "Annuler ma réservation",
+                            TextColor = Color.Red,
+                            BackgroundColor = Color.LightGray,
+                            FontSize = 16
+                        };
+                        Nevienspas = new Button()
+                        {
+                            Text = "Je ne viendrais pas au self ce jour.",
+                            TextColor = Color.Red,
+                            BackgroundColor = Color.LightGray,
+                            FontSize = 16
+                        };
+                        titreAnnulation.Children.Add(titre7);
+                        stackCardAnnulation.Children.Add(titreAnnulation);
+                        frameAnnulation.Content = stackCardAnnulation;
+                        stackCardMenu.Children.Add(frameAnnulation);
+                        stackCardAnnulation.Children.Add(AnnulerReservation);
+                        stackCardAnnulation.Children.Add(Nevienspas);
+                        AnnulerReservation.Clicked += AnnulerReservation_Clicked;
+                        Nevienspas.Clicked += Nevienspas_Clicked;
+                    }
+                }
+                async void AnnulerReservation_Clicked(object senders, EventArgs ex)
+                {
+                    AnnulerReservation.Text = "Annulation de votre réservation avec succès !";
+                    AnnulerReservation.TextColor = Color.Green;
+                    AnnulerReservation.BorderColor = Color.Green;
+                    Database.MyCantineSQL.AnnulerReservationMenu(idrepas, idReservationMenu, idutilisateur);
+                    stackCardAnnulation.Children.Remove(AnnulerReservation);
+                }
+
+                async void Nevienspas_Clicked(object senders, EventArgs ex)
+                {
+                    if (Nevienspas.BackgroundColor == Color.LightGray)
+                    {
+                        Nevienspas.BackgroundColor = Color.LightGoldenrodYellow;
+                        Nevienspas.Text = "Je viendrais au self ce jour.";
+                    }
+                    else
+                    {
+                        Nevienspas.BackgroundColor = Color.LightGray;
+                        Nevienspas.Text = "Je ne viendrais pas au self ce jour.";
+                    }
+                }
+
+
                 //FRAMEMENU RECUPERE STACKCARDMENU QUI LUI MEME RECUPERE TOUTE LES CARD ET ITEMS DU MENU
                 frameMenu.Content = stackCardMenu;
 
                 //ET DONC LE CONTENU ACTUEL DE MENUSTACK EST REMPLACE PAR CE FRAMEMENU MIS A JOUR
                 menuStack.Content = frameMenu;
-
-                string day = $"{WeekenDate.DayOfWeek}";
-                notificationJour.Text = $"";
-                string TextNotificationAccomp = " Vous n'avez pas choisi l'accompagnement  du ";
-                string TextNotificationViande = " Vous n'avez pas choisi le plat de résistance du ";
-                string TextNotificationWeekend = " N'oubliez pas de saisir vos futur repas  ";
-
-                if (day == "Sunday")
-                {
-                    if (ViandeC != 0 && AccompC != 0)
-                    {
-                        notificationJour.IsVisible = false;
-                    }
-                    else if (ViandeC != 0 && AccompC == 0)
-                    {
-                        notificationJour.IsVisible = true;
-                        notificationJour.Text = TextNotificationAccomp + " " + datecount;
-                    }
-                    else if (ViandeC == 0 && AccompC != 0)
-                    {
-                        notificationJour.IsVisible = true;
-                        notificationJour.Text = TextNotificationViande + " " + datecount;
-                    }
-                    else if (ViandeCWE == 0 && AccompCWE == 0)
-                    {
-                        notificationJour.IsVisible = true;
-                        notificationJour.Text = TextNotificationWeekend;
-                    }
-                    else
-                    {
-                        notificationJour.IsVisible = false;
-                    }
-                }
-                else if (ViandeC == 0 && AccompC == 0)
-                {
-                    notificationJour.IsVisible = true;
-                    notificationJour.Text = TextNotificationWeekend;
-                }
-                else if (ViandeC != 0 && AccompC == 0)
-                {
-                    notificationJour.IsVisible = true;
-                    notificationJour.Text = TextNotificationAccomp + " " + datecount;
-                }
-                else if (ViandeC == 0 && AccompC != 0)
-                {
-                    notificationJour.IsVisible = true;
-                    notificationJour.Text = TextNotificationViande + " " + datecount;
-                }
-                else
-                {
-                    notificationJour.IsVisible = false;
-                }
-
             }
 
             /*==================================================*/
@@ -829,29 +795,11 @@ namespace MyRostand.MyCantine
                 TextColor = Color.White
             };
 
-            ///////////////////////////////////////////////////////////////////////////////////////
-            Button Cuisto = new Button()
-            {
-                BackgroundColor = Color.Red,
-                Margin = new Thickness(120, 10, 120, 0),
-                Text = "Accès Cuisinier",
-                FontSize = 20,
-                TextColor = Color.White
-            };
-
-            Cuisto.Clicked += Cuisto_Clicked;
-
-            async void Cuisto_Clicked(object sender, EventArgs e)
-            {
-                await Navigation.PushAsync(new ToutMenu());
-            }
-
             //////////////////////////////////////////////////////////////////////////////////
 
             stackPrincipal.Children.Add(Selectionjour);
             stackPrincipal.Children.Add(barJours);
             stackPrincipal.Children.Add(VerticalScroll);
-            //stackPrincipal.Children.Add(Cuisto);
             Content = stackPrincipal;
 
             ////////////////////////////////////////////////////////////////////////////////////////
