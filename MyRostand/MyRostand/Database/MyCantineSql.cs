@@ -452,6 +452,25 @@ namespace MyRostand.Database
             }
         }
 
+        public static void AnnulerReservationMenu(int idrepas, int idReservationMenu, int idutilisateur)
+        {
+            try
+            {
+                MySqlConnection cnx = MySQL.getCnx();
+                cnx.Ping();
+                string requete = "DELETE FROM reservationmenu WHERE res_id = idMenuReservation AND res_repas = idrepas AND res_uti = idutilisateur";
+                using (MySqlCommand cmd = new MySqlCommand(requete, cnx))
+                {
+                    cmd.ExecuteNonQuery();
+                }
+
+            }
+            catch (MySqlException e)
+            {
+                Console.WriteLine("Error: " + e);
+                Console.WriteLine(e.StackTrace);
+            }
+        }
         //////////////////////////
         public static void AjouterResistance(int idrepas, int idReservationMenu, int idresistance, int idutilisateur)
         {
@@ -545,6 +564,11 @@ namespace MyRostand.Database
                 Console.WriteLine(e.StackTrace);
             }
         }
+
+
+
+
+
 
     }
 }

@@ -249,6 +249,13 @@ namespace MyRostand.MyCantine
                 int idrepas = Database.MyCantineSQL.getIdRepas(daterequete);
                 int idReservationMenu = Database.MyCantineSQL.getIdReservationMenu(idrepas);
                 bool RepasDejaReserve =  Database.MyCantineSQL.getStatutReserver(daterequete, idutilisateur);
+
+                //FRAME PRINCIPAL QUI RECUPERE TOUTE LES CARDS
+                Frame frameMenu = new Frame();
+
+                //STACKLAYOUT QUI SERA LE CONTENU DE FRAMEMENU
+                StackLayout stackCardMenu = new StackLayout();
+
                 Button AnnulerReservation;
                 if (RepasDejaReserve == false)
                 {
@@ -262,18 +269,20 @@ namespace MyRostand.MyCantine
                         TextColor = Color.Red,
                         FontSize = 16
                     };
+                    stackCardMenu.Children.Add(AnnulerReservation);
+                    AnnulerReservation.Clicked += AnnulerReservation_Clicked;
 
-                        stackPrincipal.Children.Add(AnnulerReservation);
                 }
-
+                async void AnnulerReservation_Clicked(object senders, EventArgs ex)
+                {
+                    AnnulerReservation.Text = "Annulation de votre réservation avec succès !";
+                    AnnulerReservation.TextColor = Color.Green;
+                    AnnulerReservation.BorderColor = Color.Green;
+                    Database.MyCantineSQL.AnnulerReservationMenu(idrepas, idReservationMenu, idutilisateur);
+                    stackCardMenu.Children.Remove(AnnulerReservation);
+                }
                 menuStack.IsVisible = true;
 
-
-                //FRAME PRINCIPAL QUI RECUPERE TOUTE LES CARDS
-                Frame frameMenu = new Frame();
-
-                //STACKLAYOUT QUI SERA LE CONTENU DE FRAMEMENU
-                StackLayout stackCardMenu = new StackLayout();
 
                 /*-------------------------------------------------------*/
                 /*---------------------Notification----------------------*/
