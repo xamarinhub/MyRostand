@@ -263,15 +263,18 @@ namespace MyRostand.MyCantine
                 }
                 else
                 {
-                    AnnulerReservation = new Button()
+                    string DateToday = DateTime.Today.Year + "-" + "01" + "-" + DateTime.Today.Day;
+                    if (daterequete != DateToday)
                     {
-                        Text = "Annuler ma réservation",
-                        TextColor = Color.Red,
-                        FontSize = 16
-                    };
-                    stackCardMenu.Children.Add(AnnulerReservation);
-                    AnnulerReservation.Clicked += AnnulerReservation_Clicked;
-
+                        AnnulerReservation = new Button()
+                        {
+                            Text = "Annuler ma réservation",
+                            TextColor = Color.Red,
+                            FontSize = 16
+                        };
+                        stackCardMenu.Children.Add(AnnulerReservation);
+                        AnnulerReservation.Clicked += AnnulerReservation_Clicked;
+                    }
                 }
                 async void AnnulerReservation_Clicked(object senders, EventArgs ex)
                 {
@@ -575,7 +578,11 @@ namespace MyRostand.MyCantine
                             boutonAccompagnement.BackgroundColor = Color.LightGreen;
                             boutonAccompagnement.Text = "vide";
                             boutonAccompagnement.Text = textuncheck + "✓";
-                            Database.MyCantineSQL.AjouterAccompagnement(idReservationMenu, idaccompagnement);
+                            string DateToday = DateTime.Today.Year + "-" + nummois + "-" + DateTime.Today.Day;
+                            if (daterequete != DateToday)
+                            {
+                                Database.MyCantineSQL.AjouterAccompagnement(idReservationMenu, idaccompagnement);
+                            }
                         }
                         else
                         {
@@ -583,6 +590,11 @@ namespace MyRostand.MyCantine
                             boutonAccompagnement.BackgroundColor = Color.LightGray;
                             boutonAccompagnement.Text = "vide2";
                             boutonAccompagnement.Text = textchecked + "";
+                            string DateToday = DateTime.Today.Year + "-" + nummois + "-" + DateTime.Today.Day;
+                            if (daterequete != DateToday)
+                            {
+                                Database.MyCantineSQL.SupprimerAccompagnement(idReservationMenu, idaccompagnement);
+                            }
                         }
                     }
                 }
