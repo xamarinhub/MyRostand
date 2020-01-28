@@ -61,7 +61,10 @@ namespace MyRostand.MyCantine
             {
                 Orientation = StackOrientation.Horizontal
             };
-
+            Image LogoAccueil = new Image()
+            {
+                Source = ""
+            };
 
             string numjour;
             string nummois;
@@ -243,6 +246,7 @@ namespace MyRostand.MyCantine
             VerticalScroll.Content = menuStack;
             async void Bouton_Clicked(object sender, EventArgs e)
             {
+                LogoAccueil.IsVisible = false;
                 //cette variable sert à récupérer le jour en question, et afficher les menus correspondants
                 string jourcomplet = ((Button)sender).Text;
                 string daterequete = ((Button)sender).StyleId;
@@ -803,6 +807,7 @@ namespace MyRostand.MyCantine
 
             stackPrincipal.Children.Add(Selectionjour);
             stackPrincipal.Children.Add(barJours);
+            stackPrincipal.Children.Add(LogoAccueil);
             stackPrincipal.Children.Add(VerticalScroll);
             Content = stackPrincipal;
 
