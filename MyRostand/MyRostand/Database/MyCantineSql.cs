@@ -562,6 +562,36 @@ namespace MyRostand.Database
                 Console.WriteLine(e.StackTrace);
             }
         }
+  //////////////////////////////////////////////////////////////////REQUÊTE AFIN DE UPDATE UN ELEVE NON PRESENT////////////////////////////
+        public static List<Present> getToutEleveS(string daterequete)
+        {
+            List<Present> ToutEleveS = new List<Present>();
+
+            try
+            {
+                MySqlConnection cnx = MySQL.getCnx();
+                cnx.Ping();
+                string requete = "SELECT COUNT(rpr_id) FROM repaspresence, repas WHERE rpr_repas = REP_ID AND REP_DATE = '" + daterequete + "'";
+                MySqlCommand cmd = new MySqlCommand(requete, cnx);
+                var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    Present LeEleve = new Present();
+                    LeEleve.Uti = reader.GetInt32(0);
+                    ToutEleveS.Add(LeEleve);
+                }
+                cnx.Close();
+                return ToutEleveS;
+            }
+            catch (MySqlException ex)
+            {
+                Present erreurSQL = new Present();
+                erreurSQL.Description = (ex.ToString());
+                ToutEleveS.Add(erreurSQL);
+                return ToutEleveS;
+            }
+
+        }
     }
 }
 

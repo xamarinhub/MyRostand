@@ -14,6 +14,7 @@ namespace MyRostand.MyCantine
         Label jourChoisi = new Label() { FontSize = 20 };
         Label toutesresistances = new Label() { FontSize = 20 };
         Label jourAccompagnement = new Label() { FontSize = 20 };
+        Label eleveabsent = new Label() { FontSize = 20 };
 
         DateTime ancienneDate = DateTime.Today;
 
@@ -277,10 +278,56 @@ namespace MyRostand.MyCantine
             stackCardAccompagnement.Children.Add(descAccompagnement);
             frameAccompagnement.Content = stackCardAccompagnement;
 
+            /*--------------------------------------------------*/
+            /*---------------------PRESENCE---------------*/
+            /*--------------------------------------------------*/
+
+            StackLayout stackCardPrensence = new StackLayout();
+
+            Frame framePresence = new Frame()
+            {
+                CornerRadius = 10,
+                BorderColor = Color.FromHex("#27ae60"),
+                Margin = new Thickness(100, 0, 100, 20),
+                Padding = new Thickness(0, 0, 0, 0)
+            };
+            StackLayout titrePresence = new StackLayout()
+            {
+                HorizontalOptions = LayoutOptions.Fill,
+                BackgroundColor = Color.FromHex("#27ae60"),
+                HeightRequest = 35,
+                Padding = new Thickness(0, 10, 0, 0)
+            };
+            Label titreP = new Label()
+            {
+                HorizontalTextAlignment = TextAlignment.Center,
+                VerticalTextAlignment = TextAlignment.Center,
+                Text = "Nombres d'Eleves Absents",
+                FontSize = 20,
+                TextColor = Color.White
+            };
+
+            StackLayout descPresence = new StackLayout()
+            {
+                Padding = new Thickness(10, 0, 10, 20)
+            };
+            Label DescPresence = new Label()
+            {
+                Text = jourAccompagnement.Text,
+                FontSize = 20
+            };
+
+            descPresence.Children.Add(eleveabsent);
+            titrePresence.Children.Add(titreP);
+            stackCardPrensence.Children.Add(titrePresence);
+            stackCardPrensence.Children.Add(descPresence);
+            framePresence.Content = stackCardPrensence;
+
             /*------------------------------------------*/
 
             menuStack.Children.Add(frameToutesresistances);
             menuStack.Children.Add(frameAccompagnement);
+            menuStack.Children.Add(framePresence);
 
             Button Cuisto = new Button()
             {
@@ -430,6 +477,15 @@ namespace MyRostand.MyCantine
                     jourAccompagnement.Text += unAccompagnement.Libelle + " soit " + a * prop + ", \n";
                 }
             }
+            ///////////////////////////////////////////////////////////////Fonction Afficher tout les Absents////////////////////////////////////////////////
+            eleveabsent.Text = $"";
+            List<Present> LesAbsents = Database.MyCantineSQL.getToutEleveS(daterequete);
+            for (int i = 0; i < LesAbsents.Count; i++)
+            {
+                Present unAbsent = LesAbsents[i];
+                eleveabsent.Text = unAbsent.Uti + "";
+            }
+
 
         }
         ///////////////////////////////////////////////////////////////////Fin des Algorithmes//////////////////////////////////////////////////
