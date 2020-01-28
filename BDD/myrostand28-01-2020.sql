@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost
--- Généré le :  Mer 08 Janvier 2020 à 15:36
+-- Généré le :  Mar 28 Janvier 2020 à 10:02
 -- Version du serveur :  5.5.62-0+deb8u1
 -- Version de PHP :  5.6.40-0+deb8u1
 
@@ -29,30 +29,48 @@ SET time_zone = "+00:00";
 CREATE TABLE IF NOT EXISTS `accompagnement` (
   `ACC_ID` int(11) NOT NULL,
   `ACC_LIBELLE` char(50) DEFAULT NULL,
-  `ACC_DESCRIPTION` char(250) DEFAULT NULL
+  `ACC_DESCRIPTION` char(250) DEFAULT NULL,
+  `ACC_TYPE` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `accompagnement`
 --
 
-INSERT INTO `accompagnement` (`ACC_ID`, `ACC_LIBELLE`, `ACC_DESCRIPTION`) VALUES
-(1, 'salade verte', 'salade'),
-(2, 'légumes du moment', NULL),
-(3, 'laitage nature', NULL),
-(4, 'camembert pt lévèque emmental', NULL),
-(5, 'riz', NULL),
-(6, 'courgettes aux herbes', NULL),
-(7, 'mimolette coulommiers', NULL),
-(8, 'petits pois', NULL),
-(9, 'carottes étuvées', NULL),
-(10, 'comté brie', NULL),
-(11, 'pépinettes', NULL),
-(12, 'gratin de légumes', NULL),
-(13, 'chèvre camembert', NULL),
-(14, 'choucroute', NULL),
-(15, 'pomme vapeur', NULL),
-(16, 'camembert pont l''évèque', NULL);
+INSERT INTO `accompagnement` (`ACC_ID`, `ACC_LIBELLE`, `ACC_DESCRIPTION`, `ACC_TYPE`) VALUES
+(1, 'riz', 'riz', 1),
+(2, 'orge', 'orge', 1),
+(3, 'couscous', 'couscous', 1),
+(4, 'quinoa', 'quinoa', 1),
+(5, 'courges', 'courges', 2),
+(6, 'maïs', 'maïs', 2),
+(7, 'patates douces', 'patates douces', 2),
+(8, 'pois verts', 'pois verts', 2),
+(9, 'haricots', 'haricots', 3),
+(10, 'lentilles', 'lentilles', 3),
+(11, 'pois chiches', 'pois chiches', 3),
+(12, 'Soja', 'soja', 3);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `accompagnementtype`
+--
+
+CREATE TABLE IF NOT EXISTS `accompagnementtype` (
+  `AT_ID` int(11) NOT NULL,
+  `AT_LIBELLE` varchar(20) NOT NULL,
+  `AT_POIDS` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Contenu de la table `accompagnementtype`
+--
+
+INSERT INTO `accompagnementtype` (`AT_ID`, `AT_LIBELLE`, `AT_POIDS`) VALUES
+(1, 'Féculents', 155),
+(2, 'Légumes', 202),
+(3, 'Légumineuses', 146);
 
 -- --------------------------------------------------------
 
@@ -101,29 +119,6 @@ INSERT INTO `avis` (`AVI_ID`, `AVI_UTILISATEUR`, `AVI_NOTE`, `AVI_COMMENTAIRE`) 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `choisir`
---
-
-CREATE TABLE IF NOT EXISTS `choisir` (
-`cho_id` int(11) NOT NULL,
-  `cho_repas` int(11) DEFAULT NULL,
-  `cho_plat` int(11) DEFAULT NULL,
-  `cho_acc1` int(11) DEFAULT NULL,
-  `cho_acc2` int(11) DEFAULT NULL,
-  `cho_uti` int(11) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
-
---
--- Contenu de la table `choisir`
---
-
-INSERT INTO `choisir` (`cho_id`, `cho_repas`, `cho_plat`, `cho_acc1`, `cho_acc2`, `cho_uti`) VALUES
-(1, 1, 1, 1, 2, 2),
-(2, 1, 1, 1, 2, 1);
-
--- --------------------------------------------------------
-
---
 -- Structure de la table `classe`
 --
 
@@ -131,6 +126,25 @@ CREATE TABLE IF NOT EXISTS `classe` (
   `CLA_ID` int(11) NOT NULL,
   `CLA_LIBELLE` char(150) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `concerner`
+--
+
+CREATE TABLE IF NOT EXISTS `concerner` (
+  `con_res_id` int(11) NOT NULL DEFAULT '0',
+  `con_accompagnement` int(11) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Contenu de la table `concerner`
+--
+
+INSERT INTO `concerner` (`con_res_id`, `con_accompagnement`) VALUES
+(27, 4),
+(27, 7);
 
 -- --------------------------------------------------------
 
@@ -226,19 +240,19 @@ CREATE TABLE IF NOT EXISTS `dessert` (
 --
 
 INSERT INTO `dessert` (`DES_ID`, `DES_LIBELLE`, `DES_DESCRIPTION`) VALUES
-(1, 'desserts lactés en pot', NULL),
-(2, 'fromage blanc', NULL),
-(3, 'coupe de fruits frais', NULL),
-(4, 'riz au lait', NULL),
-(5, 'crème dessert chocolat', NULL),
-(6, 'forêt noire', NULL),
-(7, 'abricots au sirop', NULL),
-(8, 'Fruits de saison', NULL),
-(9, 'mousse chocolat', NULL),
-(10, 'tarte Bourdaloue', NULL),
-(11, 'panna cotta', NULL),
-(12, 'compote', NULL),
-(13, 'flan patissier', NULL);
+(1, 'Desserts lactés en pot', 'Lactés'),
+(2, 'Fromage blanc', 'Fromage Blanc'),
+(3, 'Coupe de fruits frais', 'Coupe de fruits frais'),
+(4, 'Riz au lait', 'Riz au lait'),
+(5, 'Crème dessert chocolat', 'Crème dessert Chocolat'),
+(6, 'Forêt noire', 'Forêt noire'),
+(7, 'Abricots au sirop', 'Abricots au sirop'),
+(8, 'Fruits de saison', 'Fruits de saison'),
+(9, 'Mousse chocolat', 'Mousse chocolat'),
+(10, 'Tarte Bourdaloue', 'Tarte Bourdaloue'),
+(11, 'Panna cotta', 'Panna cotta'),
+(12, 'Compote', 'Compote'),
+(13, 'Flan patissier', 'Flan patissier');
 
 -- --------------------------------------------------------
 
@@ -268,16 +282,16 @@ CREATE TABLE IF NOT EXISTS `entree` (
 --
 
 INSERT INTO `entree` (`ENT_ID`, `ENT_LIBELLE`, `ENT_DESCRIPTION`) VALUES
-(1, 'wraps', 'wraps desc'),
-(2, 'betteraves rapées', 'betteraves desc'),
-(3, 'salade de pâtes au saumon', NULL),
-(4, 'carottes à l''orange', NULL),
-(5, 'terrine de poisson', NULL),
-(6, 'salade de crudités', NULL),
-(7, 'salade cesar', NULL),
-(8, 'surimi mayonnaise', NULL),
-(9, 'gougère maison', NULL),
-(10, 'salade d''endives', NULL);
+(1, 'Wrap', 'Wraps desc'),
+(2, 'Betteraves rapées', 'Betteraves desc'),
+(3, 'Salade de pâtes au saumon', 'Pates saumon desc'),
+(4, 'Carottes à l''orange', 'Carottes desc'),
+(5, 'Terrine de poisson', 'Terrine poission desc'),
+(6, 'Salade de crudités', 'Salade Crudités desc'),
+(7, 'Salade cesar', 'Salade Cesar desc'),
+(8, 'Surimi mayonnaise', 'Surimi mayo desc'),
+(9, 'Gougère maison', 'Gougère desc'),
+(10, 'Salade d''endives', 'Endives desc');
 
 -- --------------------------------------------------------
 
@@ -317,9 +331,9 @@ CREATE TABLE IF NOT EXISTS `laitage` (
 --
 
 INSERT INTO `laitage` (`LAI_ID`, `LAI_LIBELLE`, `LAI_DESCRIPTION`) VALUES
-(1, 'Yaourts', 'yaourts desc'),
-(2, 'Fromages à pâte filée', 'Fromages à pâte filée desc'),
-(3, 'Fromages à pâte molle à croute naturelle', 'Fromages à pâte molle à croute naturelle desc');
+(1, 'Yaourts', 'Yaourts desc'),
+(2, 'Camembert', 'Camembert desc'),
+(3, 'Brie', 'Brie desc');
 
 -- --------------------------------------------------------
 
@@ -433,11 +447,68 @@ CREATE TABLE IF NOT EXISTS `repas` (
 --
 
 INSERT INTO `repas` (`REP_ID`, `REP_DATE`) VALUES
-(1, '2020-01-09'),
-(2, '2019-11-26'),
-(3, '2019-11-27'),
-(4, '2019-11-28'),
-(5, '2019-12-10');
+(0, '2020-01-14'),
+(1, '2020-01-17'),
+(2, '2020-01-20'),
+(3, '2020-01-21'),
+(4, '2020-01-22'),
+(5, '2020-01-23'),
+(6, '2020-01-24'),
+(7, '2020-01-27'),
+(8, '2020-01-28'),
+(9, '2020-01-29'),
+(10, '2020-01-30'),
+(11, '2020-01-31'),
+(12, '2020-02-03'),
+(13, '2020-02-04'),
+(14, '2020-02-05'),
+(15, '2020-02-06'),
+(16, '2020-02-07'),
+(17, '2020-02-10'),
+(18, '2020-02-11'),
+(19, '2020-02-12'),
+(20, '2020-02-13'),
+(21, '2020-02-14'),
+(22, '2020-02-17'),
+(23, '2020-02-18'),
+(24, '2020-02-19'),
+(25, '2020-02-20'),
+(26, '2020-02-21'),
+(27, '2020-02-24'),
+(28, '2020-02-25'),
+(29, '2020-02-26'),
+(30, '2020-02-27'),
+(31, '2020-02-28'),
+(32, '2020-03-02'),
+(33, '2020-03-03'),
+(34, '2020-03-04'),
+(35, '2020-03-05'),
+(36, '2020-03-06'),
+(37, '2020-03-09'),
+(38, '2020-03-10'),
+(39, '2020-03-11'),
+(40, '2020-03-12'),
+(41, '2020-03-13'),
+(42, '2020-03-16'),
+(43, '2020-03-17'),
+(44, '2020-03-18'),
+(45, '2020-03-19'),
+(46, '2020-03-20'),
+(47, '2020-03-23'),
+(48, '2020-03-24'),
+(49, '2020-03-25'),
+(50, '2020-03-26'),
+(51, '2020-03-27'),
+(52, '2020-03-30'),
+(53, '2020-03-31'),
+(54, '2020-04-01'),
+(55, '2020-04-02'),
+(56, '2020-04-03'),
+(57, '2020-04-06'),
+(58, '2020-04-07'),
+(59, '2020-04-08'),
+(60, '2020-04-09'),
+(61, '2020-04-10');
 
 -- --------------------------------------------------------
 
@@ -447,16 +518,37 @@ INSERT INTO `repas` (`REP_ID`, `REP_DATE`) VALUES
 
 CREATE TABLE IF NOT EXISTS `repasaccompagnement` (
   `RA_REPAS` int(11) NOT NULL,
-  `RA_ACCOMPAGNEMENT` int(11) NOT NULL,
-  `RA_UTILISATEUR` int(11) NOT NULL
+  `RA_ACCOMPAGNEMENT` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `repasaccompagnement`
 --
 
-INSERT INTO `repasaccompagnement` (`RA_REPAS`, `RA_ACCOMPAGNEMENT`, `RA_UTILISATEUR`) VALUES
-(1, 1, 1);
+INSERT INTO `repasaccompagnement` (`RA_REPAS`, `RA_ACCOMPAGNEMENT`) VALUES
+(1, 1),
+(6, 1),
+(13, 1),
+(1, 2),
+(9, 2),
+(12, 2),
+(13, 3),
+(7, 4),
+(8, 4),
+(6, 5),
+(9, 5),
+(12, 6),
+(7, 7),
+(8, 7),
+(9, 7),
+(6, 8),
+(12, 8),
+(7, 9),
+(12, 9),
+(13, 10),
+(6, 11),
+(13, 11),
+(12, 12);
 
 -- --------------------------------------------------------
 
@@ -465,31 +557,17 @@ INSERT INTO `repasaccompagnement` (`RA_REPAS`, `RA_ACCOMPAGNEMENT`, `RA_UTILISAT
 --
 
 CREATE TABLE IF NOT EXISTS `repasdessert` (
-  `RD_DESSERT` int(11) NOT NULL,
-  `RD_REPAS` int(11) NOT NULL
+  `RD_REPAS` int(11) NOT NULL,
+  `RD_DESSERT` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `repasdessert`
 --
 
-INSERT INTO `repasdessert` (`RD_DESSERT`, `RD_REPAS`) VALUES
-(1, 1),
-(1, 2),
-(1, 3),
-(1, 4),
-(1, 5),
-(2, 1),
-(2, 2),
-(2, 3),
-(2, 4),
-(2, 5),
-(3, 1),
-(3, 3),
-(3, 4),
-(3, 5),
-(4, 1),
-(5, 1);
+INSERT INTO `repasdessert` (`RD_REPAS`, `RD_DESSERT`) VALUES
+(8, 9),
+(8, 13);
 
 -- --------------------------------------------------------
 
@@ -498,20 +576,29 @@ INSERT INTO `repasdessert` (`RD_DESSERT`, `RD_REPAS`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `repasentree` (
-  `RE_ENTREE` int(11) NOT NULL,
-  `RE_REPAS` int(11) NOT NULL
+  `RE_REPAS` int(11) NOT NULL,
+  `RE_ENTREE` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `repasentree`
 --
 
-INSERT INTO `repasentree` (`RE_ENTREE`, `RE_REPAS`) VALUES
+INSERT INTO `repasentree` (`RE_REPAS`, `RE_ENTREE`) VALUES
 (1, 1),
-(2, 1),
-(3, 2),
-(4, 2),
-(5, 3);
+(1, 2),
+(7, 2),
+(2, 3),
+(7, 3),
+(2, 4),
+(5, 4),
+(9, 4),
+(3, 5),
+(5, 5),
+(7, 6),
+(16, 7),
+(6, 8),
+(9, 8);
 
 -- --------------------------------------------------------
 
@@ -520,16 +607,38 @@ INSERT INTO `repasentree` (`RE_ENTREE`, `RE_REPAS`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `repaslaitage` (
-  `RL_LAITAGE` int(11) NOT NULL,
-  `RL_REPAS` int(11) NOT NULL
+  `RL_REPAS` int(11) NOT NULL,
+  `RL_LAITAGE` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `repaslaitage`
 --
 
-INSERT INTO `repaslaitage` (`RL_LAITAGE`, `RL_REPAS`) VALUES
-(1, 1);
+INSERT INTO `repaslaitage` (`RL_REPAS`, `RL_LAITAGE`) VALUES
+(1, 1),
+(5, 1),
+(9, 1),
+(2, 2),
+(5, 2),
+(7, 2),
+(9, 2),
+(2, 3),
+(5, 3),
+(6, 3),
+(7, 3);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `repaspresence`
+--
+
+CREATE TABLE IF NOT EXISTS `repaspresence` (
+  `rpr_id` int(11) NOT NULL,
+  `rpr_repas` int(11) NOT NULL,
+  `rpr_uti` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -539,18 +648,57 @@ INSERT INTO `repaslaitage` (`RL_LAITAGE`, `RL_REPAS`) VALUES
 
 CREATE TABLE IF NOT EXISTS `repasresistance` (
   `RR_REPAS` int(11) NOT NULL,
-  `RR_RESISTANCE` int(11) NOT NULL,
-  `RR_UTILISATEUR` int(11) NOT NULL
+  `RR_RESISTANCE` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `repasresistance`
 --
 
-INSERT INTO `repasresistance` (`RR_REPAS`, `RR_RESISTANCE`, `RR_UTILISATEUR`) VALUES
-(5, 5, 1),
-(5, 5, 2),
-(5, 8, 3);
+INSERT INTO `repasresistance` (`RR_REPAS`, `RR_RESISTANCE`) VALUES
+(6, 1),
+(1, 2),
+(8, 2),
+(9, 2),
+(1, 3),
+(6, 3),
+(12, 4),
+(9, 5),
+(6, 6),
+(7, 6),
+(12, 7),
+(6, 8),
+(7, 8),
+(8, 9);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `reservationmenu`
+--
+
+CREATE TABLE IF NOT EXISTS `reservationmenu` (
+`res_id` int(11) NOT NULL,
+  `res_repas` int(11) NOT NULL DEFAULT '0',
+  `res_plat` int(11) DEFAULT NULL,
+  `res_uti` int(11) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8;
+
+--
+-- Contenu de la table `reservationmenu`
+--
+
+INSERT INTO `reservationmenu` (`res_id`, `res_repas`, `res_plat`, `res_uti`) VALUES
+(7, 1, 1, 3),
+(26, 1, 6, 3),
+(27, 8, 9, 3),
+(28, 7, 5, 1),
+(29, 7, 5, 2),
+(51, 12, 7, 3),
+(52, 9, 2, 3),
+(61, 13, NULL, 3),
+(62, 13, NULL, 1),
+(63, 8, 5, 1);
 
 -- --------------------------------------------------------
 
@@ -595,15 +743,15 @@ CREATE TABLE IF NOT EXISTS `resistance` (
 --
 
 INSERT INTO `resistance` (`RES_ID`, `RES_LIBELLE`, `RES_DESCRIPTION`) VALUES
-(1, 'tartiflette maison', 'tarti desc'),
-(2, 'poisson du jour', 'Du poisson'),
-(3, 'chili végétarien', NULL),
-(4, 'omelette', 'c bon'),
-(5, 'cordon bleus de dinde', 'C pas du poisson'),
-(6, 'filet mignon au caramel', NULL),
-(7, 'steak de poulet à la plancha', NULL),
-(8, 'saucisse et lard', 'Une saucisse entourée d''une tranche de lard'),
-(9, 'poisson beurre blanc', NULL);
+(1, 'Tartiflette maison', 'Tartiflette desc'),
+(2, 'Poisson du jour', 'Cabillaud, Colin ou Julienne'),
+(3, 'Chili végétarien', 'Viande remplacée par des lentilles'),
+(4, 'Omelette', 'Omelette desc'),
+(5, 'Cordon bleu de dinde', 'Cordon bleu classique'),
+(6, 'Filet mignon au caramel', 'Pièce de viande accompagnée d''une sauce caramelisée'),
+(7, 'Steak de poulet à la plancha', 'Poulet fermier'),
+(8, 'Saucisse et lard', 'Une saucisse entourée d''une tranche de lard'),
+(9, 'Poisson beurre blanc', 'Cabillaud avec sauce au beurre blanc');
 
 -- --------------------------------------------------------
 
@@ -632,12 +780,20 @@ INSERT INTO `role` (`ROL_ID`, `ROL_LIBELLE`) VALUES
 
 CREATE TABLE IF NOT EXISTS `sondage` (
   `SON_ID` int(11) NOT NULL,
+  `SON_TITRE` varchar(10) NOT NULL,
   `SON_MUSIQUEUN` char(100) DEFAULT NULL,
   `SON_MUSIQUEDEUX` char(100) DEFAULT NULL,
   `SON_MUSIQUETROIS` char(100) DEFAULT NULL,
   `SON_MUSIQUEQUATRE` char(100) DEFAULT NULL,
-  `SON_DATE` date DEFAULT NULL
+  `SON_DATE` int(2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Contenu de la table `sondage`
+--
+
+INSERT INTO `sondage` (`SON_ID`, `SON_TITRE`, `SON_MUSIQUEUN`, `SON_MUSIQUEDEUX`, `SON_MUSIQUETROIS`, `SON_MUSIQUEQUATRE`, `SON_DATE`) VALUES
+(1, '', 'TOTO - AFRICA', 'LAKEY INSPIRED - Arcade', 'Post Malone - Circles', 'Guns N'' Roses - Welcome To The Jungle', 5);
 
 -- --------------------------------------------------------
 
@@ -736,6 +892,13 @@ CREATE TABLE IF NOT EXISTS `voter` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
+-- Contenu de la table `voter`
+--
+
+INSERT INTO `voter` (`VOT_UTILISATEUR`, `VOT_SONDAGE`, `VOT_MUSIQUE`) VALUES
+(2, 1, 'Post Malone - Circles');
+
+--
 -- Index pour les tables exportées
 --
 
@@ -743,7 +906,13 @@ CREATE TABLE IF NOT EXISTS `voter` (
 -- Index pour la table `accompagnement`
 --
 ALTER TABLE `accompagnement`
- ADD PRIMARY KEY (`ACC_ID`);
+ ADD PRIMARY KEY (`ACC_ID`), ADD KEY `fk_accomp_type` (`ACC_TYPE`);
+
+--
+-- Index pour la table `accompagnementtype`
+--
+ALTER TABLE `accompagnementtype`
+ ADD PRIMARY KEY (`AT_ID`);
 
 --
 -- Index pour la table `administratif`
@@ -764,16 +933,16 @@ ALTER TABLE `avis`
  ADD PRIMARY KEY (`AVI_ID`), ADD KEY `I_FK_AVIS_UTILISATEUR` (`AVI_UTILISATEUR`);
 
 --
--- Index pour la table `choisir`
---
-ALTER TABLE `choisir`
- ADD PRIMARY KEY (`cho_id`);
-
---
 -- Index pour la table `classe`
 --
 ALTER TABLE `classe`
  ADD PRIMARY KEY (`CLA_ID`);
+
+--
+-- Index pour la table `concerner`
+--
+ALTER TABLE `concerner`
+ ADD PRIMARY KEY (`con_res_id`,`con_accompagnement`), ADD KEY `con_accompagnement` (`con_accompagnement`);
 
 --
 -- Index pour la table `conducteur`
@@ -881,7 +1050,7 @@ ALTER TABLE `repas`
 -- Index pour la table `repasaccompagnement`
 --
 ALTER TABLE `repasaccompagnement`
- ADD PRIMARY KEY (`RA_REPAS`,`RA_ACCOMPAGNEMENT`,`RA_UTILISATEUR`), ADD KEY `I_FK_REPASACCOMPAGNEMENT_ACCOMPAGNEMENT` (`RA_REPAS`), ADD KEY `I_FK_REPASACCOMPAGNEMENT_REPAS` (`RA_ACCOMPAGNEMENT`), ADD KEY `I_FK_REPASACCOMPAGNEMENT_UTILISATEUR` (`RA_UTILISATEUR`);
+ ADD PRIMARY KEY (`RA_REPAS`,`RA_ACCOMPAGNEMENT`), ADD KEY `repasaccompagnement_ibfk_1` (`RA_ACCOMPAGNEMENT`);
 
 --
 -- Index pour la table `repasdessert`
@@ -905,7 +1074,13 @@ ALTER TABLE `repaslaitage`
 -- Index pour la table `repasresistance`
 --
 ALTER TABLE `repasresistance`
- ADD PRIMARY KEY (`RR_REPAS`,`RR_RESISTANCE`,`RR_UTILISATEUR`), ADD KEY `I_FK_REPASRESISTANCE_REPAS` (`RR_REPAS`), ADD KEY `I_FK_REPASRESISTANCE_RESISTANCE` (`RR_RESISTANCE`), ADD KEY `I_FK_REPASRESISTANCE_UTILISATEUR` (`RR_UTILISATEUR`);
+ ADD PRIMARY KEY (`RR_REPAS`,`RR_RESISTANCE`), ADD KEY `repasresistance_ibfk_2` (`RR_RESISTANCE`);
+
+--
+-- Index pour la table `reservationmenu`
+--
+ALTER TABLE `reservationmenu`
+ ADD PRIMARY KEY (`res_id`,`res_repas`,`res_uti`), ADD KEY `res_repas` (`res_repas`), ADD KEY `res_uti` (`res_uti`);
 
 --
 -- Index pour la table `reserver`
@@ -960,18 +1135,24 @@ ALTER TABLE `voter`
 --
 
 --
--- AUTO_INCREMENT pour la table `choisir`
---
-ALTER TABLE `choisir`
-MODIFY `cho_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
---
 -- AUTO_INCREMENT pour la table `demandetrajet`
 --
 ALTER TABLE `demandetrajet`
 MODIFY `DEM_ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
+-- AUTO_INCREMENT pour la table `reservationmenu`
+--
+ALTER TABLE `reservationmenu`
+MODIFY `res_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=64;
+--
 -- Contraintes pour les tables exportées
 --
+
+--
+-- Contraintes pour la table `accompagnement`
+--
+ALTER TABLE `accompagnement`
+ADD CONSTRAINT `fk_accomp_type` FOREIGN KEY (`ACC_TYPE`) REFERENCES `accompagnementtype` (`AT_ID`);
 
 --
 -- Contraintes pour la table `administratif`
@@ -990,6 +1171,14 @@ ADD CONSTRAINT `annonce_ibfk_1` FOREIGN KEY (`ANN_PASSAGER`) REFERENCES `passage
 --
 ALTER TABLE `avis`
 ADD CONSTRAINT `avis_ibfk_1` FOREIGN KEY (`AVI_UTILISATEUR`) REFERENCES `utilisateur` (`UTI_ID`);
+
+--
+-- Contraintes pour la table `concerner`
+--
+ALTER TABLE `concerner`
+ADD CONSTRAINT `concerner_ibfk_3` FOREIGN KEY (`con_accompagnement`) REFERENCES `accompagnement` (`ACC_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+ADD CONSTRAINT `concerner_ibfk_1` FOREIGN KEY (`con_res_id`) REFERENCES `reservationmenu` (`res_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+ADD CONSTRAINT `concerner_ibfk_2` FOREIGN KEY (`con_accompagnement`) REFERENCES `repasaccompagnement` (`RA_ACCOMPAGNEMENT`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Contraintes pour la table `conducteur`
@@ -1053,16 +1242,15 @@ ADD CONSTRAINT `professeur_ibfk_1` FOREIGN KEY (`PRO_UTILISATEUR`) REFERENCES `u
 -- Contraintes pour la table `repasaccompagnement`
 --
 ALTER TABLE `repasaccompagnement`
-ADD CONSTRAINT `repasaccompagnement_ibfk_1` FOREIGN KEY (`RA_REPAS`) REFERENCES `accompagnement` (`ACC_ID`),
-ADD CONSTRAINT `repasaccompagnement_ibfk_2` FOREIGN KEY (`RA_ACCOMPAGNEMENT`) REFERENCES `repas` (`REP_ID`),
-ADD CONSTRAINT `repasaccompagnement_ibfk_3` FOREIGN KEY (`RA_UTILISATEUR`) REFERENCES `utilisateur` (`UTI_ID`);
+ADD CONSTRAINT `repasaccompagnement_ibfk_1` FOREIGN KEY (`RA_ACCOMPAGNEMENT`) REFERENCES `accompagnement` (`ACC_ID`),
+ADD CONSTRAINT `repasaccompagnement_ibfk_2` FOREIGN KEY (`RA_REPAS`) REFERENCES `repas` (`REP_ID`);
 
 --
 -- Contraintes pour la table `repasdessert`
 --
 ALTER TABLE `repasdessert`
-ADD CONSTRAINT `repasdessert_ibfk_1` FOREIGN KEY (`RD_DESSERT`) REFERENCES `repas` (`REP_ID`),
-ADD CONSTRAINT `repasdessert_ibfk_2` FOREIGN KEY (`RD_REPAS`) REFERENCES `dessert` (`DES_ID`);
+ADD CONSTRAINT `repasdessert_ibfk_2` FOREIGN KEY (`RD_DESSERT`) REFERENCES `dessert` (`DES_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+ADD CONSTRAINT `repasdessert_ibfk_1` FOREIGN KEY (`RD_REPAS`) REFERENCES `repas` (`REP_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Contraintes pour la table `repasentree`
@@ -1083,8 +1271,14 @@ ADD CONSTRAINT `repaslaitage_ibfk_2` FOREIGN KEY (`RL_REPAS`) REFERENCES `repas`
 --
 ALTER TABLE `repasresistance`
 ADD CONSTRAINT `repasresistance_ibfk_1` FOREIGN KEY (`RR_REPAS`) REFERENCES `repas` (`REP_ID`),
-ADD CONSTRAINT `repasresistance_ibfk_2` FOREIGN KEY (`RR_RESISTANCE`) REFERENCES `resistance` (`RES_ID`),
-ADD CONSTRAINT `repasresistance_ibfk_3` FOREIGN KEY (`RR_UTILISATEUR`) REFERENCES `utilisateur` (`UTI_ID`);
+ADD CONSTRAINT `repasresistance_ibfk_2` FOREIGN KEY (`RR_RESISTANCE`) REFERENCES `resistance` (`RES_ID`);
+
+--
+-- Contraintes pour la table `reservationmenu`
+--
+ALTER TABLE `reservationmenu`
+ADD CONSTRAINT `reservationmenu_ibfk_1` FOREIGN KEY (`res_repas`) REFERENCES `repas` (`REP_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+ADD CONSTRAINT `reservationmenu_ibfk_3` FOREIGN KEY (`res_uti`) REFERENCES `utilisateur` (`UTI_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Contraintes pour la table `reserver`

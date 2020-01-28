@@ -350,6 +350,7 @@ namespace MyRostand.MyCantine
                         double p = ((double)c / TouteslesResistances.Count);
                         toutesresistances.Text += Viande + ": " + c + " soit " + p * 100 + "%" + "\n";
                         c = 1;
+                        Viande = uneResistance.Libelle;
                         double pp = ((double)c / TouteslesResistances.Count);
                         toutesresistances.Text += Viande + ": " + c + " soit " + pp * 100 + "%";
                     }
@@ -385,7 +386,8 @@ namespace MyRostand.MyCantine
                     Accompagnement = unAccompagnement.Libelle;
                     a++;
                     prop = unAccompagnement.Gramme;
-                    jourAccompagnement.Text += Accompagnement + ": " + a + " soit " + a * prop + " g";
+                    double p = ((double)c / lesAccompagnements.Count);
+                    jourAccompagnement.Text += Accompagnement + ": " + a + " soit " + a * prop + " g " + " soit " + p*100 + "%";
                 }
                 else if (Accompagnement == "" && lesAccompagnements.Count > 1)
                 {
@@ -398,14 +400,17 @@ namespace MyRostand.MyCantine
                     if (Accompagnement == unAccompagnement.Libelle)
                     {
                         a++;
-                        jourAccompagnement.Text += Accompagnement + ": " + a + " soit " + a * prop + " g";
+                        double p = ((double)c / TouteslesResistances.Count);
+                        jourAccompagnement.Text += Accompagnement + ": " + a + " soit " + a * prop + " g " + " soit " + p * 100 + "%";
                     }
                     else if (Accompagnement != unAccompagnement.Libelle)
                     {
-                        jourAccompagnement.Text += Accompagnement + ": " + a + " soit " + a * prop + " g\n";
+                        double p = ((double)c / TouteslesResistances.Count);
+                        jourAccompagnement.Text += Accompagnement + ": " + a + " soit " + a * prop + " g " + " soit " + p * 100 + "%" + "\n";
                         a = 1;
                         prop = unAccompagnement.Gramme;
-                        jourAccompagnement.Text += unAccompagnement.Libelle + ": " + a + " soit " + a * prop + " g";
+                        double pp = ((double)c / TouteslesResistances.Count);
+                        jourAccompagnement.Text += Accompagnement + ": " + a + " soit " + a * prop + " g " + " soit " + pp * 100 + "%";
                     }
                 }
                 else if (Accompagnement == unAccompagnement.Libelle)
@@ -414,7 +419,8 @@ namespace MyRostand.MyCantine
                 }
                 else if (Accompagnement != unAccompagnement.Libelle)
                 {
-                    jourAccompagnement.Text += Accompagnement + ": " + a + " soit " + a * prop + " g\n";
+                    double p = ((double)c / TouteslesResistances.Count);
+                    jourAccompagnement.Text += Accompagnement + ": " + a + " soit " + a * prop + " g " + " soit " + p * 100 + "%" + "\n";
                     Accompagnement = unAccompagnement.Libelle;
                     prop = unAccompagnement.Gramme;
                     a = 1;

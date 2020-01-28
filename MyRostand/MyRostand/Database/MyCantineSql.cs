@@ -168,7 +168,7 @@ namespace MyRostand.Database
             }
         }
 
-////////////////////////////////////////////////////////////REQUÊTE AFIN DE RECUPERER TOUTES LES VIANDES//////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////REQUÊTE AFIN DE RECUPERER TOUTES LES VIANDES//////////////////////////////////////////////
 
         public static List<Resistance> getTouteslesResistances(string daterequete)
         {
@@ -208,16 +208,14 @@ namespace MyRostand.Database
             {
                 MySqlConnection cnx = MySQL.getCnx();
                 cnx.Ping();
-                string requete = "SELECT ACC_ID, ACC_LIBELLE, ACC_DESCRIPTION, AT_POIDS FROM accompagnement, repasaccompagnement, repas, accompagnementtype WHERE ACC_ID=RA_ACCOMPAGNEMENT AND RA_REPAS=REP_ID AND AT_ID=ACC_TYPE AND REP_DATE= '" + daterequete + "' ";
+                string requete = "SELECT ACC_LIBELLE, AT_POIDS FROM repas, reservationmenu, concerner, accompagnement, accompagnementtype WHERE REP_ID=res_repas AND res_id=con_res_id AND con_accompagnement=ACC_ID AND ACC_TYPE=AT_ID AND REP_DATE= '" + daterequete + "'";
                 MySqlCommand cmd = new MySqlCommand(requete, cnx);
                 var reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
                     Accompagnement unAccompagnement = new Accompagnement();
-                    unAccompagnement.Id = reader.GetInt32(0);
-                    unAccompagnement.Libelle = reader.GetString(1);
-                    unAccompagnement.Description = reader.GetString(2);
-                    unAccompagnement.Gramme = reader.GetInt32(3);
+                    unAccompagnement.Libelle = reader.GetString(0);
+                    unAccompagnement.Gramme = reader.GetInt32(1);
                     ToutlesAccompagnements.Add(unAccompagnement);
                 }
                 cnx.Close();
@@ -230,7 +228,7 @@ namespace MyRostand.Database
                 ToutlesAccompagnements.Add(erreurSQL);
                 return ToutlesAccompagnements;
             }
-          
+
         }
         //////////////////////////////////////////////////////////////////REQUÊTE AFIN DE RECUPERER UN ACCOMPAGNEMENTS////////////////////////////
         public static List<Accompagnement> getUnAccompagnements()

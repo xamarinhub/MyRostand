@@ -221,12 +221,12 @@ namespace MyRostand
                 HasShadow = true
             };
             var tapLOGIN = new TapGestureRecognizer();
-            tapCUISINE.Tapped += (s, e) =>
+            tapLOGIN.Tapped += (s, e) =>
             {
                 //ACTION A EFFECTUER QUAND ON CLIQUE SUR LES INFOS DU TRAJET
                 Navigation.PushAsync(new login());
             };
-            frameLOGIN.GestureRecognizers.Add(tapCUISINE);
+            frameLOGIN.GestureRecognizers.Add(tapLOGIN);
 
             StackLayout blocLOGIN = new StackLayout()
             {
