@@ -592,6 +592,54 @@ namespace MyRostand.Database
             }
 
         }
+        ////////////////////REQUETE POUR QUE L'ELEVE INDIQUE QU'IL NE SERA PAS PRESENT///////////////////
+        
+        public static void NonPresent(int idrepas, int idutilisateur)
+        {
+            try
+            {
+                MySqlConnection cnx = MySQL.getCnx();
+                cnx.Ping();
+                string requete = "INSERT INTO repaspresence VALUES (@rpr_id,@rpr_repas,@rpr_uti)";
+                using (MySqlCommand cmd = new MySqlCommand(requete, cnx))
+                {
+                    cmd.Parameters.AddWithValue("@rpr_id", "id");
+                    cmd.Parameters.AddWithValue("@rpr_repas", idrepas);
+                    cmd.Parameters.AddWithValue("@rpr_uti", idutilisateur);
+                    cmd.ExecuteNonQuery();
+                }
+
+            }
+            catch (MySqlException e)
+            {
+                Console.WriteLine("Error: " + e);
+                Console.WriteLine(e.StackTrace);
+            }
+        }
+
+        ////////////////////REQUETE QUI INDIQUE QUE L'ELEVE SERA FINALEMENT PRESENT///////////////////
+
+        public static void Present(int idrepas, int idutilisateur)
+        {
+            try
+            {
+                MySqlConnection cnx = MySQL.getCnx();
+                cnx.Ping();
+                string requete = "DELETE FROM repaspresence WHERE rpr_repas=@rpr_repas AND rpr_uti=@rpr_uti";
+                using (MySqlCommand cmd = new MySqlCommand(requete, cnx))
+                {
+                    cmd.Parameters.AddWithValue("@rpr_repas", idrepas);
+                    cmd.Parameters.AddWithValue("@rpr_uti", idutilisateur);
+                    cmd.ExecuteNonQuery();
+                }
+
+            }
+            catch (MySqlException e)
+            {
+                Console.WriteLine("Error: " + e);
+                Console.WriteLine(e.StackTrace);
+            }
+        }
     }
 }
 

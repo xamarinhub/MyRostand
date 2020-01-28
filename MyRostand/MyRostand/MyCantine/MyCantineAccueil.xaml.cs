@@ -27,7 +27,7 @@ namespace MyRostand.MyCantine
         Button AnnulerReservation;
         Button Nevienspas;
         CheckBox checkBoxAccompagnement = new CheckBox { IsChecked = true };
-        int idutilisateur = 1;
+        int idutilisateur = 3;
         bool RepasDejaReserve = false;
 
         DateTime ancienneDate = DateTime.Today;
@@ -713,7 +713,9 @@ namespace MyRostand.MyCantine
                 };
 
 
-
+                /*-------------------------------------------------------*/
+                /*---CONDITION SI REPAS DEJA RESERVE---------------------*/
+                /*-------------------------------------------------------*/
                 Button AnnulerReservation;
                 Button Nevienspas;
                 if (RepasDejaReserve == false)
@@ -763,11 +765,13 @@ namespace MyRostand.MyCantine
                     if (Nevienspas.BackgroundColor == Color.LightGray)
                     {
                         Nevienspas.BackgroundColor = Color.LightGoldenrodYellow;
+                        Database.MyCantineSQL.NonPresent(idrepas, idutilisateur);
                         Nevienspas.Text = "Je viendrais au self ce jour.";
                     }
                     else
                     {
                         Nevienspas.BackgroundColor = Color.LightGray;
+                        Database.MyCantineSQL.Present(idrepas, idutilisateur);
                         Nevienspas.Text = "Je ne viendrais pas au self ce jour.";
                     }
                 }
