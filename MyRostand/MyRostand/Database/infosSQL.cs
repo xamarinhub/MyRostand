@@ -12,7 +12,7 @@ namespace MyRostand.Database
 
             infos.Add("51.75.25.38");     //HOST  SERVEUR : 172.20.82.31
             infos.Add("3306");         //PORT
-            infos.Add("test");    //DATABASE NAME
+            infos.Add("myrostand");    //DATABASE NAME
             infos.Add("toto");         //USER NAME
             infos.Add("thomassio");             //USER PASSWORD
 

@@ -564,12 +564,6 @@ namespace MyRostand.Database
                 Console.WriteLine(e.StackTrace);
             }
         }
-
-
-
-
-
-
     }
 }
 
