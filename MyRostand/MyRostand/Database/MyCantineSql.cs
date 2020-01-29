@@ -641,9 +641,9 @@ namespace MyRostand.Database
             }
         }
         //////////////////////////////////////////////////////////////////REQUETE CONNEXION///////////////////////////////////////////////////////////////
-        public static List<Utilisateur> ConnexionUser(string idUser)
+        public static string ConnexionUser(string idUser)
         {
-            List<Utilisateur> User = new List<Utilisateur>();
+            string User = "";
 
             try
             {
@@ -654,9 +654,7 @@ namespace MyRostand.Database
                 var reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    Utilisateur mdpUser = new Utilisateur();
-                    mdpUser.Mdp = reader.GetString(0);
-                    User.Add(mdpUser);
+                    User = reader.GetString(0);
                 }
                 cnx.Close();
                 return User;
@@ -665,7 +663,6 @@ namespace MyRostand.Database
             {
                 Utilisateur erreurSQL = new Utilisateur();
                 erreurSQL.Description = (ex.ToString());
-                User.Add(erreurSQL);
                 return User;
             }
         }

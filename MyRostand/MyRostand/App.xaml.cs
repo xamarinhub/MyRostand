@@ -18,7 +18,7 @@ namespace MyRostand
         {
             MainPage = new NavigationPage(new SplashPage());
             await Task.Delay(3000);
-            MainPage = new NavigationPage(new MainPage())
+            MainPage = new NavigationPage(new login())
             {
                 BarBackgroundColor = Color.Green,
                 BarTextColor = Color.White,
