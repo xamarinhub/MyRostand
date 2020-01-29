@@ -408,6 +408,24 @@ namespace MyRostand.Database
             }
         }
 
+        public static int getStatutReserverResistance(string daterequete, int idUtilisateur, int idReservationMenu)
+        {
+            int ResistanceReserve = 0;
+
+            MySqlConnection cnx = MySQL.getCnx();
+            cnx.Ping();
+            string requete = "SELECT res_plat FROM reservationmenu WHERE res_id =" + idReservationMenu + " AND res_repas=" + getIdRepas(daterequete) + " AND res_uti = " + idUtilisateur + ";";
+            MySqlCommand cmd = new MySqlCommand(requete, cnx);
+            var reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                ResistanceReserve = reader.GetInt32(0);
+            }
+            cnx.Close();
+            return ResistanceReserve;
+
+        }
+
         public static int getIdReservationMenu(int idrepas)
         {
             int idReservationMenu = 0;
@@ -437,7 +455,7 @@ namespace MyRostand.Database
                 {
                     cmd.Parameters.AddWithValue("RES_ID", null);
                     cmd.Parameters.AddWithValue("@RES_REPAS", idrepas);
-                    cmd.Parameters.AddWithValue("@RES_PLAT", null);
+                    cmd.Parameters.AddWithValue("@RES_PLAT", 0);
                     cmd.Parameters.AddWithValue("@RES_UTI", idutilisateur);
                     cmd.ExecuteNonQuery();
                 }
@@ -456,12 +474,16 @@ namespace MyRostand.Database
             {
                 MySqlConnection cnx = MySQL.getCnx();
                 cnx.Ping();
-                string requete = "DELETE FROM reservationmenu WHERE res_id = idMenuReservation AND res_repas = idrepas AND res_uti = idutilisateur";
-                using (MySqlCommand cmd = new MySqlCommand(requete, cnx))
+                string requete = "DELETE FROM concerner WHERE con_res_id =" + idReservationMenu +"";
+                string requete2 = "DELETE FROM reservationmenu WHERE res_id = +" + idReservationMenu + " AND res_repas =" + idrepas +" AND res_uti =" + idutilisateur + "";
+                using (MySqlCommand cmd = new MySqlCommand(requete,cnx))
                 {
                     cmd.ExecuteNonQuery();
                 }
-
+                using (MySqlCommand cmd = new MySqlCommand(requete2, cnx))
+                {
+                    cmd.ExecuteNonQuery();
+                }
             }
             catch (MySqlException e)
             {
@@ -502,7 +524,7 @@ namespace MyRostand.Database
             {
                 MySqlConnection cnx = MySQL.getCnx();
                 cnx.Ping();
-                string requete = "UPDATE reservationmenu SET res_plat = NULL WHERE res_id = idReservationMenu AND res_repas = idrepas  AND res_uti = idutilisateur";
+                string requete = "UPDATE reservationmenu SET res_plat ="+ 0 +"WHERE res_id =" + idReservationMenu + " AND res_repas = "+ idrepas + " AND res_uti =" + idutilisateur +"";
                 using (MySqlCommand cmd = new MySqlCommand(requete, cnx))
                 {
                     cmd.ExecuteNonQuery();

@@ -29,6 +29,7 @@ namespace MyRostand.MyCantine
         CheckBox checkBoxAccompagnement = new CheckBox { IsChecked = true };
         int idutilisateur = 3;
         bool RepasDejaReserve = false;
+        bool ResistanceReserver;
 
         DateTime ancienneDate = DateTime.Today;
         DateTime lendemainDate = DateTime.Today.AddDays(1);
@@ -255,7 +256,7 @@ namespace MyRostand.MyCantine
                 int idrepas = Database.MyCantineSQL.getIdRepas(daterequete);
                 int idReservationMenu = Database.MyCantineSQL.getIdReservationMenu(idrepas);
                 bool RepasDejaReserve =  Database.MyCantineSQL.getStatutReserver(daterequete, idutilisateur);
-
+                int RequeteResistance = Database.MyCantineSQL.getStatutReserverResistance(daterequete, idutilisateur, idReservationMenu);
                 //FRAME PRINCIPAL QUI RECUPERE TOUTE LES CARDS
                 Frame frameMenu = new Frame();
 
@@ -393,6 +394,7 @@ namespace MyRostand.MyCantine
                 int ViandeCWE = lesResistancesNotifDateWeekEnd.Count;
                 for (int i = 0; i < lesResistances.Count; i++)
                 {
+
                     Resistance uneResistance = lesResistances[i];
                     StackLayout stackCardResistance = new StackLayout();
 
@@ -401,42 +403,67 @@ namespace MyRostand.MyCantine
                         TextColor = Color.White,
                         Margin = new Thickness(120, 10, 120, 10),
                         Padding = new Thickness(0, 10, 0, -10),
-                        BackgroundColor = Color.LightGray,
                         Text = uneResistance.Libelle + "\n",
                         FontSize = 16
                     };
                     int idresistance = uneResistance.Id;
                     stackCardResistance.Children.Add(boutonResistance);
                     string textbouton = boutonResistance.Text;
+                    if (RequeteResistance > 0 && RequeteResistance == idresistance)
+                    {
+                        ResistanceReserver = true;
+                    }
+                    else
+                    {
+                        ResistanceReserver = false;
+                    }
+
+                    if (ResistanceReserver == true)
+                    {
+                        string textuncheck = textbouton;
+                        boutonResistance.BackgroundColor = Color.LightGreen;
+                        boutonResistance.Text = "vide";
+                        boutonResistance.Text = textuncheck;
+                    }
+                    else
+                    {
+                        string textchecked = textbouton;
+                        boutonResistance.BackgroundColor = Color.LightGray;
+                        boutonResistance.Text = "vide2";
+                        boutonResistance.Text = textchecked;
+                    }
                     stackCardMenu.Children.Add(stackCardResistance);
 
                     boutonResistance.Clicked += boutonResistance_Click;
+
+
                     async void boutonResistance_Click(object senders, EventArgs ex)
                     {
-                        if (boutonResistance.BackgroundColor == Color.LightGray)
+                        if (boutonResistance.BackgroundColor == Color.LightGreen)
                         {
-                            string textuncheck = textbouton;
                             string DateToday = DateTime.Today.Year + "-" + nummois + "-" + DateTime.Today.Day;
-                            boutonResistance.BackgroundColor = Color.LightGreen;
-                            boutonResistance.Text = "vide";
-                            boutonResistance.Text = textuncheck + "✓";
-                            if (daterequete != DateToday)
-                            {
-                                Database.MyCantineSQL.AjouterResistance(idrepas, idReservationMenu, idresistance, idutilisateur);
-                            }
-                        }
-                        else
-                        {
-                            string textchecked = textbouton;
-                            boutonResistance.BackgroundColor = Color.LightGray;
-                            boutonResistance.Text = "vide2";
-                            boutonResistance.Text = textchecked + "";
-                            string DateToday = DateTime.Today + "-" + DateTime.Today.Month;
                             if (daterequete != DateToday)
                             {
                                 Database.MyCantineSQL.SupprimerResistance(idrepas, idReservationMenu, idutilisateur);
                             }
+                            string textchecked = textbouton;
+                            boutonResistance.BackgroundColor = Color.LightGray;
+                            boutonResistance.Text = "vide2";
+                            boutonResistance.Text = textchecked;
                         }
+                        else
+                        {
+                            string DateToday = DateTime.Today.Year + "-" + nummois + "-" + DateTime.Today.Day;
+                            if (daterequete != DateToday)
+                            {
+                                Database.MyCantineSQL.AjouterResistance(idrepas, idReservationMenu, idresistance, idutilisateur);
+                            }
+                            string textuncheck = textbouton;
+                            boutonResistance.BackgroundColor = Color.LightGreen;
+                            boutonResistance.Text = "vide";
+                            boutonResistance.Text = textuncheck;
+                        }
+
                     }
                 }
                 ////////////////////////////////////////////////////////////////////////////////////////
@@ -501,6 +528,8 @@ namespace MyRostand.MyCantine
                     stackCardMenu.Children.Add(stackCardAccompagnement2);
 
                     boutonAccompagnement.Clicked += boutonAccompagnement_Click;
+
+
                     async void boutonAccompagnement_Click(object senders, EventArgs ex)
                     {
                         if (boutonAccompagnement.BackgroundColor == Color.LightGray)
