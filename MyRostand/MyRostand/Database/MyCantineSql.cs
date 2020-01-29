@@ -426,6 +426,25 @@ namespace MyRostand.Database
 
         }
 
+        public static int getStatutReserverAccompagnement(int idReservationMenu)
+        {
+            int AccompagnementReserve = 0;
+
+            MySqlConnection cnx = MySQL.getCnx();
+            cnx.Ping();
+            string requete = "SELECT con_accompagnement FROM concerner WHERE con_res_id =" + idReservationMenu +";";
+            MySqlCommand cmd = new MySqlCommand(requete, cnx);
+            var reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                AccompagnementReserve = reader.GetInt32(0);
+            }
+            cnx.Close();
+            return AccompagnementReserve;
+
+        }
+
+
         public static int getIdReservationMenu(int idrepas)
         {
             int idReservationMenu = 0;

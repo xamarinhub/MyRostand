@@ -56,7 +56,7 @@ namespace MyRostand
             {
                 HorizontalTextAlignment = TextAlignment.Center,
                 VerticalTextAlignment = TextAlignment.Center,
-                Text = "Pour vous connecter, veuillez utiliser votre adresse mail et votre mot de passe fourni par l'établissement " + "\n" + " Exemple : prenom.nom@lyceejeanrostand.fr",
+                Text = "Pour vous connecter, veuillez utiliser votre adresse mail et votre mot de passe fourni par l'établissement " + "\n" + " Exemple : t.t@t.t MDP: TEST",
                 FontSize = 15,
                 BackgroundColor = Color.LightGray,
                 TextColor = Color.White

@@ -30,6 +30,7 @@ namespace MyRostand.MyCantine
         int idutilisateur = 3;
         bool RepasDejaReserve = false;
         bool ResistanceReserver;
+        bool AccompagnementReserver;
 
         DateTime ancienneDate = DateTime.Today;
         DateTime lendemainDate = DateTime.Today.AddDays(1);
@@ -257,6 +258,7 @@ namespace MyRostand.MyCantine
                 int idReservationMenu = Database.MyCantineSQL.getIdReservationMenu(idrepas);
                 bool RepasDejaReserve =  Database.MyCantineSQL.getStatutReserver(daterequete, idutilisateur);
                 int RequeteResistance = Database.MyCantineSQL.getStatutReserverResistance(daterequete, idutilisateur, idReservationMenu);
+                int RequeteAccompagnement = Database.MyCantineSQL.getStatutReserverAccompagnement(idReservationMenu);
                 //FRAME PRINCIPAL QUI RECUPERE TOUTE LES CARDS
                 Frame frameMenu = new Frame();
 
@@ -518,7 +520,6 @@ namespace MyRostand.MyCantine
                         TextColor = Color.White,
                         Margin = new Thickness(120, 10, 120, 10),
                         Padding = new Thickness(0, 10, 0, -10),
-                        BackgroundColor = Color.LightGray,
                         Text = unAccompagnement.Libelle + "\n",
                         FontSize = 16
                     };
@@ -529,32 +530,55 @@ namespace MyRostand.MyCantine
 
                     boutonAccompagnement.Clicked += boutonAccompagnement_Click;
 
+                    if (RequeteAccompagnement > 0 && RequeteAccompagnement == idaccompagnement)
+                    {
+                        AccompagnementReserver = true;
+                    }
+                    else
+                    {
+                        AccompagnementReserver = false;
+                    }
+
+                    if (AccompagnementReserver == true)
+                    {
+                        string textuncheck = textbouton;
+                        boutonAccompagnement.BackgroundColor = Color.LightGreen;
+                        boutonAccompagnement.Text = "vide";
+                        boutonAccompagnement.Text = textuncheck;
+                    }
+                    else
+                    {
+                        string textchecked = textbouton;
+                        boutonAccompagnement.BackgroundColor = Color.LightGray;
+                        boutonAccompagnement.Text = "vide2";
+                        boutonAccompagnement.Text = textchecked;
+                    }
 
                     async void boutonAccompagnement_Click(object senders, EventArgs ex)
                     {
                         if (boutonAccompagnement.BackgroundColor == Color.LightGray)
                         {
                             string textuncheck = textbouton;
-                            boutonAccompagnement.BackgroundColor = Color.LightGreen;
-                            boutonAccompagnement.Text = "vide";
-                            boutonAccompagnement.Text = textuncheck + "✓";
-                            string DateToday = DateTime.Today.Year + "-" + nummois + "-" + DateTime.Today.Day;
-                            if (daterequete != DateToday)
-                            {
-                                Database.MyCantineSQL.AjouterAccompagnement(idReservationMenu, idaccompagnement);
-                            }
-                        }
-                        else
-                        {
-                            string textchecked = textbouton;
-                            boutonAccompagnement.BackgroundColor = Color.LightGray;
-                            boutonAccompagnement.Text = "vide2";
-                            boutonAccompagnement.Text = textchecked + "";
                             string DateToday = DateTime.Today.Year + "-" + nummois + "-" + DateTime.Today.Day;
                             if (daterequete != DateToday)
                             {
                                 Database.MyCantineSQL.SupprimerAccompagnement(idReservationMenu, idaccompagnement);
                             }
+                            boutonAccompagnement.BackgroundColor = Color.LightGreen;
+                            boutonAccompagnement.Text = "vide";
+                            boutonAccompagnement.Text = textuncheck;
+                        }
+                        else
+                        {
+                            string textchecked = textbouton;
+                            string DateToday = DateTime.Today.Year + "-" + nummois + "-" + DateTime.Today.Day;
+                            if (daterequete != DateToday)
+                            {
+                                Database.MyCantineSQL.AjouterAccompagnement(idReservationMenu, idaccompagnement);
+                            }
+                            boutonAccompagnement.BackgroundColor = Color.LightGray;
+                            boutonAccompagnement.Text = "vide2";
+                            boutonAccompagnement.Text = textchecked + "";
                         }
                     }
                 }
