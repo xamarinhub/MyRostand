@@ -209,49 +209,7 @@ namespace MyRostand
 
 
 
-            /*==================================================================*/
-            /*==========================LOGIN =============================*/
-            /*==================================================================*/
-
-            Frame frameLOGIN = new Frame()
-            {
-                Margin = new Thickness(40, 20, 40, 0),
-                BackgroundColor = Color.DarkOrchid,
-                CornerRadius = 10,
-                HasShadow = true
-            };
-            var tapLOGIN = new TapGestureRecognizer();
-            tapLOGIN.Tapped += (s, e) =>
-            {
-                //ACTION A EFFECTUER QUAND ON CLIQUE SUR LES INFOS DU TRAJET
-                Navigation.PushAsync(new login());
-            };
-            frameLOGIN.GestureRecognizers.Add(tapLOGIN);
-
-            StackLayout blocLOGIN = new StackLayout()
-            {
-                Padding = new Thickness(15, 15, 15, 15)
-            };
-            StackLayout stackTitreLOGIN = new StackLayout()
-            {
-                Padding = new Thickness(30, 0, 30, 0)
-            };
-            StackLayout stackImageLOGIN = new StackLayout();
-            Label titreLOGIN = new Label()
-            {
-                Text = "MyLogin",
-                FontSize = 20
-            };
-            Image imageLOGIN = new Image()
-            {
-                Source = ""
-            };
-
-            stackImageLOGIN.Children.Add(imageLOGIN);
-            stackTitreLOGIN.Children.Add(titreLOGIN);
-            blocLOGIN.Children.Add(stackImageLOGIN);
-            blocLOGIN.Children.Add(stackTitreLOGIN);
-            frameLOGIN.Content = blocLOGIN;
+          
             /*==================================================================*/
             /*============================CONTENT===============================*/
             /*==================================================================*/
@@ -260,7 +218,6 @@ namespace MyRostand
             stackPrincipal.Children.Add(frameCovoit);
             stackPrincipal.Children.Add(frameSonnerie);
             stackPrincipal.Children.Add(frameCUISINE);
-            stackPrincipal.Children.Add(frameLOGIN);
             Content = stackPrincipal;
         }
     }

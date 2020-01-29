@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MyRostand.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,8 @@ namespace MyRostand
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class login : ContentPage
     {
+        StackLayout menuStack = new StackLayout();
+        StackLayout menuStack2 = new StackLayout();
         public login()
         {
             InitializeComponent();
@@ -64,16 +67,27 @@ namespace MyRostand
             stackForm.Children.Add(descriptionInformation);
             frameInformation.Content = stackForm;
 
+            StackLayout Layout1 = new StackLayout
+            {
+                Orientation = StackOrientation.Horizontal
+            };
+            var label1 = new Label
+            {
+                Text =  "Identifiant",
+                FontSize = 20
+            };
+            var MyEntryID = new Entry { Text = "", Placeholder = "Identifiant"};
+            StackLayout Layout2 = new StackLayout
+            {
+                Orientation = StackOrientation.Horizontal
+            };
+            var label2 = new Label
+            {
+                Text = "Mot de passe",
+                FontSize = 20
+            };           
+             var MyEntryMDP = new Entry { Text = "", Placeholder = "Mot de passe", IsPassword = true };
 
-            Entry loginEntry = new Entry()
-            {
-                Placeholder = "Identifiant"
-            };
-            Entry passwordEntry = new Entry()
-            {
-                Placeholder = "Mot de passe",
-                IsPassword = true
-            };
 
             Button connexion = new Button()
             {
@@ -87,14 +101,52 @@ namespace MyRostand
 
             connexion.Clicked += Connexion_Clicked;
 
-            stackForm.Children.Add(loginEntry);
-            stackForm.Children.Add(passwordEntry);
-            stackForm.Children.Add(connexion);
+            async void Connexion_Clicked(object sender, EventArgs e)
+            {
+                String Valide = Database.MyCantineSQL.ConnexionUser(MyEntryID.Text);
+                String MDP = MyEntryMDP.Text;
+                if (MyEntryMDP.Text != "" && MyEntryMDP.Text != "")
+                {
+                    if (Valide == MDP)
+                    {
+                        await Navigation.PushAsync(new MainPage());
+                    }
+                    else
+                    {
+                        await Navigation.PushAsync(new login());
+                    }
+                }
+                else
+                {
+                    await Navigation.PushAsync(new login());
+                }
+
+
+            }
+
             stackPrincipal.Children.Add(LogoAccueil);
             stackPrincipal.Children.Add(frameInformation);
             stackPrincipal.Children.Add(stackForm);
 
-            Content = stackPrincipal;
+            Layout1.Children.Add(label1);
+            Layout1.Children.Add(MyEntryID);
+            menuStack.Children.Add(Layout1);
+
+            Layout2.Children.Add(label2);
+            Layout2.Children.Add(MyEntryMDP);
+            menuStack2.Children.Add(Layout2);
+
+            this.Content = new StackLayout
+            {
+                Children =
+                {
+                      stackPrincipal,
+                      menuStack,
+                      menuStack2,
+                      connexion
+                }
+            };
+
 
         }
 
