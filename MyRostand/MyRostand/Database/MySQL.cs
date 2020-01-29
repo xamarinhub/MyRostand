@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using MySql.Data.MySqlClient;
+using MyRostand.Models;
 
 
 namespace MyRostand.Database
@@ -40,7 +41,7 @@ namespace MyRostand.Database
                 string etatConnexion = "Connecté !";
                 return etatConnexion;
 
-            }catch(MySqlException ex)
+            } catch (MySqlException ex)
             {
                 string etatConnexion = ex.ToString();
                 return etatConnexion;
@@ -49,7 +50,7 @@ namespace MyRostand.Database
 
         public static string testRequete()
         {
-            string resultat="";
+            string resultat = "";
             try
             {
                 MySqlConnection cnx = getCnx();
@@ -64,7 +65,7 @@ namespace MyRostand.Database
                 cnx.Close();
                 return resultat;
             }
-            catch(MySqlException ex)
+            catch (MySqlException ex)
             {
                 resultat = ex.ToString();
                 return resultat;
@@ -95,5 +96,7 @@ namespace MyRostand.Database
                 return toto;
             }
         }
+
+        
     }
 }

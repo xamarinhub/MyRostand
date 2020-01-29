@@ -145,7 +145,7 @@ namespace MyRostand.MyCantine
                     {
                         Margin = new Thickness(1, 1, 1, 1),
                         BackgroundColor = Color.Gray,
-                        BorderColor = Color.Gold,
+                        BorderColor = Color.Black,
                         BorderWidth = 2,
                         CornerRadius = 10,
                         Text = jourcomplet,
@@ -198,7 +198,7 @@ namespace MyRostand.MyCantine
             {
                 CornerRadius = 10,
                 BorderColor = Color.FromHex("#27ae60"),
-                Margin = new Thickness(100, 0, 100, 20),
+                Margin = new Thickness(100, 20, 100, 20),
                 Padding = new Thickness(0, 0, 0, 0)
             };
             StackLayout titreToutesresistances = new StackLayout()
@@ -388,9 +388,9 @@ namespace MyRostand.MyCantine
                 {
                     Viande = uneResistance.Libelle;
                     c++;
-                    double p = ((double)c / TouteslesResistances.Count);
-                   
-                    toutesresistances.Text += Viande + ": " + c + " soit " + p * 100 + "%" + "\n" + barre10;
+                    double p = ((double)c / TouteslesResistances.Count) * 100;
+                    string tp = String.Format("{0:N1}", p);
+                    toutesresistances.Text += Viande + ": " + c + " soit " + tp + "%" + "\n" + barre10;
                 }
                 else if (Viande == "" && TouteslesResistances.Count > 1)
                 {
@@ -402,40 +402,40 @@ namespace MyRostand.MyCantine
                     if (Viande == uneResistance.Libelle)
                     {
                         c++;
-                        double p = ((double)c / TouteslesResistances.Count);
-                        if (p <= 0.1)
+                        double p = ((double)c / TouteslesResistances.Count) * 100;
+                        if (p <= 15)
                         {
                             barre = barre1;
                         }
-                        else if(p <= 0.2)
+                        else if (p <= 25)
                         {
                             barre = barre2;
                         }
-                        else if(p <= 0.3)
+                        else if (p <= 35)
                         {
                             barre = barre3;
                         }
-                        else if(p <= 0.4)
+                        else if (p <= 45)
                         {
                             barre = barre4;
                         }
-                        if (p <= 0.5)
+                        else if (p <= 55)
                         {
                             barre = barre5;
                         }
-                        else if(p <= 0.6)
+                        else if (p <= 65)
                         {
                             barre = barre6;
                         }
-                        else if(p <= 0.7)
+                        else if (p <= 75)
                         {
                             barre = barre7;
                         }
-                        else if(p <= 0.8)
+                        else if (p <= 85)
                         {
                             barre = barre8;
                         }
-                        else if(p <= 0.9)
+                        else if (p <= 95)
                         {
                             barre = barre9;
                         }
@@ -443,88 +443,90 @@ namespace MyRostand.MyCantine
                         {
                             barre = barre10;
                         }
-                        toutesresistances.Text += Viande + ": " + c + " soit " + p * 100 + "%" + "\n" + barre;
+                        string tp = String.Format("{0:N1}", p);
+                        toutesresistances.Text += Viande + ": " + c + " soit " + tp + "%" + "\n" + barre;
                     }
                     else
                     {
-                        double p = ((double)c / TouteslesResistances.Count);
-                        if (p <= 0.1)
-                        {
-                            barre = barre1;
-                        }
-                        else if(p <= 0.2)
-                        {
-                            barre = barre2;
-                        }
-                        else if(p <= 0.3)
-                        {
-                            barre = barre3;
-                        }
-                        else if(p <= 0.4)
-                        {
-                            barre = barre4;
-                        }
-                        else if(p <= 0.5)
-                        {
-                            barre = barre5;
-                        }
-                        else if(p <= 0.6)
-                        {
-                            barre = barre6;
-                        }
-                        else if(p <= 0.7)
-                        {
-                            barre = barre7;
-                        }
-                        else if(p <= 0.8)
-                        {
-                            barre = barre8;
-                        }
-                        else if(p <= 0.9)
-                        {
-                            barre = barre9;
-                        }
-                        else
-                        {
-                            barre = barre10;
-                        }
-                        toutesresistances.Text += Viande + ": " + c + " soit " + p * 100 + "%" + "\n" + barre +"\n";
+                        double p = ((double)c / TouteslesResistances.Count) * 100;
+                    if (p <= 15)
+                    {
+                        barre = barre1;
+                    }
+                    else if (p <= 25)
+                    {
+                        barre = barre2;
+                    }
+                    else if (p <= 35)
+                    {
+                        barre = barre3;
+                    }
+                    else if (p <= 45)
+                    {
+                        barre = barre4;
+                    }
+                    else if (p <= 55)
+                    {
+                        barre = barre5;
+                    }
+                    else if (p <= 65)
+                    {
+                        barre = barre6;
+                    }
+                    else if (p <= 75)
+                    {
+                        barre = barre7;
+                    }
+                    else if (p <= 85)
+                    {
+                        barre = barre8;
+                    }
+                    else if (p <= 95)
+                    {
+                        barre = barre9;
+                    }
+                    else
+                    {
+                        barre = barre10;
+                    }
+                        string tp = String.Format("{0:N1}", p);
+                        toutesresistances.Text += Viande + ": " + c + " soit " + tp + "%" + "\n" + barre +"\n";
                         c = 1;
                         Viande = uneResistance.Libelle;
-                        double pp = ((double)c / TouteslesResistances.Count);
-                        if (pp <= 0.1)
+                        double pp = ((double)c / TouteslesResistances.Count) * 100;
+                        if (pp <= 15)
                         {
                             barre = barre1;
                         }
-                        else if(pp <= 0.2)
+                        else if (pp <= 25)
                         {
                             barre = barre2;
                         }
-                        else if(pp <= 0.3)
+                        else if (pp <= 35)
                         {
                             barre = barre3;
                         }
-                        else if(pp <= 0.4)
+                        else if (pp <= 45)
                         {
                             barre = barre4;
                         }
-                        else if(pp <= 0.5)
+                        else if (pp <= 55)
                         {
                             barre = barre5;
                         }
-                        else if(pp <= 0.6)
+                        else if (pp <= 65)
                         {
                             barre = barre6;
                         }
-                        else if(pp <= 0.7)
+                        else if (pp <= 75)
                         {
                             barre = barre7;
                         }
-                        else if(pp <= 0.8)
+                        else if (pp <= 85)
                         {
                             barre = barre8;
                         }
-                        else if(pp <= 0.9)
+                        else if (pp <= 95)
                         {
                             barre = barre9;
                         }
@@ -532,7 +534,8 @@ namespace MyRostand.MyCantine
                         {
                             barre = barre10;
                         }
-                        toutesresistances.Text += Viande + ": " + c + " soit " + pp * 100 + "%" + "\n" + barre;
+                        string tpp = String.Format("{0:N1}", pp);
+                        toutesresistances.Text += Viande + ": " + c + " soit " + tpp + "%" + "\n" + barre;
                     }
                 }
                 else if (Viande == uneResistance.Libelle)
@@ -542,39 +545,39 @@ namespace MyRostand.MyCantine
                 else if (Viande != uneResistance.Libelle)
                 {
                     double p = ((double)c / TouteslesResistances.Count);
-                    if (p <= 0.1)
+                    if (p <= 15)
                     {
                         barre = barre1;
                     }
-                    else if(p <= 0.2)
+                    else if (p <= 25)
                     {
                         barre = barre2;
                     }
-                    else if(p <= 0.3)
+                    else if (p <= 35)
                     {
                         barre = barre3;
                     }
-                    else if(p <= 0.4)
+                    else if (p <= 45)
                     {
                         barre = barre4;
                     }
-                    else if(p <= 0.5)
+                    else if (p <= 55)
                     {
                         barre = barre5;
                     }
-                    else if(p <= 0.6)
+                    else if (p <= 65)
                     {
                         barre = barre6;
                     }
-                    else if(p <= 0.7)
+                    else if (p <= 75)
                     {
                         barre = barre7;
                     }
-                    else if(p <= 0.8)
+                    else if (p <= 85)
                     {
                         barre = barre8;
                     }
-                    else if(p <= 0.9)
+                    else if (p <= 95)
                     {
                         barre = barre9;
                     }
@@ -582,7 +585,8 @@ namespace MyRostand.MyCantine
                     {
                         barre = barre10;
                     }
-                    toutesresistances.Text += Viande + ": " + c + " soit " + p * 100 + "%" + "\n" + barre + "\n";
+                    string tp = String.Format("{0:N1}", p);
+                    toutesresistances.Text += Viande + ": " + c + " soit " + tp + "%" + "\n" + barre + "\n";
                     Viande = uneResistance.Libelle;
                     c = 1;
                 }
@@ -606,48 +610,9 @@ namespace MyRostand.MyCantine
                     Accompagnement = unAccompagnement.Libelle;
                     a++;
                     prop = unAccompagnement.Gramme;
-                    double p = ((double)c / lesAccompagnements.Count);
-                    if (p <= 0.1)
-                    {
-                        barre = barre1;
-                    }
-                    else if (p <= 0.2)
-                    {
-                        barre = barre2;
-                    }
-                    else if (p <= 0.3)
-                    {
-                        barre = barre3;
-                    }
-                    else if (p <= 0.4)
-                    {
-                        barre = barre4;
-                    }
-                    else if (p <= 0.5)
-                    {
-                        barre = barre5;
-                    }
-                    else if (p <= 0.6)
-                    {
-                        barre = barre6;
-                    }
-                    else if (p <= 0.7)
-                    {
-                        barre = barre7;
-                    }
-                    else if (p <= 0.8)
-                    {
-                        barre = barre8;
-                    }
-                    else if (p <= 0.9)
-                    {
-                        barre = barre9;
-                    }
-                    else
-                    {
-                        barre = barre10;
-                    }
-                    jourAccompagnement.Text += Accompagnement + ": " + a + " soit " + a * prop + " g " + " soit " + p*100 + "%" + "\n" + barre;
+                    double p = ((double)a / lesAccompagnements.Count) * 100;
+                    string tp = String.Format("{0:N1}", p);                   
+                    jourAccompagnement.Text += Accompagnement + ": " + a + " soit " + a * prop + " g " + " soit " + tp + "%" + "\n" + barre10;
                 }
                 else if (Accompagnement == "" && lesAccompagnements.Count > 1)
                 {
@@ -660,40 +625,40 @@ namespace MyRostand.MyCantine
                     if (Accompagnement == unAccompagnement.Libelle)
                     {
                         a++;
-                        double p = ((double)c / TouteslesResistances.Count);
-                        if (p <= 0.1)
+                        double p = ((double)a / lesAccompagnements.Count) * 100;
+                        if (p <= 15)
                         {
                             barre = barre1;
                         }
-                        else if (p <= 0.2)
+                        else if (p <= 25)
                         {
                             barre = barre2;
                         }
-                        else if (p <= 0.3)
+                        else if (p <= 35)
                         {
                             barre = barre3;
                         }
-                        else if (p <= 0.4)
+                        else if (p <= 45)
                         {
                             barre = barre4;
                         }
-                        else if (p <= 0.5)
+                        else if (p <= 55)
                         {
                             barre = barre5;
                         }
-                        else if (p <= 0.6)
+                        else if (p <= 65)
                         {
                             barre = barre6;
                         }
-                        else if (p <= 0.7)
+                        else if (p <= 75)
                         {
                             barre = barre7;
                         }
-                        else if (p <= 0.8)
+                        else if (p <= 85)
                         {
                             barre = barre8;
                         }
-                        else if (p <= 0.9)
+                        else if (p <= 95)
                         {
                             barre = barre9;
                         }
@@ -701,44 +666,45 @@ namespace MyRostand.MyCantine
                         {
                             barre = barre10;
                         }
-                        jourAccompagnement.Text += Accompagnement + ": " + a + " soit " + a * prop + " g " + " soit " + p * 100 + "%" + "\n" + barre;
+                        string tp = String.Format("{0:N1}", p);
+                        jourAccompagnement.Text += Accompagnement + ": " + a + " soit " + a * prop + " g " + " soit " + tp + "%" + "\n" + barre;
                     }
-                    else if (Accompagnement != unAccompagnement.Libelle)
+                    else
                     {
-                        double p = ((double)c / TouteslesResistances.Count);
-                        if (p <= 0.1)
+                        double p = ((double)a / lesAccompagnements.Count) * 100;
+                        if (p <= 15)
                         {
                             barre = barre1;
                         }
-                        else if (p <= 0.2)
+                        else if (p <= 25)
                         {
                             barre = barre2;
                         }
-                        else if (p <= 0.3)
+                        else if (p <= 35)
                         {
                             barre = barre3;
                         }
-                        else if (p <= 0.4)
+                        else if (p <= 45)
                         {
                             barre = barre4;
                         }
-                        else if (p <= 0.5)
+                        else if (p <= 55)
                         {
                             barre = barre5;
                         }
-                        else if (p <= 0.6)
+                        else if (p <= 65)
                         {
                             barre = barre6;
                         }
-                        else if (p <= 0.7)
+                        else if (p <= 75)
                         {
                             barre = barre7;
                         }
-                        else if (p <= 0.8)
+                        else if (p <= 85)
                         {
                             barre = barre8;
                         }
-                        else if (p <= 0.9)
+                        else if (p <= 95)
                         {
                             barre = barre9;
                         }
@@ -746,43 +712,44 @@ namespace MyRostand.MyCantine
                         {
                             barre = barre10;
                         }
-                        jourAccompagnement.Text += Accompagnement + ": " + a + " soit " + a * prop + " g " + " soit " + p * 100 + "%" + "\n" + barre + "\n";
+                        string tp = String.Format("{0:N1}", p);
+                        jourAccompagnement.Text += Accompagnement + ": " + a + " soit " + a * prop + " g " + " soit " + tp + "%" + "\n" + barre + "\n";
                         a = 1;
                         prop = unAccompagnement.Gramme;
-                        double pp = ((double)c / TouteslesResistances.Count);
-                        if (pp <= 0.1)
+                        double pp = ((double)a / lesAccompagnements.Count) * 100;
+                        if (pp <= 15)
                         {
                             barre = barre1;
                         }
-                        else if (pp <= 0.2)
+                        else if (pp <= 25)
                         {
                             barre = barre2;
                         }
-                        else if (pp <= 0.3)
+                        else if (pp <= 35)
                         {
                             barre = barre3;
                         }
-                        else if (pp <= 0.4)
+                        else if (pp <= 45)
                         {
                             barre = barre4;
                         }
-                        else if (pp <= 0.5)
+                        else if (pp <= 55)
                         {
                             barre = barre5;
                         }
-                        else if (pp <= 0.6)
+                        else if (pp <= 65)
                         {
                             barre = barre6;
                         }
-                        else if (pp <= 0.7)
+                        else if (pp <= 75)
                         {
                             barre = barre7;
                         }
-                        else if (pp <= 0.8)
+                        else if (pp <= 85)
                         {
                             barre = barre8;
                         }
-                        else if (pp <= 0.9)
+                        else if (pp <= 95)
                         {
                             barre = barre9;
                         }
@@ -790,7 +757,8 @@ namespace MyRostand.MyCantine
                         {
                             barre = barre10;
                         }
-                        jourAccompagnement.Text += Accompagnement + ": " + a + " soit " + a * prop + " g " + " soit " + pp * 100 + "%" + barre + "\n";
+                        string tpp = String.Format("{0:N1}", pp);
+                        jourAccompagnement.Text += unAccompagnement.Libelle + ": " + a + " soit " + a * prop + " g " + " soit " + tpp + "%" + "\n" + barre ;
                     }
                 }
                 else if (Accompagnement == unAccompagnement.Libelle)
@@ -799,40 +767,40 @@ namespace MyRostand.MyCantine
                 }
                 else if (Accompagnement != unAccompagnement.Libelle)
                 {
-                    double p = ((double)c / TouteslesResistances.Count);
-                    if (p <= 0.1)
+                    double p = ((double)a / lesAccompagnements.Count);
+                    if (p <= 15)
                     {
                         barre = barre1;
                     }
-                    else if (p <= 0.2)
+                    else if (p <= 25)
                     {
                         barre = barre2;
                     }
-                    else if (p <= 0.3)
+                    else if (p <= 35)
                     {
                         barre = barre3;
                     }
-                    else if (p <= 0.4)
+                    else if (p <= 45)
                     {
                         barre = barre4;
                     }
-                    else if (p <= 0.5)
+                    else if (p <= 55)
                     {
                         barre = barre5;
                     }
-                    else if (p <= 0.6)
+                    else if (p <= 65)
                     {
                         barre = barre6;
                     }
-                    else if (p <= 0.7)
+                    else if (p <= 75)
                     {
                         barre = barre7;
                     }
-                    else if (p <= 0.8)
+                    else if (p <= 85)
                     {
                         barre = barre8;
                     }
-                    else if (p <= 0.9)
+                    else if (p <= 95)
                     {
                         barre = barre9;
                     }
@@ -840,7 +808,8 @@ namespace MyRostand.MyCantine
                     {
                         barre = barre10;
                     }
-                    jourAccompagnement.Text += Accompagnement + ": " + a + " soit " + a * prop + " g " + " soit " + p * 100 + "%" + "\n" + barre + "\n";
+                    string tp = String.Format("{0:N1}", p);
+                    jourAccompagnement.Text += Accompagnement + ": " + a + " soit " + a * prop + " g " + " soit " + tp + "%" + "\n" + barre + "\n";
                     Accompagnement = unAccompagnement.Libelle;
                     prop = unAccompagnement.Gramme;
                     a = 1;

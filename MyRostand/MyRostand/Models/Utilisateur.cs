@@ -14,19 +14,21 @@ namespace MyRostand.Models
         private string Bio;
         private int Telephone;
         private string Mail;
+        public string Mdp { get; set; }
         private int Parleur;
         private int Musique;
         private int Animaux;
         private int Fumeur;
         private int NbAnnul;
         private ArrayList Avis { get; set; }
+        public string Description { get; internal set; }
 
         public Utilisateur()
         {
 
         }
 
-        public Utilisateur(int pId, string pNom, string pPrenom, DateTime pDateNaissance, string pBio, int pTelephone, string pMail, int pParleur, int pMusique, int pAnimaux, int pFumeur, int pNbAnnul, ArrayList Avis)
+        public Utilisateur(int pId, string pNom, string pPrenom, DateTime pDateNaissance, string pBio, int pTelephone, string pMail, string pMdp, int pParleur, int pMusique, int pAnimaux, int pFumeur, int pNbAnnul, ArrayList Avis)
         {
             this.Id = pId;
             this.Nom = pNom;
@@ -35,6 +37,7 @@ namespace MyRostand.Models
             this.Bio = pBio;
             this.Telephone = pTelephone;
             this.Mail = pMail;
+            this.Mdp = pMdp;
             this.Parleur = pParleur;
             this.Musique = pMusique;
             this.Animaux = pAnimaux;

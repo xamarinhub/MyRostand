@@ -17,8 +17,8 @@ namespace MyRostand.Database
             try
             {
                 MySqlConnection cnx = MySQL.getCnx();
-                cnx.Ping(); 
-                string requete = "SELECT ENT_ID, ENT_LIBELLE, ENT_DESCRIPTION FROM entree, repasentree, repas WHERE ENT_ID=RE_ENTREE AND RE_REPAS=REP_ID AND REP_DATE= '"+daterequete+"' ";
+                cnx.Ping();
+                string requete = "SELECT ENT_ID, ENT_LIBELLE, ENT_DESCRIPTION FROM entree, repasentree, repas WHERE ENT_ID=RE_ENTREE AND RE_REPAS=REP_ID AND REP_DATE= '" + daterequete + "' ";
                 MySqlCommand cmd = new MySqlCommand(requete, cnx);
                 var reader = cmd.ExecuteReader();
                 while (reader.Read())
@@ -178,7 +178,7 @@ namespace MyRostand.Database
             {
                 MySqlConnection cnx = MySQL.getCnx();
                 cnx.Ping();
-                string requete = "SELECT RES_LIBELLE, RES_DESCRIPTION FROM resistance, reservationmenu, repas WHERE resistance.RES_ID = res_plat AND res_repas = REP_ID AND REP_DATE = '" + daterequete + "'";
+                string requete = "SELECT RES_LIBELLE, RES_DESCRIPTION FROM resistance, reservationmenu, repas WHERE resistance.RES_ID = res_plat AND res_repas = REP_ID AND REP_DATE = '" + daterequete + "' ORDER BY RES_LIBELLE";
                 MySqlCommand cmd = new MySqlCommand(requete, cnx);
                 var reader = cmd.ExecuteReader();
                 while (reader.Read())
@@ -208,7 +208,7 @@ namespace MyRostand.Database
             {
                 MySqlConnection cnx = MySQL.getCnx();
                 cnx.Ping();
-                string requete = "SELECT ACC_LIBELLE, AT_POIDS FROM repas, reservationmenu, concerner, accompagnement, accompagnementtype WHERE REP_ID=res_repas AND res_id=con_res_id AND con_accompagnement=ACC_ID AND ACC_TYPE=AT_ID AND REP_DATE= '" + daterequete + "'";
+                string requete = "SELECT ACC_LIBELLE, AT_POIDS FROM repas, reservationmenu, concerner, accompagnement, accompagnementtype WHERE REP_ID=res_repas AND res_id=con_res_id AND con_accompagnement=ACC_ID AND ACC_TYPE=AT_ID AND REP_DATE= '" + daterequete + "' ORDER BY ACC_LIBELLE";
                 MySqlCommand cmd = new MySqlCommand(requete, cnx);
                 var reader = cmd.ExecuteReader();
                 while (reader.Read())
@@ -562,7 +562,7 @@ namespace MyRostand.Database
                 Console.WriteLine(e.StackTrace);
             }
         }
-  //////////////////////////////////////////////////////////////////REQUÊTE AFIN DE UPDATE UN ELEVE NON PRESENT////////////////////////////
+        //////////////////////////////////////////////////////////////////REQUÊTE AFIN DE UPDATE UN ELEVE NON PRESENT////////////////////////////
         public static List<Present> getToutEleveS(string daterequete)
         {
             List<Present> ToutEleveS = new List<Present>();
@@ -593,7 +593,7 @@ namespace MyRostand.Database
 
         }
         ////////////////////REQUETE POUR QUE L'ELEVE INDIQUE QU'IL NE SERA PAS PRESENT///////////////////
-        
+
         public static void NonPresent(int idrepas, int idutilisateur)
         {
             try
@@ -638,6 +638,35 @@ namespace MyRostand.Database
             {
                 Console.WriteLine("Error: " + e);
                 Console.WriteLine(e.StackTrace);
+            }
+        }
+        //////////////////////////////////////////////////////////////////REQUETE CONNEXION///////////////////////////////////////////////////////////////
+        public static List<Utilisateur> ConnexionUser(string idUser)
+        {
+            List<Utilisateur> User = new List<Utilisateur>();
+
+            try
+            {
+                MySqlConnection cnx = MySQL.getCnx();
+                cnx.Ping();
+                string requete = "SELECT UTI_MDP FROM utilisateur WHERE UTI_EMAIL = '" + idUser + "' ";
+                MySqlCommand cmd = new MySqlCommand(requete, cnx);
+                var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    Utilisateur mdpUser = new Utilisateur();
+                    mdpUser.Mdp = reader.GetString(0);
+                    User.Add(mdpUser);
+                }
+                cnx.Close();
+                return User;
+            }
+            catch (MySqlException ex)
+            {
+                Utilisateur erreurSQL = new Utilisateur();
+                erreurSQL.Description = (ex.ToString());
+                User.Add(erreurSQL);
+                return User;
             }
         }
     }

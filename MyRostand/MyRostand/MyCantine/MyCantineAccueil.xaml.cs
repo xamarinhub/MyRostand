@@ -27,7 +27,7 @@ namespace MyRostand.MyCantine
         Button AnnulerReservation;
         Button Nevienspas;
         CheckBox checkBoxAccompagnement = new CheckBox { IsChecked = true };
-        int idutilisateur = 3;
+        int idutilisateur = 1;
         bool RepasDejaReserve = false;
 
         DateTime ancienneDate = DateTime.Today;
