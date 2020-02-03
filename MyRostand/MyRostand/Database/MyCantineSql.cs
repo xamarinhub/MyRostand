@@ -714,7 +714,7 @@ namespace MyRostand.Database
             {
                 MySqlConnection cnx = MySQL.getCnx();
                 cnx.Ping();
-                string requete = "SELECT UTI_NOM, UTI_PRENOM, UTI_BIO, UTI_TEL FROM utilisateur WHERE UTI_EMAIL = '" + idConducteur + "' ";
+                string requete = "SELECT UTI_NOM, UTI_PRENOM, UTI_BIO, UTI_TEL, UTI_DATENAISSANCE, UTI_EMAIL,UTI_RUE, UTI_CP, UTI_VILLE, UTI_MDP, UTI_ROLE, ROL_LIBELLE FROM utilisateur, role WHERE UTI_ROLE = ROL_ID AND UTI_EMAIL = '" + idConducteur + "' ";
                 MySqlCommand cmd = new MySqlCommand(requete, cnx);
                 var reader = cmd.ExecuteReader();
                 if (reader.Read())
@@ -724,6 +724,14 @@ namespace MyRostand.Database
                     UnUser.Prenom = reader.GetString(1);
                     UnUser.Bio = reader.GetString(2);
                     UnUser.Telephone = reader.GetString(3);
+                    UnUser.DateNaissance = reader.GetDateTime(4);
+                    UnUser.Mail = reader.GetString(5);
+                    UnUser.Rue = reader.GetString(6);
+                    UnUser.CodePostal = reader.GetString(7);
+                    UnUser.Ville = reader.GetString(8);
+                    UnUser.MDP = reader.GetString(9);
+                    UnUser.Role = reader.GetInt32(10);
+                    UnUser.Rolelibelle = reader.GetString(11);
                     UnUsers.Add(UnUser);
                 }
                 cnx.Close();

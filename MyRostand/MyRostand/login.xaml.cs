@@ -76,7 +76,7 @@ namespace MyRostand
                 Text =  "Identifiant",
                 FontSize = 20
             };
-            var MyEntryID = new Entry { Text = "", Placeholder = "Identifiant"};
+            var MyEntryID = new Entry { Text = "", Placeholder = "Identifiant                                                        "};
             StackLayout Layout2 = new StackLayout
             {
                 Orientation = StackOrientation.Horizontal
@@ -86,7 +86,7 @@ namespace MyRostand
                 Text = "Mot de passe",
                 FontSize = 20
             };           
-             var MyEntryMDP = new Entry { Text = "", Placeholder = "Mot de passe", IsPassword = true };
+             var MyEntryMDP = new Entry { Text = "", Placeholder = "Mot de passe                                               ", IsPassword = true };
 
 
             Button connexion = new Button()
@@ -109,8 +109,8 @@ namespace MyRostand
                 {
                     if (Valide == MDP)
                     {
-                        await Navigation.PushAsync(new MainPage());
                         Application.Current.Properties["AppUser"] = MyEntryID.Text;
+                        await Navigation.PushAsync(new MainPage());                       
                     }
                     else
                     {

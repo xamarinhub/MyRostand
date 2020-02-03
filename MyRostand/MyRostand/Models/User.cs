@@ -13,12 +13,14 @@ namespace MyRostand.Models
         public String Telephone { get; set; }
         public String Rue { get; set; }
         public String Ville { get; set; }
-        public int CodePostal { get; set; }
+        public String CodePostal { get; set; }
         public String MDP { get; set; }
         public string Description { get; internal set; }
         public String Bio { get; set; }
+       public int Role { get; set; }
+        public String Rolelibelle { get; set; }
 
-        public User(string nom, string prenom, DateTime datenaissance, string mail, string telephone, string rue, string ville, int codepostal, string mdp, string bio)
+        public User(string nom, string prenom, DateTime datenaissance, string mail, string telephone, string rue, string ville, string codepostal, string mdp, string bio, int role, string rolelibelle)
         {
             this.Nom = nom;
             this.Prenom = prenom;
@@ -30,6 +32,8 @@ namespace MyRostand.Models
             this.CodePostal = codepostal;
             this.MDP = mdp;
             this.Bio = bio;
+            this.Role = role;
+            this.Rolelibelle = rolelibelle;
         }
 
         public User()

@@ -8,6 +8,7 @@ using Xamarin.Forms;
 using MyRostand.Database;
 using MyRostand.MySonnerie;
 using MyRostand.MyCantine;
+using MyRostand.Models;
 
 namespace MyRostand
 {
@@ -20,6 +21,8 @@ namespace MyRostand
         {
             InitializeComponent();
             Title = "MyRostand - Accueil";
+            var value = Application.Current.Properties["AppUser"];
+            String id = value.ToString();
             StackLayout stackPrincipal = new StackLayout()
             {
                 Padding = new Thickness(0, 40, 0, 0),
@@ -212,7 +215,7 @@ namespace MyRostand
             {
                 BackgroundColor = Color.FromHex("#27ae60"),
                 CornerRadius = 10,
-                Text = "Se connecter",
+                Text = "   Mon profil   ",
                 Margin = new Thickness(220, 10, 220, 10),
                 Padding = new Thickness(0, 10, 0, 10),
                 TextColor = Color.White
@@ -231,8 +234,21 @@ namespace MyRostand
             stackPrincipal.Children.Add(frameCantine);
             stackPrincipal.Children.Add(frameCovoit);
             stackPrincipal.Children.Add(frameSonnerie);
-            stackPrincipal.Children.Add(frameCUISINE);
+            List<User> LeUser = Database.MyCantineSQL.UnUser(id);
+            for (int i = 0; i < LeUser.Count; i++)
+            {
+                User UnUser = LeUser[i];
+                if (UnUser.Role == 3)
+                {
+                    stackPrincipal.Children.Add(frameCUISINE);
+                }
+                else
+                {
+
+                }
+            }
             stackPrincipal.Children.Add(connexion);
+
             Content = stackPrincipal;
         }
     }
