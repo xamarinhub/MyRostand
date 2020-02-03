@@ -110,6 +110,7 @@ namespace MyRostand
                     if (Valide == MDP)
                     {
                         await Navigation.PushAsync(new MainPage());
+                        Application.Current.Properties["AppUser"] = MyEntryID.Text;
                     }
                     else
                     {

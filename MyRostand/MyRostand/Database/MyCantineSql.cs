@@ -707,6 +707,69 @@ namespace MyRostand.Database
                 return User;
             }
         }
+        public static List<User> UnUser(string idConducteur)
+        {
+            List<User> UnUsers = new List<User>();
+            try
+            {
+                MySqlConnection cnx = MySQL.getCnx();
+                cnx.Ping();
+                string requete = "SELECT UTI_NOM, UTI_PRENOM, UTI_BIO, UTI_TEL FROM utilisateur WHERE UTI_EMAIL = '" + idConducteur + "' ";
+                MySqlCommand cmd = new MySqlCommand(requete, cnx);
+                var reader = cmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    User UnUser = new User();
+                    UnUser.Nom = reader.GetString(0);
+                    UnUser.Prenom = reader.GetString(1);
+                    UnUser.Bio = reader.GetString(2);
+                    UnUser.Telephone = reader.GetString(3);
+                    UnUsers.Add(UnUser);
+                }
+                cnx.Close();
+                return UnUsers;
+            }
+            catch (MySqlException ex)
+            {
+                Utilisateur erreurSQL = new Utilisateur();
+                erreurSQL.Description = (ex.ToString());
+                return UnUsers;
+            }
+
+        }
+
+
+
+
+        ///////////////////////
+        ///
+        public static User UnUserNom(String idConducteur)
+        {
+            User UnUser = new User();
+            try
+            {
+                MySqlConnection cnx = MySQL.getCnx();
+                cnx.Ping();
+                string requete = "SELECT UTI_NOM FROM utilisateur WHERE UTI_EMAIL = '" + idConducteur + "' ";
+                MySqlCommand cmd = new MySqlCommand(requete, cnx);
+                var reader = cmd.ExecuteReader();
+                if (reader.Read())
+                {
+
+                    UnUser.Nom = reader.GetString(0);
+                }
+                cnx.Close();
+                return UnUser;
+            }
+            catch (MySqlException ex)
+            {
+                Utilisateur erreurSQL = new Utilisateur();
+                erreurSQL.Description = (ex.ToString());
+                return UnUser;
+            }
+
+        }
+
     }
 }
 

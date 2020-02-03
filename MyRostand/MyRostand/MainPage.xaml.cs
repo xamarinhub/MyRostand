@@ -208,16 +208,31 @@ namespace MyRostand
             frameCUISINE.Content = blocCUISINE;
 
 
+            Button connexion = new Button()
+            {
+                BackgroundColor = Color.FromHex("#27ae60"),
+                CornerRadius = 10,
+                Text = "Se connecter",
+                Margin = new Thickness(220, 10, 220, 10),
+                Padding = new Thickness(0, 10, 0, 10),
+                TextColor = Color.White
+            };
 
-          
-            /*==================================================================*/
-            /*============================CONTENT===============================*/
-            /*==================================================================*/
-            stackPrincipal.Children.Add(LogoAccueil);
+            connexion.Clicked += Connexion_Clicked;
+            async void Connexion_Clicked(object sender, EventArgs e)
+            {
+                await Navigation.PushAsync(new UserProfil());
+            }
+
+                /*==================================================================*/
+                /*============================CONTENT===============================*/
+                /*==================================================================*/
+                stackPrincipal.Children.Add(LogoAccueil);
             stackPrincipal.Children.Add(frameCantine);
             stackPrincipal.Children.Add(frameCovoit);
             stackPrincipal.Children.Add(frameSonnerie);
             stackPrincipal.Children.Add(frameCUISINE);
+            stackPrincipal.Children.Add(connexion);
             Content = stackPrincipal;
         }
     }
