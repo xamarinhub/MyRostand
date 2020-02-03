@@ -16,12 +16,6 @@ namespace MyRostand.MyCantine
     {
         //ON DECLARE LES LABELS AU DEBUT POUR LES APPELER DANS L'ENSEMBLE DES FONCTIONS (ça sera utile pour la suite !)
         Frame menuStack = new Frame();
-        Label jourChoisi = new Label() { FontSize = 20 };
-        Label jourEntree = new Label() { FontSize = 20 };
-        Label jourViande = new Label() { FontSize = 20 };
-        Label jourAccompagnement = new Label() { FontSize = 20 };
-        Label jourLaitage = new Label() { FontSize = 20 };
-        Label jourDesserts = new Label() { FontSize = 20 };
         Label notificationJour = new Label() { FontSize = 20 };
         Button joursEntree = new Button();
         Button AnnulerReservation;
@@ -33,9 +27,6 @@ namespace MyRostand.MyCantine
         bool AccompagnementReserver;
 
         DateTime ancienneDate = DateTime.Today;
-        DateTime lendemainDate = DateTime.Today.AddDays(1);
-        DateTime WeekenDate = DateTime.Today.AddDays(3);
-        private bool boutonlaitageClicked;
 
         public MyCantineAccueil()
         {
@@ -43,6 +34,17 @@ namespace MyRostand.MyCantine
 
             Title = "Menu de la semaine";
             StackLayout stackPrincipal = new StackLayout();
+
+            Label Selectionjour = new Label()
+            {
+                HorizontalTextAlignment = TextAlignment.Center,
+                VerticalTextAlignment = TextAlignment.Center,
+                BackgroundColor = Color.FromHex("#27ae60"),
+                Margin = new Thickness(0, 0, 0, 20),
+                Text = "Veuillez sélectionner un jour pour réserver votre repas",
+                FontSize = 20,
+                TextColor = Color.White
+            };
 
             /*==================================================*/
             /*==============NAVBAR DES JOURS====================*/
@@ -69,114 +71,44 @@ namespace MyRostand.MyCantine
             };
 
             string numjour;
-            string nummois;
+            int nummois;
             string nommois = "";
             string libelleJour = "";
-            string numlendemain;
-            string nummoislendemain;
-            string numweekend;
-            string nummoisweekend;
 
 
             for (int i = 1; i <= 14; i++)
             {
                 numjour = $"{ancienneDate.Day}";
-                nummois = $"{ancienneDate.Month}";
+                nummois = ancienneDate.Month;
                 libelleJour = $"{ ancienneDate.DayOfWeek }";
-                numlendemain = $"{lendemainDate.Day}";
-                nummoislendemain = $"{lendemainDate.Month}";
-                numweekend = $"{WeekenDate.Day}";
-                nummoisweekend = $"{WeekenDate.Month}";
 
-                /*============JOURS==============*/
-                if (libelleJour == "Monday")
+                string[] LibelleJourFrancais = new string[7] { "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche" };
+                string[] LibelleJourAnglais = new string[7] { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
+
+                for (int c = 0; c < LibelleJourFrancais.Length; c++)
                 {
-                    libelleJour = "Lundi";
-                }
-                else if (libelleJour == "Tuesday")
-                {
-                    libelleJour = "Mardi";
-                }
-                else if (libelleJour == "Wednesday")
-                {
-                    libelleJour = "Mercredi";
-                }
-                else if (libelleJour == "Thursday")
-                {
-                    libelleJour = "Jeudi";
-                }
-                else if (libelleJour == "Friday")
-                {
-                    libelleJour = "Vendredi";
-                }
-                else if (libelleJour == "Saturday")
-                {
-                    libelleJour = "Samedi";
-                }
-                else
-                {
-                    libelleJour = "Dimanche";
+                    if (LibelleJourAnglais[c] == libelleJour)
+                    {
+                        libelleJour = LibelleJourFrancais[c];
+                        break;
+                    }
                 }
 
-                /*============MOIS==============*/
-                if (nummois == "1")
+                string[] ListeMois = new string[12] { "Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Aout", "Septembre", "Octobre", "Novembre", "Décembre" };
+                int[] ListeNumMois = new int[12] { 01, 02, 03, 04, 05, 06, 07, 08, 09, 10, 11, 12 };
+                for (int c = 0; c < ListeMois.Length; c++)
                 {
-                    nommois = "Janvier";
-                    nummois = "01";
-                }
-                else if (nummois == "2")
-                {
-                    nommois = "Février";
-                    nummois = "02";
-                }
-                else if (nummois == "3")
-                {
-                    nommois = "Mars";
-                    nummois = "03";
-                }
-                else if (nummois == "4")
-                {
-                    nommois = "Avril";
-                    nummois = "04";
-                }
-                else if (nummois == "5")
-                {
-                    nommois = "Mai";
-                    nummois = "05";
-                }
-                else if (nummois == "6")
-                {
-                    nommois = "Juin";
-                    nummois = "06";
-                }
-                else if (nummois == "7")
-                {
-                    nommois = "Juillet";
-                    nummois = "07";
-                }
-                else if (nummois == "9")
-                {
-                    nommois = "Septembre";
-                    nummois = "09";
-                }
-                else if (nummois == "10")
-                {
-                    nommois = "Octobre";
-                }
-                else if (nummois == "11")
-                {
-                    nommois = "Novembre";
-                }
-                else
-                {
-                    nommois = "Décembre";
+                    if (c + 1 == nummois)
+                    {
+                        nommois = ListeMois[c];
+                        nummois = ListeNumMois[c];
+                        break;
+                    }
                 }
 
 
                 string jourcomplet = libelleJour + "\n" + numjour + "\n" + nommois;
                 string daterequete = DateTime.Today.Year + "-" + nummois + "-" + numjour;
-                string datecount = DateTime.Today.Year + "-" + nummoislendemain + "-" + numlendemain;
-                string datecountweekend = DateTime.Today.Year + "-" + nummoisweekend + "-" + numweekend;
 
 
                 if (libelleJour == "Dimanche" | libelleJour == "Samedi")
@@ -190,8 +122,6 @@ namespace MyRostand.MyCantine
                         CornerRadius = 10,
                         Text = jourcomplet,
                         StyleId = daterequete,
-                        ClassId = datecount,
-                        AutomationId = datecountweekend,
                         IsVisible = true,
                         TextColor = Color.White,
                     };
@@ -208,8 +138,6 @@ namespace MyRostand.MyCantine
                         CornerRadius = 10,
                         Text = jourcomplet,
                         StyleId = daterequete,
-                        ClassId = datecount,
-                        AutomationId = datecountweekend,
                         IsVisible = true,
                         TextColor = Color.White,
                     };
@@ -220,8 +148,6 @@ namespace MyRostand.MyCantine
                     jourScroll.Children.Add(bouton);
                 }
                 ancienneDate = ancienneDate.AddDays(1);
-                lendemainDate = lendemainDate.AddDays(1);
-                WeekenDate = WeekenDate.AddDays(1);
 
             }
 
@@ -248,12 +174,13 @@ namespace MyRostand.MyCantine
             VerticalScroll.Content = menuStack;
             async void Bouton_Clicked(object sender, EventArgs e)
             {
+                /*============MOIS==============*/
+                DateTime DateActuelle = DateTime.Today;
+                string nummois2 = ""+ DateActuelle.Month;
                 LogoAccueil.IsVisible = false;
-                //cette variable sert à récupérer le jour en question, et afficher les menus correspondants
+                //Chaque variable avec ((Button)sender).Exemple sert a recuperer la valeur de la proprieté du bouton.
                 string jourcomplet = ((Button)sender).Text;
                 string daterequete = ((Button)sender).StyleId;
-                string datecount = ((Button)sender).ClassId;
-                string datecountweekend = ((Button)sender).AutomationId;
                 int idrepas = Database.MyCantineSQL.getIdRepas(daterequete);
                 int idReservationMenu = Database.MyCantineSQL.getIdReservationMenu(idrepas);
                 bool RepasDejaReserve =  Database.MyCantineSQL.getStatutReserver(daterequete, idutilisateur);
@@ -266,6 +193,32 @@ namespace MyRostand.MyCantine
                 StackLayout stackCardMenu = new StackLayout();
 
                 menuStack.IsVisible = true;
+
+                /*-------------------------------------------------------*/
+                /*---CONDITION SI REPAS NON RESERVE DANS LES TEMPS-------*/
+                /*-------------------------------------------------------*/
+                Label TropTard = new Label()
+                {
+                    HorizontalTextAlignment = TextAlignment.Center,
+                    VerticalTextAlignment = TextAlignment.Center,
+                    BackgroundColor = Color.Red,
+                    Margin = new Thickness(0, 0, 0, 20),
+                    Text = "Désolé, réservation non dans les temps !"+ daterequete + nummois2,
+                    FontSize = 20,
+                    TextColor = Color.White
+
+                };
+                string DateAujourdhui = DateTime.Today.Year + "-" + nummois2 + "-" + DateTime.Today.Day;
+                if (daterequete != DateAujourdhui)
+                {
+                    stackCardMenu.Children.Add(TropTard);
+                    TropTard.Text = "Désolé, réservation non dans les temps !" + daterequete + DateAujourdhui;
+                }
+                else
+                {
+                    stackCardMenu.Children.Remove(TropTard);
+                }
+                /*-------------------------------------------------------*/
 
                 /*--------------------------------------------------*/
                 /*---------------------ENTRÉES----------------------*/
@@ -295,16 +248,14 @@ namespace MyRostand.MyCantine
                     FontSize = 20,
                     TextColor = Color.White
                 };
+                /*-------------------------------------------------------*/
 
                 titreEntree.Children.Add(titre2);
                 stackCardEntree.Children.Add(titreEntree);
                 frameEntree.Content = stackCardEntree;
-                //STACKCARDMENU recupère cette card
                 stackCardMenu.Children.Add(frameEntree);
 
-                ////////////////////////////////////////////////////////////////////////////////////////
-
-                jourEntree.Text = $"";
+                /*-------------------------------------------------------*/
 
                 List<Entree> lesEntrees = Database.MyCantineSQL.getLesEntrees(daterequete);
 
@@ -325,31 +276,12 @@ namespace MyRostand.MyCantine
                     };
 
                     stackCardEntree2.Children.Add(boutonEntree);
-
                     stackCardMenu.Children.Add(stackCardEntree2);
                     string textbouton = boutonEntree.Text;
-                    boutonEntree.Clicked += boutonEntree_Click;
-                    async void boutonEntree_Click(object senders, EventArgs ex)
-                    {
-                        if (boutonEntree.BackgroundColor == Color.LightGray)
-                        {
-                            string textuncheck = textbouton;
-                            boutonEntree.BackgroundColor = Color.LightGreen;
-                            boutonEntree.Text = "vide";
-                            boutonEntree.Text = textuncheck + "✓";
-                        }
-                        else 
-                        {
-                            string textchecked = textbouton;
-                            boutonEntree.BackgroundColor = Color.LightGray;
-                            boutonEntree.Text = "vide2";
-                            boutonEntree.Text = textchecked + "";
-                        }
-                    }
 
                 };
+                /*-------------------------------------------------------*/
 
-                ////////////////////////////////////////////////////////////////////////////////////////
                 /*--------------------------------------------------*/
                 /*--------------PLATS DE RESISTANCES ---------------*/
                 /*--------------------------------------------------*/
@@ -378,22 +310,16 @@ namespace MyRostand.MyCantine
                     FontSize = 20,
                     TextColor = Color.White
                 };
-
+                /*-------------------------------------------------------*/
 
                 titreViande.Children.Add(titre3);
                 stackCardViande.Children.Add(titreViande);
                 frameViande.Content = stackCardViande;
-                //STACKCARDMENU recupère cette card
                 stackCardMenu.Children.Add(frameViande);
 
-                ////////////////////////////////////////////////////////////
-                jourViande.Text = $"";
+                /*-------------------------------------------------------*/
 
                 List<Resistance> lesResistances = Database.MyCantineSQL.getlesResistances(daterequete);
-                List<Resistance> lesResistancesNotifDate = Database.MyCantineSQL.getlesResistances(datecount);
-                List<Resistance> lesResistancesNotifDateWeekEnd = Database.MyCantineSQL.getlesResistances(datecountweekend);
-                int ViandeC = lesResistancesNotifDate.Count;
-                int ViandeCWE = lesResistancesNotifDateWeekEnd.Count;
                 for (int i = 0; i < lesResistances.Count; i++)
                 {
 
@@ -435,15 +361,14 @@ namespace MyRostand.MyCantine
                         boutonResistance.Text = textchecked;
                     }
                     stackCardMenu.Children.Add(stackCardResistance);
-
                     boutonResistance.Clicked += boutonResistance_Click;
 
-
+                    /*-------------------------------------------------------*/
                     async void boutonResistance_Click(object senders, EventArgs ex)
                     {
                         if (boutonResistance.BackgroundColor == Color.LightGreen)
                         {
-                            string DateToday = DateTime.Today.Year + "-" + nummois + "-" + DateTime.Today.Day;
+                            string DateToday = DateTime.Today.Year + "-" + nummois2 + "-" + DateTime.Today.Day;
                             if (daterequete != DateToday)
                             {
                                 Database.MyCantineSQL.SupprimerResistance(idrepas, idReservationMenu, idutilisateur);
@@ -451,7 +376,7 @@ namespace MyRostand.MyCantine
                             string textchecked = textbouton;
                             boutonResistance.BackgroundColor = Color.LightGray;
                             boutonResistance.Text = "vide2";
-                            boutonResistance.Text = textchecked;
+                            boutonResistance.Text = textchecked + DateToday;
                         }
                         else
                         {
@@ -468,7 +393,9 @@ namespace MyRostand.MyCantine
 
                     }
                 }
-                ////////////////////////////////////////////////////////////////////////////////////////
+                /*-------------------------------------------------------*/
+
+
                 /*--------------------------------------------------*/
                 /*---------------------ACCOMPAGNEMENT---------------*/
                 /*--------------------------------------------------*/
@@ -498,18 +425,16 @@ namespace MyRostand.MyCantine
                     FontSize = 20,
                     TextColor = Color.White
                 };
+                /*-------------------------------------------------------*/
+
                 titreAccompagnement.Children.Add(titre4);
                 stackCardAccompagnement.Children.Add(titreAccompagnement);
                 frameAccompagnement.Content = stackCardAccompagnement;
                 //STACKCARDMENU recupère cette card
                 stackCardMenu.Children.Add(frameAccompagnement);
 
-                jourAccompagnement.Text = $"";
+                /*-------------------------------------------------------*/
                 List<Accompagnement> lesAccompagnements = Database.MyCantineSQL.getlesAccompagnements(daterequete);
-                List<Accompagnement> NotifDate = Database.MyCantineSQL.getlesAccompagnements(datecount);
-                List<Accompagnement> NotifDateWeekEnd = Database.MyCantineSQL.getlesAccompagnements(datecountweekend);
-                int AccompC = NotifDate.Count;
-                int AccompCWE = NotifDateWeekEnd.Count;
                 for (int i = 0; i < lesAccompagnements.Count; i++)
                 {
                     Accompagnement unAccompagnement = lesAccompagnements[i];
@@ -523,12 +448,15 @@ namespace MyRostand.MyCantine
                         Text = unAccompagnement.Libelle + "\n",
                         FontSize = 16
                     };
+                    /*-------------------------------------------------------*/
+
                     int idaccompagnement = unAccompagnement.Id;
                     stackCardAccompagnement2.Children.Add(boutonAccompagnement);
                     string textbouton = boutonAccompagnement.Text;
                     stackCardMenu.Children.Add(stackCardAccompagnement2);
-
                     boutonAccompagnement.Clicked += boutonAccompagnement_Click;
+
+                    /*-------------------------------------------------------*/
 
                     if (RequeteAccompagnement > 0 && RequeteAccompagnement == idaccompagnement)
                     {
@@ -554,19 +482,23 @@ namespace MyRostand.MyCantine
                         boutonAccompagnement.Text = textchecked;
                     }
 
+
+                    /*-------------------------------------------------------*/
+
                     async void boutonAccompagnement_Click(object senders, EventArgs ex)
                     {
                         if (boutonAccompagnement.BackgroundColor == Color.LightGray)
                         {
                             string textuncheck = textbouton;
-                            string DateToday = DateTime.Today.Year + "-" + nummois + "-" + DateTime.Today.Day;
+                            string MoisDuJour = "" + ancienneDate;
+                            string DateToday = DateTime.Today.Year + "-" + MoisDuJour + "-" + DateTime.Today.Day;
                             if (daterequete != DateToday)
                             {
                                 Database.MyCantineSQL.SupprimerAccompagnement(idReservationMenu, idaccompagnement);
                             }
                             boutonAccompagnement.BackgroundColor = Color.LightGreen;
                             boutonAccompagnement.Text = "vide";
-                            boutonAccompagnement.Text = textuncheck;
+                            boutonAccompagnement.Text = textuncheck + MoisDuJour;
                         }
                         else
                         {
@@ -582,8 +514,8 @@ namespace MyRostand.MyCantine
                         }
                     }
                 }
+                /*-------------------------------------------------------*/
 
-                ////////////////////////////////////////////////////////////////////////////////////////
                 /*--------------------------------------------------*/
                 /*---------------------LAITAGE----------------------*/
                 /*--------------------------------------------------*/
@@ -608,18 +540,20 @@ namespace MyRostand.MyCantine
                 {
                     HorizontalTextAlignment = TextAlignment.Center,
                     VerticalTextAlignment = TextAlignment.Center,
-                    Text = "Laitages",
+                    Text = "Laitages et Fromages",
                     FontSize = 20,
                     TextColor = Color.White
                 };
 
+                /*-------------------------------------------------------*/
+
                 titreLaitage.Children.Add(titre5);
                 stackCardLaitage.Children.Add(titreLaitage);
                 frameLaitage.Content = stackCardLaitage;
-                //STACKCARDMENU recupère cette card
                 stackCardMenu.Children.Add(frameLaitage);
 
-                jourLaitage.Text = $"";
+                /*-------------------------------------------------------*/
+
                 List<Laitage> lesLaitages = Database.MyCantineSQL.getlesLaitages(daterequete);
                 for (int i = 0; i < lesLaitages.Count; i++)
                 {
@@ -637,31 +571,12 @@ namespace MyRostand.MyCantine
 
                     };
                     string textbouton = boutonLaitage.Text;
-                    boutonLaitage.Clicked += boutonlaitage_Click;
                     stackCardALaitage.Children.Add(boutonLaitage);
-                    stackCardMenu.Children.Add(stackCardALaitage);
-                    
-                    async void boutonlaitage_Click(object senders, EventArgs ex)
-                    {
-                        if (boutonLaitage.BackgroundColor == Color.LightGray)
-                        {
-                            string textuncheck = textbouton;
-                            boutonLaitage.BackgroundColor = Color.LightGreen;
-                            boutonLaitage.Text = "vide";
-                            boutonLaitage.Text = textuncheck + "✓";
-                        }
-                        else
-                        {
-                            string textchecked = textbouton;
-                            boutonLaitage.BackgroundColor = Color.LightGray;
-                            boutonLaitage.Text = "vide2";
-                            boutonLaitage.Text = textchecked + "";
-                        }
-                    }
+                    stackCardMenu.Children.Add(stackCardALaitage);                   
 
                 }
-         
-                ////////////////////////////////////////////////////////////////////////////////////////
+                /*-------------------------------------------------------*/
+
                 /*--------------------------------------------------*/
                 /*---------------------DESSERT----------------------*/
                 /*--------------------------------------------------*/
@@ -686,18 +601,18 @@ namespace MyRostand.MyCantine
                 {
                     HorizontalTextAlignment = TextAlignment.Center,
                     VerticalTextAlignment = TextAlignment.Center,
-                    Text = "Desserts",
+                    Text = "Desserts et Fruits",
                     FontSize = 20,
                     TextColor = Color.White
                 };
+                /*-------------------------------------------------------*/
 
                 titreDessert.Children.Add(titre6);
                 stackCardDessert.Children.Add(titreDessert);
                 frameDessert.Content = stackCardDessert;
-                //STACKCARDMENU recupère cette card
                 stackCardMenu.Children.Add(frameDessert);
-                /*------------------------------------------*/
-                jourDesserts.Text = $"";
+
+                /*-------------------------------------------------------*/
                 List<Dessert> lesDesserts = Database.MyCantineSQL.getLesDesserts(daterequete);
                 for (int i = 0; i < lesDesserts.Count; i++)
                 {
@@ -717,31 +632,11 @@ namespace MyRostand.MyCantine
                     stackCardDessert2.Children.Add(boutonDessert);
                     string textbouton = boutonDessert.Text;
                     stackCardMenu.Children.Add(stackCardDessert2);
-
-                    boutonDessert.Clicked += boutonDessert_Click;
-                    async void boutonDessert_Click(object senders, EventArgs ex)
-                    {
-                        if (boutonDessert.BackgroundColor == Color.LightGray)
-                        {
-                            string textuncheck = textbouton;
-                            boutonDessert.BackgroundColor = Color.LightGreen;
-                            boutonDessert.Text = "vide";
-                            boutonDessert.Text = textuncheck + "✓";
-                        }
-                        else
-                        {
-                            string textchecked = textbouton;
-                            boutonDessert.BackgroundColor = Color.LightGray;
-                            boutonDessert.Text = "vide2";
-                            boutonDessert.Text = textchecked + "";
-                        }
-                    }
-                }
-                ////////////////////////////////////////////////////////////////////////////////////////
-                ///
+                   
+                }              
 
                 /*-------------------------------------------------------*/
-                /*---------------------ANNULATION----------------------*/
+                /*---------------------ANNULATION------------------------*/
                 /*-------------------------------------------------------*/
                 StackLayout stackCardAnnulation = new StackLayout();
 
@@ -768,7 +663,7 @@ namespace MyRostand.MyCantine
                     FontSize = 20,
                     TextColor = Color.AntiqueWhite
                 };
-
+                /*-------------------------------------------------------*/
 
                 /*-------------------------------------------------------*/
                 /*---CONDITION SI REPAS DEJA RESERVE---------------------*/
@@ -808,6 +703,10 @@ namespace MyRostand.MyCantine
                         Nevienspas.Clicked += Nevienspas_Clicked;
                     }
                 }
+                /*-------------------------------------------------------*/
+
+
+                //LORSQUE L'ON CLIQUE SUR LE BOUTON ANNULER RESERVATION ALORS ...
                 async void AnnulerReservation_Clicked(object senders, EventArgs ex)
                 {
                     AnnulerReservation.Text = "Annulation de votre réservation avec succès !";
@@ -817,6 +716,7 @@ namespace MyRostand.MyCantine
                     stackCardAnnulation.Children.Remove(AnnulerReservation);
                 }
 
+                //LORSQUE L'ON CLIQUE SUR LE BOUTON NEVIENSPAS ALORS ...
                 async void Nevienspas_Clicked(object senders, EventArgs ex)
                 {
                     if (Nevienspas.BackgroundColor == Color.LightGray)
@@ -832,38 +732,21 @@ namespace MyRostand.MyCantine
                         Nevienspas.Text = "Je ne viendrais pas au self ce jour.";
                     }
                 }
-
+                /*-------------------------------------------------------*/
 
                 //FRAMEMENU RECUPERE STACKCARDMENU QUI LUI MEME RECUPERE TOUTE LES CARD ET ITEMS DU MENU
                 frameMenu.Content = stackCardMenu;
 
-                //ET DONC LE CONTENU ACTUEL DE MENUSTACK EST REMPLACE PAR CE FRAMEMENU MIS A JOUR
+            //ET DONC LE CONTENU ACTUEL DE MENUSTACK EST REMPLACE PAR CE FRAMEMENU MIS A JOUR
                 menuStack.Content = frameMenu;
             }
 
-            /*==================================================*/
-            /*==================================================*/
-
-            ////////////////////////////////////////////////////////////////////////////////////////
-            Label Selectionjour = new Label()
-            {
-                HorizontalTextAlignment = TextAlignment.Center,
-                VerticalTextAlignment = TextAlignment.Center,
-                BackgroundColor = Color.FromHex("#27ae60"),
-                Margin = new Thickness(0, 0, 0, 20),
-                Text = "Veuillez sélectionner un jour pour réserver votre repas",
-                FontSize = 20,
-                TextColor = Color.White
-            };
-
             //////////////////////////////////////////////////////////////////////////////////
-
             stackPrincipal.Children.Add(Selectionjour);
             stackPrincipal.Children.Add(barJours);
             stackPrincipal.Children.Add(LogoAccueil);
             stackPrincipal.Children.Add(VerticalScroll);
             Content = stackPrincipal;
-
             ////////////////////////////////////////////////////////////////////////////////////////
         }
 
