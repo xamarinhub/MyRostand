@@ -20,7 +20,8 @@ namespace MyRostand.Models
        public int Role { get; set; }
         public String Rolelibelle { get; set; }
 
-        public User(string nom, string prenom, DateTime datenaissance, string mail, string telephone, string rue, string ville, string codepostal, string mdp, string bio, int role, string rolelibelle)
+        public String Classe { get; set; }
+        public User(string nom, string prenom, DateTime datenaissance, string mail, string telephone, string rue, string ville, string codepostal, string mdp, string bio, int role, string rolelibelle, string classe)
         {
             this.Nom = nom;
             this.Prenom = prenom;
@@ -34,6 +35,7 @@ namespace MyRostand.Models
             this.Bio = bio;
             this.Role = role;
             this.Rolelibelle = rolelibelle;
+            this.Classe = classe;
         }
 
         public User()

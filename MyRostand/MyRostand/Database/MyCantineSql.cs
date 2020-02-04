@@ -777,6 +777,33 @@ namespace MyRostand.Database
             }
 
         }
+        public static List<User> UnEleve(string idConducteur)
+        {
+            List<User> UnEleves = new List<User>();
+            try
+            {
+                MySqlConnection cnx = MySQL.getCnx();
+                cnx.Ping();
+                string requete = "SELECT CLA_LIBELLE FROM utilisateur, eleve, classe WHERE ELE_UTILISATEUR = UTI_ID AND ELE_CLASSE + CLA_ID  AND UTI_EMAIL = '" + idConducteur + "' ";
+                MySqlCommand cmd = new MySqlCommand(requete, cnx);
+                var reader = cmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    User Leleve = new User();
+                    Leleve.Classe = reader.GetString(0);
+                    UnEleves.Add(Leleve);
+                }
+                cnx.Close();
+                return UnEleves;
+            }
+            catch (MySqlException ex)
+            {
+                Utilisateur erreurSQL = new Utilisateur();
+                erreurSQL.Description = (ex.ToString());
+                return UnEleves;
+            }
+
+        }
 
     }
 }
