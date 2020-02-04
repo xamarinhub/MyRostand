@@ -20,6 +20,7 @@ namespace MyRostand.MyCantine
         Button joursEntree = new Button();
         Button AnnulerReservation;
         Button Nevienspas;
+        Button bouton;
         CheckBox checkBoxAccompagnement = new CheckBox { IsChecked = true };
         int idutilisateur = 3;
         bool RepasDejaReserve = false;
@@ -78,7 +79,7 @@ namespace MyRostand.MyCantine
 
             for (int i = 1; i <= 14; i++)
             {
-                numjour = $"{ancienneDate.Day}";
+                numjour = $""+ ancienneDate.Day;
                 nummois = ancienneDate.Month;
                 libelleJour = $"{ ancienneDate.DayOfWeek }";
 
@@ -142,7 +143,6 @@ namespace MyRostand.MyCantine
                         TextColor = Color.White,
                     };
 
-
                     bouton.Clicked += Bouton_Clicked; //QUAND ON CLIQUE, ON AFFICHE LE MENU
 
                     jourScroll.Children.Add(bouton);
@@ -174,6 +174,7 @@ namespace MyRostand.MyCantine
             VerticalScroll.Content = menuStack;
             async void Bouton_Clicked(object sender, EventArgs e)
             {
+                bouton.BackgroundColor = Color.Silver;
                 /*============MOIS==============*/
                 DateTime DateActuelle = DateTime.Today;
                 string nummois2 = ""+ DateActuelle.Month;
@@ -209,14 +210,14 @@ namespace MyRostand.MyCantine
 
                 };
                 string DateAujourdhui = DateTime.Today.Year + "-" + nummois2 + "-" + DateTime.Today.Day;
-                if (daterequete != DateAujourdhui)
+                if (daterequete != DateAujourdhui && AccompagnementReserver == true && ResistanceReserver == true)
                 {
-                    stackCardMenu.Children.Add(TropTard);
-                    TropTard.Text = "Désolé, réservation non dans les temps !" + daterequete + DateAujourdhui;
+                    stackCardMenu.Children.Remove(TropTard);
                 }
                 else
                 {
-                    stackCardMenu.Children.Remove(TropTard);
+                    stackCardMenu.Children.Add(TropTard);
+                    TropTard.Text = "Désolé, réservation non dans les temps !" + daterequete + DateAujourdhui + RequeteAccompagnement + RequeteAccompagnement;
                 }
                 /*-------------------------------------------------------*/
 
@@ -361,7 +362,10 @@ namespace MyRostand.MyCantine
                         boutonResistance.Text = textchecked;
                     }
                     stackCardMenu.Children.Add(stackCardResistance);
+                    if (daterequete != DateAujourdhui)
+                    {
                     boutonResistance.Clicked += boutonResistance_Click;
+                    }
 
                     /*-------------------------------------------------------*/
                     async void boutonResistance_Click(object senders, EventArgs ex)
@@ -454,7 +458,10 @@ namespace MyRostand.MyCantine
                     stackCardAccompagnement2.Children.Add(boutonAccompagnement);
                     string textbouton = boutonAccompagnement.Text;
                     stackCardMenu.Children.Add(stackCardAccompagnement2);
-                    boutonAccompagnement.Clicked += boutonAccompagnement_Click;
+                    if (daterequete != DateAujourdhui)
+                    {
+                        boutonAccompagnement.Clicked += boutonAccompagnement_Click;
+                    }
 
                     /*-------------------------------------------------------*/
 
