@@ -8,6 +8,7 @@ using Xamarin.Forms;
 using MyRostand.Database;
 using MyRostand.MySonnerie;
 using MyRostand.MyCantine;
+using MyRostand.Models;
 
 namespace MyRostand
 {
@@ -20,6 +21,8 @@ namespace MyRostand
         {
             InitializeComponent();
             Title = "MyRostand - Accueil";
+            var value = Application.Current.Properties["AppUser"];
+            String id = value.ToString();
             StackLayout stackPrincipal = new StackLayout()
             {
                 Padding = new Thickness(0, 40, 0, 0),
@@ -208,31 +211,71 @@ namespace MyRostand
             frameCUISINE.Content = blocCUISINE;
 
 
-            Button connexion = new Button()
+            /*==================================================================*/
+            /*==========================MON PROFIL =============================*/
+            /*==================================================================*/
+
+            Frame framePROFIL = new Frame()
             {
-                BackgroundColor = Color.FromHex("#27ae60"),
+                Margin = new Thickness(40, 20, 40, 0),
+                BackgroundColor = Color.DarkOrchid,
                 CornerRadius = 10,
-                Text = "Se connecter",
-                Margin = new Thickness(220, 10, 220, 10),
-                Padding = new Thickness(0, 10, 0, 10),
-                TextColor = Color.White
+                HasShadow = true
+            };
+            var tapPROFIL = new TapGestureRecognizer();
+            tapPROFIL.Tapped += (s, e) =>
+            {
+                   Navigation.PushAsync(new UserProfil());
+            };
+            framePROFIL.GestureRecognizers.Add(tapPROFIL);
+
+            StackLayout blocPROFIL = new StackLayout()
+            {
+                Padding = new Thickness(15, 15, 15, 15)
+            };
+            StackLayout stackTitrePROFIL = new StackLayout()
+            {
+                Padding = new Thickness(30, 0, 30, 0)
+            };
+            StackLayout stackImagePROFIL = new StackLayout();
+            Label titrePROFIL = new Label()
+            {
+                Text = "MyPROFIL",
+                FontSize = 20
+            };
+            Image imagePROFIL = new Image()
+            {
+                Source = "mycantine.png"
             };
 
-            connexion.Clicked += Connexion_Clicked;
-            async void Connexion_Clicked(object sender, EventArgs e)
-            {
-                await Navigation.PushAsync(new UserProfil());
-            }
+            stackImagePROFIL.Children.Add(imagePROFIL);
+            stackTitrePROFIL.Children.Add(titrePROFIL);
+            blocPROFIL.Children.Add(stackImagePROFIL);
+            blocPROFIL.Children.Add(stackTitrePROFIL);
+            framePROFIL.Content = blocPROFIL;
+
 
                 /*==================================================================*/
                 /*============================CONTENT===============================*/
                 /*==================================================================*/
-                stackPrincipal.Children.Add(LogoAccueil);
+            stackPrincipal.Children.Add(LogoAccueil);
             stackPrincipal.Children.Add(frameCantine);
             stackPrincipal.Children.Add(frameCovoit);
             stackPrincipal.Children.Add(frameSonnerie);
-            stackPrincipal.Children.Add(frameCUISINE);
-            stackPrincipal.Children.Add(connexion);
+            List<User> LeUser = Database.MyCantineSQL.UnUser(id);
+            for (int i = 0; i < LeUser.Count; i++)
+            {
+                User UnUser = LeUser[i];
+                if (UnUser.Role == 3)
+                {
+                    stackPrincipal.Children.Add(frameCUISINE);
+                }
+                else
+                {
+
+                }
+            }
+            stackPrincipal.Children.Add(framePROFIL);
             Content = stackPrincipal;
         }
     }
