@@ -22,7 +22,7 @@ namespace MyRostand.MyCantine
         Button Nevienspas;
         Button bouton;
         CheckBox checkBoxAccompagnement = new CheckBox { IsChecked = true };
-        int idutilisateur = 3;
+               
         bool RepasDejaReserve = false;
         bool ResistanceReserver;
         bool AccompagnementReserver;
@@ -32,6 +32,9 @@ namespace MyRostand.MyCantine
         public MyCantineAccueil()
         {
             InitializeComponent();
+            var value = Application.Current.Properties["IdUser"];
+            int transfer = Convert.ToInt32(value);
+            int idutilisateur = transfer;
 
             Title = "Menu de la semaine";
             StackLayout stackPrincipal = new StackLayout();
@@ -174,7 +177,6 @@ namespace MyRostand.MyCantine
             VerticalScroll.Content = menuStack;
             async void Bouton_Clicked(object sender, EventArgs e)
             {
-                bouton.BackgroundColor = Color.Silver;
                 /*============MOIS==============*/
                 DateTime DateActuelle = DateTime.Today;
                 string nummois2 = ""+ DateActuelle.Month;
@@ -186,7 +188,47 @@ namespace MyRostand.MyCantine
                 int idReservationMenu = Database.MyCantineSQL.getIdReservationMenu(idrepas);
                 bool RepasDejaReserve =  Database.MyCantineSQL.getStatutReserver(daterequete, idutilisateur);
                 int RequeteResistance = Database.MyCantineSQL.getStatutReserverResistance(daterequete, idutilisateur, idReservationMenu);
-                int RequeteAccompagnement = Database.MyCantineSQL.getStatutReserverAccompagnement(idReservationMenu);
+                List<Accompagnement> lesAccompagnementsReserves = Database.MyCantineSQL.getStatutReserverAccompagnement(idReservationMenu);
+                int RequeteAccompagnement = lesAccompagnementsReserves.Count;
+                int acc1 = 0;
+                int acc2 = 0;
+                int acc3 = 0;
+                int acc4 = 0;
+                for (int b = 0; b < lesAccompagnementsReserves.Count; b++)
+                {
+                    Accompagnement unAccompagnement2 = lesAccompagnementsReserves[b];
+                    if (unAccompagnement2.Id.ToString() != "")
+                    {
+                        if (lesAccompagnementsReserves.Count == 1)
+                        {
+                            acc1 = unAccompagnement2.Id;
+                        }
+                        else if (lesAccompagnementsReserves.Count > 1)
+                        {
+                            acc1 = unAccompagnement2.Id;
+                            b++;
+                            acc2 = unAccompagnement2.Id;
+                        }
+                        else if (lesAccompagnementsReserves.Count > 2)
+                        {
+                            acc1 = unAccompagnement2.Id;
+                            b++;
+                            acc2 = unAccompagnement2.Id;
+                            b++;
+                            acc3 = unAccompagnement2.Id;
+                        }
+                        else if (lesAccompagnementsReserves.Count > 3)
+                        {
+                            acc1 = unAccompagnement2.Id;
+                            b++;
+                            acc2 = unAccompagnement2.Id;
+                            b++;
+                            acc3 = unAccompagnement2.Id;
+                            b++;
+                            acc4 = unAccompagnement2.Id;
+                        }
+                    }
+                }
                 //FRAME PRINCIPAL QUI RECUPERE TOUTE LES CARDS
                 Frame frameMenu = new Frame();
 
@@ -204,20 +246,20 @@ namespace MyRostand.MyCantine
                     VerticalTextAlignment = TextAlignment.Center,
                     BackgroundColor = Color.Red,
                     Margin = new Thickness(0, 0, 0, 20),
-                    Text = "Désolé, réservation non dans les temps !"+ daterequete + nummois2,
+                    Text = "Désolé, réservation non dans les temps !",
                     FontSize = 20,
                     TextColor = Color.White
 
                 };
                 string DateAujourdhui = DateTime.Today.Year + "-" + nummois2 + "-" + DateTime.Today.Day;
-                if (daterequete != DateAujourdhui && AccompagnementReserver == true && ResistanceReserver == true)
+                if (daterequete == DateAujourdhui && RequeteAccompagnement == 0 && RequeteResistance == 0)
                 {
-                    stackCardMenu.Children.Remove(TropTard);
+                    stackCardMenu.Children.Add(TropTard);
+                    TropTard.Text = "Désolé, réservation non dans les temps !";
                 }
                 else
                 {
-                    stackCardMenu.Children.Add(TropTard);
-                    TropTard.Text = "Désolé, réservation non dans les temps !" + daterequete + DateAujourdhui + RequeteAccompagnement + RequeteAccompagnement;
+                    stackCardMenu.Children.Remove(TropTard);
                 }
                 /*-------------------------------------------------------*/
 
@@ -380,11 +422,11 @@ namespace MyRostand.MyCantine
                             string textchecked = textbouton;
                             boutonResistance.BackgroundColor = Color.LightGray;
                             boutonResistance.Text = "vide2";
-                            boutonResistance.Text = textchecked + DateToday;
+                            boutonResistance.Text = textchecked;
                         }
                         else
                         {
-                            string DateToday = DateTime.Today.Year + "-" + nummois + "-" + DateTime.Today.Day;
+                            string DateToday = DateTime.Today.Year + "-" + nummois2 + "-" + DateTime.Today.Day;
                             if (daterequete != DateToday)
                             {
                                 Database.MyCantineSQL.AjouterResistance(idrepas, idReservationMenu, idresistance, idutilisateur);
@@ -442,6 +484,7 @@ namespace MyRostand.MyCantine
                 for (int i = 0; i < lesAccompagnements.Count; i++)
                 {
                     Accompagnement unAccompagnement = lesAccompagnements[i];
+
                     StackLayout stackCardAccompagnement2 = new StackLayout();
 
                     Button boutonAccompagnement = new Button
@@ -462,10 +505,21 @@ namespace MyRostand.MyCantine
                     {
                         boutonAccompagnement.Clicked += boutonAccompagnement_Click;
                     }
-
                     /*-------------------------------------------------------*/
 
-                    if (RequeteAccompagnement > 0 && RequeteAccompagnement == idaccompagnement)
+                    if (RequeteAccompagnement > 0 && acc1 == idaccompagnement)
+                    {
+                        AccompagnementReserver = true;
+                    }
+                    else if (RequeteAccompagnement > 1 && acc1 == idaccompagnement || acc2 == idaccompagnement)
+                    {
+                        AccompagnementReserver = true;
+                    }
+                    else if (RequeteAccompagnement > 2 && acc1 == idaccompagnement || acc2 == idaccompagnement || acc3 == idaccompagnement)
+                    {
+                        AccompagnementReserver = true;
+                    }
+                    else if (RequeteAccompagnement > 3 && acc1 == idaccompagnement || acc2 == idaccompagnement || acc3 == idaccompagnement || acc4 == idaccompagnement)
                     {
                         AccompagnementReserver = true;
                     }
@@ -473,51 +527,51 @@ namespace MyRostand.MyCantine
                     {
                         AccompagnementReserver = false;
                     }
-
-                    if (AccompagnementReserver == true)
+                    for (int a = 0; i < lesAccompagnementsReserves.Count; a++)
                     {
-                        string textuncheck = textbouton;
-                        boutonAccompagnement.BackgroundColor = Color.LightGreen;
-                        boutonAccompagnement.Text = "vide";
-                        boutonAccompagnement.Text = textuncheck;
+                        if (AccompagnementReserver == true)
+                        {
+                            string textuncheck = textbouton;
+                            boutonAccompagnement.BackgroundColor = Color.LightGreen;
+                            boutonAccompagnement.Text = "vide";
+                            boutonAccompagnement.Text = textuncheck;
+                        }
+                        else
+                        {
+                            string textchecked = textbouton;
+                            boutonAccompagnement.BackgroundColor = Color.LightGray;
+                            boutonAccompagnement.Text = "vide2";
+                            boutonAccompagnement.Text = textchecked;
+                        }
                     }
-                    else
-                    {
-                        string textchecked = textbouton;
-                        boutonAccompagnement.BackgroundColor = Color.LightGray;
-                        boutonAccompagnement.Text = "vide2";
-                        boutonAccompagnement.Text = textchecked;
-                    }
-
 
                     /*-------------------------------------------------------*/
 
                     async void boutonAccompagnement_Click(object senders, EventArgs ex)
                     {
-                        if (boutonAccompagnement.BackgroundColor == Color.LightGray)
+                        if (boutonAccompagnement.BackgroundColor == Color.LightGreen)
                         {
                             string textuncheck = textbouton;
-                            string MoisDuJour = "" + ancienneDate;
-                            string DateToday = DateTime.Today.Year + "-" + MoisDuJour + "-" + DateTime.Today.Day;
+                            string DateToday = DateTime.Today.Year + "-" + nummois2 + "-" + DateTime.Today.Day;
                             if (daterequete != DateToday)
                             {
                                 Database.MyCantineSQL.SupprimerAccompagnement(idReservationMenu, idaccompagnement);
                             }
-                            boutonAccompagnement.BackgroundColor = Color.LightGreen;
+                            boutonAccompagnement.BackgroundColor = Color.LightGray;
                             boutonAccompagnement.Text = "vide";
-                            boutonAccompagnement.Text = textuncheck + MoisDuJour;
+                            boutonAccompagnement.Text = textuncheck;
                         }
                         else
                         {
                             string textchecked = textbouton;
-                            string DateToday = DateTime.Today.Year + "-" + nummois + "-" + DateTime.Today.Day;
+                            string DateToday = DateTime.Today.Year + "-" + nummois2 + "-" + DateTime.Today.Day;
                             if (daterequete != DateToday)
                             {
                                 Database.MyCantineSQL.AjouterAccompagnement(idReservationMenu, idaccompagnement);
                             }
-                            boutonAccompagnement.BackgroundColor = Color.LightGray;
+                            boutonAccompagnement.BackgroundColor = Color.LightGreen;
                             boutonAccompagnement.Text = "vide2";
-                            boutonAccompagnement.Text = textchecked + "";
+                            boutonAccompagnement.Text = textchecked;
                         }
                     }
                 }
@@ -683,7 +737,7 @@ namespace MyRostand.MyCantine
                 }
                 else
                 {
-                    string DateToday = DateTime.Today.Year + "-" + "01" + "-" + DateTime.Today.Day;
+                    string DateToday = DateTime.Today.Year + "-" + nummois2 + "-" + DateTime.Today.Day;
                     if (daterequete != DateToday)
                     {
                         AnnulerReservation = new Button()
