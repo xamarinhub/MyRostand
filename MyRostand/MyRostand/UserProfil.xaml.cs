@@ -14,6 +14,7 @@ namespace MyRostand
     {
         public UserProfil()
         {
+            Title = "Mon Profil";
             InitializeComponent();
             var value = Application.Current.Properties["AppUser"];
             String id = value.ToString();
@@ -50,12 +51,13 @@ namespace MyRostand
                 Orientation = StackOrientation.Horizontal
             };
 
+
             var labelNom = new Label
             {
                 Text = " Nom : ",
                 FontSize = 30
             };
-            var MyEntryNom = new Entry { Text = "", Placeholder = nom + "" };
+            var MyEntryNom = new Entry { Text = "", Placeholder = nom + "" , FontSize = 30 };
 
             StackLayout Layout2 = new StackLayout
             {
@@ -67,7 +69,7 @@ namespace MyRostand
                 Text = " Prenom : ",
                 FontSize = 30
             };
-            var MyEntryPrenom = new Entry { Text = "", Placeholder = prenom + "" };
+            var MyEntryPrenom = new Entry { Text = "", Placeholder = prenom + "", FontSize = 30 };
 
             StackLayout Layout3 = new StackLayout
             {
@@ -79,7 +81,7 @@ namespace MyRostand
                 Text = " Bio : ",
                 FontSize = 30
             };
-            var MyEntryBio = new Entry { Text = "", Placeholder = bio + "             " };
+            var MyEntryBio = new Entry { Text = "", Placeholder = bio + "             " , FontSize = 30 };
 
             StackLayout Layout4 = new StackLayout
             {
@@ -100,10 +102,10 @@ namespace MyRostand
             var labelDateN = new Label
             {
                 Text = " Date de Naissance : ",
-                FontSize = 25
+                FontSize = 30
             };
             
-            var MyEntryDateN = new DatePicker { FontSize = 25, Date = datenaissance };
+            var MyEntryDateN = new DatePicker { FontSize = 30, Date = datenaissance  };
 
             StackLayout Layout6 = new StackLayout
             {
@@ -112,10 +114,13 @@ namespace MyRostand
             var labelEMAIL = new Label
             {
                 Text = " Adresse Mail : ",
-                FontSize = 25
+                FontSize = 30
             };
-
-            var MyEntryEMAIL = new Entry { Text = "", Placeholder = mail + "  ", FontSize = 30, IsEnabled = false };
+            var labelEMAIL2 = new Label
+            {
+                Text = mail,
+                FontSize = 30
+            };
 
             StackLayout Layout7 = new StackLayout
             {
@@ -124,10 +129,10 @@ namespace MyRostand
             var labelRUE = new Label
             {
                 Text = " Rue : ",
-                FontSize = 25
+                FontSize = 30
             };
 
-            var MyEntryRue = new Entry { Text = "", Placeholder = rue + "  ",};
+            var MyEntryRue = new Entry { Text = "", Placeholder = rue + "  ", FontSize = 30 };
 
             StackLayout Layout8 = new StackLayout
             {
@@ -136,10 +141,10 @@ namespace MyRostand
             var labelCP = new Label
             {
                 Text = " Code Postal : ",
-                FontSize = 25
+                FontSize = 30
             };
 
-            var MyEntryCP= new Entry { Text = "", Placeholder = codpost + "  ", FontSize = 30};
+            var MyEntryCP= new Entry { Text = "", Placeholder = codpost + "  ", FontSize = 30 };
 
             StackLayout Layout9 = new StackLayout
             {
@@ -148,10 +153,10 @@ namespace MyRostand
             var labelVILLE = new Label
             {
                 Text = " Ville : ",
-                FontSize = 25
+                FontSize = 30
             };
 
-            var MyEntryVILLE = new Entry { Text = "", Placeholder = ville + "  ", FontSize = 30};
+            var MyEntryVILLE = new Entry { Text = "", Placeholder = ville + "  ", FontSize = 30 };
             
             StackLayout Layout10 = new StackLayout
             {
@@ -160,7 +165,7 @@ namespace MyRostand
             var labelMDP = new Label
             {
                 Text = " Mot de passe : ",
-                FontSize = 25
+                FontSize = 30
             };
 
             var MyEntryMDP = new Entry { Text = "", Placeholder = " ****************** ", FontSize = 30, IsPassword = true};
@@ -195,9 +200,43 @@ namespace MyRostand
             var labelROLE = new Label
             {
                 Text = "  Votre role : ",
-                FontSize = 25
+                FontSize = 30
             };
-            var MyEntryROLE = new Entry { Text = "", Placeholder = rolelibelle + "  ", FontSize = 30, IsEnabled = false };
+            var labelROLE2 = new Label
+            {
+                Text = rolelibelle,
+                FontSize = 30
+            };
+
+            string classe = "";
+            List<User> LeEleve = Database.MyCantineSQL.UnEleve(id);
+            for (int i = 0; i < LeEleve.Count; i++)
+            {
+                User UnEleve = LeEleve[i];
+                
+                if (UnEleve.Classe != "")
+                {
+                    classe = UnEleve.Classe;
+                }
+                else
+                {
+                }
+            }
+            
+            StackLayout Layout12 = new StackLayout
+            {
+                Orientation = StackOrientation.Horizontal
+            };
+            var labelCLASSE = new Label
+            {
+                Text = " Eleve de : ",
+                FontSize = 30
+            };
+            var labelCLASSE2 = new Label
+            {
+                Text = classe,
+                FontSize = 30
+            };
 
             Layout1.Children.Add(labelNom);
             Layout1.Children.Add(MyEntryNom);
@@ -215,7 +254,7 @@ namespace MyRostand
             Layout5.Children.Add(MyEntryDateN);
 
             Layout6.Children.Add(labelEMAIL);
-            Layout6.Children.Add(MyEntryEMAIL);
+            Layout6.Children.Add(labelEMAIL2);
 
             Layout7.Children.Add(labelRUE);
             Layout7.Children.Add(MyEntryRue);
@@ -231,7 +270,10 @@ namespace MyRostand
             Layout10.Children.Add(boutonMDP);
 
             Layout11.Children.Add(labelROLE);
-            Layout11.Children.Add(MyEntryROLE);
+            Layout11.Children.Add(labelROLE2);
+
+            Layout12.Children.Add(labelCLASSE);
+            Layout12.Children.Add(labelCLASSE2);
 
             Button bouton = new Button()
             {
@@ -249,6 +291,7 @@ namespace MyRostand
             { 
             }
 
+            if (classe != "") { 
                 this.Content = new StackLayout
             {
                 Children =
@@ -264,10 +307,34 @@ namespace MyRostand
                     Layout9,
                     Layout10,
                     Layout11,
+                    Layout12,
                     bouton
 
                 }
             };
+            }
+            else
+            {
+                this.Content = new StackLayout
+                {
+                    Children =
+                {
+                    Layout1,
+                    Layout2,
+                    Layout3,
+                    Layout4,
+                    Layout5,
+                    Layout6,
+                    Layout7,
+                    Layout8,
+                    Layout9,
+                    Layout10,
+                    Layout11,
+                    bouton
+
+                }
+                };
+            }
         }
     }
 }

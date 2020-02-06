@@ -506,7 +506,7 @@ namespace MyRostand.MyCantine
                         boutonAccompagnement.Clicked += boutonAccompagnement_Click;
                     }
                     /*-------------------------------------------------------*/
-
+                    /*
                     if (RequeteAccompagnement > 0 && acc1 == idaccompagnement)
                     {
                         AccompagnementReserver = true;
@@ -544,7 +544,7 @@ namespace MyRostand.MyCantine
                             boutonAccompagnement.Text = textchecked;
                         }
                     }
-
+                    */
                     /*-------------------------------------------------------*/
 
                     async void boutonAccompagnement_Click(object senders, EventArgs ex)

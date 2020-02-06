@@ -40,7 +40,8 @@ namespace MyRostand.Database
                 return unSondage;
             }
         }
-        public static void addUnVote(string musique)
+        
+        public static void addUnVote(string musique , int idutilisateur , int sondageId)
         {
             try
             {
@@ -50,8 +51,8 @@ namespace MyRostand.Database
                 using (MySqlCommand cmd = new MySqlCommand(requete, cnx))
                 {
 
-                    cmd.Parameters.AddWithValue("@iduti", 2);
-                    cmd.Parameters.AddWithValue("@idsond", 1);
+                    cmd.Parameters.AddWithValue("@iduti", idutilisateur);
+                    cmd.Parameters.AddWithValue("@idsond", sondageId);
                     cmd.Parameters.AddWithValue("@musique", musique);
 
                     int recordsAffected = cmd.ExecuteNonQuery();
@@ -65,7 +66,55 @@ namespace MyRostand.Database
             }
         }
 
-        public static void suppUnVote()
+        public static int NbVoteParMusique(string musique, int sondageId)
+        {
+            int nbvotes = 0;
+            try
+            {
+                MySqlConnection cnx = MySQL.getCnx();
+                cnx.Ping();
+                string requete = "SELECT COUNT(VOT_UTILISATEUR) FROM voter WHERE VOT_SONDAGE ='" + sondageId + "' AND VOT_MUSIQUE ='" + musique + "'";
+                MySqlCommand cmd = new MySqlCommand(requete, cnx);
+                var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                }
+                cnx.Close();
+                return nbvotes;
+            }
+            catch (MySqlException ex)
+            {
+                Console.WriteLine("Error: " + ex);
+                Console.WriteLine(ex.StackTrace);
+                return nbvotes;
+            }
+        }
+
+        public static int GetSiVoter(string musique, int sondageId, int idutilisateur)
+        {
+            int voteOuNon = 0;
+            try
+            {
+                MySqlConnection cnx = MySQL.getCnx();
+                cnx.Ping();
+                string requete = "SELECT COUNT(VOT_UTILISATEUR) FROM voter WHERE VOT_SONDAGE ='" + sondageId + "' AND VOT_MUSIQUE ='" + musique + "' AND VOT_UTILISATEUR='" + idutilisateur +"'";
+                MySqlCommand cmd = new MySqlCommand(requete, cnx);
+                var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                }
+                cnx.Close();
+                return voteOuNon;
+            }
+            catch (MySqlException ex)
+            {
+                Console.WriteLine("Error: " + ex);
+                Console.WriteLine(ex.StackTrace);
+                return voteOuNon;
+            }
+        }
+
+        public static void suppUnVote(int idutilisateur, int sondageId)
         {
             try
             {
@@ -75,8 +124,8 @@ namespace MyRostand.Database
                 using (MySqlCommand cmd = new MySqlCommand(requete, cnx))
                 {
 
-                    cmd.Parameters.AddWithValue("@iduti", 2);
-                    cmd.Parameters.AddWithValue("@idsond", 1);
+                    cmd.Parameters.AddWithValue("@iduti", idutilisateur);
+                    cmd.Parameters.AddWithValue("@idsond", sondageId);
 
                     int recordsAffected = cmd.ExecuteNonQuery();
                     cmd.ExecuteNonQuery();
@@ -88,5 +137,6 @@ namespace MyRostand.Database
                 Console.WriteLine(e.StackTrace);
             }
         }
+        
     }
 }

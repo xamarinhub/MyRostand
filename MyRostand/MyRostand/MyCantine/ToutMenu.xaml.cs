@@ -9,15 +9,74 @@ namespace MyRostand.MyCantine
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ToutMenu : ContentPage
     {
+        private const string V = "Yellow";
+
         //ON DECLARE LES LABELS AU DEBUT POUR LES APPELER DANS L'ENSEMBLE DES FONCTIONS (ça sera utile pour la suite !)
+        StackLayout barJours = new StackLayout();
         StackLayout menuStack = new StackLayout();
         Label jourChoisi = new Label() { FontSize = 20 };
         Label toutesresistances = new Label() { FontSize = 20 };
         Label jourAccompagnement = new Label() { FontSize = 20 };
         Label eleveabsent = new Label() { FontSize = 20 };
+        Button Cuisto = new Button()
+        {
+            BackgroundColor = Color.Red,
+            Margin = new Thickness(60, 10, 20, 0),
+            Text = "Gestion des quantitées",
+            FontSize = 20,
+            TextColor = Color.White
+        };        
 
         DateTime ancienneDate = DateTime.Today;
-
+        Label titleviande = new Label
+        {
+            Text = " Plats de résistance ",
+            FontSize = 30,
+            HorizontalTextAlignment = TextAlignment.Center,
+            VerticalTextAlignment = TextAlignment.Center,
+            TextColor = Color.FromHex("#FFFFFF")
+        };
+        StackLayout LayoutViandetitle = new StackLayout
+        {
+            HorizontalOptions = LayoutOptions.Fill,
+            BackgroundColor = Color.FromHex("#27ae60"),
+            HeightRequest = 35,       
+        };
+        StackLayout LayoutViande1 = new StackLayout
+        {
+            Orientation = StackOrientation.Horizontal
+        };
+        StackLayout LayoutViande1barre = new StackLayout
+        {
+        };
+        Label Avantviande = new Label
+        {
+            Text = "  ",
+            FontSize = 30,
+        };
+        Label countviande = new Label
+        {
+            Text = "  ",
+            FontSize = 30,
+            TextColor = Color.FromHex("#77d065")
+        };
+        Label soitviande = new Label
+        {
+            Text = "  ",
+            FontSize = 30,
+        };
+        Label pourcentviande = new Label
+        {
+            Text = "  ",
+            FontSize = 30,
+            TextColor = Color.FromHex("#FF5733")
+        };
+        Label barreviande = new Label
+        {
+            Text = "  ",
+            FontSize = 30,
+            TextColor = Color.FromHex("#FF5733")
+        };
         public ToutMenu()
         {
             InitializeComponent();
@@ -28,7 +87,7 @@ namespace MyRostand.MyCantine
             /*==============NAVBAR DES JOURS====================*/
             /*==================================================*/
 
-            StackLayout barJours = new StackLayout();
+           
 
             ScrollView horizontalScroll = new ScrollView()
             {
@@ -329,29 +388,27 @@ namespace MyRostand.MyCantine
             menuStack.Children.Add(frameAccompagnement);
             menuStack.Children.Add(framePresence);
 
-            Button Cuisto = new Button()
-            {
-                BackgroundColor = Color.Red,
-                Margin = new Thickness(60, 10, 20, 0),
-                Text = "Gestion des quantitées",
-                FontSize = 20,
-                TextColor = Color.White
-            };
 
             Cuisto.Clicked += Cuisto_Clicked;
-
             async void Cuisto_Clicked(object sender, EventArgs e)
             {
                 await Navigation.PushAsync(new ModifGrammage());
             }
 
+            
             /*==================================================*/
             /*==================================================*/
+      
+            this.Content = new StackLayout
+            {
+                Children =
+                {
+                    barJours,
+                    menuStack,
+                    Cuisto
 
-            stackPrincipal.Children.Add(barJours);
-            stackPrincipal.Children.Add(menuStack);
-            stackPrincipal.Children.Add(Cuisto);
-            Content = stackPrincipal;
+                }
+            };
 
         }
 
@@ -360,6 +417,7 @@ namespace MyRostand.MyCantine
             //cette variable sert à récupérer le jour en question, et afficher les menus correspondants
             string jourcomplet = ((Button)sender).Text;
             string daterequete = ((Button)sender).StyleId;
+            Title = "Tout les plats de resistances du jour";
             menuStack.IsVisible = true;
 
             jourChoisi.Text = "Jour choisi : " + jourcomplet;
@@ -391,6 +449,17 @@ namespace MyRostand.MyCantine
                     double p = ((double)c / TouteslesResistances.Count) * 100;
                     string tp = String.Format("{0:N1}", p);
                     toutesresistances.Text += Viande + ": " + c + " soit " + tp + "%" + "\n" + barre10;
+                    Avantviande.Text = Viande + ": ";
+                    countviande.Text = c + "";
+                    soitviande.Text = " soit ";
+                    pourcentviande.Text = tp + "%" ;
+                    barreviande.Text = barre10;
+                    LayoutViande1.Children.Add(Avantviande);
+                    LayoutViande1.Children.Add(countviande);
+                    LayoutViande1.Children.Add(soitviande);
+                    LayoutViande1.Children.Add(pourcentviande);
+                    LayoutViande1barre.Children.Add(barreviande);
+                    LayoutViandetitle.Children.Add(titleviande);
                 }
                 else if (Viande == "" && TouteslesResistances.Count > 1)
                 {
@@ -594,6 +663,19 @@ namespace MyRostand.MyCantine
                 {
                     toutesresistances.Text += uneResistance.Libelle + "\n";
                 }
+                this.Content = new StackLayout
+                {
+                    Children =
+                {
+                    barJours,
+                    menuStack,
+                    LayoutViandetitle,
+                    LayoutViande1,
+                    LayoutViande1barre,
+                    Cuisto
+
+                }
+                };
 
             }
             ///////////////////////////////////////////////////////////////Fonction Afficher tout les Accompagnements////////////////////////////////////////////////
