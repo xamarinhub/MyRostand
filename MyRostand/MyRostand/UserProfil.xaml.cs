@@ -57,7 +57,11 @@ namespace MyRostand
                 Text = " Nom : ",
                 FontSize = 30
             };
-            var MyEntryNom = new Entry { Text = "", Placeholder = nom + "" , FontSize = 30 };
+            var labelNom2 = new Label
+            {
+                Text = nom,
+                FontSize = 30
+            };
 
             StackLayout Layout2 = new StackLayout
             {
@@ -69,7 +73,11 @@ namespace MyRostand
                 Text = " Prenom : ",
                 FontSize = 30
             };
-            var MyEntryPrenom = new Entry { Text = "", Placeholder = prenom + "", FontSize = 30 };
+            var labelPrenom2 = new Label
+            {
+                Text = prenom,
+                FontSize = 30
+            };
 
             StackLayout Layout3 = new StackLayout
             {
@@ -81,7 +89,7 @@ namespace MyRostand
                 Text = " Bio : ",
                 FontSize = 30
             };
-            var MyEntryBio = new Entry { Text = "", Placeholder = bio + "             " , FontSize = 30 };
+            var MyEntryBio = new Entry { Text = "", Placeholder = bio + "                                " , FontSize = 30 };
 
             StackLayout Layout4 = new StackLayout
             {
@@ -132,7 +140,7 @@ namespace MyRostand
                 FontSize = 30
             };
 
-            var MyEntryRue = new Entry { Text = "", Placeholder = rue + "  ", FontSize = 30 };
+            var MyEntryRue = new Entry { Text = "", Placeholder = rue + "                             ", FontSize = 30 };
 
             StackLayout Layout8 = new StackLayout
             {
@@ -156,7 +164,7 @@ namespace MyRostand
                 FontSize = 30
             };
 
-            var MyEntryVILLE = new Entry { Text = "", Placeholder = ville + "  ", FontSize = 30 };
+            var MyEntryVILLE = new Entry { Text = "", Placeholder = ville + "                          ", FontSize = 30 };
             
             StackLayout Layout10 = new StackLayout
             {
@@ -239,10 +247,10 @@ namespace MyRostand
             };
 
             Layout1.Children.Add(labelNom);
-            Layout1.Children.Add(MyEntryNom);
+            Layout1.Children.Add(labelNom2);
 
             Layout2.Children.Add(labelPrenom);
-            Layout2.Children.Add(MyEntryPrenom);
+            Layout2.Children.Add(labelPrenom2);
 
             Layout3.Children.Add(labelBio);
             Layout3.Children.Add(MyEntryBio);
@@ -288,7 +296,122 @@ namespace MyRostand
             };
             bouton.Clicked += Validation;
             async void Validation(object sender, EventArgs e)
-            { 
+            {
+                if (MyEntryBio.Text != "" && MyEntryBio.Text != bio)
+                {
+                    Database.MyCantineSQL.setUneBio(MyEntryBio.Text, id);
+                    if (MyEntryTel.Text != "" && MyEntryTel.Text.Length == 10)
+                    {
+                    Database.MyCantineSQL.setUnTelephone(MyEntryTel.Text, id);
+                        if (MyEntryRue.Text != "" && MyEntryRue.Text != rue)
+                        {
+                            Database.MyCantineSQL.setUneRue(MyEntryRue.Text, id);
+                            if (MyEntryCP.Text != "" && MyEntryCP.Text != codpost)
+                            {
+                                Database.MyCantineSQL.setUnCodePost(MyEntryCP.Text, id);
+                                if (MyEntryVILLE.Text != "" && MyEntryVILLE.Text != ville)
+                                {
+                                    Database.MyCantineSQL.setUneVille(MyEntryVILLE.Text, id);
+                                }
+                            }
+                        }
+                        if (MyEntryVILLE.Text != "" && MyEntryVILLE.Text != ville)
+                        {
+                            Database.MyCantineSQL.setUneVille(MyEntryVILLE.Text, id);
+                        }
+                    }
+                    if (MyEntryRue.Text != "" && MyEntryRue.Text != rue)
+                    {
+                        Database.MyCantineSQL.setUneRue(MyEntryRue.Text, id);
+                        if (MyEntryCP.Text != "" && MyEntryCP.Text != codpost)
+                        {
+                            Database.MyCantineSQL.setUnCodePost(MyEntryCP.Text, id);
+                            if (MyEntryVILLE.Text != "" && MyEntryVILLE.Text != ville)
+                            {
+                                Database.MyCantineSQL.setUneVille(MyEntryVILLE.Text, id);
+                            }
+                        }
+                        if (MyEntryVILLE.Text != "" && MyEntryVILLE.Text != ville)
+                        {
+                            Database.MyCantineSQL.setUneVille(MyEntryVILLE.Text, id);
+                        }
+                    }
+                    if (MyEntryCP.Text != "" && MyEntryCP.Text != codpost)
+                    {
+                        Database.MyCantineSQL.setUnCodePost(MyEntryCP.Text, id);
+                        if (MyEntryVILLE.Text != "" && MyEntryVILLE.Text != ville)
+                        {
+                            Database.MyCantineSQL.setUneVille(MyEntryVILLE.Text, id);
+                        }
+                    }
+                    if (MyEntryVILLE.Text != "" && MyEntryVILLE.Text != ville)
+                    {
+                        Database.MyCantineSQL.setUneVille(MyEntryVILLE.Text, id);
+                    }
+                }
+                if (MyEntryTel.Text != "" && MyEntryTel.Text.Length == 10)
+                {
+                    Database.MyCantineSQL.setUnTelephone(MyEntryTel.Text, id);
+                    if (MyEntryRue.Text != "" && MyEntryRue.Text != rue)
+                    {
+                        Database.MyCantineSQL.setUneRue(MyEntryRue.Text, id);
+                        if (MyEntryCP.Text != "" && MyEntryCP.Text != codpost)
+                        {
+                            Database.MyCantineSQL.setUnCodePost(MyEntryCP.Text, id);
+                            if (MyEntryVILLE.Text != "" && MyEntryVILLE.Text != ville)
+                            {
+                                Database.MyCantineSQL.setUneVille(MyEntryVILLE.Text, id);
+                            }
+                        }
+                        if (MyEntryVILLE.Text != "" && MyEntryVILLE.Text != ville)
+                        {
+                            Database.MyCantineSQL.setUneVille(MyEntryVILLE.Text, id);
+                        }
+                    }
+                    if (MyEntryCP.Text != "" && MyEntryCP.Text != codpost)
+                    {
+                        Database.MyCantineSQL.setUnCodePost(MyEntryCP.Text, id);
+                        if (MyEntryVILLE.Text != "" && MyEntryVILLE.Text != ville)
+                        {
+                            Database.MyCantineSQL.setUneVille(MyEntryVILLE.Text, id);
+                        }
+                    }
+                    if (MyEntryVILLE.Text != "" && MyEntryVILLE.Text != ville)
+                    {
+                        Database.MyCantineSQL.setUneVille(MyEntryVILLE.Text, id);
+                    }
+                }
+                if (MyEntryRue.Text != "" && MyEntryRue.Text != rue)
+                {
+                    Database.MyCantineSQL.setUneRue(MyEntryRue.Text, id);
+                    if (MyEntryCP.Text != "" && MyEntryCP.Text != codpost)
+                    {
+                        Database.MyCantineSQL.setUnCodePost(MyEntryCP.Text, id);
+                        if (MyEntryVILLE.Text != "" && MyEntryVILLE.Text != ville)
+                        {
+                            Database.MyCantineSQL.setUneVille(MyEntryVILLE.Text, id);
+                        }
+                    }
+                    if (MyEntryVILLE.Text != "" && MyEntryVILLE.Text != ville)
+                    {
+                        Database.MyCantineSQL.setUneVille(MyEntryVILLE.Text, id);
+                    }
+                }
+                if (MyEntryCP.Text != "" && MyEntryCP.Text != codpost)
+                {
+                    Database.MyCantineSQL.setUnCodePost(MyEntryCP.Text, id);
+                    if (MyEntryVILLE.Text != "" && MyEntryVILLE.Text != ville)
+                    {
+                        Database.MyCantineSQL.setUneVille(MyEntryVILLE.Text, id);
+                    }
+                }
+                if (MyEntryVILLE.Text != "" && MyEntryVILLE.Text != ville)
+                {
+                    Database.MyCantineSQL.setUneVille(MyEntryVILLE.Text, id);
+                }
+
+
+                await Navigation.PushAsync(new UserProfil());
             }
 
             if (classe != "") { 
@@ -306,7 +429,6 @@ namespace MyRostand
                     Layout8,
                     Layout9,
                     Layout10,
-                    Layout11,
                     Layout12,
                     bouton
 
@@ -329,7 +451,6 @@ namespace MyRostand
                     Layout8,
                     Layout9,
                     Layout10,
-                    Layout11,
                     bouton
 
                 }

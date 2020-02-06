@@ -804,8 +804,146 @@ namespace MyRostand.Database
             }
 
         }
-        //////////////////////////////////////////////////////////////////REQUÊTE AFIN DE UPDATE UN PROFIL////////////////////////////
+        //////////////////////////////////////////////////////////////////REQUÊTE AFIN DE UPDATE UNE BIO////////////////////////////
+        public static List<User> setUneBio(string biouti, string mailuti)
+        {
+            List<User> NewBio = new List<User>();
 
+            try
+            {
+                MySqlConnection cnx = MySQL.getCnx();
+                cnx.Ping();
+                string requete = "UPDATE utilisateur SET UTI_BIO = '" + biouti + "'  WHERE UTI_EMAIL='" + mailuti + "'";
+                MySqlCommand cmd = new MySqlCommand(requete, cnx);
+                var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    User LaBio = new User();
+                    LaBio.Bio = reader.GetString(0);
+                    NewBio.Add(LaBio);
+                }
+                cnx.Close();
+                return NewBio;
+            }
+            catch (MySqlException ex)
+            {
+                Utilisateur erreurSQL = new Utilisateur();
+                erreurSQL.Description = (ex.ToString());
+                return NewBio;
+            }
+        }
+        //////////////////////////////////////////////////////////////////REQUÊTE AFIN DE UPDATE UN NUMERO DE TELEPHONE////////////////////////////
+        public static List<User> setUnTelephone(string teluti, string mailuti)
+        {
+            List<User> NewTelephone = new List<User>();
+
+            try
+            {
+                MySqlConnection cnx = MySQL.getCnx();
+                cnx.Ping();
+                string requete = "UPDATE utilisateur SET UTI_TEL = '" + teluti + "'  WHERE UTI_EMAIL='" + mailuti + "'";
+                MySqlCommand cmd = new MySqlCommand(requete, cnx);
+                var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    User LeTel = new User();
+                    LeTel.Telephone = reader.GetString(0);
+                    NewTelephone.Add(LeTel);
+                }
+                cnx.Close();
+                return NewTelephone;
+            }
+            catch (MySqlException ex)
+            {
+                Utilisateur erreurSQL = new Utilisateur();
+                erreurSQL.Description = (ex.ToString());
+                return NewTelephone;
+            }
+        }
+        //////////////////////////////////////////////////////////////////REQUÊTE AFIN DE UPDATE UNE RUE////////////////////////////
+        public static List<User> setUneRue(string rueuti, string mailuti)
+        {
+            List<User> NewRue = new List<User>();
+
+            try
+            {
+                MySqlConnection cnx = MySQL.getCnx();
+                cnx.Ping();
+                string requete = "UPDATE utilisateur SET UTI_RUE = '" + rueuti + "'  WHERE UTI_EMAIL='" + mailuti + "'";
+                MySqlCommand cmd = new MySqlCommand(requete, cnx);
+                var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    User LaRue = new User();
+                    LaRue.Rue = reader.GetString(0);
+                    NewRue.Add(LaRue);
+                }
+                cnx.Close();
+                return NewRue;
+            }
+            catch (MySqlException ex)
+            {
+                Utilisateur erreurSQL = new Utilisateur();
+                erreurSQL.Description = (ex.ToString());
+                return NewRue;
+            }
+        }
+        //////////////////////////////////////////////////////////////////REQUÊTE AFIN DE UPDATE UN CODE POSTAL////////////////////////////
+        public static List<User> setUnCodePost(string cputi, string mailuti)
+        {
+            List<User> NewCodePost = new List<User>();
+
+            try
+            {
+                MySqlConnection cnx = MySQL.getCnx();
+                cnx.Ping();
+                string requete = "UPDATE utilisateur SET UTI_CP = '" + cputi + "'  WHERE UTI_EMAIL='" + mailuti + "'";
+                MySqlCommand cmd = new MySqlCommand(requete, cnx);
+                var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    User LeCodePost = new User();
+                    LeCodePost.CodePostal = reader.GetString(0);
+                    NewCodePost.Add(LeCodePost);
+                }
+                cnx.Close();
+                return NewCodePost;
+            }
+            catch (MySqlException ex)
+            {
+                Utilisateur erreurSQL = new Utilisateur();
+                erreurSQL.Description = (ex.ToString());
+                return NewCodePost;
+            }
+        }
+        //////////////////////////////////////////////////////////////////REQUÊTE AFIN DE UPDATE UNE VILLE////////////////////////////
+        public static List<User> setUneVille(string villeuti, string mailuti)
+        {
+            List<User> NewUneVille = new List<User>();
+
+            try
+            {
+                MySqlConnection cnx = MySQL.getCnx();
+                cnx.Ping();
+                string requete = "UPDATE utilisateur SET UTI_VILLE = '" + villeuti + "'  WHERE UTI_EMAIL='" + mailuti + "'";
+                MySqlCommand cmd = new MySqlCommand(requete, cnx);
+                var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    User LaVille = new User();
+                    LaVille.Ville = reader.GetString(0);
+                    NewUneVille.Add(LaVille);
+                }
+                cnx.Close();
+                return NewUneVille;
+            }
+            catch (MySqlException ex)
+            {
+                Utilisateur erreurSQL = new Utilisateur();
+                erreurSQL.Description = (ex.ToString());
+                return NewUneVille;
+            }
+        }
     }
 }
 
