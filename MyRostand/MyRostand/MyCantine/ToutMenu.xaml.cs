@@ -32,20 +32,21 @@ namespace MyRostand.MyCantine
         {
             Text = " Plats de résistance ",
             FontSize = 30,
-            HorizontalOptions = LayoutOptions.Center,
-            Margin = new Thickness(0,0,0,20),
+            HorizontalTextAlignment = TextAlignment.Center,
+            VerticalTextAlignment = TextAlignment.Center,
             TextColor = Color.FromHex("#FFFFFF")
         };
         StackLayout LayoutViandetitle = new StackLayout
         {
-            Orientation = StackOrientation.Horizontal,
-            BackgroundColor = Color.FromHex("000000")          
+            HorizontalOptions = LayoutOptions.Fill,
+            BackgroundColor = Color.FromHex("#27ae60"),
+            HeightRequest = 35,       
         };
         StackLayout LayoutViande1 = new StackLayout
         {
             Orientation = StackOrientation.Horizontal
         };
-        StackLayout LayoutViande2 = new StackLayout
+        StackLayout LayoutViande1barre = new StackLayout
         {
         };
         Label Avantviande = new Label
@@ -457,7 +458,7 @@ namespace MyRostand.MyCantine
                     LayoutViande1.Children.Add(countviande);
                     LayoutViande1.Children.Add(soitviande);
                     LayoutViande1.Children.Add(pourcentviande);
-                    LayoutViande2.Children.Add(barreviande);
+                    LayoutViande1barre.Children.Add(barreviande);
                     LayoutViandetitle.Children.Add(titleviande);
                 }
                 else if (Viande == "" && TouteslesResistances.Count > 1)
@@ -670,7 +671,7 @@ namespace MyRostand.MyCantine
                     menuStack,
                     LayoutViandetitle,
                     LayoutViande1,
-                    LayoutViande2,
+                    LayoutViande1barre,
                     Cuisto
 
                 }

@@ -707,6 +707,8 @@ namespace MyRostand.Database
                 return User;
             }
         }
+        //////////////////////////////////////////////////////////////////REQUÊTE DE PROFIL////////////////////////////
+
         public static List<User> UnUser(string idConducteur)
         {
             List<User> UnUsers = new List<User>();
@@ -745,8 +747,6 @@ namespace MyRostand.Database
             }
 
         }
-
-
 
 
         ///////////////////////
@@ -804,6 +804,7 @@ namespace MyRostand.Database
             }
 
         }
+        //////////////////////////////////////////////////////////////////REQUÊTE AFIN DE UPDATE UN PROFIL////////////////////////////
 
     }
 }
