@@ -64,19 +64,21 @@ namespace MyRostand.MyCantine
 
             StackLayout Layout1 = new StackLayout
             {
-                Orientation = StackOrientation.Horizontal
+                Orientation = StackOrientation.Horizontal,
             };
 
             var label1 = new Label
             {
                 Text = Accompagnement + " : ",
-                FontSize = 20
+                VerticalTextAlignment = TextAlignment.Center,
+                FontSize = 30
             };
             var MyEntry = new Entry { Text = "", Placeholder = prop + "", ClassId = Accompagnement, Keyboard = Keyboard.Numeric };
             var label11 = new Label
             {
                 Text = " g/p\n",
-                FontSize = 20
+                VerticalTextAlignment = TextAlignment.Center,
+                FontSize =20
             };
             StackLayout Layout2 = new StackLayout
             {
@@ -85,13 +87,14 @@ namespace MyRostand.MyCantine
             var label2 = new Label
             {
                 Text = Accompagnement2 + " : ",
-                FontSize = 20
+                VerticalTextAlignment = TextAlignment.Center,
+                FontSize = 40
             };
-            var MyEntry2 = new Entry { Text = "", Placeholder = prop2 + "", ClassId = Accompagnement2, Keyboard = Keyboard.Numeric };
+            var MyEntry2 = new Entry { Text = "", Placeholder = prop2 + "", ClassId = Accompagnement2, Keyboard = Keyboard.Numeric, FontSize = 40 };
             var label22 = new Label
             {
                 Text = " g/p\n",
-                FontSize = 20
+                FontSize = 40
             };
             StackLayout Layout3 = new StackLayout
             {
@@ -100,13 +103,14 @@ namespace MyRostand.MyCantine
             var label3 = new Label
             {
                 Text = Accompagnement3 + " : ",
-                FontSize = 20
+                VerticalTextAlignment = TextAlignment.Center,
+                FontSize = 40
             };
-            var MyEntry3 = new Entry { Text = "", Placeholder = prop3 + "", ClassId = Accompagnement3, Keyboard = Keyboard.Numeric };
+            var MyEntry3 = new Entry { Text = "", Placeholder = prop3 + "", ClassId = Accompagnement3, Keyboard = Keyboard.Numeric, FontSize = 40 };
             var label33 = new Label
             {
                 Text = " g/p\n",
-                FontSize = 20
+                FontSize =40
             };
 
 

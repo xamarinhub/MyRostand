@@ -957,6 +957,34 @@ namespace MyRostand.Database
                 return NewUneVille;
             }
         }
+        //////////////////////////////////////////////////////////////////REQUÊTE AFIN DE UPDATE UNE RUE////////////////////////////
+        public static List<User> setUnEmail(string emailuti, string mailuti)
+        {
+            List<User> NewEmail = new List<User>();
+
+            try
+            {
+                MySqlConnection cnx = MySQL.getCnx();
+                cnx.Ping();
+                string requete = "UPDATE utilisateur SET UTI_EMAIL = '" + emailuti + "'  WHERE UTI_EMAIL='" + mailuti + "'";
+                MySqlCommand cmd = new MySqlCommand(requete, cnx);
+                var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    User LeEmail = new User();
+                    LeEmail.Mail = reader.GetString(0);
+                    NewEmail.Add(LeEmail);
+                }
+                cnx.Close();
+                return NewEmail;
+            }
+            catch (MySqlException ex)
+            {
+                Utilisateur erreurSQL = new Utilisateur();
+                erreurSQL.Description = (ex.ToString());
+                return NewEmail;
+            }
+        }
     }
 }
 
