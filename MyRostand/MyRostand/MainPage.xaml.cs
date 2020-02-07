@@ -23,6 +23,16 @@ namespace MyRostand
             Title = "MyRostand - Accueil";
             var value = Application.Current.Properties["AppUser"];
             String id = value.ToString();
+            int iduser = 0;
+            List<User> LUser = Database.MyCantineSQL.UnUser(id);
+            for (int i = 0; i < LUser.Count; i++)
+            {
+                User UnUser = LUser[i];
+                iduser = UnUser.Id;
+            }
+            Application.Current.Properties["IdUser"] = iduser;
+
+
             StackLayout stackPrincipal = new StackLayout()
             {
                 Padding = new Thickness(0, 40, 0, 0),

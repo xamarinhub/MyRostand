@@ -426,21 +426,33 @@ namespace MyRostand.Database
 
         }
 
-        public static int getStatutReserverAccompagnement(int idReservationMenu)
+        public static List<Accompagnement> getStatutReserverAccompagnement(int idReservationMenu)
         {
-            int AccompagnementReserve = 0;
+            List<Accompagnement> UnAccompagnements = new List<Accompagnement>();
 
-            MySqlConnection cnx = MySQL.getCnx();
-            cnx.Ping();
-            string requete = "SELECT con_accompagnement FROM concerner WHERE con_res_id =" + idReservationMenu +";";
-            MySqlCommand cmd = new MySqlCommand(requete, cnx);
-            var reader = cmd.ExecuteReader();
-            while (reader.Read())
+            try
             {
-                AccompagnementReserve = reader.GetInt32(0);
+                MySqlConnection cnx = MySQL.getCnx();
+                cnx.Ping();
+                string requete = "SELECT con_accompagnement FROM concerner WHERE con_res_id =" + idReservationMenu + ";";
+                MySqlCommand cmd = new MySqlCommand(requete, cnx);
+                var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    Accompagnement unAccompagnement = new Accompagnement();
+                    unAccompagnement.Id = reader.GetInt32(0);
+                    UnAccompagnements.Add(unAccompagnement);
+                }
+                cnx.Close();
+                return UnAccompagnements;
             }
-            cnx.Close();
-            return AccompagnementReserve;
+            catch (MySqlException ex)
+            {
+                Accompagnement erreurSQL = new Accompagnement();
+                erreurSQL.Description = (ex.ToString());
+                UnAccompagnements.Add(erreurSQL);
+                return UnAccompagnements;
+            }
 
         }
 
@@ -716,7 +728,7 @@ namespace MyRostand.Database
             {
                 MySqlConnection cnx = MySQL.getCnx();
                 cnx.Ping();
-                string requete = "SELECT UTI_NOM, UTI_PRENOM, UTI_BIO, UTI_TEL, UTI_DATENAISSANCE, UTI_EMAIL,UTI_RUE, UTI_CP, UTI_VILLE, UTI_MDP, UTI_ROLE, ROL_LIBELLE FROM utilisateur, role WHERE UTI_ROLE = ROL_ID AND UTI_EMAIL = '" + idConducteur + "' ";
+                string requete = "SELECT UTI_NOM, UTI_PRENOM, UTI_BIO, UTI_TEL, UTI_DATENAISSANCE, UTI_EMAIL,UTI_RUE, UTI_CP, UTI_VILLE, UTI_MDP, UTI_ROLE, ROL_LIBELLE, UTI_ID FROM utilisateur, role WHERE UTI_ROLE = ROL_ID AND UTI_EMAIL = '" + idConducteur + "' ";
                 MySqlCommand cmd = new MySqlCommand(requete, cnx);
                 var reader = cmd.ExecuteReader();
                 if (reader.Read())
@@ -734,6 +746,7 @@ namespace MyRostand.Database
                     UnUser.MDP = reader.GetString(9);
                     UnUser.Role = reader.GetInt32(10);
                     UnUser.Rolelibelle = reader.GetString(11);
+                    UnUser.Id = reader.GetInt32(12);
                     UnUsers.Add(UnUser);
                 }
                 cnx.Close();
