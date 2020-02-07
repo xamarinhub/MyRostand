@@ -26,23 +26,20 @@ namespace MyRostand
             };
             Image LogoAccueil = new Image()
             {
-                Source = "myrostandaccueil.jpg"
+                Source = "myrostandaccueil.jpg",
+                Margin = new Thickness(0,0,0,20)
             };
 
             StackLayout stackForm = new StackLayout();
 
-            Frame frameInformation = new Frame()
-            {
-                CornerRadius = 10,
-                BorderColor = Color.FromHex("#27ae60"),
-                Margin = new Thickness(100, 20, 100, 20),
-                Padding = new Thickness(0, 10, 0, 10),
-            };
+
             StackLayout titreInformation = new StackLayout()
             {
                 HorizontalOptions = LayoutOptions.Fill,
                 BackgroundColor = Color.FromHex("#27ae60"),
                 HeightRequest = 35,
+             
+                Padding = new Thickness(0,0,0,20)
             };
             Label titre2 = new Label()
             {
@@ -63,27 +60,30 @@ namespace MyRostand
             };
 
             titreInformation.Children.Add(titre2);
-            stackForm.Children.Add(titreInformation);
-            stackForm.Children.Add(descriptionInformation);
-            frameInformation.Content = stackForm;
+            titreInformation.Children.Add(descriptionInformation);
 
             StackLayout Layout1 = new StackLayout
             {
-                Orientation = StackOrientation.Horizontal
+                Orientation = StackOrientation.Horizontal,
+                Padding = new Thickness(0, 20, 0, 20),
+                Margin = new Thickness(115, 0, 80, 0)
             };
             var label1 = new Label
             {
-                Text =  "Identifiant",
-                FontSize = 20
+                Text =  "Identifiant :",
+                VerticalTextAlignment = TextAlignment.Center,
+                FontSize = 20,
             };
-            var MyEntryID = new Entry { Text = "", Placeholder = "Identifiant                                                        "};
+            var MyEntryID = new Entry { Text = "", Placeholder = "Identifiant                                                        " };
             StackLayout Layout2 = new StackLayout
             {
-                Orientation = StackOrientation.Horizontal
+                Orientation = StackOrientation.Horizontal,
+                Margin = new Thickness(80, 0, 80, 0)
             };
             var label2 = new Label
             {
-                Text = "Mot de passe",
+                Text = "Mot de passe :",
+                VerticalTextAlignment = TextAlignment.Center,
                 FontSize = 20
             };           
              var MyEntryMDP = new Entry { Text = "", Placeholder = "Mot de passe                                               ", IsPassword = true };
@@ -126,7 +126,7 @@ namespace MyRostand
             }
 
             stackPrincipal.Children.Add(LogoAccueil);
-            stackPrincipal.Children.Add(frameInformation);
+            stackPrincipal.Children.Add(titreInformation);
             stackPrincipal.Children.Add(stackForm);
 
             Layout1.Children.Add(label1);
