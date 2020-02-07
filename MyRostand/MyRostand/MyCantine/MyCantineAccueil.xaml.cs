@@ -372,11 +372,15 @@ namespace MyRostand.MyCantine
                     Button boutonResistance = new Button
                     {
                         TextColor = Color.White,
+                        AutomationId= ""+i,
                         Margin = new Thickness(120, 10, 120, 10),
                         Padding = new Thickness(0, 10, 0, -10),
                         Text = uneResistance.Libelle + "\n",
                         FontSize = 16
                     };
+
+                  
+                    
                     int idresistance = uneResistance.Id;
                     stackCardResistance.Children.Add(boutonResistance);
                     string textbouton = boutonResistance.Text;
@@ -433,6 +437,28 @@ namespace MyRostand.MyCantine
                             }
                             string textuncheck = textbouton;
                             boutonResistance.BackgroundColor = Color.LightGreen;
+
+                            if(boutonResistance.AutomationId == "1")
+                            {
+
+                            }
+                            else if (boutonResistance.AutomationId == "2")
+                            {
+
+                            }
+                            else if (boutonResistance.AutomationId == "3")
+                            {
+
+                            }
+                            else if (boutonResistance.AutomationId == "4")
+                            {
+
+                            }
+                            else 
+                            { 
+                            
+                            }
+
                             boutonResistance.Text = "vide";
                             boutonResistance.Text = textuncheck;
                         }
