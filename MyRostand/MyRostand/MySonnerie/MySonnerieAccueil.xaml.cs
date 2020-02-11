@@ -108,52 +108,6 @@ namespace MyRostand.MySonnerie
                 Margin = new Thickness(80, 20, 80, 30)
             };
 
-            /////////////////////////////////////////////////////////////////////////
-
-            Label statSondage = new Label()
-            {
-                TextColor = Color.Black,
-                BackgroundColor = Color.Beige,
-                FontSize = 22,
-                Text = "Voici le nombre de vote par musique :",
-                VerticalTextAlignment = TextAlignment.Center,
-                HorizontalTextAlignment = TextAlignment.Center,
-                Margin = new Thickness(20, 10, 20, 30)
-            };
-
-            Button statMusique1 = new Button()
-            {
-                TextColor = Color.Black,
-                BackgroundColor = Color.LightGray,
-                FontSize = 16,
-                Margin = new Thickness(80, 20, 80, 30)
-            };
-
-            Button statMusique2 = new Button()
-            {
-                TextColor = Color.Black,
-                BackgroundColor = Color.LightGray,
-                FontSize = 16,
-                Margin = new Thickness(80, 20, 80, 30)
-            };
-
-            Button statMusique3 = new Button()
-            {
-                TextColor = Color.Black,
-                BackgroundColor = Color.LightGray,
-                FontSize = 16,
-                Margin = new Thickness(80, 20, 80, 30)
-            };
-
-            Button statMusique4 = new Button()
-            {
-                TextColor = Color.Black,
-                BackgroundColor = Color.LightGray,
-                FontSize = 16,
-                Margin = new Thickness(80, 20, 80, 30)
-            };
-
-
 
             /////////////////////////////////////////////////////////////////////////
             LabelMusique1.Clicked += LabelMusique1_Click;
@@ -163,11 +117,17 @@ namespace MyRostand.MySonnerie
                 if (LabelMusique1.BackgroundColor == Color.LightGray)
                 {
                     LabelMusique1.BackgroundColor = Color.LightGreen;
+                    LabelMusique1.Text = unSondage.musique1;
                     LabelMusique2.BackgroundColor = Color.LightGray;
+                    LabelMusique2.Text = unSondage.musique2;
                     LabelMusique3.BackgroundColor = Color.LightGray;
+                    LabelMusique3.Text = unSondage.musique3;
                     LabelMusique4.BackgroundColor = Color.LightGray;
+                    LabelMusique4.Text = unSondage.musique4;
                     Database.MySonnerie.suppUnVote(idutilisateur, sondageId);
                     Database.MySonnerie.addUnVote(LabelMusique1.Text, idutilisateur, sondageId);
+                    string TextMusique1 = LabelMusique1.Text;
+                    LabelMusique1.Text = TextMusique1 + "  (" +nbVoteMusique1 + " votes.)";
                 }
             }
 
@@ -180,12 +140,18 @@ namespace MyRostand.MySonnerie
                 if (LabelMusique2.BackgroundColor == Color.LightGray)
                 {
                     LabelMusique1.BackgroundColor = Color.LightGray;
+                    LabelMusique1.Text = unSondage.musique1;
                     LabelMusique2.BackgroundColor = Color.LightGreen;
+                    LabelMusique2.Text = unSondage.musique2;
                     LabelMusique3.BackgroundColor = Color.LightGray;
+                    LabelMusique3.Text = unSondage.musique3;
                     LabelMusique4.BackgroundColor = Color.LightGray;
+                    LabelMusique4.Text = unSondage.musique4;
                     Database.MySonnerie.suppUnVote(idutilisateur, sondageId);
                     Database.MySonnerie.addUnVote(LabelMusique2.Text, idutilisateur, sondageId);
-                }
+                    string TextMusique2 = LabelMusique2.Text;
+                    LabelMusique2.Text = TextMusique2 + "  (" + nbVoteMusique2 + " votes.)";
+        }
             }
 
             /////////////////////////////////////////////////////////////////////////
@@ -197,11 +163,17 @@ namespace MyRostand.MySonnerie
                 if (LabelMusique3.BackgroundColor == Color.LightGray)
                 {
                     LabelMusique1.BackgroundColor = Color.LightGray;
+                    LabelMusique1.Text = unSondage.musique1;
                     LabelMusique2.BackgroundColor = Color.LightGray;
+                    LabelMusique2.Text = unSondage.musique2;
                     LabelMusique3.BackgroundColor = Color.LightGreen;
+                    LabelMusique3.Text = unSondage.musique3;
                     LabelMusique4.BackgroundColor = Color.LightGray;
+                    LabelMusique4.Text = unSondage.musique4;
                     Database.MySonnerie.suppUnVote(idutilisateur, sondageId);
                     Database.MySonnerie.addUnVote(LabelMusique3.Text, idutilisateur, sondageId);
+                    string TextMusique3 = LabelMusique3.Text;
+                    LabelMusique3.Text = TextMusique3 + "  (" + nbVoteMusique3 + " votes.)";
                 }
             }
 
@@ -214,11 +186,17 @@ namespace MyRostand.MySonnerie
                 if (LabelMusique4.BackgroundColor == Color.LightGray)
                 {
                     LabelMusique1.BackgroundColor = Color.LightGray;
+                    LabelMusique1.Text = unSondage.musique1;
                     LabelMusique2.BackgroundColor = Color.LightGray;
+                    LabelMusique2.Text = unSondage.musique2;
                     LabelMusique3.BackgroundColor = Color.LightGray;
+                    LabelMusique3.Text = unSondage.musique3;
                     LabelMusique4.BackgroundColor = Color.LightGreen;
+                    LabelMusique4.Text = unSondage.musique4;
                     Database.MySonnerie.suppUnVote(idutilisateur, sondageId);
                     Database.MySonnerie.addUnVote(LabelMusique4.Text, idutilisateur, sondageId);
+                    string TextMusique4 = LabelMusique4.Text;
+                    LabelMusique4.Text = TextMusique4 + "  (" + nbVoteMusique4 + " votes.)";
                 }
             }
 
@@ -229,10 +207,6 @@ namespace MyRostand.MySonnerie
             LabelMusique2.Text = unSondage.musique2;
             LabelMusique3.Text = unSondage.musique3;
             LabelMusique4.Text = unSondage.musique4;
-            statMusique1.Text = unSondage.musique1 + " : " + nbVoteMusique1 + " votes. ";
-            statMusique2.Text = unSondage.musique2 + " : " + nbVoteMusique2 + " votes. ";
-            statMusique3.Text = unSondage.musique3 + " : " + nbVoteMusique3 + " votes. ";
-            statMusique4.Text = unSondage.musique4 + " : " + nbVoteMusique4 + " votes. ";
 
             /////////////////////////////////////////////////////////////////////////
 
@@ -242,11 +216,6 @@ namespace MyRostand.MySonnerie
             stackCardSonnerie.Children.Add(LabelMusique2);
             stackCardSonnerie.Children.Add(LabelMusique3);
             stackCardSonnerie.Children.Add(LabelMusique4);
-            stackCardSonnerie.Children.Add(statSondage);
-            stackCardSonnerie.Children.Add(statMusique1);
-            stackCardSonnerie.Children.Add(statMusique2);
-            stackCardSonnerie.Children.Add(statMusique3);
-            stackCardSonnerie.Children.Add(statMusique4);
 
             /////////////////////////////////////////////////////////////////////////
 
