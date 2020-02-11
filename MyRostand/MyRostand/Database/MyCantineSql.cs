@@ -818,31 +818,31 @@ namespace MyRostand.Database
 
         }
         //////////////////////////////////////////////////////////////////REQUÊTE AFIN DE UPDATE UNE BIO////////////////////////////
-        public static List<User> setUneBio(string biouti, string mailuti)
+        public static List<User> setUnMDP(string mdputi, string mailuti)
         {
-            List<User> NewBio = new List<User>();
+            List<User> Newmdp = new List<User>();
 
             try
             {
                 MySqlConnection cnx = MySQL.getCnx();
                 cnx.Ping();
-                string requete = "UPDATE utilisateur SET UTI_BIO = '" + biouti + "'  WHERE UTI_EMAIL='" + mailuti + "'";
+                string requete = "UPDATE utilisateur SET UTI_MDP = '" + mdputi + "'  WHERE UTI_EMAIL='" + mailuti + "'";
                 MySqlCommand cmd = new MySqlCommand(requete, cnx);
                 var reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
                     User LaBio = new User();
-                    LaBio.Bio = reader.GetString(0);
-                    NewBio.Add(LaBio);
+                    LaBio.MDP = reader.GetString(0);
+                    Newmdp.Add(LaBio);
                 }
                 cnx.Close();
-                return NewBio;
+                return Newmdp;
             }
             catch (MySqlException ex)
             {
                 Utilisateur erreurSQL = new Utilisateur();
                 erreurSQL.Description = (ex.ToString());
-                return NewBio;
+                return Newmdp;
             }
         }
         //////////////////////////////////////////////////////////////////REQUÊTE AFIN DE UPDATE UN NUMERO DE TELEPHONE////////////////////////////
@@ -957,7 +957,7 @@ namespace MyRostand.Database
                 return NewUneVille;
             }
         }
-        //////////////////////////////////////////////////////////////////REQUÊTE AFIN DE UPDATE UNE RUE////////////////////////////
+        //////////////////////////////////////////////////////////////////REQUÊTE AFIN DE UPDATE UN EMAIL////////////////////////////
         public static List<User> setUnEmail(string emailuti, string mailuti)
         {
             List<User> NewEmail = new List<User>();
@@ -983,6 +983,36 @@ namespace MyRostand.Database
                 Utilisateur erreurSQL = new Utilisateur();
                 erreurSQL.Description = (ex.ToString());
                 return NewEmail;
+            }
+        }
+        ////////////////////////////////////////////////////////////REQUÊTE AFIN DE RECUPERER LE NOMBRE DE VIANDES//////////////////////////////////////////////
+
+        public static List<Resistance> getNBTouteslesResistances(string daterequete)
+        {
+            List<Resistance> NBlesResistances = new List<Resistance>();
+
+            try
+            {
+                MySqlConnection cnx = MySQL.getCnx();
+                cnx.Ping();
+                string requete = "SELECT COUNT(RES_LIBELLE) FROM resistance WHERE RES_LIBELLE IN (SELECT DISTINCT RES_LIBELLE FROM resistance, reservationmenu, repas WHERE resistance.RES_ID = res_plat AND res_repas = REP_ID AND REP_DATE = '" + daterequete + "')";
+                MySqlCommand cmd = new MySqlCommand(requete, cnx);
+                var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    Resistance NbResistance = new Resistance();
+                    NbResistance.Id = reader.GetInt32(0);
+                    NBlesResistances.Add(NbResistance);
+                }
+                cnx.Close();
+                return NBlesResistances;
+            }
+            catch (MySqlException ex)
+            {
+                Resistance erreurSQL = new Resistance();
+                erreurSQL.Description = (ex.ToString());
+                NBlesResistances.Add(erreurSQL);
+                return NBlesResistances;
             }
         }
     }

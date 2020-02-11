@@ -39,7 +39,8 @@ namespace MyRostand
                 BackgroundColor = Color.FromHex("#27ae60"),
                 HeightRequest = 35,
              
-                Padding = new Thickness(0,0,0,20)
+                Padding = new Thickness(0,0,0,20),
+                 Margin = new Thickness(0, 0, 0, 300)
             };
             Label titre2 = new Label()
             {
