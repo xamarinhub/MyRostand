@@ -52,7 +52,7 @@ namespace MyRostand
 
             var labelNom = new Label
             {
-                Text = " Nom : ",
+                Text = " Nom : ",                
                 FontSize = 30
             };
             var labelNom2 = new Label
@@ -89,6 +89,7 @@ namespace MyRostand
             var labelTel= new Label
             {
                 Text = " Telephone : ",
+                VerticalTextAlignment = TextAlignment.Center,
                 FontSize = 30
             };
             var MyEntryTel = new Entry { Text = "", Placeholder = telephone + "  " , FontSize = 30, Keyboard = Keyboard.Numeric };
@@ -100,10 +101,11 @@ namespace MyRostand
             var labelDateN = new Label
             {
                 Text = " Date de Naissance : ",
+                VerticalTextAlignment = TextAlignment.Center,
                 FontSize = 30
             };
             
-            var MyEntryDateN = new DatePicker { FontSize = 30, Date = datenaissance  };
+            var MyEntryDateN = new DatePicker { FontSize = 30, Date = datenaissance, IsEnabled = false  };
 
             StackLayout Layout6 = new StackLayout
             {
@@ -112,6 +114,7 @@ namespace MyRostand
             var labelEMAIL = new Label
             {
                 Text = " Adresse Mail : ",
+                VerticalTextAlignment = TextAlignment.Center,
                 FontSize = 30
             };
             var MyEntryEMAIL = new Entry { Text = "", Placeholder = mail + "                             ", FontSize = 30 };
@@ -124,6 +127,7 @@ namespace MyRostand
             var labelRUE = new Label
             {
                 Text = " Rue : ",
+                VerticalTextAlignment = TextAlignment.Center,
                 FontSize = 30
             };
 
@@ -136,6 +140,7 @@ namespace MyRostand
             var labelCP = new Label
             {
                 Text = " Code Postal : ",
+                VerticalTextAlignment = TextAlignment.Center,
                 FontSize = 30
             };
 
@@ -148,6 +153,7 @@ namespace MyRostand
             var labelVILLE = new Label
             {
                 Text = " Ville : ",
+                VerticalTextAlignment = TextAlignment.Center,
                 FontSize = 30
             };
 
@@ -160,6 +166,7 @@ namespace MyRostand
             var labelMDP = new Label
             {
                 Text = " Mot de passe : ",
+                VerticalTextAlignment = TextAlignment.Center,
                 FontSize = 30
             };
 
@@ -295,38 +302,66 @@ namespace MyRostand
                                 if (MyEntryVILLE.Text != "" && MyEntryVILLE.Text != ville)
                                 {
                                     Database.MyCantineSQL.setUneVille(MyEntryVILLE.Text, id);
-                                if (MyEntryEMAIL.Text != "" && MyEntryEMAIL.Text != id)
-                                {
+                                    if (MyEntryEMAIL.Text != "" && MyEntryEMAIL.Text != id)
+                                    {
                                     Database.MyCantineSQL.setUnEmail(MyEntryEMAIL.Text, id);
                                     Application.Current.Properties["AppUser"] = MyEntryEMAIL.Text;
+                                    value = Application.Current.Properties["AppUser"];
+                                    id = value.ToString();
+                                }
                                 }
                                 if (MyEntryEMAIL.Text != "" && MyEntryEMAIL.Text != id)
                                 {
-                                    Database.MyCantineSQL.setUnEmail(MyEntryEMAIL.Text, id);
-                                    Application.Current.Properties["AppUser"] = MyEntryEMAIL.Text;
-                                }
+                                Database.MyCantineSQL.setUnEmail(MyEntryEMAIL.Text, id);
+                                Application.Current.Properties["AppUser"] = MyEntryEMAIL.Text;
+                                value = Application.Current.Properties["AppUser"];
+                                id = value.ToString();
                             }
                             }
-                        if (MyEntryEMAIL.Text != "" && MyEntryEMAIL.Text != id)
+                        }
+                        if (MyEntryCP.Text != "" && MyEntryCP.Text != codpost)
                         {
+                            Database.MyCantineSQL.setUnCodePost(MyEntryCP.Text, id);
+                            if (MyEntryEMAIL.Text != "" && MyEntryEMAIL.Text != id)
+                            {
                             Database.MyCantineSQL.setUnEmail(MyEntryEMAIL.Text, id);
                             Application.Current.Properties["AppUser"] = MyEntryEMAIL.Text;
+                            value = Application.Current.Properties["AppUser"];
+                            id = value.ToString();
+                            if (MyEntryVILLE.Text != "" && MyEntryVILLE.Text != ville)
+                            {
+                                Database.MyCantineSQL.setUneVille(MyEntryVILLE.Text, id);
+                            }
+                            }
                         }
-                    }
                         if (MyEntryVILLE.Text != "" && MyEntryVILLE.Text != ville)
                         {
                             Database.MyCantineSQL.setUneVille(MyEntryVILLE.Text, id);
+                            if (MyEntryEMAIL.Text != "" && MyEntryEMAIL.Text != id)
+                            {
+                            Database.MyCantineSQL.setUnEmail(MyEntryEMAIL.Text, id);
+                            Application.Current.Properties["AppUser"] = MyEntryEMAIL.Text;
+                            value = Application.Current.Properties["AppUser"];
+                            id = value.ToString();
+                        }
+                        }
                         if (MyEntryEMAIL.Text != "" && MyEntryEMAIL.Text != id)
                         {
                             Database.MyCantineSQL.setUnEmail(MyEntryEMAIL.Text, id);
                             Application.Current.Properties["AppUser"] = MyEntryEMAIL.Text;
+                        value = Application.Current.Properties["AppUser"];
+                        id = value.ToString();
+                        if (MyEntryCP.Text != "" && MyEntryCP.Text != codpost)
+                            {
+                            Database.MyCantineSQL.setUnCodePost(MyEntryCP.Text, id);
+                                if (MyEntryVILLE.Text != "" && MyEntryVILLE.Text != ville)
+                                {
+                                Database.MyCantineSQL.setUneVille(MyEntryVILLE.Text, id);
+                                
+                                }
+                            }
+
                         }
-                    }
-                    if (MyEntryEMAIL.Text != "" && MyEntryEMAIL.Text != id)
-                    {
-                        Database.MyCantineSQL.setUnEmail(MyEntryEMAIL.Text, id);
-                        Application.Current.Properties["AppUser"] = MyEntryEMAIL.Text;
-                    }
                     if (MyEntryRue.Text != "" && MyEntryRue.Text != rue)
                     {
                         Database.MyCantineSQL.setUneRue(MyEntryRue.Text, id);
@@ -336,21 +371,50 @@ namespace MyRostand
                             if (MyEntryVILLE.Text != "" && MyEntryVILLE.Text != ville)
                             {
                                 Database.MyCantineSQL.setUneVille(MyEntryVILLE.Text, id);
+                                if (MyEntryMDP.Text != "" && MyEntryMDP.Text != id)
+                                {
+                                    Database.MyCantineSQL.setUnMDP(MyEntryMDP.Text, id);
+                                }
                             }
                             if (MyEntryEMAIL.Text != "" && MyEntryEMAIL.Text != id)
                             {
                                 Database.MyCantineSQL.setUnEmail(MyEntryEMAIL.Text, id);
                                 Application.Current.Properties["AppUser"] = MyEntryEMAIL.Text;
+                                value = Application.Current.Properties["AppUser"];
+                                id = value.ToString();
+                                if (MyEntryMDP.Text != "" && MyEntryMDP.Text != id)
+                                {
+                                    Database.MyCantineSQL.setUnMDP(MyEntryMDP.Text, id);
+                                }
+                            }
+                            if (MyEntryMDP.Text != "" && MyEntryMDP.Text != id)
+                            {
+                                Database.MyCantineSQL.setUnMDP(MyEntryMDP.Text, id);
                             }
                         }
+
                         if (MyEntryVILLE.Text != "" && MyEntryVILLE.Text != ville)
                         {
                             Database.MyCantineSQL.setUneVille(MyEntryVILLE.Text, id);
+                            if (MyEntryMDP.Text != "" && MyEntryMDP.Text != id)
+                            {
+                                Database.MyCantineSQL.setUnMDP(MyEntryMDP.Text, id);
+                            }
                         }
                         if (MyEntryEMAIL.Text != "" && MyEntryEMAIL.Text != id)
                         {
                             Database.MyCantineSQL.setUnEmail(MyEntryEMAIL.Text, id);
                             Application.Current.Properties["AppUser"] = MyEntryEMAIL.Text;
+                            value = Application.Current.Properties["AppUser"];
+                            id = value.ToString();
+                            if (MyEntryMDP.Text != "" && MyEntryMDP.Text != id)
+                            {
+                                Database.MyCantineSQL.setUnMDP(MyEntryMDP.Text, id);
+                            }
+                        }
+                        if (MyEntryMDP.Text != "" && MyEntryMDP.Text != id)
+                        {
+                            Database.MyCantineSQL.setUnMDP(MyEntryMDP.Text, id);
                         }
                     }
                     if (MyEntryCP.Text != "" && MyEntryCP.Text != codpost)
@@ -359,11 +423,29 @@ namespace MyRostand
                         if (MyEntryVILLE.Text != "" && MyEntryVILLE.Text != ville)
                         {
                             Database.MyCantineSQL.setUneVille(MyEntryVILLE.Text, id);
+                            if (MyEntryMDP.Text != "" && MyEntryMDP.Text != id)
+                            {
+                                Database.MyCantineSQL.setUnMDP(MyEntryMDP.Text, id);
+                            }
+                        }
+                        if (MyEntryMDP.Text != "" && MyEntryMDP.Text != id)
+                        {
+                            Database.MyCantineSQL.setUnMDP(MyEntryMDP.Text, id);
                         }
                         if (MyEntryEMAIL.Text != "" && MyEntryEMAIL.Text != id)
                         {
                             Database.MyCantineSQL.setUnEmail(MyEntryEMAIL.Text, id);
                             Application.Current.Properties["AppUser"] = MyEntryEMAIL.Text;
+                            value = Application.Current.Properties["AppUser"];
+                            id = value.ToString();
+                            if (MyEntryMDP.Text != "" && MyEntryMDP.Text != id)
+                            {
+                                Database.MyCantineSQL.setUnMDP(MyEntryMDP.Text, id);
+                            }
+                        }
+                        if (MyEntryMDP.Text != "" && MyEntryMDP.Text != id)
+                        {
+                            Database.MyCantineSQL.setUnMDP(MyEntryMDP.Text, id);
                         }
                     }
                     if (MyEntryVILLE.Text != "" && MyEntryVILLE.Text != ville)
@@ -373,12 +455,32 @@ namespace MyRostand
                         {
                             Database.MyCantineSQL.setUnEmail(MyEntryEMAIL.Text, id);
                             Application.Current.Properties["AppUser"] = MyEntryEMAIL.Text;
+                            value = Application.Current.Properties["AppUser"];
+                            id = value.ToString();
+                            if (MyEntryMDP.Text != "" && MyEntryMDP.Text != id)
+                            {
+                                Database.MyCantineSQL.setUnMDP(MyEntryMDP.Text, id);
+                            }
+                        }
+                        if (MyEntryMDP.Text != "" && MyEntryMDP.Text != id)
+                        {
+                            Database.MyCantineSQL.setUnMDP(MyEntryMDP.Text, id);
                         }
                     }
                     if (MyEntryEMAIL.Text != "" && MyEntryEMAIL.Text != id)
                     {
                         Database.MyCantineSQL.setUnEmail(MyEntryEMAIL.Text, id);
                         Application.Current.Properties["AppUser"] = MyEntryEMAIL.Text;
+                        value = Application.Current.Properties["AppUser"];
+                        id = value.ToString();
+                        if (MyEntryMDP.Text != "" && MyEntryMDP.Text != id)
+                        {
+                            Database.MyCantineSQL.setUnMDP(MyEntryMDP.Text, id);
+                        }
+                    }
+                    if (MyEntryMDP.Text != "" && MyEntryMDP.Text != id)
+                    {
+                        Database.MyCantineSQL.setUnMDP(MyEntryMDP.Text, id);
                     }
                 }
                 if (MyEntryTel.Text != "" && MyEntryTel.Text.Length == 10)
@@ -397,7 +499,21 @@ namespace MyRostand
                                 {
                                     Database.MyCantineSQL.setUnEmail(MyEntryEMAIL.Text, id);
                                     Application.Current.Properties["AppUser"] = MyEntryEMAIL.Text;
+                                    value = Application.Current.Properties["AppUser"];
+                                    id = value.ToString();
+                                    if (MyEntryMDP.Text != "" && MyEntryMDP.Text != id)
+                                    {
+                                        Database.MyCantineSQL.setUnMDP(MyEntryMDP.Text, id);
+                                    }
                                 }
+                                if (MyEntryMDP.Text != "" && MyEntryMDP.Text != id)
+                                {
+                                    Database.MyCantineSQL.setUnMDP(MyEntryMDP.Text, id);
+                                }
+                            }
+                            if (MyEntryMDP.Text != "" && MyEntryMDP.Text != id)
+                            {
+                                Database.MyCantineSQL.setUnMDP(MyEntryMDP.Text, id);
                             }
                         }
                         if (MyEntryVILLE.Text != "" && MyEntryVILLE.Text != ville)
@@ -407,7 +523,21 @@ namespace MyRostand
                             {
                                 Database.MyCantineSQL.setUnEmail(MyEntryEMAIL.Text, id);
                                 Application.Current.Properties["AppUser"] = MyEntryEMAIL.Text;
+                                value = Application.Current.Properties["AppUser"];
+                                id = value.ToString();
+                                if (MyEntryMDP.Text != "" && MyEntryMDP.Text != id)
+                                {
+                                    Database.MyCantineSQL.setUnMDP(MyEntryMDP.Text, id);
+                                }
                             }
+                            if (MyEntryMDP.Text != "" && MyEntryMDP.Text != id)
+                            {
+                                Database.MyCantineSQL.setUnMDP(MyEntryMDP.Text, id);
+                            }
+                        }
+                        if (MyEntryMDP.Text != "" && MyEntryMDP.Text != id)
+                        {
+                            Database.MyCantineSQL.setUnMDP(MyEntryMDP.Text, id);
                         }
                     }
                     if (MyEntryCP.Text != "" && MyEntryCP.Text != codpost)
@@ -420,7 +550,21 @@ namespace MyRostand
                             {
                                 Database.MyCantineSQL.setUnEmail(MyEntryEMAIL.Text, id);
                                 Application.Current.Properties["AppUser"] = MyEntryEMAIL.Text;
+                                value = Application.Current.Properties["AppUser"];
+                                id = value.ToString();
+                                if (MyEntryMDP.Text != "" && MyEntryMDP.Text != id)
+                                {
+                                    Database.MyCantineSQL.setUnMDP(MyEntryMDP.Text, id);
+                                }
                             }
+                            if (MyEntryMDP.Text != "" && MyEntryMDP.Text != id)
+                            {
+                                Database.MyCantineSQL.setUnMDP(MyEntryMDP.Text, id);
+                            }
+                        }
+                        if (MyEntryMDP.Text != "" && MyEntryMDP.Text != id)
+                        {
+                            Database.MyCantineSQL.setUnMDP(MyEntryMDP.Text, id);
                         }
                     }
                     if (MyEntryVILLE.Text != "" && MyEntryVILLE.Text != ville)
@@ -430,12 +574,30 @@ namespace MyRostand
                         {
                             Database.MyCantineSQL.setUnEmail(MyEntryEMAIL.Text, id);
                             Application.Current.Properties["AppUser"] = MyEntryEMAIL.Text;
+                            if (MyEntryMDP.Text != "" && MyEntryMDP.Text != id)
+                            {
+                                Database.MyCantineSQL.setUnMDP(MyEntryMDP.Text, id);
+                            }
+                        }
+                        if (MyEntryMDP.Text != "" && MyEntryMDP.Text != id)
+                        {
+                            Database.MyCantineSQL.setUnMDP(MyEntryMDP.Text, id);
                         }
                     }
                     if (MyEntryEMAIL.Text != "" && MyEntryEMAIL.Text != id)
                     {
                         Database.MyCantineSQL.setUnEmail(MyEntryEMAIL.Text, id);
                         Application.Current.Properties["AppUser"] = MyEntryEMAIL.Text;
+                        value = Application.Current.Properties["AppUser"];
+                        id = value.ToString();
+                        if (MyEntryMDP.Text != "" && MyEntryMDP.Text != id)
+                        {
+                            Database.MyCantineSQL.setUnMDP(MyEntryMDP.Text, id);
+                        }
+                    }
+                    if (MyEntryMDP.Text != "" && MyEntryMDP.Text != id)
+                    {
+                        Database.MyCantineSQL.setUnMDP(MyEntryMDP.Text, id);
                     }
                 }
                 if (MyEntryRue.Text != "" && MyEntryRue.Text != rue)
@@ -451,7 +613,17 @@ namespace MyRostand
                             {
                                 Database.MyCantineSQL.setUnEmail(MyEntryEMAIL.Text, id);
                                 Application.Current.Properties["AppUser"] = MyEntryEMAIL.Text;
+                                value = Application.Current.Properties["AppUser"];
+                                id = value.ToString();
+                                if (MyEntryMDP.Text != "" && MyEntryMDP.Text != id)
+                                {
+                                    Database.MyCantineSQL.setUnMDP(MyEntryMDP.Text, id);
+                                }
                             }
+                        }
+                        if (MyEntryMDP.Text != "" && MyEntryMDP.Text != id)
+                        {
+                            Database.MyCantineSQL.setUnMDP(MyEntryMDP.Text, id);
                         }
                     }
                     if (MyEntryVILLE.Text != "" && MyEntryVILLE.Text != ville)
@@ -461,12 +633,32 @@ namespace MyRostand
                         {
                             Database.MyCantineSQL.setUnEmail(MyEntryEMAIL.Text, id);
                             Application.Current.Properties["AppUser"] = MyEntryEMAIL.Text;
+                            value = Application.Current.Properties["AppUser"];
+                            id = value.ToString();
+                            if (MyEntryMDP.Text != "" && MyEntryMDP.Text != id)
+                            {
+                                Database.MyCantineSQL.setUnMDP(MyEntryMDP.Text, id);
+                            }
+                        }
+                        if (MyEntryMDP.Text != "" && MyEntryMDP.Text != id)
+                        {
+                            Database.MyCantineSQL.setUnMDP(MyEntryMDP.Text, id);
                         }
                     }
                     if (MyEntryEMAIL.Text != "" && MyEntryEMAIL.Text != id)
                     {
                         Database.MyCantineSQL.setUnEmail(MyEntryEMAIL.Text, id);
                         Application.Current.Properties["AppUser"] = MyEntryEMAIL.Text;
+                        value = Application.Current.Properties["AppUser"];
+                        id = value.ToString();
+                        if (MyEntryMDP.Text != "" && MyEntryMDP.Text != id)
+                        {
+                            Database.MyCantineSQL.setUnMDP(MyEntryMDP.Text, id);
+                        }
+                    }
+                    if (MyEntryMDP.Text != "" && MyEntryMDP.Text != id)
+                    {
+                        Database.MyCantineSQL.setUnMDP(MyEntryMDP.Text, id);
                     }
                 }
                 if (MyEntryCP.Text != "" && MyEntryCP.Text != codpost)
@@ -479,7 +671,17 @@ namespace MyRostand
                         {
                             Database.MyCantineSQL.setUnEmail(MyEntryEMAIL.Text, id);
                             Application.Current.Properties["AppUser"] = MyEntryEMAIL.Text;
+                            value = Application.Current.Properties["AppUser"];
+                            id = value.ToString();
+                            if (MyEntryMDP.Text != "" && MyEntryMDP.Text != id)
+                            {
+                                Database.MyCantineSQL.setUnMDP(MyEntryMDP.Text, id);
+                            }
                         }
+                    }
+                    if (MyEntryMDP.Text != "" && MyEntryMDP.Text != id)
+                    {
+                        Database.MyCantineSQL.setUnMDP(MyEntryMDP.Text, id);
                     }
                 }
                 if (MyEntryVILLE.Text != "" && MyEntryVILLE.Text != ville)
@@ -489,6 +691,16 @@ namespace MyRostand
                     {
                         Database.MyCantineSQL.setUnEmail(MyEntryEMAIL.Text, id);
                         Application.Current.Properties["AppUser"] = MyEntryEMAIL.Text;
+                        value = Application.Current.Properties["AppUser"];
+                        id = value.ToString();
+                        if (MyEntryMDP.Text != "" && MyEntryMDP.Text != id)
+                        {
+                            Database.MyCantineSQL.setUnMDP(MyEntryMDP.Text, id);
+                        }
+                    }
+                    if (MyEntryMDP.Text != "" && MyEntryMDP.Text != id)
+                    {
+                        Database.MyCantineSQL.setUnMDP(MyEntryMDP.Text, id);
                     }
                 }
 
@@ -496,10 +708,29 @@ namespace MyRostand
                 {
                     Database.MyCantineSQL.setUnEmail(MyEntryEMAIL.Text, id);
                     Application.Current.Properties["AppUser"] = MyEntryEMAIL.Text;
+                    value = Application.Current.Properties["AppUser"];
+                    id = value.ToString();
+                    if (MyEntryMDP.Text != "" && MyEntryMDP.Text != id)
+                    {
+                        Database.MyCantineSQL.setUnMDP(MyEntryMDP.Text, id);
+                    }
                 }
-
-
-                await Navigation.PushAsync(new UserProfil());
+                if (MyEntryMDP.Text != "" && MyEntryMDP.Text != id)
+                {
+                    Database.MyCantineSQL.setUnMDP(MyEntryMDP.Text, id);
+                }
+                 if (MyEntryEMAIL.Text != "" && MyEntryEMAIL.Text != id)
+                 {
+                     Database.MyCantineSQL.setUnEmail(MyEntryEMAIL.Text, id);
+                     Application.Current.Properties["AppUser"] = MyEntryEMAIL.Text;
+                     value = Application.Current.Properties["AppUser"];
+                     id = value.ToString();
+                    if (MyEntryMDP.Text != "" && MyEntryMDP.Text != mdp)
+                    {
+                        Database.MyCantineSQL.setUnMDP(MyEntryMDP.Text, id);
+                    }
+                }
+                    await Navigation.PushAsync(new UserProfil());
             }
 
             if (classe != "") { 
