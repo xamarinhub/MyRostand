@@ -46,7 +46,9 @@ namespace MyRostand
             
             StackLayout Layout1 = new StackLayout
             {
-                Orientation = StackOrientation.Horizontal
+                Orientation = StackOrientation.Horizontal,
+                Padding = new Thickness(0, 80, 0, 20),
+                Margin = new Thickness(250, 0, 250, 0)
             };
 
 
@@ -63,7 +65,9 @@ namespace MyRostand
 
             StackLayout Layout2 = new StackLayout
             {
-                Orientation = StackOrientation.Horizontal
+                Orientation = StackOrientation.Horizontal,
+                Padding = new Thickness(0, 0, 0, 20),
+                Margin = new Thickness(208, 0, 200, 0)
             };
 
             var labelPrenom = new Label
@@ -83,7 +87,9 @@ namespace MyRostand
             };
             StackLayout Layout4 = new StackLayout
             {
-                Orientation = StackOrientation.Horizontal
+                Orientation = StackOrientation.Horizontal,
+                Padding = new Thickness(0, 0, 0, 20),
+                Margin = new Thickness(173, 0, 150, 0)
             };
 
             var labelTel= new Label
@@ -96,7 +102,9 @@ namespace MyRostand
 
             StackLayout Layout5 = new StackLayout
             {
-                Orientation = StackOrientation.Horizontal
+                Orientation = StackOrientation.Horizontal,
+                Padding = new Thickness(0, 0, 0, 20),
+                Margin = new Thickness(50, 0, 50, 0)
             };
             var labelDateN = new Label
             {
@@ -109,7 +117,9 @@ namespace MyRostand
 
             StackLayout Layout6 = new StackLayout
             {
-                Orientation = StackOrientation.Horizontal
+                Orientation = StackOrientation.Horizontal,
+                Padding = new Thickness(0, 0, 0, 20),
+                Margin = new Thickness(127, 0, 80, 0)
             };
             var labelEMAIL = new Label
             {
@@ -122,7 +132,9 @@ namespace MyRostand
 
             StackLayout Layout7 = new StackLayout
             {
-                Orientation = StackOrientation.Horizontal
+                Orientation = StackOrientation.Horizontal,
+                Padding = new Thickness(0, 0, 0, 20),
+                Margin = new Thickness(265, 0, 50, 0)
             };
             var labelRUE = new Label
             {
@@ -131,11 +143,13 @@ namespace MyRostand
                 FontSize = 30
             };
 
-            var MyEntryRue = new Entry { Text = "", Placeholder = rue + "                             ", FontSize = 30 };
+            var MyEntryRue = new Entry { Text = "", Placeholder = rue + "             ", FontSize = 30 };
 
             StackLayout Layout8 = new StackLayout
             {
-                Orientation = StackOrientation.Horizontal
+                Orientation = StackOrientation.Horizontal,
+                Padding = new Thickness(0, 0, 0, 20),
+                Margin = new Thickness(145, 0, 50, 0)
             };
             var labelCP = new Label
             {
@@ -148,7 +162,9 @@ namespace MyRostand
 
             StackLayout Layout9 = new StackLayout
             {
-                Orientation = StackOrientation.Horizontal
+                Orientation = StackOrientation.Horizontal,
+                Padding = new Thickness(0, 0, 0, 20),
+                Margin = new Thickness(258, 0, 50, 0)
             };
             var labelVILLE = new Label
             {
@@ -161,7 +177,9 @@ namespace MyRostand
             
             StackLayout Layout10 = new StackLayout
             {
-                Orientation = StackOrientation.Horizontal
+                Orientation = StackOrientation.Horizontal,
+                Padding = new Thickness(0, 0, 0, 20),
+                Margin = new Thickness(120, 0, 50, 0)
             };
             var labelMDP = new Label
             {
@@ -170,7 +188,7 @@ namespace MyRostand
                 FontSize = 30
             };
 
-            var MyEntryMDP = new Entry { Text = "", Placeholder = " ****************** ", FontSize = 30, IsPassword = true};
+            var MyEntryMDP = new Entry { Text = "", Placeholder = " *******************", FontSize = 30, IsPassword = true, MaxLength = 20};
             Button boutonMDP = new Button()
             {
                 Margin = new Thickness(1, 1, 1, 1),

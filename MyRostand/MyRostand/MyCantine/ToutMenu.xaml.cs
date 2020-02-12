@@ -635,7 +635,7 @@ namespace MyRostand.MyCantine
                         Viande2 = uneResistance.Libelle;
                         c = 1;
                     }
-                    else if (Viande != uneResistance.Libelle && i + 1 == TouteslesResistances.Count)
+                    else if (Viande != uneResistance.Libelle && i+1 == TouteslesResistances.Count)
                     {
                         double p = ((double)c / TouteslesResistances.Count) * 100;
                         if (p <= 15)
@@ -738,7 +738,7 @@ namespace MyRostand.MyCantine
                         string tpp = String.Format("{0:N1}", pp);
                         Avantviande2.Text = Viande2 + ": ";
                         countviande2.Text = c + "";
-                        soitviande2.Text = " soit ";
+                        soitviande2.Text = " soit ;;;" + TouteslesResistances.Count + ";;;";
                         pourcentviande2.Text = tpp;
                         pourcentviande22.Text = "%";
                         barreviande2.Text = barre;
@@ -749,12 +749,9 @@ namespace MyRostand.MyCantine
                         LayoutViande2.Children.Add(pourcentviande22);
                         LayoutViande2barre.Children.Add(barreviande2);
                     }
-                    else if (Viande2 == uneResistance.Libelle && i + 1 != TouteslesResistances.Count)
-                    {
-                        c++;
-                    }
                     else if (i + 1 == TouteslesResistances.Count)
                     {
+                        c++;
                         double p = ((double)c / TouteslesResistances.Count) * 100;
                         if (p <= 15)
                         {
@@ -799,7 +796,7 @@ namespace MyRostand.MyCantine
                         string tp = String.Format("{0:N1}", p);
                         Avantviande2.Text = Viande2 + ": ";
                         countviande2.Text = c + "";
-                        soitviande2.Text = " soit ";
+                        soitviande2.Text = " soit ,,,";
                         pourcentviande2.Text = tp;
                         pourcentviande22.Text = "%";
                         barreviande2.Text = barre;
@@ -809,6 +806,10 @@ namespace MyRostand.MyCantine
                         LayoutViande2.Children.Add(pourcentviande2);
                         LayoutViande2.Children.Add(pourcentviande22);
                         LayoutViande2barre.Children.Add(barreviande2);
+                    }
+                    else if (Viande2 == uneResistance.Libelle)
+                    {
+                        c++;
                     }
 
 
@@ -883,10 +884,6 @@ namespace MyRostand.MyCantine
                         LayoutViandetitle.Children.Add(titleviande);
                         Viande2 = uneResistance.Libelle;
                         c = 1;
-                    }
-                    else if (Viande2 == uneResistance.Libelle)
-                    {
-                        c++;
                     }
                     else if (Viande2 != uneResistance.Libelle && i + 1 == TouteslesResistances.Count)
                     {
@@ -1001,10 +998,6 @@ namespace MyRostand.MyCantine
                         LayoutViande3.Children.Add(pourcentviande32);
                         LayoutViande3barre.Children.Add(barreviande3);
                     }
-                    else if (Viande2 == uneResistance.Libelle)
-                    {
-                        c++;
-                    }
                     else if (Viande2 != uneResistance.Libelle && i + 1 != TouteslesResistances.Count)
                     {
                         double p = ((double)c / TouteslesResistances.Count) * 100;
@@ -1063,6 +1056,10 @@ namespace MyRostand.MyCantine
                         LayoutViande2barre.Children.Add(barreviande2);
                         Viande3 = uneResistance.Libelle;
                         c = 1;
+                    }
+                    else if (Viande2 == uneResistance.Libelle)
+                    {
+                        c++;
                     }
                     else if (i + 1 == TouteslesResistances.Count)
                     {
@@ -1731,7 +1728,20 @@ namespace MyRostand.MyCantine
                 Present unAbsent = LesAbsents[i];
                 eleveabsent.Text = co + "";
             }
-            if (co == "1")
+            if (co == "0")
+            {
+                this.Content = new StackLayout
+                {
+                    Children =
+                {
+                    barJours,
+                    menuStack,
+                    Cuisto
+
+                }
+                };
+            }
+            else if (co == "1")
             {
                 this.Content = new StackLayout
                 {
@@ -1806,7 +1816,7 @@ namespace MyRostand.MyCantine
                 }
             };
             }
-
+            
         }
         ///////////////////////////////////////////////////////////////////Fin des Algorithmes//////////////////////////////////////////////////
     }

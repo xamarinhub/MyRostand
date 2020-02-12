@@ -178,14 +178,13 @@ namespace MyRostand.Database
             {
                 MySqlConnection cnx = MySQL.getCnx();
                 cnx.Ping();
-                string requete = "SELECT RES_LIBELLE, RES_DESCRIPTION FROM resistance, reservationmenu, repas WHERE resistance.RES_ID = res_plat AND res_repas = REP_ID AND REP_DATE = '" + daterequete + "' ORDER BY RES_LIBELLE";
+                string requete = "SELECT RES_LIBELLE FROM resistance, reservationmenu, repas WHERE resistance.RES_ID = res_plat AND res_repas = REP_ID AND REP_DATE = '" + daterequete + "' ORDER BY RES_LIBELLE";
                 MySqlCommand cmd = new MySqlCommand(requete, cnx);
                 var reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
                     Resistance unResistance = new Resistance();
                     unResistance.Libelle = reader.GetString(0);
-                    unResistance.Description = reader.GetString(1);
                     TouteslesResistances.Add(unResistance);
                 }
                 cnx.Close();
