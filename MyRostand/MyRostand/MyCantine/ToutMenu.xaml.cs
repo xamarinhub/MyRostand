@@ -377,51 +377,6 @@ namespace MyRostand.MyCantine
 
             menuStack.IsVisible = false; //SI ON CLIQUE SUR UN JOUR ON PASSE A TRUE (voir la fonction clicked)
             /*--------------------------------------------------*/
-            /*---------------------ACCOMPAGNEMENT---------------*/
-            /*--------------------------------------------------*/
-
-            StackLayout stackCardAccompagnement = new StackLayout();
-
-            Frame frameAccompagnement = new Frame()
-            {
-                CornerRadius = 10,
-                BorderColor = Color.FromHex("#27ae60"),
-                Margin = new Thickness(100, 0, 100, 20),
-                Padding = new Thickness(0, 0, 0, 0)
-            };
-            StackLayout titreAccompagnement = new StackLayout()
-            {
-                HorizontalOptions = LayoutOptions.Fill,
-                BackgroundColor = Color.FromHex("#27ae60"),
-                HeightRequest = 35,
-                Padding = new Thickness(0, 10, 0, 0)
-            };
-            Label titre4 = new Label()
-            {
-                HorizontalTextAlignment = TextAlignment.Center,
-                VerticalTextAlignment = TextAlignment.Center,
-                Text = "Accompagnements",
-                FontSize = 20,
-                TextColor = Color.White
-            };
-
-            StackLayout descAccompagnement = new StackLayout()
-            {
-                Padding = new Thickness(10, 0, 10, 20)
-            };
-            Label DescAccompagnement = new Label()
-            {
-                Text = jourAccompagnement.Text,
-                FontSize = 20
-            };
-
-            descAccompagnement.Children.Add(jourAccompagnement);
-            titreAccompagnement.Children.Add(titre4);
-            stackCardAccompagnement.Children.Add(titreAccompagnement);
-            stackCardAccompagnement.Children.Add(descAccompagnement);
-            frameAccompagnement.Content = stackCardAccompagnement;
-
-            /*--------------------------------------------------*/
             /*---------------------PRESENCE---------------*/
             /*--------------------------------------------------*/
 
@@ -468,7 +423,6 @@ namespace MyRostand.MyCantine
 
             /*------------------------------------------*/
 
-            menuStack.Children.Add(frameAccompagnement);
             menuStack.Children.Add(framePresence);
 
 
@@ -516,6 +470,7 @@ namespace MyRostand.MyCantine
             string barre10 = "⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛";
 
             string co = "0";
+            string ca = "0";
             List<Resistance> LeNb = Database.MyCantineSQL.getNBTouteslesResistances(daterequete);
             for (int i = 0; i < LeNb.Count; i++)
             {
@@ -523,60 +478,64 @@ namespace MyRostand.MyCantine
                 co = uneResistance.Id + "";
             }
             ///////////////////////////////////////////////////////////////Fonction Afficher toutes les Résistances////////////////////////////////////////////////
-            toutesresistances.Text = $"";
             String Viande = "";
             String Viande2 = "";
             String Viande3 = "";
             String Viande4 = "";
+            int idres = 0;
+            int idres2 = 0;
+            int idres3 = 0;
+            int idres4= 0;
             int c = 0;
+            int c2 = 0;
+            int c3 = 0;
+            int c4 = 0;
+            
             List<Resistance> TouteslesResistances = Database.MyCantineSQL.getTouteslesResistances(daterequete);
+            
             for (int i = 0; i < TouteslesResistances.Count; i++)
             {
                 Resistance uneResistance = TouteslesResistances[i];
                 if (co == "1")
                 {
-                    if (Viande == "")
+
+                    Viande = uneResistance.Libelle;
+                    idres = uneResistance.Id;
+                    List<Resistance> NBlesResistances = Database.MyCantineSQL.getNBlesResistances(daterequete, idres);
+                    for (int n = 0; n < NBlesResistances.Count; n++)
                     {
-                        Viande = uneResistance.Libelle;
-                        c++;
-                    }                   
-                    else if (Viande == uneResistance.Libelle && i+1 == TouteslesResistances.Count)
-                    {
-                        c++;
-                        double p = ((double)c / TouteslesResistances.Count) * 100;
-                        string tp = String.Format("{0:N1}", p);
-                        Avantviande.Text = Viande + ": ";
-                        countviande.Text = c + "";
-                        soitviande.Text = " soit ";
-                        pourcentviande.Text = tp ;
-                        pourcentviande12.Text = "%";
-                        barreviande.Text = barre10;
-                        LayoutViande1.Children.Add(Avantviande);
-                        LayoutViande1.Children.Add(countviande);
-                        LayoutViande1.Children.Add(soitviande);
-                        LayoutViande1.Children.Add(pourcentviande);
-                        LayoutViande1.Children.Add(pourcentviande12);
-                        LayoutViande1barre.Children.Add(barreviande);
-                        LayoutViandetitle.Children.Add(titleviande);
+                        Resistance NBuneResistance = NBlesResistances[n];
+                        c = NBuneResistance.Count;
                     }
-                    else if (Viande == uneResistance.Libelle)
-                    {
-                        c++;
-                    }
+
+                    double p = ((double)c / TouteslesResistances.Count) * 100;
+                    string tp = String.Format("{0:N1}", p);
+                    Avantviande.Text = Viande + ": ";
+                    countviande.Text = c + "";
+                    soitviande.Text = " soit ";
+                    pourcentviande.Text = tp;
+                    pourcentviande12.Text = "%";
+                    barreviande.Text = barre10;
+                    LayoutViande1.Children.Add(Avantviande);
+                    LayoutViande1.Children.Add(countviande);
+                    LayoutViande1.Children.Add(soitviande);
+                    LayoutViande1.Children.Add(pourcentviande);
+                    LayoutViande1.Children.Add(pourcentviande12);
+                    LayoutViande1barre.Children.Add(barreviande);
+                    LayoutViandetitle.Children.Add(titleviande);
                 }
                 else if (co == "2")
                 {
                     if (Viande == "")
                     {
                         Viande = uneResistance.Libelle;
-                        c++;
-                    }
-                    else if (Viande == uneResistance.Libelle)
-                    {
-                        c++;
-                    }
-                    else if (Viande != uneResistance.Libelle && i + 1 != TouteslesResistances.Count)
-                    {
+                        idres = uneResistance.Id;
+                        List<Resistance> NBlesResistances = Database.MyCantineSQL.getNBlesResistances(daterequete, idres);
+                        for (int n = 0; n < NBlesResistances.Count; n++)
+                        {
+                            Resistance NBuneResistance = NBlesResistances[n];
+                            c = NBuneResistance.Count;
+                        }
                         double p = ((double)c / TouteslesResistances.Count) * 100;
                         if (p <= 15)
                         {
@@ -632,68 +591,17 @@ namespace MyRostand.MyCantine
                         LayoutViande1.Children.Add(pourcentviande12);
                         LayoutViande1barre.Children.Add(barreviande);
                         LayoutViandetitle.Children.Add(titleviande);
-                        Viande2 = uneResistance.Libelle;
-                        c = 1;
                     }
-                    else if (Viande != uneResistance.Libelle && i + 1 == TouteslesResistances.Count)
+                    else if (i == c)
                     {
-                        double p = ((double)c / TouteslesResistances.Count) * 100;
-                        if (p <= 15)
-                        {
-                            barre = barre1;
-                        }
-                        else if (p <= 25)
-                        {
-                            barre = barre2;
-                        }
-                        else if (p <= 35)
-                        {
-                            barre = barre3;
-                        }
-                        else if (p <= 45)
-                        {
-                            barre = barre4;
-                        }
-                        else if (p <= 55)
-                        {
-                            barre = barre5;
-                        }
-                        else if (p <= 65)
-                        {
-                            barre = barre6;
-                        }
-                        else if (p <= 75)
-                        {
-                            barre = barre7;
-                        }
-                        else if (p <= 85)
-                        {
-                            barre = barre8;
-                        }
-                        else if (p <= 95)
-                        {
-                            barre = barre9;
-                        }
-                        else
-                        {
-                            barre = barre10;
-                        }
-                        string tp = String.Format("{0:N1}", p);
-                        Avantviande.Text = Viande + ": ";
-                        countviande.Text = c + "" ;
-                        soitviande.Text = " soit ";
-                        pourcentviande.Text = tp;
-                        pourcentviande12.Text = "%";
-                        barreviande.Text = barre;
-                        LayoutViande1.Children.Add(Avantviande);
-                        LayoutViande1.Children.Add(countviande);
-                        LayoutViande1.Children.Add(soitviande);
-                        LayoutViande1.Children.Add(pourcentviande);
-                        LayoutViande1.Children.Add(pourcentviande12);
-                        LayoutViande1barre.Children.Add(barreviande);
-                        LayoutViandetitle.Children.Add(titleviande);
                         Viande2 = uneResistance.Libelle;
-                        c = 1;
+                        idres = uneResistance.Id;
+                        List<Resistance> NBlesResistances = Database.MyCantineSQL.getNBlesResistances(daterequete, idres);
+                        for (int n = 0; n < NBlesResistances.Count; n++)
+                        {
+                            Resistance NBuneResistance = NBlesResistances[n];
+                            c = NBuneResistance.Count;
+                        }
                         double pp = ((double)c / TouteslesResistances.Count) * 100;
                         if (pp <= 15)
                         {
@@ -749,83 +657,20 @@ namespace MyRostand.MyCantine
                         LayoutViande2.Children.Add(pourcentviande22);
                         LayoutViande2barre.Children.Add(barreviande2);
                     }
-                    else if (Viande2 == uneResistance.Libelle && i + 1 != TouteslesResistances.Count)
-                    {
-                        c++;
-                    }
-                    else if (i + 1 == TouteslesResistances.Count)
-                    {
-                        double p = ((double)c / TouteslesResistances.Count) * 100;
-                        if (p <= 15)
-                        {
-                            barre = barre1;
-                        }
-                        else if (p <= 25)
-                        {
-                            barre = barre2;
-                        }
-                        else if (p <= 35)
-                        {
-                            barre = barre3;
-                        }
-                        else if (p <= 45)
-                        {
-                            barre = barre4;
-                        }
-                        else if (p <= 55)
-                        {
-                            barre = barre5;
-                        }
-                        else if (p <= 65)
-                        {
-                            barre = barre6;
-                        }
-                        else if (p <= 75)
-                        {
-                            barre = barre7;
-                        }
-                        else if (p <= 85)
-                        {
-                            barre = barre8;
-                        }
-                        else if (p <= 95)
-                        {
-                            barre = barre9;
-                        }
-                        else
-                        {
-                            barre = barre10;
-                        }
-                        string tp = String.Format("{0:N1}", p);
-                        Avantviande2.Text = Viande2 + ": ";
-                        countviande2.Text = c + "";
-                        soitviande2.Text = " soit ";
-                        pourcentviande2.Text = tp;
-                        pourcentviande22.Text = "%";
-                        barreviande2.Text = barre;
-                        LayoutViande2.Children.Add(Avantviande2);
-                        LayoutViande2.Children.Add(countviande2);
-                        LayoutViande2.Children.Add(soitviande2);
-                        LayoutViande2.Children.Add(pourcentviande2);
-                        LayoutViande2.Children.Add(pourcentviande22);
-                        LayoutViande2barre.Children.Add(barreviande2);
-                    }
-
 
                 }
                 else if (co == "3")
-                {
-                    if (Viande == "")
-                    {
+                {          
+                    if ( i == 0)
+                    {                    
                         Viande = uneResistance.Libelle;
-                        c++;
-                    }
-                    else if (Viande == uneResistance.Libelle)
-                    {
-                        c++;
-                    }
-                    else if (Viande != uneResistance.Libelle)
-                    {
+                        idres = uneResistance.Id;
+                        List<Resistance> NBlesResistances = Database.MyCantineSQL.getNBlesResistances(daterequete, idres);
+                        for (int n = 0; n < NBlesResistances.Count; n++)
+                        {
+                            Resistance NBuneResistance = NBlesResistances[n];
+                            c = NBuneResistance.Count;
+                        }
                         double p = ((double)c / TouteslesResistances.Count) * 100;
                         if (p <= 15)
                         {
@@ -881,49 +726,51 @@ namespace MyRostand.MyCantine
                         LayoutViande1.Children.Add(pourcentviande12);
                         LayoutViande1barre.Children.Add(barreviande);
                         LayoutViandetitle.Children.Add(titleviande);
+                    }
+                    if (i == c)
+                    {
                         Viande2 = uneResistance.Libelle;
-                        c = 1;
-                    }
-                    else if (Viande2 == uneResistance.Libelle)
-                    {
-                        c++;
-                    }
-                    else if (Viande2 != uneResistance.Libelle && i + 1 == TouteslesResistances.Count)
-                    {
-                        double p = ((double)c / TouteslesResistances.Count) * 100;
-                        if (p <= 15)
+                        idres2 = uneResistance.Id;
+                        List<Resistance> NBllesResistances = Database.MyCantineSQL.getNBlesResistances(daterequete, idres2);
+                        for (int n = 0; n < NBllesResistances.Count; n++)
+                        {
+                            Resistance NBuneResistance = NBllesResistances[n];
+                            c2 = NBuneResistance.Count;
+                        }
+                        double pp = ((double)c2 / TouteslesResistances.Count) * 100;
+                        if (pp <= 15)
                         {
                             barre = barre1;
                         }
-                        else if (p <= 25)
+                        else if (pp <= 25)
                         {
                             barre = barre2;
                         }
-                        else if (p <= 35)
+                        else if (pp <= 35)
                         {
                             barre = barre3;
                         }
-                        else if (p <= 45)
+                        else if (pp <= 45)
                         {
                             barre = barre4;
                         }
-                        else if (p <= 55)
+                        else if (pp <= 55)
                         {
                             barre = barre5;
                         }
-                        else if (p <= 65)
+                        else if (pp <= 65)
                         {
                             barre = barre6;
                         }
-                        else if (p <= 75)
+                        else if (pp <= 75)
                         {
                             barre = barre7;
                         }
-                        else if (p <= 85)
+                        else if (pp <= 85)
                         {
                             barre = barre8;
                         }
-                        else if (p <= 95)
+                        else if (pp <= 95)
                         {
                             barre = barre9;
                         }
@@ -931,11 +778,11 @@ namespace MyRostand.MyCantine
                         {
                             barre = barre10;
                         }
-                        string tp = String.Format("{0:N1}", p);
+                        string tpp = String.Format("{0:N1}", pp);
                         Avantviande2.Text = Viande2 + ": ";
-                        countviande2.Text = c + "";
+                        countviande2.Text = c2 + "";
                         soitviande2.Text = " soit ";
-                        pourcentviande2.Text = tp;
+                        pourcentviande2.Text = tpp;
                         pourcentviande22.Text = "%";
                         barreviande2.Text = barre;
                         LayoutViande2.Children.Add(Avantviande2);
@@ -944,9 +791,18 @@ namespace MyRostand.MyCantine
                         LayoutViande2.Children.Add(pourcentviande2);
                         LayoutViande2.Children.Add(pourcentviande22);
                         LayoutViande2barre.Children.Add(barreviande2);
+                    }
+                    else if (Viande2 != uneResistance.Libelle)
+                    {
                         Viande3 = uneResistance.Libelle;
-                        c = 1;
-                        double pp = ((double)c / TouteslesResistances.Count) * 100;
+                        idres3 = uneResistance.Id;
+                        List<Resistance> NBllesResistances = Database.MyCantineSQL.getNBlesResistances(daterequete, idres3);
+                        for (int n = 0; n < NBllesResistances.Count; n++)
+                        {
+                            Resistance NBuneResistance = NBllesResistances[n];
+                            c3 = NBuneResistance.Count;
+                        }
+                        double pp = ((double)c3 / TouteslesResistances.Count) * 100;
                         if (pp <= 15)
                         {
                             barre = barre1;
@@ -989,7 +845,7 @@ namespace MyRostand.MyCantine
                         }
                         string tpp = String.Format("{0:N1}", pp);
                         Avantviande3.Text = Viande3 + ": ";
-                        countviande3.Text = c + "";
+                        countviande3.Text = c3 + "";
                         soitviande3.Text = " soit ";
                         pourcentviande3.Text = tpp;
                         pourcentviande32.Text = "%";
@@ -1001,144 +857,19 @@ namespace MyRostand.MyCantine
                         LayoutViande3.Children.Add(pourcentviande32);
                         LayoutViande3barre.Children.Add(barreviande3);
                     }
-                    else if (Viande2 == uneResistance.Libelle)
-                    {
-                        c++;
-                    }
-                    else if (Viande2 != uneResistance.Libelle && i + 1 != TouteslesResistances.Count)
-                    {
-                        double p = ((double)c / TouteslesResistances.Count) * 100;
-                        if (p <= 15)
-                        {
-                            barre = barre1;
-                        }
-                        else if (p <= 25)
-                        {
-                            barre = barre2;
-                        }
-                        else if (p <= 35)
-                        {
-                            barre = barre3;
-                        }
-                        else if (p <= 45)
-                        {
-                            barre = barre4;
-                        }
-                        else if (p <= 55)
-                        {
-                            barre = barre5;
-                        }
-                        else if (p <= 65)
-                        {
-                            barre = barre6;
-                        }
-                        else if (p <= 75)
-                        {
-                            barre = barre7;
-                        }
-                        else if (p <= 85)
-                        {
-                            barre = barre8;
-                        }
-                        else if (p <= 95)
-                        {
-                            barre = barre9;
-                        }
-                        else
-                        {
-                            barre = barre10;
-                        }
-                        string tp = String.Format("{0:N1}", p);
-                        Avantviande2.Text = Viande2 + ": ";
-                        countviande2.Text = c + "";
-                        soitviande2.Text = " soit ";
-                        pourcentviande2.Text = tp;
-                        pourcentviande22.Text = "%";
-                        barreviande2.Text = barre;
-                        LayoutViande2.Children.Add(Avantviande2);
-                        LayoutViande2.Children.Add(countviande2);
-                        LayoutViande2.Children.Add(soitviande2);
-                        LayoutViande2.Children.Add(pourcentviande2);
-                        LayoutViande2.Children.Add(pourcentviande22);
-                        LayoutViande2barre.Children.Add(barreviande2);
-                        Viande3 = uneResistance.Libelle;
-                        c = 1;
-                    }
-                    else if (i + 1 == TouteslesResistances.Count)
-                    {
-                        double p = ((double)c / TouteslesResistances.Count) * 100;
-                        if (p <= 15)
-                        {
-                            barre = barre1;
-                        }
-                        else if (p <= 25)
-                        {
-                            barre = barre2;
-                        }
-                        else if (p <= 35)
-                        {
-                            barre = barre3;
-                        }
-                        else if (p <= 45)
-                        {
-                            barre = barre4;
-                        }
-                        else if (p <= 55)
-                        {
-                            barre = barre5;
-                        }
-                        else if (p <= 65)
-                        {
-                            barre = barre6;
-                        }
-                        else if (p <= 75)
-                        {
-                            barre = barre7;
-                        }
-                        else if (p <= 85)
-                        {
-                            barre = barre8;
-                        }
-                        else if (p <= 95)
-                        {
-                            barre = barre9;
-                        }
-                        else
-                        {
-                            barre = barre10;
-                        }
-                        string tp = String.Format("{0:N1}", p);
-                        Avantviande3.Text = Viande3 + ": ";
-                        countviande3.Text = c + "";
-                        soitviande3.Text = " soit ";
-                        pourcentviande3.Text = tp;
-                        pourcentviande32.Text = "%";
-                        barreviande3.Text = barre;
-                        LayoutViande3.Children.Add(Avantviande3);
-                        LayoutViande3.Children.Add(countviande3);
-                        LayoutViande3.Children.Add(soitviande3);
-                        LayoutViande3.Children.Add(pourcentviande3);
-                        LayoutViande3.Children.Add(pourcentviande32);
-                        LayoutViande3barre.Children.Add(barreviande3);
-                    }
-                    else if (Viande3 == uneResistance.Libelle)
-                    {
-                        c++;
-                    }
                 }
                 else if (co == "4")
                 {
-                    if (Viande == "")
+                    if (i == 0)
                     {
                         Viande = uneResistance.Libelle;
-                        c++;
-                    }
-                    else if (Viande == uneResistance.Libelle)
-                    {
-                        c++;
-                    }
-                    else if (Viande != uneResistance.Libelle)
-                    {
+                        idres = uneResistance.Id;
+                        List<Resistance> NBlesResistances = Database.MyCantineSQL.getNBlesResistances(daterequete, idres);
+                        for (int n = 0; n < NBlesResistances.Count; n++)
+                        {
+                            Resistance NBuneResistance = NBlesResistances[n];
+                            c = NBuneResistance.Count;
+                        }
                         double p = ((double)c / TouteslesResistances.Count) * 100;
                         if (p <= 15)
                         {
@@ -1194,49 +925,51 @@ namespace MyRostand.MyCantine
                         LayoutViande1.Children.Add(pourcentviande12);
                         LayoutViande1barre.Children.Add(barreviande);
                         LayoutViandetitle.Children.Add(titleviande);
+                    }
+                    if (i == c)
+                    {
                         Viande2 = uneResistance.Libelle;
-                        c = 1;
-                    }
-                    else if (Viande2 == uneResistance.Libelle)
-                    {
-                        c++;
-                    }
-                    else if (Viande2 != uneResistance.Libelle)
-                    {
-                        double p = ((double)c / TouteslesResistances.Count) * 100;
-                        if (p <= 15)
+                        idres2 = uneResistance.Id;
+                        List<Resistance> NBllesResistances = Database.MyCantineSQL.getNBlesResistances(daterequete, idres2);
+                        for (int n = 0; n < NBllesResistances.Count; n++)
+                        {
+                            Resistance NBuneResistance = NBllesResistances[n];
+                            c2 = NBuneResistance.Count;
+                        }
+                        double pp = ((double)c2 / TouteslesResistances.Count) * 100;
+                        if (pp <= 15)
                         {
                             barre = barre1;
                         }
-                        else if (p <= 25)
+                        else if (pp <= 25)
                         {
                             barre = barre2;
                         }
-                        else if (p <= 35)
+                        else if (pp <= 35)
                         {
                             barre = barre3;
                         }
-                        else if (p <= 45)
+                        else if (pp <= 45)
                         {
                             barre = barre4;
                         }
-                        else if (p <= 55)
+                        else if (pp <= 55)
                         {
                             barre = barre5;
                         }
-                        else if (p <= 65)
+                        else if (pp <= 65)
                         {
                             barre = barre6;
                         }
-                        else if (p <= 75)
+                        else if (pp <= 75)
                         {
                             barre = barre7;
                         }
-                        else if (p <= 85)
+                        else if (pp <= 85)
                         {
                             barre = barre8;
                         }
-                        else if (p <= 95)
+                        else if (pp <= 95)
                         {
                             barre = barre9;
                         }
@@ -1244,11 +977,11 @@ namespace MyRostand.MyCantine
                         {
                             barre = barre10;
                         }
-                        string tp = String.Format("{0:N1}", p);
+                        string tpp = String.Format("{0:N1}", pp);
                         Avantviande2.Text = Viande2 + ": ";
-                        countviande2.Text = c + "";
+                        countviande2.Text = c2 + "";
                         soitviande2.Text = " soit ";
-                        pourcentviande2.Text = tp;
+                        pourcentviande2.Text = tpp;
                         pourcentviande22.Text = "%";
                         barreviande2.Text = barre;
                         LayoutViande2.Children.Add(Avantviande2);
@@ -1257,49 +990,51 @@ namespace MyRostand.MyCantine
                         LayoutViande2.Children.Add(pourcentviande2);
                         LayoutViande2.Children.Add(pourcentviande22);
                         LayoutViande2barre.Children.Add(barreviande2);
+                    }
+                    else if (i == c+c2)
+                    {
                         Viande3 = uneResistance.Libelle;
-                        c = 1;
-                    }
-                    else if (Viande3 == uneResistance.Libelle)
-                    {
-                        c++;
-                    }
-                    else if (Viande3 != uneResistance.Libelle && i + 1 == TouteslesResistances.Count)
-                    {
-                        double p = ((double)c / TouteslesResistances.Count) * 100;
-                        if (p <= 15)
+                        idres3 = uneResistance.Id;
+                        List<Resistance> NBllesResistances = Database.MyCantineSQL.getNBlesResistances(daterequete, idres3);
+                        for (int n = 0; n < NBllesResistances.Count; n++)
+                        {
+                            Resistance NBuneResistance = NBllesResistances[n];
+                            c3 = NBuneResistance.Count;
+                        }
+                        double pp = ((double)c3 / TouteslesResistances.Count) * 100;
+                        if (pp <= 15)
                         {
                             barre = barre1;
                         }
-                        else if (p <= 25)
+                        else if (pp <= 25)
                         {
                             barre = barre2;
                         }
-                        else if (p <= 35)
+                        else if (pp <= 35)
                         {
                             barre = barre3;
                         }
-                        else if (p <= 45)
+                        else if (pp <= 45)
                         {
                             barre = barre4;
                         }
-                        else if (p <= 55)
+                        else if (pp <= 55)
                         {
                             barre = barre5;
                         }
-                        else if (p <= 65)
+                        else if (pp <= 65)
                         {
                             barre = barre6;
                         }
-                        else if (p <= 75)
+                        else if (pp <= 75)
                         {
                             barre = barre7;
                         }
-                        else if (p <= 85)
+                        else if (pp <= 85)
                         {
                             barre = barre8;
                         }
-                        else if (p <= 95)
+                        else if (pp <= 95)
                         {
                             barre = barre9;
                         }
@@ -1307,11 +1042,11 @@ namespace MyRostand.MyCantine
                         {
                             barre = barre10;
                         }
-                        string tp = String.Format("{0:N1}", p);
+                        string tpp = String.Format("{0:N1}", pp);
                         Avantviande3.Text = Viande3 + ": ";
-                        countviande3.Text = c + "";
+                        countviande3.Text = c3 + "";
                         soitviande3.Text = " soit ";
-                        pourcentviande3.Text = tp;
+                        pourcentviande3.Text = tpp;
                         pourcentviande32.Text = "%";
                         barreviande3.Text = barre;
                         LayoutViande3.Children.Add(Avantviande3);
@@ -1320,9 +1055,18 @@ namespace MyRostand.MyCantine
                         LayoutViande3.Children.Add(pourcentviande3);
                         LayoutViande3.Children.Add(pourcentviande32);
                         LayoutViande3barre.Children.Add(barreviande3);
+                    }
+                    else if (i == c+c2+c3)
+                    {
                         Viande4 = uneResistance.Libelle;
-                        c = 1;
-                        double pp = ((double)c / TouteslesResistances.Count) * 100;
+                        idres4 = uneResistance.Id;
+                        List<Resistance> NBllesResistances = Database.MyCantineSQL.getNBlesResistances(daterequete, idres4);
+                        for (int n = 0; n < NBllesResistances.Count; n++)
+                        {
+                            Resistance NBuneResistance = NBllesResistances[n];
+                            c4 = NBuneResistance.Count;
+                        }
+                        double pp = ((double)c4 / TouteslesResistances.Count) * 100;
                         if (pp <= 15)
                         {
                             barre = barre1;
@@ -1365,7 +1109,7 @@ namespace MyRostand.MyCantine
                         }
                         string tpp = String.Format("{0:N1}", pp);
                         Avantviande4.Text = Viande4 + ": ";
-                        countviande4.Text = c + "";
+                        countviande4.Text = c4 + "";
                         soitviande4.Text = " soit ";
                         pourcentviande4.Text = tpp;
                         pourcentviande42.Text = "%";
@@ -1375,352 +1119,49 @@ namespace MyRostand.MyCantine
                         LayoutViande4.Children.Add(soitviande4);
                         LayoutViande4.Children.Add(pourcentviande4);
                         LayoutViande4.Children.Add(pourcentviande42);
-                        LayoutViande3barre.Children.Add(barreviande4);
-                    }
-                    else if (Viande3 != uneResistance.Libelle && i + 1 != TouteslesResistances.Count)
-                    {
-                        double p = ((double)c / TouteslesResistances.Count) * 100;
-                        if (p <= 15)
-                        {
-                            barre = barre1;
-                        }
-                        else if (p <= 25)
-                        {
-                            barre = barre2;
-                        }
-                        else if (p <= 35)
-                        {
-                            barre = barre3;
-                        }
-                        else if (p <= 45)
-                        {
-                            barre = barre4;
-                        }
-                        else if (p <= 55)
-                        {
-                            barre = barre5;
-                        }
-                        else if (p <= 65)
-                        {
-                            barre = barre6;
-                        }
-                        else if (p <= 75)
-                        {
-                            barre = barre7;
-                        }
-                        else if (p <= 85)
-                        {
-                            barre = barre8;
-                        }
-                        else if (p <= 95)
-                        {
-                            barre = barre9;
-                        }
-                        else
-                        {
-                            barre = barre10;
-                        }
-                        string tp = String.Format("{0:N1}", p);
-                        Avantviande3.Text = Viande3 + ": ";
-                        countviande3.Text = c + "";
-                        soitviande3.Text = " soit ";
-                        pourcentviande3.Text = tp;
-                        pourcentviande32.Text = "%";
-                        barreviande3.Text = barre;
-                        LayoutViande3.Children.Add(Avantviande3);
-                        LayoutViande3.Children.Add(countviande3);
-                        LayoutViande3.Children.Add(soitviande3);
-                        LayoutViande3.Children.Add(pourcentviande3);
-                        LayoutViande3.Children.Add(pourcentviande32);
-                        LayoutViande3barre.Children.Add(barreviande3);
-                        Viande4 = uneResistance.Libelle;
-                        c = 1;
-                    }
-                    else if (i + 1 == TouteslesResistances.Count)
-                    {
-                        double p = ((double)c / TouteslesResistances.Count) * 100;
-                        if (p <= 15)
-                        {
-                            barre = barre1;
-                        }
-                        else if (p <= 25)
-                        {
-                            barre = barre2;
-                        }
-                        else if (p <= 35)
-                        {
-                            barre = barre3;
-                        }
-                        else if (p <= 45)
-                        {
-                            barre = barre4;
-                        }
-                        else if (p <= 55)
-                        {
-                            barre = barre5;
-                        }
-                        else if (p <= 65)
-                        {
-                            barre = barre6;
-                        }
-                        else if (p <= 75)
-                        {
-                            barre = barre7;
-                        }
-                        else if (p <= 85)
-                        {
-                            barre = barre8;
-                        }
-                        else if (p <= 95)
-                        {
-                            barre = barre9;
-                        }
-                        else
-                        {
-                            barre = barre10;
-                        }
-                        string tp = String.Format("{0:N1}", p);
-                        Avantviande4.Text = Viande4 + ": ";
-                        countviande4.Text = c + "";
-                        soitviande4.Text = " soit ";
-                        pourcentviande4.Text = tp;
-                        pourcentviande42.Text = "%";
-                        barreviande4.Text = barre;
-                        LayoutViande4.Children.Add(Avantviande4);
-                        LayoutViande4.Children.Add(countviande4);
-                        LayoutViande4.Children.Add(soitviande4);
-                        LayoutViande4.Children.Add(pourcentviande4);
-                        LayoutViande4.Children.Add(pourcentviande42);
-                        LayoutViande3barre.Children.Add(barreviande4);
-                    }
-                    else if (Viande4 == uneResistance.Libelle)
-                    {
-                        c++;
+                        LayoutViande4barre.Children.Add(barreviande4);
                     }
                 }
 
             }
             ///////////////////////////////////////////////////////////////Fonction Afficher tout les Accompagnements////////////////////////////////////////////////
-            jourAccompagnement.Text = $"";
-            String Accompagnement = "";
+            List<Accompagnement> LeNbAccompagnement = Database.MyCantineSQL.getNBTouteslesAccompagnements(daterequete);
+            for (int i = 0; i < LeNb.Count; i++)
+            {
+                Accompagnement NbAccompagnement = LeNbAccompagnement[i];
+                ca = NbAccompagnement.Id + "";
+            }
+            String Accompagnement1 = "";
+            String Accompagnement2 = "";
+            String Accompagnement3 = "";
+            String Accompagnement4 = "";
+            int idacc = 0;
+            int idacc2 = 0;
+            int idacc3 = 0;
+            int idacc4 = 0;
             int a = 0;
+            int a2 = 0;
+            int a3 = 0;
+            int a4 = 0;
             int prop = 0;
+            int prop2 = 0;
+            int prop3 = 0;
+            int prop4 = 0;
             List<Accompagnement> lesAccompagnements = Database.MyCantineSQL.getToutlesAccompagnements(daterequete);
             for (int i = 0; i < lesAccompagnements.Count; i++)
             {
                 Accompagnement unAccompagnement = lesAccompagnements[i];
-                if (Accompagnement == "" && lesAccompagnements.Count == 1)
+                if (ca == "1")
                 {
-                    Accompagnement = unAccompagnement.Libelle;
-                    a++;
-                    prop = unAccompagnement.Gramme;
-                    double p = ((double)a / lesAccompagnements.Count) * 100;
-                    string tp = String.Format("{0:N1}", p);                   
-                    jourAccompagnement.Text += Accompagnement + ": " + a + " soit " + a * prop + " g " + " soit " + tp + "%" + "\n" + barre10;
-                }
-                else if (Accompagnement == "" && lesAccompagnements.Count > 1)
-                {
-                    Accompagnement = unAccompagnement.Libelle;
-                    a++;
-                    prop = unAccompagnement.Gramme;
-                }
-                else if (i + 1 == lesAccompagnements.Count)
-                {
-                    if (Accompagnement == unAccompagnement.Libelle)
+                    if (Accompagnement1 == "" && lesAccompagnements.Count == 1)
                     {
+                        Accompagnement1 = unAccompagnement.Libelle;
                         a++;
-                        double p = ((double)a / lesAccompagnements.Count) * 100;
-                        if (p <= 15)
-                        {
-                            barre = barre1;
-                        }
-                        else if (p <= 25)
-                        {
-                            barre = barre2;
-                        }
-                        else if (p <= 35)
-                        {
-                            barre = barre3;
-                        }
-                        else if (p <= 45)
-                        {
-                            barre = barre4;
-                        }
-                        else if (p <= 55)
-                        {
-                            barre = barre5;
-                        }
-                        else if (p <= 65)
-                        {
-                            barre = barre6;
-                        }
-                        else if (p <= 75)
-                        {
-                            barre = barre7;
-                        }
-                        else if (p <= 85)
-                        {
-                            barre = barre8;
-                        }
-                        else if (p <= 95)
-                        {
-                            barre = barre9;
-                        }
-                        else
-                        {
-                            barre = barre10;
-                        }
-                        string tp = String.Format("{0:N1}", p);
-                        jourAccompagnement.Text += Accompagnement + ": " + a + " soit " + a * prop + " g " + " soit " + tp + "%" + "\n" + barre;
-                    }
-                    else
-                    {
-                        double p = ((double)a / lesAccompagnements.Count) * 100;
-                        if (p <= 15)
-                        {
-                            barre = barre1;
-                        }
-                        else if (p <= 25)
-                        {
-                            barre = barre2;
-                        }
-                        else if (p <= 35)
-                        {
-                            barre = barre3;
-                        }
-                        else if (p <= 45)
-                        {
-                            barre = barre4;
-                        }
-                        else if (p <= 55)
-                        {
-                            barre = barre5;
-                        }
-                        else if (p <= 65)
-                        {
-                            barre = barre6;
-                        }
-                        else if (p <= 75)
-                        {
-                            barre = barre7;
-                        }
-                        else if (p <= 85)
-                        {
-                            barre = barre8;
-                        }
-                        else if (p <= 95)
-                        {
-                            barre = barre9;
-                        }
-                        else
-                        {
-                            barre = barre10;
-                        }
-                        string tp = String.Format("{0:N1}", p);
-                        jourAccompagnement.Text += Accompagnement + ": " + a + " soit " + a * prop + " g " + " soit " + tp + "%" + "\n" + barre + "\n";
-                        a = 1;
                         prop = unAccompagnement.Gramme;
-                        double pp = ((double)a / lesAccompagnements.Count) * 100;
-                        if (pp <= 15)
-                        {
-                            barre = barre1;
-                        }
-                        else if (pp <= 25)
-                        {
-                            barre = barre2;
-                        }
-                        else if (pp <= 35)
-                        {
-                            barre = barre3;
-                        }
-                        else if (pp <= 45)
-                        {
-                            barre = barre4;
-                        }
-                        else if (pp <= 55)
-                        {
-                            barre = barre5;
-                        }
-                        else if (pp <= 65)
-                        {
-                            barre = barre6;
-                        }
-                        else if (pp <= 75)
-                        {
-                            barre = barre7;
-                        }
-                        else if (pp <= 85)
-                        {
-                            barre = barre8;
-                        }
-                        else if (pp <= 95)
-                        {
-                            barre = barre9;
-                        }
-                        else
-                        {
-                            barre = barre10;
-                        }
-                        string tpp = String.Format("{0:N1}", pp);
-                        jourAccompagnement.Text += unAccompagnement.Libelle + ": " + a + " soit " + a * prop + " g " + " soit " + tpp + "%" + "\n" + barre ;
+                        double p = ((double)a / lesAccompagnements.Count) * 100;
+                        string tp = String.Format("{0:N1}", p);
+                        jourAccompagnement.Text += Accompagnement1 + ": " + a + " soit " + a * prop + " g " + " soit " + tp + "%" + "\n" + barre10;
                     }
-                }
-                else if (Accompagnement == unAccompagnement.Libelle)
-                {
-                    a++;
-                }
-                else if (Accompagnement != unAccompagnement.Libelle)
-                {
-                    double p = ((double)a / lesAccompagnements.Count);
-                    if (p <= 15)
-                    {
-                        barre = barre1;
-                    }
-                    else if (p <= 25)
-                    {
-                        barre = barre2;
-                    }
-                    else if (p <= 35)
-                    {
-                        barre = barre3;
-                    }
-                    else if (p <= 45)
-                    {
-                        barre = barre4;
-                    }
-                    else if (p <= 55)
-                    {
-                        barre = barre5;
-                    }
-                    else if (p <= 65)
-                    {
-                        barre = barre6;
-                    }
-                    else if (p <= 75)
-                    {
-                        barre = barre7;
-                    }
-                    else if (p <= 85)
-                    {
-                        barre = barre8;
-                    }
-                    else if (p <= 95)
-                    {
-                        barre = barre9;
-                    }
-                    else
-                    {
-                        barre = barre10;
-                    }
-                    string tp = String.Format("{0:N1}", p);
-                    jourAccompagnement.Text += Accompagnement + ": " + a + " soit " + a * prop + " g " + " soit " + tp + "%" + "\n" + barre + "\n";
-                    Accompagnement = unAccompagnement.Libelle;
-                    prop = unAccompagnement.Gramme;
-                    a = 1;
-                }
-                else
-                {
-                    jourAccompagnement.Text += unAccompagnement.Libelle + " soit " + a * prop + ", \n";
                 }
             }
             ///////////////////////////////////////////////////////////////Fonction Afficher tout les Absents////////////////////////////////////////////////
@@ -1729,9 +1170,22 @@ namespace MyRostand.MyCantine
             for (int i = 0; i < LesAbsents.Count; i++)
             {
                 Present unAbsent = LesAbsents[i];
-                eleveabsent.Text = co + "";
+                eleveabsent.Text = LesAbsents.Count +"" + ca;
             }
-            if (co == "1")
+            if (co == "0")
+            {
+                this.Content = new StackLayout
+                {
+                    Children =
+                {
+                    barJours,
+                    menuStack,
+                    Cuisto
+
+                }
+                };
+            }
+            else if (co == "1")
             {
                 this.Content = new StackLayout
                 {

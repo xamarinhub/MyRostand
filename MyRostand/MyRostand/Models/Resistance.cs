@@ -12,16 +12,17 @@ namespace MyRostand.Models
         public String Libelle { get; set; }
         public String Description { get; set; }
         public int Poids { get; set; }
-
+        public int Count { get; set; }
         public ArrayList Utilisateur { get; set; }
         public ArrayList Repas { get; set; }
 
-        public Resistance(int id, string libelle, string description,int poids, ArrayList utilisateur, ArrayList repas)
+        public Resistance(int id, string libelle, string description,int poids,int count, ArrayList utilisateur, ArrayList repas)
         {
             this.Id = id;
             this.Libelle = libelle;
             this.Description = description;
             this.Poids = poids;
+            this.Count = count;
             Utilisateur = utilisateur;
             Repas = repas;
         }
