@@ -570,10 +570,14 @@ namespace MyRostand.Database
             try
             {
                 MySqlConnection cnx = MySQL.getCnx();
-                cnx.Ping();
-                string requete = "UPDATE reservationmenu SET res_plat ="+ 0 +"WHERE res_id =" + idReservationMenu + " AND res_repas = "+ idrepas + " AND res_uti =" + idutilisateur +"";
+                cnx.Ping();             
+                string requete = "UPDATE reservationmenu SET res_plat=@RES_PLAT where res_id=@RES_ID and res_repas=@RES_REPAS AND res_uti=@RES_UTI";
                 using (MySqlCommand cmd = new MySqlCommand(requete, cnx))
                 {
+                    cmd.Parameters.AddWithValue("@RES_ID", idReservationMenu);
+                    cmd.Parameters.AddWithValue("@RES_REPAS", idrepas);
+                    cmd.Parameters.AddWithValue("@RES_PLAT", 0);
+                    cmd.Parameters.AddWithValue("@RES_UTI", idutilisateur);
                     cmd.ExecuteNonQuery();
                 }
 
@@ -616,11 +620,9 @@ namespace MyRostand.Database
             {
                 MySqlConnection cnx = MySQL.getCnx();
                 cnx.Ping();
-                string requete = "DELETE FROM concerner VALUES (@con_res_id,@con_accompagnement) WHERE @con_res_id=idReservationMenu AND @con_accompagnement=idaccompagnement";
+                string requete = "DELETE FROM concerner WHERE con_res_id =" + idReservationMenu + " AND con_accompagnement=" + idaccompagnement + "";
                 using (MySqlCommand cmd = new MySqlCommand(requete, cnx))
                 {
-                    cmd.Parameters.AddWithValue("@con_res_id", idReservationMenu);
-                    cmd.Parameters.AddWithValue("@con_accompagnement", idaccompagnement);
                     cmd.ExecuteNonQuery();
                 }
 

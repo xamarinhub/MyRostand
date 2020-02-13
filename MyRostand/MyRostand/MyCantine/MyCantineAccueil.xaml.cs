@@ -196,39 +196,61 @@ namespace MyRostand.MyCantine
                 int acc4 = 0;
                 for (int b = 0; b < lesAccompagnementsReserves.Count; b++)
                 {
-                    Accompagnement unAccompagnement2 = lesAccompagnementsReserves[b];
-                    if (unAccompagnement2.Id.ToString() != "")
+                    Accompagnement unAccompagnement1 = lesAccompagnementsReserves[b];
+
+                    if (lesAccompagnementsReserves.Count == 1)
                     {
-                        if (lesAccompagnementsReserves.Count == 1)
+                        acc1 = unAccompagnement1.Id;
+                    }
+                    else if (lesAccompagnementsReserves.Count == 2)
+                    {
+                        if (b == 0)
                         {
-                            acc1 = unAccompagnement2.Id;
+                            acc1 = unAccompagnement1.Id;
                         }
-                        else if (lesAccompagnementsReserves.Count > 1)
+                        else
                         {
-                            acc1 = unAccompagnement2.Id;
-                            b++;
-                            acc2 = unAccompagnement2.Id;
-                        }
-                        else if (lesAccompagnementsReserves.Count > 2)
-                        {
-                            acc1 = unAccompagnement2.Id;
-                            b++;
-                            acc2 = unAccompagnement2.Id;
-                            b++;
-                            acc3 = unAccompagnement2.Id;
-                        }
-                        else if (lesAccompagnementsReserves.Count > 3)
-                        {
-                            acc1 = unAccompagnement2.Id;
-                            b++;
-                            acc2 = unAccompagnement2.Id;
-                            b++;
-                            acc3 = unAccompagnement2.Id;
-                            b++;
-                            acc4 = unAccompagnement2.Id;
+                            acc2 = unAccompagnement1.Id;
                         }
                     }
+                    else if (lesAccompagnementsReserves.Count == 3)
+                    {
+                        if (b == 0)
+                        {
+                            acc1 = unAccompagnement1.Id;
+                        }
+                        else if (b == 1)
+                        {
+                            acc2 = unAccompagnement1.Id;
+                        }
+                        else
+                        {
+                            acc3 = unAccompagnement1.Id;
+                        }
+                    }
+
+                    else if (lesAccompagnementsReserves.Count == 4)
+                    {
+                        if (b == 0)
+                        {
+                            acc1 = unAccompagnement1.Id;
+                        }
+                        else if (b == 1)
+                        {
+                            acc2 = unAccompagnement1.Id;
+                        }
+                        else if (b == 2)
+                        {
+                            acc3 = unAccompagnement1.Id;
+                        }
+                        else
+                        {
+                            acc4 = unAccompagnement1.Id;
+                        }
+                    }
+
                 }
+                
                 //FRAME PRINCIPAL QUI RECUPERE TOUTE LES CARDS
                 Frame frameMenu = new Frame();
 
@@ -528,16 +550,9 @@ namespace MyRostand.MyCantine
                         boutonAccompagnement.Clicked += boutonAccompagnement_Click;
                     }
                     /*-------------------------------------------------------*/
-                    
+
+
                     if (RequeteAccompagnement > 0 && acc1 == idaccompagnement)
-                    {
-                        AccompagnementReserver = true;
-                    }
-                    else if (RequeteAccompagnement > 1 && acc1 == idaccompagnement || acc2 == idaccompagnement)
-                    {
-                        AccompagnementReserver = true;
-                    }
-                    else if (RequeteAccompagnement > 2 && acc1 == idaccompagnement || acc2 == idaccompagnement || acc3 == idaccompagnement)
                     {
                         AccompagnementReserver = true;
                     }
@@ -545,26 +560,33 @@ namespace MyRostand.MyCantine
                     {
                         AccompagnementReserver = true;
                     }
+                    else if (RequeteAccompagnement > 2 && acc1 == idaccompagnement || acc2 == idaccompagnement || acc3 == idaccompagnement)
+                    {
+                        AccompagnementReserver = true;
+                    }
+                    else if (RequeteAccompagnement > 1 && acc1 == idaccompagnement || acc2 == idaccompagnement)
+                    {
+                        AccompagnementReserver = true;
+                    }
                     else
                     {
                         AccompagnementReserver = false;
                     }
-                    for (int a = 0; i < lesAccompagnementsReserves.Count; a++)
-                    {
-                        if (AccompagnementReserver == true)
+
+
+                    if (AccompagnementReserver == true)
                         {
                             string textuncheck = textbouton;
                             boutonAccompagnement.BackgroundColor = Color.LightGreen;
                             boutonAccompagnement.Text = "vide";
-                            boutonAccompagnement.Text = textuncheck;
-                        }
-                        else
+                            boutonAccompagnement.Text = textuncheck + acc1.ToString() + acc2.ToString() + acc3.ToString() + acc4.ToString();
+                    }
+                    else
                         {
                             string textchecked = textbouton;
                             boutonAccompagnement.BackgroundColor = Color.LightGray;
                             boutonAccompagnement.Text = "vide2";
-                            boutonAccompagnement.Text = textchecked;
-                        }
+                            boutonAccompagnement.Text = textchecked + acc1 + acc2 + acc3 + acc4 ;
                     }
                     
                     /*-------------------------------------------------------*/
