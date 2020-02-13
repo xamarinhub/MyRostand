@@ -178,13 +178,14 @@ namespace MyRostand.Database
             {
                 MySqlConnection cnx = MySQL.getCnx();
                 cnx.Ping();
-                string requete = "SELECT RES_LIBELLE FROM resistance, reservationmenu, repas WHERE resistance.RES_ID = res_plat AND res_repas = REP_ID AND REP_DATE = '" + daterequete + "' ORDER BY RES_LIBELLE";
+                string requete = "SELECT RES_LIBELLE, resistance.RES_ID FROM resistance, reservationmenu, repas WHERE resistance.RES_ID = res_plat AND res_repas = REP_ID AND REP_DATE = '" + daterequete + "' ORDER BY RES_ID";
                 MySqlCommand cmd = new MySqlCommand(requete, cnx);
                 var reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
                     Resistance unResistance = new Resistance();
                     unResistance.Libelle = reader.GetString(0);
+                    unResistance.Id = reader.GetInt32(1);
                     TouteslesResistances.Add(unResistance);
                 }
                 cnx.Close();
@@ -454,31 +455,15 @@ namespace MyRostand.Database
             }
 
         }
-        public static int getMaxIdReservationMenu()
+
+
+        public static int getIdReservationMenu(int idrepas)
         {
-            int MaxIdReservationMenu = 0;
+            int idReservationMenu = 0;
 
             MySqlConnection cnx = MySQL.getCnx();
             cnx.Ping();
-            string requete = "SELECT MAX(RES_ID) FROM reservationmenu";
-            MySqlCommand cmd = new MySqlCommand(requete, cnx);
-            var reader = cmd.ExecuteReader();
-            while (reader.Read())
-            {
-                MaxIdReservationMenu = reader.GetInt32(0);
-            }
-            cnx.Close();
-            return MaxIdReservationMenu;
-
-        }
-
-        public static int getIdReservationMenu(int idrepas , int idutilisateur)
-        {
-            int idReservationMenu= getMaxIdReservationMenu() + 1;
-
-            MySqlConnection cnx = MySQL.getCnx();
-            cnx.Ping();
-            string requete = "SELECT RES_ID FROM reservationmenu WHERE RES_REPAS= '" + idrepas + "' AND RES_UTI = '" + idutilisateur + "'";
+            string requete = "SELECT RES_ID FROM reservationmenu WHERE RES_REPAS= '" + idrepas + "' ";
             MySqlCommand cmd = new MySqlCommand(requete, cnx);
             var reader = cmd.ExecuteReader();
             while (reader.Read())
@@ -499,7 +484,7 @@ namespace MyRostand.Database
                 string requete = "INSERT INTO reservationmenu VALUES (@RES_ID,@RES_REPAS,@RES_PLAT,@RES_UTI)";
                 using (MySqlCommand cmd = new MySqlCommand(requete, cnx))
                 {
-                    cmd.Parameters.AddWithValue("RES_ID", getMaxIdReservationMenu() + 1);
+                    cmd.Parameters.AddWithValue("RES_ID", null);
                     cmd.Parameters.AddWithValue("@RES_REPAS", idrepas);
                     cmd.Parameters.AddWithValue("@RES_PLAT", 0);
                     cmd.Parameters.AddWithValue("@RES_UTI", idutilisateur);
@@ -1000,7 +985,7 @@ namespace MyRostand.Database
                 return NewEmail;
             }
         }
-        ////////////////////////////////////////////////////////////REQUÊTE AFIN DE RECUPERER LE NOMBRE DE VIANDES//////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////REQUÊTE AFIN DE RECUPERER LE NOMBRE DE VIANDES DIFFERENTES//////////////////////////////////////////////
 
         public static List<Resistance> getNBTouteslesResistances(string daterequete)
         {
@@ -1028,6 +1013,97 @@ namespace MyRostand.Database
                 erreurSQL.Description = (ex.ToString());
                 NBlesResistances.Add(erreurSQL);
                 return NBlesResistances;
+            }
+        }
+        ////////////////////////////////////////////////////////////REQUÊTE AFIN DE RECUPERER le Nombres des  VIANDES//////////////////////////////////////////////
+
+        public static List<Resistance> getNBlesResistances(string daterequete, int idres )
+        {
+            List<Resistance> NBlesResistances = new List<Resistance>();
+
+            try
+            {
+                MySqlConnection cnx = MySQL.getCnx();
+                cnx.Ping();
+                string requete = "SELECT  COUNT(res_plat) FROM reservationmenu, repas WHERE res_repas = REP_ID AND REP_DATE = '" + daterequete + "' AND  res_plat = " + idres +" ";
+                MySqlCommand cmd = new MySqlCommand(requete, cnx);
+                var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    Resistance NBunResistance = new Resistance();
+                    NBunResistance.Count = reader.GetInt32(0);
+                    NBlesResistances.Add(NBunResistance);
+                }
+                cnx.Close();
+                return NBlesResistances;
+            }
+            catch (MySqlException ex)
+            {
+                Resistance erreurSQL = new Resistance();
+                erreurSQL.Description = (ex.ToString());
+                NBlesResistances.Add(erreurSQL);
+                return NBlesResistances;
+            }
+        }
+        ////////////////////////////////////////////////////////////REQUÊTE AFIN DE RECUPERER TOUTES LES VIANDES UNITE//////////////////////////////////////////////
+
+        public static List<Resistance> getNBBTouteslesResistances(string daterequete)
+        {
+            List<Resistance> NBBTouteslesResistances = new List<Resistance>();
+
+            try
+            {
+                MySqlConnection cnx = MySQL.getCnx();
+                cnx.Ping();
+                string requete = "SELECT DISTINCT RES_LIBELLE, resistance.RES_ID FROM resistance, reservationmenu, repas WHERE resistance.RES_ID = res_plat AND res_repas = REP_ID AND REP_DATE = '" + daterequete + "' ORDER BY RES_ID";
+                MySqlCommand cmd = new MySqlCommand(requete, cnx);
+                var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    Resistance unResistance = new Resistance();
+                    unResistance.Libelle = reader.GetString(0);
+                    unResistance.Id = reader.GetInt32(1);
+                    NBBTouteslesResistances.Add(unResistance);
+                }
+                cnx.Close();
+                return NBBTouteslesResistances;
+            }
+            catch (MySqlException ex)
+            {
+                Resistance erreurSQL = new Resistance();
+                erreurSQL.Description = (ex.ToString());
+                NBBTouteslesResistances.Add(erreurSQL);
+                return NBBTouteslesResistances;
+            }
+        }
+        ////////////////////////////////////////////////////////////REQUÊTE AFIN DE RECUPERER LE NOMBRE DE ACCOMPAGNEMENT DIFFERENTES//////////////////////////////////////////////
+
+        public static List<Accompagnement> getNBTouteslesAccompagnements(string daterequete)
+        {
+            List<Accompagnement> NBTouteslesAccompagnements = new List<Accompagnement>();
+
+            try
+            {
+                MySqlConnection cnx = MySQL.getCnx();
+                cnx.Ping();
+                string requete = "SELECT COUNT(ACC_LIBELLE) FROM accompagnement WHERE ACC_LIBELLE IN (SELECT DISTINCT ACC_LIBELLE FROM repas, reservationmenu, concerner, accompagnement, accompagnementtype WHERE REP_ID=res_repas AND res_id=con_res_id AND con_accompagnement=ACC_ID AND ACC_TYPE=AT_ID AND REP_DATE= '"+ daterequete + "' ORDER BY ACC_LIBELLE)";
+                MySqlCommand cmd = new MySqlCommand(requete, cnx);
+                var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    Accompagnement NbAccompagnement = new Accompagnement();
+                    NbAccompagnement.Id = reader.GetInt32(0);
+                    NBTouteslesAccompagnements.Add(NbAccompagnement);
+                }
+                cnx.Close();
+                return NBTouteslesAccompagnements;
+            }
+            catch (MySqlException ex)
+            {
+                Accompagnement erreurSQL = new Accompagnement();
+                erreurSQL.Description = (ex.ToString());
+                NBTouteslesAccompagnements.Add(erreurSQL);
+                return NBTouteslesAccompagnements;
             }
         }
     }
