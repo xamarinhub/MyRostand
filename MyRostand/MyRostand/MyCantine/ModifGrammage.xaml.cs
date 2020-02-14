@@ -76,8 +76,9 @@ namespace MyRostand.MyCantine
             {
                 Text = " g/p\n",
                 VerticalTextAlignment = TextAlignment.Center,
-                FontSize =40
+                FontSize = 40
             };
+
             StackLayout Layout2 = new StackLayout
             {
                 Orientation = StackOrientation.Horizontal
