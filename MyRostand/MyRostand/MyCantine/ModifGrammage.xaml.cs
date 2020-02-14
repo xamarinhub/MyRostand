@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Android.App;
-using Android.OS;
 using MyRostand.Models;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -80,6 +78,7 @@ namespace MyRostand.MyCantine
                 VerticalTextAlignment = TextAlignment.Center,
                 FontSize = 40
             };
+
             StackLayout Layout2 = new StackLayout
             {
                 Orientation = StackOrientation.Horizontal
@@ -94,6 +93,7 @@ namespace MyRostand.MyCantine
             var label22 = new Label
             {
                 Text = " g/p\n",
+                VerticalTextAlignment = TextAlignment.Center,
                 FontSize = 40
             };
             StackLayout Layout3 = new StackLayout
@@ -110,6 +110,7 @@ namespace MyRostand.MyCantine
             var label33 = new Label
             {
                 Text = " g/p\n",
+                VerticalTextAlignment = TextAlignment.Center,
                 FontSize =40
             };
 
