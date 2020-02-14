@@ -1964,7 +1964,7 @@ namespace MyRostand.MyCantine
             for (int i = 0; i < LesAbsents.Count; i++)
             {
                 Present unAbsent = LesAbsents[i];
-                eleveabsent.Text = LesAbsents.Count + "";
+                eleveabsent.Text = unAbsent.Uti + "";
             }
             LayoutAccomptitle.Children.Add(titleaccomp);
             if (co == "0" && ca == "0")
