@@ -789,22 +789,27 @@ namespace MyRostand.MyCantine
                             BackgroundColor = Color.LightGray,
                             FontSize = 16
                         };
-                        Nevienspas = new Button()
-                        {
-                            Text = "Je ne viendrais pas au self ce jour.",
-                            TextColor = Color.Red,
-                            BackgroundColor = Color.LightGray,
-                            FontSize = 16
-                        };
                         titreAnnulation.Children.Add(titre7);
                         stackCardAnnulation.Children.Add(titreAnnulation);
                         frameAnnulation.Content = stackCardAnnulation;
                         stackCardMenu.Children.Add(frameAnnulation);
                         stackCardAnnulation.Children.Add(AnnulerReservation);
-                        stackCardAnnulation.Children.Add(Nevienspas);
                         AnnulerReservation.Clicked += AnnulerReservation_Clicked;
-                        Nevienspas.Clicked += Nevienspas_Clicked;
                     }
+                }
+
+                string DateToday2 = DateTime.Today.Year + "-" + nummois2 + "-" + DateTime.Today.Day;
+                if (daterequete != DateToday2)
+                {
+                    Nevienspas = new Button()
+                    {
+                        Text = "Je ne viendrais pas au self ce jour.",
+                        TextColor = Color.Red,
+                        BackgroundColor = Color.LightGray,
+                        FontSize = 16
+                    };
+                    Nevienspas.Clicked += Nevienspas_Clicked;
+                    stackCardAnnulation.Children.Add(Nevienspas);
                 }
                 /*-------------------------------------------------------*/
 
