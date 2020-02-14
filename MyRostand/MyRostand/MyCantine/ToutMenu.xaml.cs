@@ -43,6 +43,20 @@ namespace MyRostand.MyCantine
             BackgroundColor = Color.FromHex("#27ae60"),
             HeightRequest = 35,       
         };
+        Label titleaccomp = new Label
+        {
+            Text = " Accompagnement ",
+            FontSize = 30,
+            HorizontalTextAlignment = TextAlignment.Center,
+            VerticalTextAlignment = TextAlignment.Center,
+            TextColor = Color.FromHex("#FFFFFF")
+        };
+        StackLayout LayoutAccomptitle = new StackLayout
+        {
+            HorizontalOptions = LayoutOptions.Fill,
+            BackgroundColor = Color.FromHex("#27ae60"),
+            HeightRequest = 35,
+        };
         StackLayout LayoutViande1 = new StackLayout
         {
             Orientation = StackOrientation.Horizontal
@@ -202,6 +216,170 @@ namespace MyRostand.MyCantine
             TextColor = Color.FromHex("#FF5733")
         };
         Label barreviande4 = new Label
+        {
+            Text = "  ",
+            FontSize = 30,
+            TextColor = Color.FromHex("#FF5733")
+        };
+        StackLayout LayoutAccomp1 = new StackLayout
+        {
+            Orientation = StackOrientation.Horizontal
+        };
+        StackLayout LayoutAccomp1barre = new StackLayout
+        {
+        };
+        Label Avantaccomp = new Label
+        {
+            Text = "  ",
+            FontSize = 30,
+        };
+        Label countaccomp = new Label
+        {
+            Text = "  ",
+            FontSize = 30,
+            TextColor = Color.FromHex("#77d065")
+        };
+        Label soitaccomp = new Label
+        {
+            Text = "  ",
+            FontSize = 30,
+        };
+        Label poidaccomp = new Label
+        {
+            Text = "  ",
+            FontSize = 30,
+            TextColor = Color.FromHex("#15B0D6")
+        };
+        Label pourcentaccomp = new Label
+        {
+            Text = "  ",
+            FontSize = 30,
+            TextColor = Color.FromHex("#FF5733")
+        };
+        Label barreaccomp = new Label
+        {
+            Text = "  ",
+            FontSize = 30,
+            TextColor = Color.FromHex("#FF5733")
+        };
+        StackLayout LayoutAccomp2 = new StackLayout
+        {
+            Orientation = StackOrientation.Horizontal
+        };
+        StackLayout LayoutAccomp2barre = new StackLayout
+        {
+        };
+        Label Avantaccomp2 = new Label
+        {
+            Text = "  ",
+            FontSize = 30,
+        };
+        Label countaccomp2 = new Label
+        {
+            Text = "  ",
+            FontSize = 30,
+            TextColor = Color.FromHex("#77d065")
+        };
+        Label soitaccomp2 = new Label
+        {
+            Text = "  ",
+            FontSize = 30,
+        };
+        Label poidaccomp2 = new Label
+        {
+            Text = "  ",
+            FontSize = 30,
+            TextColor = Color.FromHex("#15B0D6")
+        };
+        Label pourcentaccomp2 = new Label
+        {
+            Text = "  ",
+            FontSize = 30,
+            TextColor = Color.FromHex("#FF5733")
+        };
+        Label barreaccomp2 = new Label
+        {
+            Text = "  ",
+            FontSize = 30,
+            TextColor = Color.FromHex("#FF5733")
+        };
+        StackLayout LayoutAccomp3 = new StackLayout
+        {
+            Orientation = StackOrientation.Horizontal
+        };
+        StackLayout LayoutAccomp3barre = new StackLayout
+        {
+        };
+        Label Avantaccomp3 = new Label
+        {
+            Text = "  ",
+            FontSize = 30,
+        };
+        Label countaccomp3 = new Label
+        {
+            Text = "  ",
+            FontSize = 30,
+            TextColor = Color.FromHex("#77d065")
+        };
+        Label soitaccomp3 = new Label
+        {
+            Text = "  ",
+            FontSize = 30,
+        };
+        Label poidaccomp3 = new Label
+        {
+            Text = "  ",
+            FontSize = 30,
+            TextColor = Color.FromHex("#15B0D6")
+        };
+        Label pourcentaccomp3 = new Label
+        {
+            Text = "  ",
+            FontSize = 30,
+            TextColor = Color.FromHex("#FF5733")
+        };
+        Label barreaccomp3 = new Label
+        {
+            Text = "  ",
+            FontSize = 30,
+            TextColor = Color.FromHex("#FF5733")
+        };
+        StackLayout LayoutAccomp4 = new StackLayout
+        {
+            Orientation = StackOrientation.Horizontal
+        };
+        StackLayout LayoutAccomp4barre = new StackLayout
+        {
+        };
+        Label Avantaccomp4 = new Label
+        {
+            Text = "  ",
+            FontSize = 30,
+        };
+        Label countaccomp4 = new Label
+        {
+            Text = "  ",
+            FontSize = 30,
+            TextColor = Color.FromHex("#77d065")
+        };
+        Label soitaccomp4 = new Label
+        {
+            Text = "  ",
+            FontSize = 30,
+        };
+        Label poidaccomp4 = new Label
+        {
+            Text = "  ",
+            FontSize = 30,
+            TextColor = Color.FromHex("#15B0D6")
+        };
+        Label pourcentaccomp4 = new Label
+        {
+            Text = "  ",
+            FontSize = 30,
+            TextColor = Color.FromHex("#FF5733")
+        };
+        Label barreaccomp4 = new Label
         {
             Text = "  ",
             FontSize = 30,
@@ -522,7 +700,6 @@ namespace MyRostand.MyCantine
                     LayoutViande1.Children.Add(pourcentviande);
                     LayoutViande1.Children.Add(pourcentviande12);
                     LayoutViande1barre.Children.Add(barreviande);
-                    LayoutViandetitle.Children.Add(titleviande);
                 }
                 else if (co == "2")
                 {
@@ -1153,14 +1330,631 @@ namespace MyRostand.MyCantine
                 Accompagnement unAccompagnement = lesAccompagnements[i];
                 if (ca == "1")
                 {
-                    if (Accompagnement1 == "" && lesAccompagnements.Count == 1)
-                    {
                         Accompagnement1 = unAccompagnement.Libelle;
-                        a++;
+                        idacc = unAccompagnement.Id;
+                        List<Accompagnement> NBlesAccompagnements = Database.MyCantineSQL.getNBlesAccompagnements(daterequete, idacc);
+                        for (int n = 0; n < NBlesAccompagnements.Count; n++)
+                        {
+                        Accompagnement NBuneAccompagnement = NBlesAccompagnements[n];
+                        a = NBuneAccompagnement.Count;
+                        }
                         prop = unAccompagnement.Gramme;
                         double p = ((double)a / lesAccompagnements.Count) * 100;
                         string tp = String.Format("{0:N1}", p);
-                        jourAccompagnement.Text += Accompagnement1 + ": " + a + " soit " + a * prop + " g " + " soit " + tp + "%" + "\n" + barre10;
+                        Avantaccomp.Text = Accompagnement1 + ": ";
+                        countaccomp.Text = a + "";
+                        soitaccomp.Text = " soit ";
+                        poidaccomp.Text = prop*a + "g ";
+                        pourcentaccomp.Text = tp + "%";
+                        barreaccomp.Text = barre10;
+                        LayoutAccomp1.Children.Add(Avantaccomp);
+                        LayoutAccomp1.Children.Add(countaccomp);
+                        LayoutAccomp1.Children.Add(soitaccomp);
+                        LayoutAccomp1.Children.Add(poidaccomp);
+                        LayoutAccomp1.Children.Add(pourcentaccomp);
+                        LayoutAccomp1barre.Children.Add(barreaccomp);
+                }   
+                if (ca == "2")
+                {
+                    if (i == 0)
+                    {
+                        Accompagnement1 = unAccompagnement.Libelle;
+                        idacc = unAccompagnement.Id;
+                        List<Accompagnement> NBlesAccompagnements = Database.MyCantineSQL.getNBlesAccompagnements(daterequete, idacc);
+                        for (int n = 0; n < NBlesAccompagnements.Count; n++)
+                        {
+                            Accompagnement NBuneAccompagnement = NBlesAccompagnements[n];
+                            a = NBuneAccompagnement.Count;
+                        }
+                        prop = unAccompagnement.Gramme;
+                        double p = ((double)a / TouteslesResistances.Count) * 100;
+                        if (p <= 15)
+                        {
+                            barre = barre1;
+                        }
+                        else if (p <= 25)
+                        {
+                            barre = barre2;
+                        }
+                        else if (p <= 35)
+                        {
+                            barre = barre3;
+                        }
+                        else if (p <= 45)
+                        {
+                            barre = barre4;
+                        }
+                        else if (p <= 55)
+                        {
+                            barre = barre5;
+                        }
+                        else if (p <= 65)
+                        {
+                            barre = barre6;
+                        }
+                        else if (p <= 75)
+                        {
+                            barre = barre7;
+                        }
+                        else if (p <= 85)
+                        {
+                            barre = barre8;
+                        }
+                        else if (p <= 95)
+                        {
+                            barre = barre9;
+                        }
+                        else
+                        {
+                            barre = barre10;
+                        }
+                        string tp = String.Format("{0:N1}", p);
+                        Avantaccomp.Text = Accompagnement1 + ": ";
+                        countaccomp.Text = a + "";
+                        soitaccomp.Text = " soit ";
+                        poidaccomp.Text = prop*a + "g ";
+                        pourcentaccomp.Text = tp + "%";
+                        barreaccomp.Text = barre;
+                        LayoutAccomp1.Children.Add(Avantaccomp);
+                        LayoutAccomp1.Children.Add(countaccomp);
+                        LayoutAccomp1.Children.Add(soitaccomp);
+                        LayoutAccomp1.Children.Add(poidaccomp);
+                        LayoutAccomp1.Children.Add(pourcentaccomp);
+                        LayoutAccomp1barre.Children.Add(barreaccomp);
+                    }
+                    if (i == a)
+                    {
+                        Accompagnement2 = unAccompagnement.Libelle;
+                        idacc2 = unAccompagnement.Id;
+                        List<Accompagnement> NBlesAccompagnements = Database.MyCantineSQL.getNBlesAccompagnements(daterequete, idacc2);
+                        for (int n = 0; n < NBlesAccompagnements.Count; n++)
+                        {
+                            Accompagnement NBuneAccompagnement = NBlesAccompagnements[n];
+                            a2 = NBuneAccompagnement.Count;
+                        }
+                        prop2 = unAccompagnement.Gramme;
+                        double p = ((double)a2 / TouteslesResistances.Count) * 100;
+                        if (p <= 15)
+                        {
+                            barre = barre1;
+                        }
+                        else if (p <= 25)
+                        {
+                            barre = barre2;
+                        }
+                        else if (p <= 35)
+                        {
+                            barre = barre3;
+                        }
+                        else if (p <= 45)
+                        {
+                            barre = barre4;
+                        }
+                        else if (p <= 55)
+                        {
+                            barre = barre5;
+                        }
+                        else if (p <= 65)
+                        {
+                            barre = barre6;
+                        }
+                        else if (p <= 75)
+                        {
+                            barre = barre7;
+                        }
+                        else if (p <= 85)
+                        {
+                            barre = barre8;
+                        }
+                        else if (p <= 95)
+                        {
+                            barre = barre9;
+                        }
+                        else
+                        {
+                            barre = barre10;
+                        }
+                        string tp = String.Format("{0:N1}", p);
+                        Avantaccomp2.Text = Accompagnement2 + ": ";
+                        countaccomp2.Text = a2 + "";
+                        soitaccomp2.Text = " soit ";
+                        poidaccomp2.Text = prop2*a2 + "g ";
+                        pourcentaccomp2.Text = tp + "%";
+                        barreaccomp2.Text = barre;
+                        LayoutAccomp2.Children.Add(Avantaccomp2);
+                        LayoutAccomp2.Children.Add(countaccomp2);
+                        LayoutAccomp2.Children.Add(soitaccomp2);
+                        LayoutAccomp2.Children.Add(poidaccomp2);
+                        LayoutAccomp2.Children.Add(pourcentaccomp2);
+                        LayoutAccomp2barre.Children.Add(barreaccomp2);
+                    }
+                }
+                if (ca == "3")
+                {
+                    if (i == 0)
+                    {
+                        Accompagnement1 = unAccompagnement.Libelle;
+                        idacc = unAccompagnement.Id;
+                        List<Accompagnement> NBlesAccompagnements = Database.MyCantineSQL.getNBlesAccompagnements(daterequete, idacc);
+                        for (int n = 0; n < NBlesAccompagnements.Count; n++)
+                        {
+                            Accompagnement NBuneAccompagnement = NBlesAccompagnements[n];
+                            a = NBuneAccompagnement.Count;
+                        }
+                        prop = unAccompagnement.Gramme;
+                        double p = ((double)a / TouteslesResistances.Count) * 100;
+                        if (p <= 15)
+                        {
+                            barre = barre1;
+                        }
+                        else if (p <= 25)
+                        {
+                            barre = barre2;
+                        }
+                        else if (p <= 35)
+                        {
+                            barre = barre3;
+                        }
+                        else if (p <= 45)
+                        {
+                            barre = barre4;
+                        }
+                        else if (p <= 55)
+                        {
+                            barre = barre5;
+                        }
+                        else if (p <= 65)
+                        {
+                            barre = barre6;
+                        }
+                        else if (p <= 75)
+                        {
+                            barre = barre7;
+                        }
+                        else if (p <= 85)
+                        {
+                            barre = barre8;
+                        }
+                        else if (p <= 95)
+                        {
+                            barre = barre9;
+                        }
+                        else
+                        {
+                            barre = barre10;
+                        }
+                        string tp = String.Format("{0:N1}", p);
+                        Avantaccomp.Text = Accompagnement1 + ": ";
+                        countaccomp.Text = a + "";
+                        soitaccomp.Text = " soit ";
+                        poidaccomp.Text = prop*a + "g ";
+                        pourcentaccomp.Text = tp + "%";
+                        barreaccomp.Text = barre;
+                        LayoutAccomp1.Children.Add(Avantaccomp);
+                        LayoutAccomp1.Children.Add(countaccomp);
+                        LayoutAccomp1.Children.Add(soitaccomp);
+                        LayoutAccomp1.Children.Add(poidaccomp);
+                        LayoutAccomp1.Children.Add(pourcentaccomp);
+                        LayoutAccomp1barre.Children.Add(barreaccomp);
+                    }
+                    else if (i == a)
+                    {
+                        Accompagnement2 = unAccompagnement.Libelle;
+                        idacc2 = unAccompagnement.Id;
+                        List<Accompagnement> NBlesAccompagnements = Database.MyCantineSQL.getNBlesAccompagnements(daterequete, idacc2);
+                        for (int n = 0; n < NBlesAccompagnements.Count; n++)
+                        {
+                            Accompagnement NBuneAccompagnement = NBlesAccompagnements[n];
+                            a2 = NBuneAccompagnement.Count;
+                        }
+                        prop2 = unAccompagnement.Gramme;
+                        double p = ((double)a2 / TouteslesResistances.Count) * 100;
+                        if (p <= 15)
+                        {
+                            barre = barre1;
+                        }
+                        else if (p <= 25)
+                        {
+                            barre = barre2;
+                        }
+                        else if (p <= 35)
+                        {
+                            barre = barre3;
+                        }
+                        else if (p <= 45)
+                        {
+                            barre = barre4;
+                        }
+                        else if (p <= 55)
+                        {
+                            barre = barre5;
+                        }
+                        else if (p <= 65)
+                        {
+                            barre = barre6;
+                        }
+                        else if (p <= 75)
+                        {
+                            barre = barre7;
+                        }
+                        else if (p <= 85)
+                        {
+                            barre = barre8;
+                        }
+                        else if (p <= 95)
+                        {
+                            barre = barre9;
+                        }
+                        else
+                        {
+                            barre = barre10;
+                        }
+                        string tp = String.Format("{0:N1}", p);
+                        Avantaccomp2.Text = Accompagnement2 + ": ";
+                        countaccomp2.Text = a2 + "";
+                        soitaccomp2.Text = " soit ";
+                        poidaccomp2.Text = prop2*a2 + "g ";
+                        pourcentaccomp2.Text = tp + "%";
+                        barreaccomp2.Text = barre;
+                        LayoutAccomp2.Children.Add(Avantaccomp2);
+                        LayoutAccomp2.Children.Add(countaccomp2);
+                        LayoutAccomp2.Children.Add(soitaccomp2);
+                        LayoutAccomp2.Children.Add(poidaccomp2);
+                        LayoutAccomp2.Children.Add(pourcentaccomp2);
+                        LayoutAccomp2barre.Children.Add(barreaccomp2);
+                    }
+                    else if (i == a+a2)
+                    {
+                        Accompagnement3 = unAccompagnement.Libelle;
+                        idacc3 = unAccompagnement.Id;
+                        List<Accompagnement> NBlesAccompagnements = Database.MyCantineSQL.getNBlesAccompagnements(daterequete, idacc3);
+                        for (int n = 0; n < NBlesAccompagnements.Count; n++)
+                        {
+                            Accompagnement NBuneAccompagnement = NBlesAccompagnements[n];
+                            a3 = NBuneAccompagnement.Count;
+                        }
+                        prop3 = unAccompagnement.Gramme;
+                        double p = ((double)a3 / TouteslesResistances.Count) * 100;
+                        if (p <= 15)
+                        {
+                            barre = barre1;
+                        }
+                        else if (p <= 25)
+                        {
+                            barre = barre2;
+                        }
+                        else if (p <= 35)
+                        {
+                            barre = barre3;
+                        }
+                        else if (p <= 45)
+                        {
+                            barre = barre4;
+                        }
+                        else if (p <= 55)
+                        {
+                            barre = barre5;
+                        }
+                        else if (p <= 65)
+                        {
+                            barre = barre6;
+                        }
+                        else if (p <= 75)
+                        {
+                            barre = barre7;
+                        }
+                        else if (p <= 85)
+                        {
+                            barre = barre8;
+                        }
+                        else if (p <= 95)
+                        {
+                            barre = barre9;
+                        }
+                        else
+                        {
+                            barre = barre10;
+                        }
+                        string tp = String.Format("{0:N1}", p);
+                        Avantaccomp3.Text = Accompagnement3 + ": ";
+                        countaccomp3.Text = a3 + "";
+                        soitaccomp3.Text = " soit ";
+                        poidaccomp3.Text = prop3*a3 + "g ";
+                        pourcentaccomp3.Text = tp + "%";
+                        barreaccomp3.Text = barre;
+                        LayoutAccomp3.Children.Add(Avantaccomp3);
+                        LayoutAccomp3.Children.Add(countaccomp3);
+                        LayoutAccomp3.Children.Add(soitaccomp3);
+                        LayoutAccomp3.Children.Add(poidaccomp3);
+                        LayoutAccomp3.Children.Add(pourcentaccomp3);
+                        LayoutAccomp3barre.Children.Add(barreaccomp3);
+                    }
+                }
+                if (ca == "4")
+                {
+                    if (i == 0)
+                    {
+                        Accompagnement1 = unAccompagnement.Libelle;
+                        idacc = unAccompagnement.Id;
+                        List<Accompagnement> NBlesAccompagnements = Database.MyCantineSQL.getNBlesAccompagnements(daterequete, idacc);
+                        for (int n = 0; n < NBlesAccompagnements.Count; n++)
+                        {
+                            Accompagnement NBuneAccompagnement = NBlesAccompagnements[n];
+                            a = NBuneAccompagnement.Count;
+                        }
+                        prop = unAccompagnement.Gramme;
+                        double p = ((double)a / TouteslesResistances.Count) * 100;
+                        if (p <= 15)
+                        {
+                            barre = barre1;
+                        }
+                        else if (p <= 25)
+                        {
+                            barre = barre2;
+                        }
+                        else if (p <= 35)
+                        {
+                            barre = barre3;
+                        }
+                        else if (p <= 45)
+                        {
+                            barre = barre4;
+                        }
+                        else if (p <= 55)
+                        {
+                            barre = barre5;
+                        }
+                        else if (p <= 65)
+                        {
+                            barre = barre6;
+                        }
+                        else if (p <= 75)
+                        {
+                            barre = barre7;
+                        }
+                        else if (p <= 85)
+                        {
+                            barre = barre8;
+                        }
+                        else if (p <= 95)
+                        {
+                            barre = barre9;
+                        }
+                        else
+                        {
+                            barre = barre10;
+                        }
+                        string tp = String.Format("{0:N1}", p);
+                        Avantaccomp.Text = Accompagnement1 + ": ";
+                        countaccomp.Text = a + "";
+                        soitaccomp.Text = " soit ";
+                        poidaccomp.Text = prop*a + "g ";
+                        pourcentaccomp.Text = tp + "%";
+                        barreaccomp.Text = barre;
+                        LayoutAccomp1.Children.Add(Avantaccomp);
+                        LayoutAccomp1.Children.Add(countaccomp);
+                        LayoutAccomp1.Children.Add(soitaccomp);
+                        LayoutAccomp1.Children.Add(poidaccomp);
+                        LayoutAccomp1.Children.Add(pourcentaccomp);
+                        LayoutAccomp1barre.Children.Add(barreaccomp);
+                    }
+                    else if (i == a)
+                    {
+                        Accompagnement2 = unAccompagnement.Libelle;
+                        idacc2 = unAccompagnement.Id;
+                        List<Accompagnement> NBlesAccompagnements = Database.MyCantineSQL.getNBlesAccompagnements(daterequete, idacc2);
+                        for (int n = 0; n < NBlesAccompagnements.Count; n++)
+                        {
+                            Accompagnement NBuneAccompagnement = NBlesAccompagnements[n];
+                            a2 = NBuneAccompagnement.Count;
+                        }
+                        prop2 = unAccompagnement.Gramme;
+                        double p = ((double)a2 / TouteslesResistances.Count) * 100;
+                        if (p <= 15)
+                        {
+                            barre = barre1;
+                        }
+                        else if (p <= 25)
+                        {
+                            barre = barre2;
+                        }
+                        else if (p <= 35)
+                        {
+                            barre = barre3;
+                        }
+                        else if (p <= 45)
+                        {
+                            barre = barre4;
+                        }
+                        else if (p <= 55)
+                        {
+                            barre = barre5;
+                        }
+                        else if (p <= 65)
+                        {
+                            barre = barre6;
+                        }
+                        else if (p <= 75)
+                        {
+                            barre = barre7;
+                        }
+                        else if (p <= 85)
+                        {
+                            barre = barre8;
+                        }
+                        else if (p <= 95)
+                        {
+                            barre = barre9;
+                        }
+                        else
+                        {
+                            barre = barre10;
+                        }
+                        string tp = String.Format("{0:N1}", p);
+                        Avantaccomp2.Text = Accompagnement2 + ": ";
+                        countaccomp2.Text = a2 + "";
+                        soitaccomp2.Text = " soit ";
+                        poidaccomp2.Text = prop2*a2 + "g ";
+                        pourcentaccomp2.Text = tp + "%";
+                        barreaccomp2.Text = barre;
+                        LayoutAccomp2.Children.Add(Avantaccomp2);
+                        LayoutAccomp2.Children.Add(countaccomp2);
+                        LayoutAccomp2.Children.Add(soitaccomp2);
+                        LayoutAccomp2.Children.Add(poidaccomp2);
+                        LayoutAccomp2.Children.Add(pourcentaccomp2);
+                        LayoutAccomp2barre.Children.Add(barreaccomp2);
+                    }
+                    else if (i == a + a2)
+                    {
+                        Accompagnement3 = unAccompagnement.Libelle;
+                        idacc3 = unAccompagnement.Id;
+                        List<Accompagnement> NBlesAccompagnements = Database.MyCantineSQL.getNBlesAccompagnements(daterequete, idacc3);
+                        for (int n = 0; n < NBlesAccompagnements.Count; n++)
+                        {
+                            Accompagnement NBuneAccompagnement = NBlesAccompagnements[n];
+                            a3 = NBuneAccompagnement.Count;
+                        }
+                        prop3 = unAccompagnement.Gramme;
+                        double p = ((double)a3 / TouteslesResistances.Count) * 100;
+                        if (p <= 15)
+                        {
+                            barre = barre1;
+                        }
+                        else if (p <= 25)
+                        {
+                            barre = barre2;
+                        }
+                        else if (p <= 35)
+                        {
+                            barre = barre3;
+                        }
+                        else if (p <= 45)
+                        {
+                            barre = barre4;
+                        }
+                        else if (p <= 55)
+                        {
+                            barre = barre5;
+                        }
+                        else if (p <= 65)
+                        {
+                            barre = barre6;
+                        }
+                        else if (p <= 75)
+                        {
+                            barre = barre7;
+                        }
+                        else if (p <= 85)
+                        {
+                            barre = barre8;
+                        }
+                        else if (p <= 95)
+                        {
+                            barre = barre9;
+                        }
+                        else
+                        {
+                            barre = barre10;
+                        }
+                        string tp = String.Format("{0:N1}", p);
+                        Avantaccomp3.Text = Accompagnement3 + ": ";
+                        countaccomp3.Text = a3 + "";
+                        soitaccomp3.Text = " soit ";
+                        poidaccomp3.Text = prop3*a3 + "g ";
+                        pourcentaccomp3.Text = tp + "%";
+                        barreaccomp3.Text = barre;
+                        LayoutAccomp3.Children.Add(Avantaccomp3);
+                        LayoutAccomp3.Children.Add(countaccomp3);
+                        LayoutAccomp3.Children.Add(soitaccomp3);
+                        LayoutAccomp3.Children.Add(poidaccomp3);
+                        LayoutAccomp3.Children.Add(pourcentaccomp3);
+                        LayoutAccomp3barre.Children.Add(barreaccomp3);
+                    }
+                    else if (i == a+a2+a3)
+                    {
+                        Accompagnement4 = unAccompagnement.Libelle;
+                        idacc4 = unAccompagnement.Id;
+                        List<Accompagnement> NBlesAccompagnements = Database.MyCantineSQL.getNBlesAccompagnements(daterequete, idacc4);
+                        for (int n = 0; n < NBlesAccompagnements.Count; n++)
+                        {
+                            Accompagnement NBuneAccompagnement = NBlesAccompagnements[n];
+                            a4 = NBuneAccompagnement.Count;
+                        }
+                        prop4 = unAccompagnement.Gramme;
+                        double p = ((double)a4 / TouteslesResistances.Count) * 100;
+                        if (p <= 15)
+                        {
+                            barre = barre1;
+                        }
+                        else if (p <= 25)
+                        {
+                            barre = barre2;
+                        }
+                        else if (p <= 35)
+                        {
+                            barre = barre3;
+                        }
+                        else if (p <= 45)
+                        {
+                            barre = barre4;
+                        }
+                        else if (p <= 55)
+                        {
+                            barre = barre5;
+                        }
+                        else if (p <= 65)
+                        {
+                            barre = barre6;
+                        }
+                        else if (p <= 75)
+                        {
+                            barre = barre7;
+                        }
+                        else if (p <= 85)
+                        {
+                            barre = barre8;
+                        }
+                        else if (p <= 95)
+                        {
+                            barre = barre9;
+                        }
+                        else
+                        {
+                            barre = barre10;
+                        }
+                        string tp = String.Format("{0:N1}", p);
+                        Avantaccomp4.Text = Accompagnement4 + ": ";
+                        countaccomp4.Text = a4 + "";
+                        soitaccomp4.Text = " soit ";
+                        poidaccomp4.Text = prop4*a4 + "g ";
+                        pourcentaccomp4.Text = tp + "%";
+                        barreaccomp4.Text = barre;
+                        LayoutAccomp4.Children.Add(Avantaccomp4);
+                        LayoutAccomp4.Children.Add(countaccomp4);
+                        LayoutAccomp4.Children.Add(soitaccomp4);
+                        LayoutAccomp4.Children.Add(poidaccomp4);
+                        LayoutAccomp4.Children.Add(pourcentaccomp4);
+                        LayoutAccomp4barre.Children.Add(barreaccomp4);
                     }
                 }
             }
@@ -1170,9 +1964,10 @@ namespace MyRostand.MyCantine
             for (int i = 0; i < LesAbsents.Count; i++)
             {
                 Present unAbsent = LesAbsents[i];
-                eleveabsent.Text = LesAbsents.Count +"" + ca;
+                eleveabsent.Text = LesAbsents.Count + "";
             }
-            if (co == "0")
+            LayoutAccomptitle.Children.Add(titleaccomp);
+            if (co == "0" && ca == "0")
             {
                 this.Content = new StackLayout
                 {
@@ -1180,12 +1975,89 @@ namespace MyRostand.MyCantine
                 {
                     barJours,
                     menuStack,
+                    LayoutViandetitle,
+                    LayoutAccomptitle,
                     Cuisto
-
                 }
                 };
             }
-            else if (co == "1")
+            else if (co == "0" && ca == "1")
+            {
+                this.Content = new StackLayout
+                {
+                    Children =
+                {
+                    barJours,
+                    menuStack,
+                    LayoutViandetitle,
+                    LayoutAccomptitle,
+                    LayoutAccomp1,
+                    LayoutAccomp1barre,
+                    Cuisto
+                }
+                };
+            }
+            else if (co == "0" && ca == "2")
+            {
+                this.Content = new StackLayout
+                {
+                    Children =
+                {
+                    barJours,
+                    menuStack,
+                    LayoutViandetitle,
+                    LayoutAccomptitle,
+                    LayoutAccomp1,
+                    LayoutAccomp1barre,
+                    LayoutAccomp2,
+                    LayoutAccomp2barre,
+                    Cuisto
+                }
+                };
+            }
+            else if (co == "0" && ca == "3")
+            {
+                this.Content = new StackLayout
+                {
+                    Children =
+                {
+                    barJours,
+                    menuStack,
+                    LayoutViandetitle,
+                    LayoutAccomptitle,
+                    LayoutAccomp1,
+                    LayoutAccomp1barre,
+                    LayoutAccomp2,
+                    LayoutAccomp2barre,
+                    LayoutAccomp3,
+                    LayoutAccomp3barre,
+                    Cuisto
+                }
+                };
+            }
+            else if (co == "0" && ca == "4")
+            {
+                this.Content = new StackLayout
+                {
+                    Children =
+                {
+                    barJours,
+                    menuStack,
+                    LayoutViandetitle,
+                    LayoutAccomptitle,
+                    LayoutAccomp1,
+                    LayoutAccomp1barre,
+                    LayoutAccomp2,
+                    LayoutAccomp2barre,
+                    LayoutAccomp3,
+                    LayoutAccomp3barre,
+                    LayoutAccomp4,
+                    LayoutAccomp4barre,
+                    Cuisto
+                }
+                };
+            }
+            else if (co == "1" && ca == "0")
             {
                 this.Content = new StackLayout
                 {
@@ -1196,12 +2068,101 @@ namespace MyRostand.MyCantine
                     LayoutViandetitle,
                     LayoutViande1,
                     LayoutViande1barre,
+                    LayoutAccomptitle,
                     Cuisto
 
                 }
                 };
             }
-            else if (co == "2")
+            else if (co == "1" && ca == "1")
+            {
+                this.Content = new StackLayout
+                {
+                    Children =
+                {
+                    barJours,
+                    menuStack,
+                    LayoutViandetitle,
+                    LayoutViande1,
+                    LayoutViande1barre,
+                    LayoutAccomptitle,
+                    LayoutAccomp1,
+                    LayoutAccomp1barre,
+                    Cuisto
+
+                }
+                };
+            }
+            else if (co == "1" && ca == "2")
+            {
+                this.Content = new StackLayout
+                {
+                    Children =
+                {
+                    barJours,
+                    menuStack,
+                    LayoutViandetitle,
+                    LayoutViande1,
+                    LayoutViande1barre,
+                    LayoutAccomptitle,
+                    LayoutAccomp1,
+                    LayoutAccomp1barre,
+                    LayoutAccomp2,
+                    LayoutAccomp2barre,
+                    Cuisto
+
+                }
+                };
+            }
+            else if (co == "1" && ca == "3")
+            {
+                this.Content = new StackLayout
+                {
+                    Children =
+                {
+                    barJours,
+                    menuStack,
+                    LayoutViandetitle,
+                    LayoutViande1,
+                    LayoutViande1barre,
+                    LayoutAccomptitle,
+                    LayoutAccomp1,
+                    LayoutAccomp1barre,
+                    LayoutAccomp2,
+                    LayoutAccomp2barre,
+                    LayoutAccomp3,
+                    LayoutAccomp3barre,
+                    Cuisto
+
+                }
+                };
+            }
+            else if (co == "1" && ca == "4")
+            {
+                this.Content = new StackLayout
+                {
+                    Children =
+                {
+                    barJours,
+                    menuStack,
+                    LayoutViandetitle,
+                    LayoutViande1,
+                    LayoutViande1barre,
+                    LayoutAccomptitle,
+                    LayoutAccomp1,
+                    LayoutAccomp1barre,
+                    LayoutAccomp2,
+                    LayoutAccomp2barre,
+                    LayoutAccomp3,
+                    LayoutAccomp3barre,
+                    LayoutAccomp4,
+                    LayoutAccomp4barre,
+                    Cuisto
+
+                }
+                };
+            }
+            else if (co == "2" && ca == "0")
             {
                 this.Content = new StackLayout
                 {
@@ -1214,12 +2175,109 @@ namespace MyRostand.MyCantine
                     LayoutViande1barre,
                     LayoutViande2,
                     LayoutViande2barre,
+                    LayoutAccomptitle,
                     Cuisto
 
                 }
                 };
             }
-            else if (co == "3")
+            else if (co == "2" && ca == "1")
+            {
+                this.Content = new StackLayout
+                {
+                    Children =
+                {
+                    barJours,
+                    menuStack,
+                    LayoutViandetitle,
+                    LayoutViande1,
+                    LayoutViande1barre,
+                    LayoutViande2,
+                    LayoutViande2barre,
+                    LayoutAccomptitle,
+                    LayoutAccomp1,
+                    LayoutAccomp1barre,
+                    Cuisto
+
+                }
+                };
+            }
+            else if (co == "2" && ca == "2")
+            {
+                this.Content = new StackLayout
+                {
+                    Children =
+                {
+                    barJours,
+                    menuStack,
+                    LayoutViandetitle,
+                    LayoutViande1,
+                    LayoutViande1barre,
+                    LayoutViande2,
+                    LayoutViande2barre,
+                    LayoutAccomptitle,
+                    LayoutAccomp1,
+                    LayoutAccomp1barre,
+                    LayoutAccomp2,
+                    LayoutAccomp2barre,
+                    Cuisto
+
+                }
+                };
+            }
+            else if (co == "2" && ca == "3")
+            {
+                this.Content = new StackLayout
+                {
+                    Children =
+                {
+                    barJours,
+                    menuStack,
+                    LayoutViandetitle,
+                    LayoutViande1,
+                    LayoutViande1barre,
+                    LayoutViande2,
+                    LayoutViande2barre,
+                    LayoutAccomptitle,
+                    LayoutAccomp1,
+                    LayoutAccomp1barre,
+                    LayoutAccomp2,
+                    LayoutAccomp2barre,
+                    LayoutAccomp3,
+                    LayoutAccomp3barre,
+                    Cuisto
+
+                }
+                };
+            }
+            else if (co == "2" && ca == "4")
+            {
+                this.Content = new StackLayout
+                {
+                    Children =
+                {
+                    barJours,
+                    menuStack,
+                    LayoutViandetitle,
+                    LayoutViande1,
+                    LayoutViande1barre,
+                    LayoutViande2,
+                    LayoutViande2barre,
+                    LayoutAccomptitle,
+                    LayoutAccomp1,
+                    LayoutAccomp1barre,
+                    LayoutAccomp2,
+                    LayoutAccomp2barre,
+                    LayoutAccomp3,
+                    LayoutAccomp3barre,
+                    LayoutAccomp4,
+                    LayoutAccomp4barre,
+                    Cuisto
+
+                }
+                };
+            }
+            else if (co == "3" && ca == "0")
             {
                 this.Content = new StackLayout
                 {
@@ -1234,12 +2292,222 @@ namespace MyRostand.MyCantine
                     LayoutViande2barre,
                     LayoutViande3,
                     LayoutViande3barre,
+                    LayoutAccomptitle,                    
                     Cuisto
 
                 }
                 };
             }
-            else { 
+            else if (co == "3" && ca == "1")
+            {
+                this.Content = new StackLayout
+                {
+                    Children =
+                {
+                    barJours,
+                    menuStack,
+                    LayoutViandetitle,
+                    LayoutViande1,
+                    LayoutViande1barre,
+                    LayoutViande2,
+                    LayoutViande2barre,
+                    LayoutViande3,
+                    LayoutViande3barre,
+                    LayoutAccomptitle,
+                    LayoutAccomp1,
+                    LayoutAccomp1barre,
+                    Cuisto
+
+                }
+                };
+            }
+            else if (co == "3" && ca == "2")
+            {
+                this.Content = new StackLayout
+                {
+                    Children =
+                {
+                    barJours,
+                    menuStack,
+                    LayoutViandetitle,
+                    LayoutViande1,
+                    LayoutViande1barre,
+                    LayoutViande2,
+                    LayoutViande2barre,
+                    LayoutViande3,
+                    LayoutViande3barre,
+                    LayoutAccomptitle,
+                    LayoutAccomp1,
+                    LayoutAccomp1barre,
+                    LayoutAccomp2,
+                    LayoutAccomp2barre,
+                    Cuisto
+
+                }
+                };
+            }
+            else if (co == "3" && ca == "3")
+            {
+                this.Content = new StackLayout
+                {
+                    Children =
+                {
+                    barJours,
+                    menuStack,
+                    LayoutViandetitle,
+                    LayoutViande1,
+                    LayoutViande1barre,
+                    LayoutViande2,
+                    LayoutViande2barre,
+                    LayoutViande3,
+                    LayoutViande3barre,
+                    LayoutAccomptitle,
+                    LayoutAccomp1,
+                    LayoutAccomp1barre,
+                    LayoutAccomp2,
+                    LayoutAccomp2barre,
+                    LayoutAccomp3,
+                    LayoutAccomp3barre,
+                    Cuisto
+
+                }
+                };
+            }
+            else if (co == "3" && ca == "4")
+            {
+                this.Content = new StackLayout
+                {
+                    Children =
+                {
+                    barJours,
+                    menuStack,
+                    LayoutViandetitle,
+                    LayoutViande1,
+                    LayoutViande1barre,
+                    LayoutViande2,
+                    LayoutViande2barre,
+                    LayoutViande3,
+                    LayoutViande3barre,
+                    LayoutAccomptitle,
+                    LayoutAccomp1,
+                    LayoutAccomp1barre,
+                    LayoutAccomp2,
+                    LayoutAccomp2barre,
+                    LayoutAccomp3,
+                    LayoutAccomp3barre,
+                    LayoutAccomp4,
+                    LayoutAccomp4barre,
+                    Cuisto
+
+                }
+                };
+            }
+            else if (co == "4" && ca == "0")
+            {
+                this.Content = new StackLayout
+                {
+                    Children =
+                {
+                    barJours,
+                    menuStack,
+                    LayoutViandetitle,
+                    LayoutViande1,
+                    LayoutViande1barre,
+                    LayoutViande2,
+                    LayoutViande2barre,
+                    LayoutViande3,
+                    LayoutViande3barre,
+                    LayoutViande4,
+                    LayoutViande4barre,
+                    LayoutAccomptitle,
+                    Cuisto
+
+                }
+                };
+            }
+            else if (co == "4" && ca == "1")
+            {
+                this.Content = new StackLayout
+                {
+                    Children =
+                {
+                    barJours,
+                    menuStack,
+                    LayoutViandetitle,
+                    LayoutViande1,
+                    LayoutViande1barre,
+                    LayoutViande2,
+                    LayoutViande2barre,
+                    LayoutViande3,
+                    LayoutViande3barre,
+                    LayoutViande4,
+                    LayoutViande4barre,
+                    LayoutAccomptitle,
+                    LayoutAccomp1,
+                    LayoutAccomp1barre,
+                    Cuisto
+
+                }
+                };
+            }
+            else if (co == "4" && ca == "2")
+            {
+                this.Content = new StackLayout
+                {
+                    Children =
+                {
+                    barJours,
+                    menuStack,
+                    LayoutViandetitle,
+                    LayoutViande1,
+                    LayoutViande1barre,
+                    LayoutViande2,
+                    LayoutViande2barre,
+                    LayoutViande3,
+                    LayoutViande3barre,
+                    LayoutViande4,
+                    LayoutViande4barre,
+                    LayoutAccomptitle,
+                    LayoutAccomp1,
+                    LayoutAccomp1barre,
+                    LayoutAccomp2,
+                    LayoutAccomp2barre,
+                    Cuisto
+
+                }
+                };
+            }
+            else if (co == "4" && ca == "3")
+            {
+                this.Content = new StackLayout
+                {
+                    Children =
+                {
+                    barJours,
+                    menuStack,
+                    LayoutViandetitle,
+                    LayoutViande1,
+                    LayoutViande1barre,
+                    LayoutViande2,
+                    LayoutViande2barre,
+                    LayoutViande3,
+                    LayoutViande3barre,
+                    LayoutViande4,
+                    LayoutViande4barre,
+                    LayoutAccomptitle,
+                    LayoutAccomp1,
+                    LayoutAccomp1barre,
+                    LayoutAccomp2,
+                    LayoutAccomp2barre,
+                    LayoutAccomp3,
+                    LayoutAccomp3barre,
+                    Cuisto
+
+                }
+                };
+            }
+            else if (co == "4" && ca == "4") 
+            { 
             this.Content = new StackLayout
             {
                 Children =
@@ -1255,6 +2523,15 @@ namespace MyRostand.MyCantine
                     LayoutViande3barre,
                     LayoutViande4,
                     LayoutViande4barre,
+                    LayoutAccomptitle,
+                    LayoutAccomp1,
+                    LayoutAccomp1barre,
+                    LayoutAccomp2,
+                    LayoutAccomp2barre,
+                    LayoutAccomp3,
+                    LayoutAccomp3barre,
+                    LayoutAccomp4,
+                    LayoutAccomp4barre,
                     Cuisto
 
                 }

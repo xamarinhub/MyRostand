@@ -208,7 +208,7 @@ namespace MyRostand.Database
             {
                 MySqlConnection cnx = MySQL.getCnx();
                 cnx.Ping();
-                string requete = "SELECT ACC_LIBELLE, AT_POIDS FROM repas, reservationmenu, concerner, accompagnement, accompagnementtype WHERE REP_ID=res_repas AND res_id=con_res_id AND con_accompagnement=ACC_ID AND ACC_TYPE=AT_ID AND REP_DATE= '" + daterequete + "' ORDER BY ACC_LIBELLE";
+                string requete = "SELECT ACC_LIBELLE, AT_POIDS, ACC_ID  FROM repas, reservationmenu, concerner, accompagnement, accompagnementtype WHERE REP_ID=res_repas AND res_id=con_res_id AND con_accompagnement=ACC_ID AND ACC_TYPE=AT_ID AND REP_DATE= '" + daterequete + "' ORDER BY ACC_LIBELLE";
                 MySqlCommand cmd = new MySqlCommand(requete, cnx);
                 var reader = cmd.ExecuteReader();
                 while (reader.Read())
@@ -216,6 +216,7 @@ namespace MyRostand.Database
                     Accompagnement unAccompagnement = new Accompagnement();
                     unAccompagnement.Libelle = reader.GetString(0);
                     unAccompagnement.Gramme = reader.GetInt32(1);
+                    unAccompagnement.Id = reader.GetInt32(2);
                     ToutlesAccompagnements.Add(unAccompagnement);
                 }
                 cnx.Close();
@@ -1106,6 +1107,36 @@ namespace MyRostand.Database
                 erreurSQL.Description = (ex.ToString());
                 NBTouteslesAccompagnements.Add(erreurSQL);
                 return NBTouteslesAccompagnements;
+            }
+        }
+        ////////////////////////////////////////////////////////////REQUÊTE AFIN DE COUNT le Nombres des  ACCOMPAGNEMENTS//////////////////////////////////////////////
+
+        public static List<Accompagnement> getNBlesAccompagnements(string daterequete, int idacc)
+        {
+            List<Accompagnement> NBlesAccompagnements = new List<Accompagnement>();
+
+            try
+            {
+                MySqlConnection cnx = MySQL.getCnx();
+                cnx.Ping();
+                string requete = "SELECT  COUNT(con_accompagnement) FROM concerner, reservationmenu, repas WHERE REP_ID=res_repas AND res_id=con_res_id AND REP_DATE = '" + daterequete + "' AND  con_accompagnement = " + idacc + " ";
+                MySqlCommand cmd = new MySqlCommand(requete, cnx);
+                var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    Accompagnement NBunAccompagnement = new Accompagnement();
+                    NBunAccompagnement.Count = reader.GetInt32(0);
+                    NBlesAccompagnements.Add(NBunAccompagnement);
+                }
+                cnx.Close();
+                return NBlesAccompagnements;
+            }
+            catch (MySqlException ex)
+            {
+                Accompagnement erreurSQL = new Accompagnement();
+                erreurSQL.Description = (ex.ToString());
+                NBlesAccompagnements.Add(erreurSQL);
+                return NBlesAccompagnements;
             }
         }
     }

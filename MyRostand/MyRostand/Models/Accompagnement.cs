@@ -11,15 +11,17 @@ namespace MyRostand.Models
         public String Libelle { get; set; }
         public String Description { get; set; }
         public int Gramme { get; set; }
+        public int Count { get; set; }
         public ArrayList Repas { get; set; }
         public ArrayList Utilisateur { get; set; }
 
-        public Accompagnement(int id, string libelle, string description, int pGramme, ArrayList repas, ArrayList utilisateur)
+        public Accompagnement(int id, string libelle, string description, int pGramme,int count, ArrayList repas, ArrayList utilisateur)
         {
             this.Id = id;
             this.Libelle = libelle;
             this.Description = description;
             this.Gramme = pGramme;
+            this.Count = count;
             Repas = repas;
             Utilisateur = utilisateur;
         }

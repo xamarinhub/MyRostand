@@ -554,12 +554,6 @@ namespace MyRostand.MyCantine
                         boutonAccompagnement.Clicked += boutonAccompagnement_Click;
                     }
                     /*-------------------------------------------------------*/
-<<<<<<< HEAD
-
-
-=======
-                    /*
->>>>>>> 1d27f308c22372c56c7c9daaf6d0cb0430950b43
                     if (RequeteAccompagnement > 0 && acc1 == idaccompagnement)
                     {
                         AccompagnementReserver = true;
@@ -595,8 +589,7 @@ namespace MyRostand.MyCantine
                             boutonAccompagnement.BackgroundColor = Color.LightGray;
                             boutonAccompagnement.Text = "vide2";
                             boutonAccompagnement.Text = textchecked + acc1 + acc2 + acc3 + acc4 ;
-                    }
-                    */
+                    }                   
                     /*-------------------------------------------------------*/
 
                     async void boutonAccompagnement_Click(object senders, EventArgs ex)
