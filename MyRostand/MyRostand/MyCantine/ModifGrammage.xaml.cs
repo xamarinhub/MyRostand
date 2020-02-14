@@ -71,14 +71,14 @@ namespace MyRostand.MyCantine
             {
                 Text = Accompagnement + " : ",
                 VerticalTextAlignment = TextAlignment.Center,
-                FontSize = 30
+                FontSize = 40
             };
-            var MyEntry = new Entry { Text = "", Placeholder = prop + "", ClassId = Accompagnement, Keyboard = Keyboard.Numeric };
+            var MyEntry = new Entry { Text = "", Placeholder = prop + "", ClassId = Accompagnement, Keyboard = Keyboard.Numeric, FontSize = 40 };
             var label11 = new Label
             {
                 Text = " g/p\n",
                 VerticalTextAlignment = TextAlignment.Center,
-                FontSize =20
+                FontSize = 40
             };
             StackLayout Layout2 = new StackLayout
             {
