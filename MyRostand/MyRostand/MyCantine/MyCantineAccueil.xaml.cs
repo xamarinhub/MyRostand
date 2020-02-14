@@ -22,7 +22,7 @@ namespace MyRostand.MyCantine
         Button Nevienspas;
         Button bouton;
         CheckBox checkBoxAccompagnement = new CheckBox { IsChecked = true };
-               
+
         bool RepasDejaReserve = false;
         bool ResistanceReserver;
         bool AccompagnementReserver;
@@ -82,7 +82,7 @@ namespace MyRostand.MyCantine
 
             for (int i = 1; i <= 14; i++)
             {
-                numjour = $""+ ancienneDate.Day;
+                numjour = $"" + ancienneDate.Day;
                 nummois = ancienneDate.Month;
                 libelleJour = $"{ ancienneDate.DayOfWeek }";
 
@@ -179,14 +179,14 @@ namespace MyRostand.MyCantine
             {
                 /*============MOIS==============*/
                 DateTime DateActuelle = DateTime.Today;
-                string nummois2 = ""+ DateActuelle.Month;
+                string nummois2 = "" + DateActuelle.Month;
                 LogoAccueil.IsVisible = false;
                 //Chaque variable avec ((Button)sender).Exemple sert a recuperer la valeur de la proprieté du bouton.
                 string jourcomplet = ((Button)sender).Text;
                 string daterequete = ((Button)sender).StyleId;
                 int idrepas = Database.MyCantineSQL.getIdRepas(daterequete);
-                int idReservationMenu = Database.MyCantineSQL.getIdReservationMenu(idrepas);
-                bool RepasDejaReserve =  Database.MyCantineSQL.getStatutReserver(daterequete, idutilisateur);
+                int idReservationMenu = Database.MyCantineSQL.getIdReservationMenu(idrepas, idutilisateur);
+                bool RepasDejaReserve = Database.MyCantineSQL.getStatutReserver(daterequete, idutilisateur);
                 int RequeteResistance = Database.MyCantineSQL.getStatutReserverResistance(daterequete, idutilisateur, idReservationMenu);
                 List<Accompagnement> lesAccompagnementsReserves = Database.MyCantineSQL.getStatutReserverAccompagnement(idReservationMenu);
                 int RequeteAccompagnement = lesAccompagnementsReserves.Count;
@@ -250,7 +250,7 @@ namespace MyRostand.MyCantine
                     }
 
                 }
-                
+
                 //FRAME PRINCIPAL QUI RECUPERE TOUTE LES CARDS
                 Frame frameMenu = new Frame();
 
@@ -277,7 +277,7 @@ namespace MyRostand.MyCantine
                 if (daterequete == DateAujourdhui && RequeteAccompagnement == 0 && RequeteResistance == 0)
                 {
                     stackCardMenu.Children.Add(TropTard);
-                    TropTard.Text = "Désolé, réservation non dans les temps !";
+                    TropTard.Text = "La réservation n'est plus possible le jour même !";
                 }
                 else
                 {
@@ -383,27 +383,30 @@ namespace MyRostand.MyCantine
                 stackCardMenu.Children.Add(frameViande);
 
                 /*-------------------------------------------------------*/
+                int cou = 0;
+                int count = 0;
 
                 List<Resistance> lesResistances = Database.MyCantineSQL.getlesResistances(daterequete);
                 for (int i = 0; i < lesResistances.Count; i++)
                 {
-
+                    cou++;
                     Resistance uneResistance = lesResistances[i];
                     StackLayout stackCardResistance = new StackLayout();
+
+                    int idresistance = uneResistance.Id;
 
                     Button boutonResistance = new Button
                     {
                         TextColor = Color.White,
-                        AutomationId= ""+i,
                         Margin = new Thickness(120, 10, 120, 10),
                         Padding = new Thickness(0, 10, 0, -10),
-                        Text = uneResistance.Libelle + "\n",
+                        StyleId = 0 + "",
+                        ClassId = cou + "",
+                        Text = uneResistance.Libelle + "\n" + idrepas + idReservationMenu + idutilisateur + uneResistance.Id,
                         FontSize = 16
                     };
-
-                  
-                    
-                    int idresistance = uneResistance.Id;
+                    var idbouton = boutonResistance.Id;
+                    boutonResistance.Text = uneResistance.Libelle + "\n" + idrepas + idReservationMenu + idutilisateur + uneResistance.Id + "\n" + idbouton;
                     stackCardResistance.Children.Add(boutonResistance);
                     string textbouton = boutonResistance.Text;
                     if (RequeteResistance > 0 && RequeteResistance == idresistance)
@@ -432,7 +435,7 @@ namespace MyRostand.MyCantine
                     stackCardMenu.Children.Add(stackCardResistance);
                     if (daterequete != DateAujourdhui)
                     {
-                    boutonResistance.Clicked += boutonResistance_Click;
+                        boutonResistance.Clicked += boutonResistance_Click;
                     }
 
                     /*-------------------------------------------------------*/
@@ -446,9 +449,7 @@ namespace MyRostand.MyCantine
                                 Database.MyCantineSQL.SupprimerResistance(idrepas, idReservationMenu, idutilisateur);
                             }
                             string textchecked = textbouton;
-                            boutonResistance.BackgroundColor = Color.LightGray;
-                            boutonResistance.Text = "vide2";
-                            boutonResistance.Text = textchecked;
+                            boutonResistance.StyleId = 0 + "";
                         }
                         else
                         {
@@ -458,33 +459,28 @@ namespace MyRostand.MyCantine
                                 Database.MyCantineSQL.AjouterResistance(idrepas, idReservationMenu, idresistance, idutilisateur);
                             }
                             string textuncheck = textbouton;
-                            boutonResistance.BackgroundColor = Color.LightGreen;
-
-                            if(boutonResistance.AutomationId == "1")
-                            {
-
-                            }
-                            else if (boutonResistance.AutomationId == "2")
-                            {
-
-                            }
-                            else if (boutonResistance.AutomationId == "3")
-                            {
-
-                            }
-                            else if (boutonResistance.AutomationId == "4")
-                            {
-
-                            }
-                            else 
-                            { 
-                            
-                            }
-
-                            boutonResistance.Text = "vide";
-                            boutonResistance.Text = textuncheck;
+                            boutonResistance.StyleId = 0 + "";
+                            boutonResistance.StyleId = 1 + "";
                         }
+                        if (boutonResistance.StyleId == "0")
+                        {
+                            for (count = 0; count < cou; count++)
+                            {
 
+                                if (count + "" == ClassId)
+                                {
+                                    boutonResistance.BackgroundColor = Color.LightGray;
+                                }
+                                else
+                                {
+                                    boutonResistance.BackgroundColor = Color.LightGray;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            boutonResistance.BackgroundColor = Color.LightGreen;
+                        }
                     }
                 }
                 /*-------------------------------------------------------*/
@@ -554,12 +550,8 @@ namespace MyRostand.MyCantine
                         boutonAccompagnement.Clicked += boutonAccompagnement_Click;
                     }
                     /*-------------------------------------------------------*/
-<<<<<<< HEAD
 
 
-=======
-                    /*
->>>>>>> 1d27f308c22372c56c7c9daaf6d0cb0430950b43
                     if (RequeteAccompagnement > 0 && acc1 == idaccompagnement)
                     {
                         AccompagnementReserver = true;
@@ -583,20 +575,20 @@ namespace MyRostand.MyCantine
 
 
                     if (AccompagnementReserver == true)
-                        {
-                            string textuncheck = textbouton;
-                            boutonAccompagnement.BackgroundColor = Color.LightGreen;
-                            boutonAccompagnement.Text = "vide";
-                            boutonAccompagnement.Text = textuncheck + acc1.ToString() + acc2.ToString() + acc3.ToString() + acc4.ToString();
+                    {
+                        string textuncheck = textbouton;
+                        boutonAccompagnement.BackgroundColor = Color.LightGreen;
+                        boutonAccompagnement.Text = "vide";
+                        boutonAccompagnement.Text = textuncheck + acc1.ToString() + acc2.ToString() + acc3.ToString() + acc4.ToString();
                     }
                     else
-                        {
-                            string textchecked = textbouton;
-                            boutonAccompagnement.BackgroundColor = Color.LightGray;
-                            boutonAccompagnement.Text = "vide2";
-                            boutonAccompagnement.Text = textchecked + acc1 + acc2 + acc3 + acc4 ;
+                    {
+                        string textchecked = textbouton;
+                        boutonAccompagnement.BackgroundColor = Color.LightGray;
+                        boutonAccompagnement.Text = "vide2";
+                        boutonAccompagnement.Text = textchecked + acc1 + acc2 + acc3 + acc4;
                     }
-                    */
+
                     /*-------------------------------------------------------*/
 
                     async void boutonAccompagnement_Click(object senders, EventArgs ex)
@@ -685,7 +677,7 @@ namespace MyRostand.MyCantine
                     };
                     string textbouton = boutonLaitage.Text;
                     stackCardALaitage.Children.Add(boutonLaitage);
-                    stackCardMenu.Children.Add(stackCardALaitage);                   
+                    stackCardMenu.Children.Add(stackCardALaitage);
 
                 }
                 /*-------------------------------------------------------*/
@@ -745,8 +737,8 @@ namespace MyRostand.MyCantine
                     stackCardDessert2.Children.Add(boutonDessert);
                     string textbouton = boutonDessert.Text;
                     stackCardMenu.Children.Add(stackCardDessert2);
-                   
-                }              
+
+                }
 
                 /*-------------------------------------------------------*/
                 /*---------------------ANNULATION------------------------*/
@@ -850,7 +842,7 @@ namespace MyRostand.MyCantine
                 //FRAMEMENU RECUPERE STACKCARDMENU QUI LUI MEME RECUPERE TOUTE LES CARD ET ITEMS DU MENU
                 frameMenu.Content = stackCardMenu;
 
-            //ET DONC LE CONTENU ACTUEL DE MENUSTACK EST REMPLACE PAR CE FRAMEMENU MIS A JOUR
+                //ET DONC LE CONTENU ACTUEL DE MENUSTACK EST REMPLACE PAR CE FRAMEMENU MIS A JOUR
                 menuStack.Content = frameMenu;
             }
 

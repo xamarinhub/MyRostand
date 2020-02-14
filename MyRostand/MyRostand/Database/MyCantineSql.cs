@@ -455,15 +455,31 @@ namespace MyRostand.Database
             }
 
         }
-
-
-        public static int getIdReservationMenu(int idrepas)
+        public static int getMaxIdReservationMenu()
         {
-            int idReservationMenu = 0;
+            int MaxIdReservationMenu = 0;
 
             MySqlConnection cnx = MySQL.getCnx();
             cnx.Ping();
-            string requete = "SELECT RES_ID FROM reservationmenu WHERE RES_REPAS= '" + idrepas + "' ";
+            string requete = "SELECT MAX(RES_ID) FROM reservationmenu";
+            MySqlCommand cmd = new MySqlCommand(requete, cnx);
+            var reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                MaxIdReservationMenu = reader.GetInt32(0);
+            }
+            cnx.Close();
+            return MaxIdReservationMenu;
+
+        }
+
+        public static int getIdReservationMenu(int idrepas, int idutilisateur)
+        {
+            int idReservationMenu = getMaxIdReservationMenu() + 1;
+
+            MySqlConnection cnx = MySQL.getCnx();
+            cnx.Ping();
+            string requete = "SELECT RES_ID FROM reservationmenu WHERE RES_REPAS= '" + idrepas + "' AND RES_UTI = '" + idutilisateur + "'";
             MySqlCommand cmd = new MySqlCommand(requete, cnx);
             var reader = cmd.ExecuteReader();
             while (reader.Read())
@@ -484,7 +500,7 @@ namespace MyRostand.Database
                 string requete = "INSERT INTO reservationmenu VALUES (@RES_ID,@RES_REPAS,@RES_PLAT,@RES_UTI)";
                 using (MySqlCommand cmd = new MySqlCommand(requete, cnx))
                 {
-                    cmd.Parameters.AddWithValue("RES_ID", null);
+                    cmd.Parameters.AddWithValue("RES_ID", getMaxIdReservationMenu() + 1);
                     cmd.Parameters.AddWithValue("@RES_REPAS", idrepas);
                     cmd.Parameters.AddWithValue("@RES_PLAT", 0);
                     cmd.Parameters.AddWithValue("@RES_UTI", idutilisateur);
@@ -505,9 +521,9 @@ namespace MyRostand.Database
             {
                 MySqlConnection cnx = MySQL.getCnx();
                 cnx.Ping();
-                string requete = "DELETE FROM concerner WHERE con_res_id =" + idReservationMenu +"";
-                string requete2 = "DELETE FROM reservationmenu WHERE res_id = +" + idReservationMenu + " AND res_repas =" + idrepas +" AND res_uti =" + idutilisateur + "";
-                using (MySqlCommand cmd = new MySqlCommand(requete,cnx))
+                string requete = "DELETE FROM concerner WHERE con_res_id =" + idReservationMenu + "";
+                string requete2 = "DELETE FROM reservationmenu WHERE res_id = +" + idReservationMenu + " AND res_repas =" + idrepas + " AND res_uti =" + idutilisateur + "";
+                using (MySqlCommand cmd = new MySqlCommand(requete, cnx))
                 {
                     cmd.ExecuteNonQuery();
                 }
@@ -554,7 +570,7 @@ namespace MyRostand.Database
             try
             {
                 MySqlConnection cnx = MySQL.getCnx();
-                cnx.Ping();             
+                cnx.Ping();
                 string requete = "UPDATE reservationmenu SET res_plat=@RES_PLAT where res_id=@RES_ID and res_repas=@RES_REPAS AND res_uti=@RES_UTI";
                 using (MySqlCommand cmd = new MySqlCommand(requete, cnx))
                 {
