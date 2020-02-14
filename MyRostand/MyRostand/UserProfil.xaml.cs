@@ -43,13 +43,12 @@ namespace MyRostand
                 mdp = UnUser.MDP;
                 rolelibelle = UnUser.Rolelibelle;
             }
-            
+
             StackLayout Layout1 = new StackLayout
             {
-                Orientation = StackOrientation.Horizontal
+                Orientation = StackOrientation.Horizontal,
+                Margin = new Thickness(50, 80, 50, 20)
             };
-
-
             var labelNom = new Label
             {
                 Text = " Nom : ",                
@@ -63,7 +62,8 @@ namespace MyRostand
 
             StackLayout Layout2 = new StackLayout
             {
-                Orientation = StackOrientation.Horizontal
+                Orientation = StackOrientation.Horizontal,
+                Margin = new Thickness(50, 0, 50, 20)
             };
 
             var labelPrenom = new Label
@@ -76,14 +76,10 @@ namespace MyRostand
                 Text = prenom,
                 FontSize = 30
             };
-
-            StackLayout Layout3 = new StackLayout
-            {
-                Orientation = StackOrientation.Horizontal
-            };
             StackLayout Layout4 = new StackLayout
             {
-                Orientation = StackOrientation.Horizontal
+                Orientation = StackOrientation.Horizontal,
+                Margin = new Thickness(50, 0, 50, 20)
             };
 
             var labelTel= new Label
@@ -96,7 +92,8 @@ namespace MyRostand
 
             StackLayout Layout5 = new StackLayout
             {
-                Orientation = StackOrientation.Horizontal
+                Orientation = StackOrientation.Horizontal,
+                Margin = new Thickness(50, 0, 50, 20)
             };
             var labelDateN = new Label
             {
@@ -109,7 +106,8 @@ namespace MyRostand
 
             StackLayout Layout6 = new StackLayout
             {
-                Orientation = StackOrientation.Horizontal
+                Orientation = StackOrientation.Horizontal,
+                Margin = new Thickness(50, 0, 50, 20)
             };
             var labelEMAIL = new Label
             {
@@ -122,7 +120,8 @@ namespace MyRostand
 
             StackLayout Layout7 = new StackLayout
             {
-                Orientation = StackOrientation.Horizontal
+                Orientation = StackOrientation.Horizontal,
+                Margin = new Thickness(50, 0, 50, 20)
             };
             var labelRUE = new Label
             {
@@ -135,7 +134,8 @@ namespace MyRostand
 
             StackLayout Layout8 = new StackLayout
             {
-                Orientation = StackOrientation.Horizontal
+                Orientation = StackOrientation.Horizontal,
+                Margin = new Thickness(50, 0, 50, 20)
             };
             var labelCP = new Label
             {
@@ -148,7 +148,8 @@ namespace MyRostand
 
             StackLayout Layout9 = new StackLayout
             {
-                Orientation = StackOrientation.Horizontal
+                Orientation = StackOrientation.Horizontal,
+                Margin = new Thickness(50, 0, 50, 20)
             };
             var labelVILLE = new Label
             {
@@ -161,7 +162,8 @@ namespace MyRostand
             
             StackLayout Layout10 = new StackLayout
             {
-                Orientation = StackOrientation.Horizontal
+                Orientation = StackOrientation.Horizontal,
+                Margin = new Thickness(50, 0, 50, 20)
             };
             var labelMDP = new Label
             {
@@ -197,7 +199,8 @@ namespace MyRostand
 
             StackLayout Layout11 = new StackLayout
             {
-                Orientation = StackOrientation.Horizontal
+                Orientation = StackOrientation.Horizontal,
+                Margin = new Thickness(50, 0, 50, 20)
             };
             var labelROLE = new Label
             {
@@ -227,7 +230,8 @@ namespace MyRostand
             
             StackLayout Layout12 = new StackLayout
             {
-                Orientation = StackOrientation.Horizontal
+                Orientation = StackOrientation.Horizontal,
+                Margin = new Thickness(50, 0, 50, 20)
             };
             var labelCLASSE = new Label
             {
@@ -740,7 +744,6 @@ namespace MyRostand
                 {
                     Layout1,
                     Layout2,
-                    Layout3,
                     Layout4,
                     Layout5,
                     Layout6,
@@ -762,7 +765,6 @@ namespace MyRostand
                 {
                     Layout1,
                     Layout2,
-                    Layout3,
                     Layout4,
                     Layout5,
                     Layout6,
