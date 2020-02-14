@@ -228,7 +228,7 @@ namespace MyRostand
             Frame framePROFIL = new Frame()
             {
                 Margin = new Thickness(40, 20, 40, 0),
-                BackgroundColor = Color.DarkOrchid,
+                BackgroundColor = Color.FromHex("#15B0D6"),
                 CornerRadius = 10,
                 HasShadow = true
             };
