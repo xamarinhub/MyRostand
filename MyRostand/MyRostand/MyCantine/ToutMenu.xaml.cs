@@ -21,10 +21,10 @@ namespace MyRostand.MyCantine
         Button Cuisto = new Button()
         {
             BackgroundColor = Color.Red,
-            Margin = new Thickness(220, 10, 220, 10),
-            Padding = new Thickness(0, 10, 0, 10),
+            Margin = new Thickness(240, 10, 220, 20),
+            Padding = new Thickness(0, 10, 0, 20),
             Text = "Gestion des quantitées",
-            FontSize = 20,
+            FontSize = 25,
             TextColor = Color.White
         };        
 
@@ -32,7 +32,7 @@ namespace MyRostand.MyCantine
         Label titleviande = new Label
         {
             Text = " Plats de résistance ",
-            FontSize = 30,
+            FontSize = 20,
             HorizontalTextAlignment = TextAlignment.Center,
             VerticalTextAlignment = TextAlignment.Center,
             TextColor = Color.FromHex("#FFFFFF")
@@ -41,12 +41,12 @@ namespace MyRostand.MyCantine
         {
             HorizontalOptions = LayoutOptions.Fill,
             BackgroundColor = Color.FromHex("#27ae60"),
-            HeightRequest = 35,       
+            HeightRequest = 40,       
         };
         Label titleaccomp = new Label
         {
             Text = " Accompagnement ",
-            FontSize = 30,
+            FontSize = 20,
             HorizontalTextAlignment = TextAlignment.Center,
             VerticalTextAlignment = TextAlignment.Center,
             TextColor = Color.FromHex("#FFFFFF")
@@ -55,7 +55,7 @@ namespace MyRostand.MyCantine
         {
             HorizontalOptions = LayoutOptions.Fill,
             BackgroundColor = Color.FromHex("#27ae60"),
-            HeightRequest = 35,
+            HeightRequest = 40,
         };
         StackLayout LayoutViande1 = new StackLayout
         {

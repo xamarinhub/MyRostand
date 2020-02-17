@@ -264,14 +264,30 @@ namespace MyRostand
             blocPROFIL.Children.Add(stackTitrePROFIL);
             framePROFIL.Content = blocPROFIL;
 
+            Button Deconnexion = new Button()
+            {
+                BackgroundColor = Color.Red,
+                Margin = new Thickness(20, 10, 20, 20),
+                Padding = new Thickness(0, 10, 0, 20),
+                Text = "Se Deconnecter",
+                FontSize = 25,
+                TextColor = Color.White
+            };
+            Deconnexion.Clicked += Cuisto_Clicked;
+            async void Cuisto_Clicked(object sender, EventArgs e)
+            {
+                await Navigation.PushAsync(new login());
+            }
 
-                /*==================================================================*/
-                /*============================CONTENT===============================*/
-                /*==================================================================*/
+
+            /*==================================================================*/
+            /*============================CONTENT===============================*/
+            /*==================================================================*/
             stackPrincipal.Children.Add(LogoAccueil);
             stackPrincipal.Children.Add(frameCantine);
             stackPrincipal.Children.Add(frameCovoit);
             stackPrincipal.Children.Add(frameSonnerie);
+            stackPrincipal.Children.Add(Deconnexion);
             List<User> LeUser = Database.MyCantineSQL.UnUser(id);
             for (int i = 0; i < LeUser.Count; i++)
             {
