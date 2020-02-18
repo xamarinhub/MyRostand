@@ -579,7 +579,7 @@ namespace MyRostand.MyCantine
                 HorizontalTextAlignment = TextAlignment.Center,
                 VerticalTextAlignment = TextAlignment.Center,
                 Text = "Nombres d'Eleves Absents",
-                FontSize = 20,
+                FontSize = 10,
                 TextColor = Color.White
             };
 

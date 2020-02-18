@@ -17,8 +17,11 @@ namespace MyRostand
     [DesignTimeVisible(false)]
     public partial class MainPage : ContentPage
     {
+        Frame menuStack = new Frame();
         public MainPage()
         {
+            Frame frameboutton = new Frame();
+            StackLayout stackButton = new StackLayout();
             InitializeComponent();
             Title = "MyRostand - Accueil";
             var value = Application.Current.Properties["AppUser"];
@@ -279,29 +282,42 @@ namespace MyRostand
                 await Navigation.PushAsync(new login());
             }
 
-
+            ScrollView VerticalScroll = new ScrollView()
+            {
+                Orientation = ScrollOrientation.Vertical,
+                HeightRequest = 1800,
+            };
             /*==================================================================*/
             /*============================CONTENT===============================*/
             /*==================================================================*/
+            stackButton.Children.Add(frameCantine);
+            stackButton.Children.Add(frameCovoit);
+            stackButton.Children.Add(frameSonnerie);
+            stackButton.Children.Add(framePROFIL);
+           
+
+           
             stackPrincipal.Children.Add(LogoAccueil);
-            stackPrincipal.Children.Add(frameCantine);
-            stackPrincipal.Children.Add(frameCovoit);
-            stackPrincipal.Children.Add(frameSonnerie);
-            stackPrincipal.Children.Add(Deconnexion);
+           
             List<User> LeUser = Database.MyCantineSQL.UnUser(id);
             for (int i = 0; i < LeUser.Count; i++)
             {
                 User UnUser = LeUser[i];
                 if (UnUser.Role == 3)
                 {
-                    stackPrincipal.Children.Add(frameCUISINE);
+                    stackButton.Children.Add(frameCUISINE);
                 }
                 else
                 {
-
+                    
                 }
             }
-            stackPrincipal.Children.Add(framePROFIL);
+            stackButton.Children.Add(Deconnexion);
+            frameboutton.Content = stackButton;
+            menuStack.Content = frameboutton;
+            VerticalScroll.Content = menuStack;
+
+            stackPrincipal.Children.Add(VerticalScroll);
             Content = stackPrincipal;
         }
     }

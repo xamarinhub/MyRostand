@@ -19,6 +19,18 @@ namespace MyRostand
         {
             InitializeComponent();
             NavigationPage.SetHasNavigationBar(this, false);
+            ScrollView scroll = new ScrollView();
+
+            ScrollView VerticalScroll = new ScrollView()
+            {
+                Orientation = ScrollOrientation.Vertical,
+                HeightRequest = 1800,
+            };
+
+            StackLayout jourScroll = new StackLayout()
+            {
+                Orientation = StackOrientation.Horizontal
+            };
 
             StackLayout stackPrincipal = new StackLayout()
             {
@@ -40,7 +52,7 @@ namespace MyRostand
                 HeightRequest = 35,
              
                 Padding = new Thickness(0,0,0,20),
-                 Margin = new Thickness(0, 0, 0, 300)
+                 Margin = new Thickness(0, 0, 0, 0)
             };
             Label titre2 = new Label()
             {
@@ -66,8 +78,7 @@ namespace MyRostand
             StackLayout Layout1 = new StackLayout
             {
                 Orientation = StackOrientation.Horizontal,
-                Padding = new Thickness(0, 20, 0, 20),
-                Margin = new Thickness(115, 0, 80, 0)
+                Padding = new Thickness(0, 20, 0, 20)
             };
             var label1 = new Label
             {
@@ -78,8 +89,7 @@ namespace MyRostand
             var MyEntryID = new Entry { Text = "", Placeholder = "Identifiant                                                        " };
             StackLayout Layout2 = new StackLayout
             {
-                Orientation = StackOrientation.Horizontal,
-                Margin = new Thickness(80, 0, 80, 0)
+                Orientation = StackOrientation.Horizontal
             };
             var label2 = new Label
             {
@@ -95,7 +105,6 @@ namespace MyRostand
                 BackgroundColor = Color.FromHex("#27ae60"),
                 CornerRadius = 10,
                 Text = "Se connecter",
-                Margin = new Thickness(220, 10, 220, 10),
                 Padding = new Thickness(0, 10, 0, 10),
                 TextColor = Color.White
             };
@@ -137,6 +146,7 @@ namespace MyRostand
             Layout2.Children.Add(label2);
             Layout2.Children.Add(MyEntryMDP);
             menuStack2.Children.Add(Layout2);
+
 
             this.Content = new StackLayout
             {
