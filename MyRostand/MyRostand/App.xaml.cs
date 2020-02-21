@@ -12,6 +12,9 @@ namespace MyRostand
         {
             InitializeComponent();
             chargement();
+            DependencyService.Get<INotificationManager>().Initialize();
+
+            MainPage = new MainPage();
         }
 
         protected async void chargement()

@@ -21,8 +21,6 @@ namespace MyRostand.MyCantine
         Button Cuisto = new Button()
         {
             BackgroundColor = Color.Red,
-            Margin = new Thickness(240, 10, 220, 20),
-            Padding = new Thickness(0, 10, 0, 20),
             Text = "Gestion des quantitées",
             FontSize = 25,
             TextColor = Color.White
@@ -619,7 +617,8 @@ namespace MyRostand.MyCantine
                 Children =
                 {
                     barJours,
-                    menuStack
+                    menuStack,
+                    Cuisto
                 }
             };
 

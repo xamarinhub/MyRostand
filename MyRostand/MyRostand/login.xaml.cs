@@ -15,9 +15,19 @@ namespace MyRostand
     {
         StackLayout menuStack = new StackLayout();
         StackLayout menuStack2 = new StackLayout();
+        INotificationManager notificationManager;
+        int notificationNumber = 0;
         public login()
         {
             InitializeComponent();
+
+
+            notificationManager = DependencyService.Get<INotificationManager>();
+            notificationManager.NotificationReceived += (sender, eventArgs) =>
+            {
+                var evtData = (NotificationEventArgs)eventArgs;
+            };
+
             NavigationPage.SetHasNavigationBar(this, false);
             ScrollView scroll = new ScrollView();
 
@@ -108,9 +118,11 @@ namespace MyRostand
                 Padding = new Thickness(0, 10, 0, 10),
                 TextColor = Color.White
             };
-
+            StackLayout stackLayout = new StackLayout()
+            {
+                Padding = new Thickness(0, 40, 0, 0),
+            };
             connexion.Clicked += Connexion_Clicked;
-
             async void Connexion_Clicked(object sender, EventArgs e)
             {
                 String Valide = Database.MyCantineSQL.ConnexionUser(MyEntryID.Text);
@@ -120,7 +132,19 @@ namespace MyRostand
                     if (Valide == MDP)
                     {
                         Application.Current.Properties["AppUser"] = MyEntryID.Text;
-                        await Navigation.PushAsync(new MainPage());                       
+                        await Navigation.PushAsync(new MainPage());
+                        notificationNumber++;
+                        string title = $"Notification MyCantine";
+                        string message = $"N'oubliez pas de réserver vos futurs repas";
+                        notificationManager.ScheduleNotification(title, message);
+                        Device.BeginInvokeOnMainThread(() =>
+                        {
+                            var msg = new Label()
+                            {
+                                Text = $"Notification Received:\nTitle: {title}\nMessage: {message}"
+                            };
+                            stackLayout.Children.Add(msg);
+                        });
                     }
                     else
                     {
@@ -146,6 +170,7 @@ namespace MyRostand
             Layout2.Children.Add(label2);
             Layout2.Children.Add(MyEntryMDP);
             menuStack2.Children.Add(Layout2);
+                      
 
 
             this.Content = new StackLayout

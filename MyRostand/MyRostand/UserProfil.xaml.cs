@@ -115,7 +115,7 @@ namespace MyRostand
                 VerticalTextAlignment = TextAlignment.Center,
                 FontSize = 20
             };
-            var MyEntryEMAIL = new Entry { Text = "", Placeholder = mail + "                             ", FontSize = 20 };
+            var MyEntryEMAIL = new Entry { Text = "", Placeholder = mail + "                            ", FontSize = 20 };
 
 
             StackLayout Layout7 = new StackLayout

@@ -6,6 +6,4 @@
              mc:Ignorable="d"
              x:Class="MyRostand.MainPage"
              NavigationPage.HasNavigationBar="false">
-
-
 </ContentPage>

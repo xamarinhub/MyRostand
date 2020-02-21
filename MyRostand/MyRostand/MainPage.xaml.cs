@@ -18,11 +18,18 @@ namespace MyRostand
     public partial class MainPage : ContentPage
     {
         Frame menuStack = new Frame();
+
+
+
         public MainPage()
         {
             Frame frameboutton = new Frame();
             StackLayout stackButton = new StackLayout();
             InitializeComponent();
+
+
+
+
             Title = "MyRostand - Accueil";
             var value = Application.Current.Properties["AppUser"];
             String id = value.ToString();
@@ -45,11 +52,11 @@ namespace MyRostand
             {
                 Source = "myrostandaccueil.jpg"
             };
-        /*==================================================================*/
-        /*==========================MY CANTINE==============================*/
-        /*==================================================================*/
+            /*==================================================================*/
+            /*==========================MY CANTINE==============================*/
+            /*==================================================================*/
 
-        Frame frameCantine = new Frame()
+            Frame frameCantine = new Frame()
             {
                 Margin = new Thickness(40, 20, 40, 0),
                 BackgroundColor = Color.FromHex("#27ae60"),
@@ -231,14 +238,14 @@ namespace MyRostand
             Frame framePROFIL = new Frame()
             {
                 Margin = new Thickness(40, 20, 40, 0),
-                BackgroundColor = Color.FromHex("#15B0D6"),
+                BackgroundColor = Color.FromHex("#FF8B00"),
                 CornerRadius = 10,
                 HasShadow = true
             };
             var tapPROFIL = new TapGestureRecognizer();
             tapPROFIL.Tapped += (s, e) =>
             {
-                   Navigation.PushAsync(new UserProfil());
+                Navigation.PushAsync(new UserProfil());
             };
             framePROFIL.GestureRecognizers.Add(tapPROFIL);
 
@@ -294,11 +301,11 @@ namespace MyRostand
             stackButton.Children.Add(frameCovoit);
             stackButton.Children.Add(frameSonnerie);
             stackButton.Children.Add(framePROFIL);
-           
 
-           
+
+
             stackPrincipal.Children.Add(LogoAccueil);
-           
+
             List<User> LeUser = Database.MyCantineSQL.UnUser(id);
             for (int i = 0; i < LeUser.Count; i++)
             {
@@ -309,7 +316,7 @@ namespace MyRostand
                 }
                 else
                 {
-                    
+
                 }
             }
             stackButton.Children.Add(Deconnexion);
@@ -319,6 +326,7 @@ namespace MyRostand
 
             stackPrincipal.Children.Add(VerticalScroll);
             Content = stackPrincipal;
+
         }
     }
 }
