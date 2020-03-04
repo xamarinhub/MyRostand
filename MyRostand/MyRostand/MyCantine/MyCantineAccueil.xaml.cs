@@ -402,11 +402,11 @@ namespace MyRostand.MyCantine
                         Padding = new Thickness(0, 10, 0, -10),
                         StyleId = 0 + "",
                         ClassId = cou + "",
-                        Text = uneResistance.Libelle + "\n" + idrepas + idReservationMenu + idutilisateur + uneResistance.Id,
+                        Text = uneResistance.Libelle + "\n",
                         FontSize = 16
                     };
                     var idbouton = boutonResistance.Id;
-                    boutonResistance.Text = uneResistance.Libelle + "\n" + idrepas + idReservationMenu + idutilisateur + uneResistance.Id + "\n" + idbouton;
+                    boutonResistance.Text = uneResistance.Libelle + "\n";
                     stackCardResistance.Children.Add(boutonResistance);
                     string textbouton = boutonResistance.Text;
                     if (RequeteResistance > 0 && RequeteResistance == idresistance)
@@ -577,14 +577,14 @@ namespace MyRostand.MyCantine
                         string textuncheck = textbouton;
                         boutonAccompagnement.BackgroundColor = Color.LightGreen;
                         boutonAccompagnement.Text = "vide";
-                        boutonAccompagnement.Text = textuncheck + acc1.ToString() + acc2.ToString() + acc3.ToString() + acc4.ToString();
+                        boutonAccompagnement.Text = textuncheck;
                     }
                     else
                     {
                         string textchecked = textbouton;
                         boutonAccompagnement.BackgroundColor = Color.LightGray;
                         boutonAccompagnement.Text = "vide2";
-                        boutonAccompagnement.Text = textchecked + acc1 + acc2 + acc3 + acc4;
+                        boutonAccompagnement.Text = textchecked;
                     }
 
                     /*-------------------------------------------------------*/

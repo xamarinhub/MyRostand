@@ -7,6 +7,7 @@
 
   <ItemGroup>
     <Compile Remove="MyCantine\MenuDuJour.xaml.cs" />
+    <Compile Remove="RGPD.cs" />
   </ItemGroup>
 
   <ItemGroup>

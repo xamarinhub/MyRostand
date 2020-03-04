@@ -114,8 +114,9 @@ namespace MyRostand
             {
                 BackgroundColor = Color.FromHex("#27ae60"),
                 CornerRadius = 10,
-                Text = "Se connecter",
+                Text = "Se Connecter",
                 Padding = new Thickness(0, 10, 0, 10),
+                Margin = new Thickness(0, 10, 0, 10),
                 TextColor = Color.White
             };
             StackLayout stackLayout = new StackLayout()
@@ -125,15 +126,14 @@ namespace MyRostand
             connexion.Clicked += Connexion_Clicked;
             async void Connexion_Clicked(object sender, EventArgs e)
             {
-                String Valide = Database.MyCantineSQL.ConnexionUser(MyEntryID.Text);
-                String MDP = MyEntryMDP.Text;
+                int Valide = Database.MySQL.ConnexionUser(MyEntryID.Text, MyEntryMDP.Text);
                 if (MyEntryMDP.Text != "" && MyEntryMDP.Text != "")
                 {
-                    if (Valide == MDP)
+
+                    if (Valide == 1)
                     {
                         Application.Current.Properties["AppUser"] = MyEntryID.Text;
                         await Navigation.PushAsync(new MainPage());
-                        notificationNumber++;
                         string title = $"Notification MyCantine";
                         string message = $"N'oubliez pas de réserver vos futurs repas";
                         notificationManager.ScheduleNotification(title, message);
@@ -146,7 +146,7 @@ namespace MyRostand
                             stackLayout.Children.Add(msg);
                         });
                     }
-                    else
+                    else 
                     {
                         await Navigation.PushAsync(new login());
                     }

@@ -28,7 +28,7 @@ namespace MyRostand
             String ville = "";
             String mdp = "";
             String rolelibelle = "";
-            List<User> LeUser = Database.MyCantineSQL.UnUser(id);
+            List<User> LeUser = Database.MyProfil.UnUser(id);
             for (int i = 0; i < LeUser.Count; i++)
             {
                 User UnUser = LeUser[i];
@@ -296,19 +296,19 @@ namespace MyRostand
                
                     if (MyEntryTel.Text != "" && MyEntryTel.Text.Length == 10)
                     {
-                    Database.MyCantineSQL.setUnTelephone(MyEntryTel.Text, id);
+                    Database.MyProfil.setUnTelephone(MyEntryTel.Text, id);
                         if (MyEntryRue.Text != "" && MyEntryRue.Text != rue)
                         {
-                            Database.MyCantineSQL.setUneRue(MyEntryRue.Text, id);
+                            Database.MyProfil.setUneRue(MyEntryRue.Text, id);
                             if (MyEntryCP.Text != "" && MyEntryCP.Text != codpost)
                             {
-                                Database.MyCantineSQL.setUnCodePost(MyEntryCP.Text, id);
+                                Database.MyProfil.setUnCodePost(MyEntryCP.Text, id);
                                 if (MyEntryVILLE.Text != "" && MyEntryVILLE.Text != ville)
                                 {
-                                    Database.MyCantineSQL.setUneVille(MyEntryVILLE.Text, id);
+                                    Database.MyProfil.setUneVille(MyEntryVILLE.Text, id);
                                     if (MyEntryEMAIL.Text != "" && MyEntryEMAIL.Text != id)
                                     {
-                                    Database.MyCantineSQL.setUnEmail(MyEntryEMAIL.Text, id);
+                                    Database.MyProfil.setUnEmail(MyEntryEMAIL.Text, id);
                                     Application.Current.Properties["AppUser"] = MyEntryEMAIL.Text;
                                     value = Application.Current.Properties["AppUser"];
                                     id = value.ToString();
@@ -316,7 +316,7 @@ namespace MyRostand
                                 }
                                 if (MyEntryEMAIL.Text != "" && MyEntryEMAIL.Text != id)
                                 {
-                                Database.MyCantineSQL.setUnEmail(MyEntryEMAIL.Text, id);
+                                Database.MyProfil.setUnEmail(MyEntryEMAIL.Text, id);
                                 Application.Current.Properties["AppUser"] = MyEntryEMAIL.Text;
                                 value = Application.Current.Properties["AppUser"];
                                 id = value.ToString();
@@ -325,25 +325,25 @@ namespace MyRostand
                         }
                         if (MyEntryCP.Text != "" && MyEntryCP.Text != codpost)
                         {
-                            Database.MyCantineSQL.setUnCodePost(MyEntryCP.Text, id);
+                            Database.MyProfil.setUnCodePost(MyEntryCP.Text, id);
                             if (MyEntryEMAIL.Text != "" && MyEntryEMAIL.Text != id)
                             {
-                            Database.MyCantineSQL.setUnEmail(MyEntryEMAIL.Text, id);
+                            Database.MyProfil.setUnEmail(MyEntryEMAIL.Text, id);
                             Application.Current.Properties["AppUser"] = MyEntryEMAIL.Text;
                             value = Application.Current.Properties["AppUser"];
                             id = value.ToString();
                             if (MyEntryVILLE.Text != "" && MyEntryVILLE.Text != ville)
                             {
-                                Database.MyCantineSQL.setUneVille(MyEntryVILLE.Text, id);
+                                Database.MyProfil.setUneVille(MyEntryVILLE.Text, id);
                             }
                             }
                         }
                         if (MyEntryVILLE.Text != "" && MyEntryVILLE.Text != ville)
                         {
-                            Database.MyCantineSQL.setUneVille(MyEntryVILLE.Text, id);
+                            Database.MyProfil.setUneVille(MyEntryVILLE.Text, id);
                             if (MyEntryEMAIL.Text != "" && MyEntryEMAIL.Text != id)
                             {
-                            Database.MyCantineSQL.setUnEmail(MyEntryEMAIL.Text, id);
+                            Database.MyProfil.setUnEmail(MyEntryEMAIL.Text, id);
                             Application.Current.Properties["AppUser"] = MyEntryEMAIL.Text;
                             value = Application.Current.Properties["AppUser"];
                             id = value.ToString();
@@ -351,16 +351,16 @@ namespace MyRostand
                         }
                         if (MyEntryEMAIL.Text != "" && MyEntryEMAIL.Text != id)
                         {
-                            Database.MyCantineSQL.setUnEmail(MyEntryEMAIL.Text, id);
+                            Database.MyProfil.setUnEmail(MyEntryEMAIL.Text, id);
                             Application.Current.Properties["AppUser"] = MyEntryEMAIL.Text;
                         value = Application.Current.Properties["AppUser"];
                         id = value.ToString();
                         if (MyEntryCP.Text != "" && MyEntryCP.Text != codpost)
                             {
-                            Database.MyCantineSQL.setUnCodePost(MyEntryCP.Text, id);
+                            Database.MyProfil.setUnCodePost(MyEntryCP.Text, id);
                                 if (MyEntryVILLE.Text != "" && MyEntryVILLE.Text != ville)
                                 {
-                                Database.MyCantineSQL.setUneVille(MyEntryVILLE.Text, id);
+                                Database.MyProfil.setUneVille(MyEntryVILLE.Text, id);
                                 
                                 }
                             }
@@ -368,370 +368,370 @@ namespace MyRostand
                         }
                     if (MyEntryRue.Text != "" && MyEntryRue.Text != rue)
                     {
-                        Database.MyCantineSQL.setUneRue(MyEntryRue.Text, id);
+                        Database.MyProfil.setUneRue(MyEntryRue.Text, id);
                         if (MyEntryCP.Text != "" && MyEntryCP.Text != codpost)
                         {
-                            Database.MyCantineSQL.setUnCodePost(MyEntryCP.Text, id);
+                            Database.MyProfil.setUnCodePost(MyEntryCP.Text, id);
                             if (MyEntryVILLE.Text != "" && MyEntryVILLE.Text != ville)
                             {
-                                Database.MyCantineSQL.setUneVille(MyEntryVILLE.Text, id);
+                                Database.MyProfil.setUneVille(MyEntryVILLE.Text, id);
                                 if (MyEntryMDP.Text != "" && MyEntryMDP.Text != id)
                                 {
-                                    Database.MyCantineSQL.setUnMDP(MyEntryMDP.Text, id);
+                                    Database.MyProfil.setUnMDP(MyEntryMDP.Text, id);
                                 }
                             }
                             if (MyEntryEMAIL.Text != "" && MyEntryEMAIL.Text != id)
                             {
-                                Database.MyCantineSQL.setUnEmail(MyEntryEMAIL.Text, id);
+                                Database.MyProfil.setUnEmail(MyEntryEMAIL.Text, id);
                                 Application.Current.Properties["AppUser"] = MyEntryEMAIL.Text;
                                 value = Application.Current.Properties["AppUser"];
                                 id = value.ToString();
                                 if (MyEntryMDP.Text != "" && MyEntryMDP.Text != id)
                                 {
-                                    Database.MyCantineSQL.setUnMDP(MyEntryMDP.Text, id);
+                                    Database.MyProfil.setUnMDP(MyEntryMDP.Text, id);
                                 }
                             }
                             if (MyEntryMDP.Text != "" && MyEntryMDP.Text != id)
                             {
-                                Database.MyCantineSQL.setUnMDP(MyEntryMDP.Text, id);
+                                Database.MyProfil.setUnMDP(MyEntryMDP.Text, id);
                             }
                         }
 
                         if (MyEntryVILLE.Text != "" && MyEntryVILLE.Text != ville)
                         {
-                            Database.MyCantineSQL.setUneVille(MyEntryVILLE.Text, id);
+                            Database.MyProfil.setUneVille(MyEntryVILLE.Text, id);
                             if (MyEntryMDP.Text != "" && MyEntryMDP.Text != id)
                             {
-                                Database.MyCantineSQL.setUnMDP(MyEntryMDP.Text, id);
+                                Database.MyProfil.setUnMDP(MyEntryMDP.Text, id);
                             }
                         }
                         if (MyEntryEMAIL.Text != "" && MyEntryEMAIL.Text != id)
                         {
-                            Database.MyCantineSQL.setUnEmail(MyEntryEMAIL.Text, id);
+                            Database.MyProfil.setUnEmail(MyEntryEMAIL.Text, id);
                             Application.Current.Properties["AppUser"] = MyEntryEMAIL.Text;
                             value = Application.Current.Properties["AppUser"];
                             id = value.ToString();
                             if (MyEntryMDP.Text != "" && MyEntryMDP.Text != id)
                             {
-                                Database.MyCantineSQL.setUnMDP(MyEntryMDP.Text, id);
+                                Database.MyProfil.setUnMDP(MyEntryMDP.Text, id);
                             }
                         }
                         if (MyEntryMDP.Text != "" && MyEntryMDP.Text != id)
                         {
-                            Database.MyCantineSQL.setUnMDP(MyEntryMDP.Text, id);
+                            Database.MyProfil.setUnMDP(MyEntryMDP.Text, id);
                         }
                     }
                     if (MyEntryCP.Text != "" && MyEntryCP.Text != codpost)
                     {
-                        Database.MyCantineSQL.setUnCodePost(MyEntryCP.Text, id);
+                        Database.MyProfil.setUnCodePost(MyEntryCP.Text, id);
                         if (MyEntryVILLE.Text != "" && MyEntryVILLE.Text != ville)
                         {
-                            Database.MyCantineSQL.setUneVille(MyEntryVILLE.Text, id);
+                            Database.MyProfil.setUneVille(MyEntryVILLE.Text, id);
                             if (MyEntryMDP.Text != "" && MyEntryMDP.Text != id)
                             {
-                                Database.MyCantineSQL.setUnMDP(MyEntryMDP.Text, id);
+                                Database.MyProfil.setUnMDP(MyEntryMDP.Text, id);
                             }
                         }
                         if (MyEntryMDP.Text != "" && MyEntryMDP.Text != id)
                         {
-                            Database.MyCantineSQL.setUnMDP(MyEntryMDP.Text, id);
+                            Database.MyProfil.setUnMDP(MyEntryMDP.Text, id);
                         }
                         if (MyEntryEMAIL.Text != "" && MyEntryEMAIL.Text != id)
                         {
-                            Database.MyCantineSQL.setUnEmail(MyEntryEMAIL.Text, id);
+                            Database.MyProfil.setUnEmail(MyEntryEMAIL.Text, id);
                             Application.Current.Properties["AppUser"] = MyEntryEMAIL.Text;
                             value = Application.Current.Properties["AppUser"];
                             id = value.ToString();
                             if (MyEntryMDP.Text != "" && MyEntryMDP.Text != id)
                             {
-                                Database.MyCantineSQL.setUnMDP(MyEntryMDP.Text, id);
+                                Database.MyProfil.setUnMDP(MyEntryMDP.Text, id);
                             }
                         }
                         if (MyEntryMDP.Text != "" && MyEntryMDP.Text != id)
                         {
-                            Database.MyCantineSQL.setUnMDP(MyEntryMDP.Text, id);
+                            Database.MyProfil.setUnMDP(MyEntryMDP.Text, id);
                         }
                     }
                     if (MyEntryVILLE.Text != "" && MyEntryVILLE.Text != ville)
                     {
-                        Database.MyCantineSQL.setUneVille(MyEntryVILLE.Text, id);
+                        Database.MyProfil.setUneVille(MyEntryVILLE.Text, id);
                         if (MyEntryEMAIL.Text != "" && MyEntryEMAIL.Text != id)
                         {
-                            Database.MyCantineSQL.setUnEmail(MyEntryEMAIL.Text, id);
+                            Database.MyProfil.setUnEmail(MyEntryEMAIL.Text, id);
                             Application.Current.Properties["AppUser"] = MyEntryEMAIL.Text;
                             value = Application.Current.Properties["AppUser"];
                             id = value.ToString();
                             if (MyEntryMDP.Text != "" && MyEntryMDP.Text != id)
                             {
-                                Database.MyCantineSQL.setUnMDP(MyEntryMDP.Text, id);
+                                Database.MyProfil.setUnMDP(MyEntryMDP.Text, id);
                             }
                         }
                         if (MyEntryMDP.Text != "" && MyEntryMDP.Text != id)
                         {
-                            Database.MyCantineSQL.setUnMDP(MyEntryMDP.Text, id);
+                            Database.MyProfil.setUnMDP(MyEntryMDP.Text, id);
                         }
                     }
                     if (MyEntryEMAIL.Text != "" && MyEntryEMAIL.Text != id)
                     {
-                        Database.MyCantineSQL.setUnEmail(MyEntryEMAIL.Text, id);
+                        Database.MyProfil.setUnEmail(MyEntryEMAIL.Text, id);
                         Application.Current.Properties["AppUser"] = MyEntryEMAIL.Text;
                         value = Application.Current.Properties["AppUser"];
                         id = value.ToString();
                         if (MyEntryMDP.Text != "" && MyEntryMDP.Text != id)
                         {
-                            Database.MyCantineSQL.setUnMDP(MyEntryMDP.Text, id);
+                            Database.MyProfil.setUnMDP(MyEntryMDP.Text, id);
                         }
                     }
                     if (MyEntryMDP.Text != "" && MyEntryMDP.Text != id)
                     {
-                        Database.MyCantineSQL.setUnMDP(MyEntryMDP.Text, id);
+                        Database.MyProfil.setUnMDP(MyEntryMDP.Text, id);
                     }
                 }
                 if (MyEntryTel.Text != "" && MyEntryTel.Text.Length == 10)
                 {
-                    Database.MyCantineSQL.setUnTelephone(MyEntryTel.Text, id);
+                    Database.MyProfil.setUnTelephone(MyEntryTel.Text, id);
                     if (MyEntryRue.Text != "" && MyEntryRue.Text != rue)
                     {
-                        Database.MyCantineSQL.setUneRue(MyEntryRue.Text, id);
+                        Database.MyProfil.setUneRue(MyEntryRue.Text, id);
                         if (MyEntryCP.Text != "" && MyEntryCP.Text != codpost)
                         {
-                            Database.MyCantineSQL.setUnCodePost(MyEntryCP.Text, id);
+                            Database.MyProfil.setUnCodePost(MyEntryCP.Text, id);
                             if (MyEntryVILLE.Text != "" && MyEntryVILLE.Text != ville)
                             {
-                                Database.MyCantineSQL.setUneVille(MyEntryVILLE.Text, id);
+                                Database.MyProfil.setUneVille(MyEntryVILLE.Text, id);
                                 if (MyEntryEMAIL.Text != "" && MyEntryEMAIL.Text != id)
                                 {
-                                    Database.MyCantineSQL.setUnEmail(MyEntryEMAIL.Text, id);
+                                    Database.MyProfil.setUnEmail(MyEntryEMAIL.Text, id);
                                     Application.Current.Properties["AppUser"] = MyEntryEMAIL.Text;
                                     value = Application.Current.Properties["AppUser"];
                                     id = value.ToString();
                                     if (MyEntryMDP.Text != "" && MyEntryMDP.Text != id)
                                     {
-                                        Database.MyCantineSQL.setUnMDP(MyEntryMDP.Text, id);
+                                        Database.MyProfil.setUnMDP(MyEntryMDP.Text, id);
                                     }
                                 }
                                 if (MyEntryMDP.Text != "" && MyEntryMDP.Text != id)
                                 {
-                                    Database.MyCantineSQL.setUnMDP(MyEntryMDP.Text, id);
+                                    Database.MyProfil.setUnMDP(MyEntryMDP.Text, id);
                                 }
                             }
                             if (MyEntryMDP.Text != "" && MyEntryMDP.Text != id)
                             {
-                                Database.MyCantineSQL.setUnMDP(MyEntryMDP.Text, id);
+                                Database.MyProfil.setUnMDP(MyEntryMDP.Text, id);
                             }
                         }
                         if (MyEntryVILLE.Text != "" && MyEntryVILLE.Text != ville)
                         {
-                            Database.MyCantineSQL.setUneVille(MyEntryVILLE.Text, id);
+                            Database.MyProfil.setUneVille(MyEntryVILLE.Text, id);
                             if (MyEntryEMAIL.Text != "" && MyEntryEMAIL.Text != id)
                             {
-                                Database.MyCantineSQL.setUnEmail(MyEntryEMAIL.Text, id);
+                                Database.MyProfil.setUnEmail(MyEntryEMAIL.Text, id);
                                 Application.Current.Properties["AppUser"] = MyEntryEMAIL.Text;
                                 value = Application.Current.Properties["AppUser"];
                                 id = value.ToString();
                                 if (MyEntryMDP.Text != "" && MyEntryMDP.Text != id)
                                 {
-                                    Database.MyCantineSQL.setUnMDP(MyEntryMDP.Text, id);
+                                    Database.MyProfil.setUnMDP(MyEntryMDP.Text, id);
                                 }
                             }
                             if (MyEntryMDP.Text != "" && MyEntryMDP.Text != id)
                             {
-                                Database.MyCantineSQL.setUnMDP(MyEntryMDP.Text, id);
+                                Database.MyProfil.setUnMDP(MyEntryMDP.Text, id);
                             }
                         }
                         if (MyEntryMDP.Text != "" && MyEntryMDP.Text != id)
                         {
-                            Database.MyCantineSQL.setUnMDP(MyEntryMDP.Text, id);
+                            Database.MyProfil.setUnMDP(MyEntryMDP.Text, id);
                         }
                     }
                     if (MyEntryCP.Text != "" && MyEntryCP.Text != codpost)
                     {
-                        Database.MyCantineSQL.setUnCodePost(MyEntryCP.Text, id);
+                        Database.MyProfil.setUnCodePost(MyEntryCP.Text, id);
                         if (MyEntryVILLE.Text != "" && MyEntryVILLE.Text != ville)
                         {
-                            Database.MyCantineSQL.setUneVille(MyEntryVILLE.Text, id);
+                            Database.MyProfil.setUneVille(MyEntryVILLE.Text, id);
                             if (MyEntryEMAIL.Text != "" && MyEntryEMAIL.Text != id)
                             {
-                                Database.MyCantineSQL.setUnEmail(MyEntryEMAIL.Text, id);
+                                Database.MyProfil.setUnEmail(MyEntryEMAIL.Text, id);
                                 Application.Current.Properties["AppUser"] = MyEntryEMAIL.Text;
                                 value = Application.Current.Properties["AppUser"];
                                 id = value.ToString();
                                 if (MyEntryMDP.Text != "" && MyEntryMDP.Text != id)
                                 {
-                                    Database.MyCantineSQL.setUnMDP(MyEntryMDP.Text, id);
+                                    Database.MyProfil.setUnMDP(MyEntryMDP.Text, id);
                                 }
                             }
                             if (MyEntryMDP.Text != "" && MyEntryMDP.Text != id)
                             {
-                                Database.MyCantineSQL.setUnMDP(MyEntryMDP.Text, id);
+                                Database.MyProfil.setUnMDP(MyEntryMDP.Text, id);
                             }
                         }
                         if (MyEntryMDP.Text != "" && MyEntryMDP.Text != id)
                         {
-                            Database.MyCantineSQL.setUnMDP(MyEntryMDP.Text, id);
+                            Database.MyProfil.setUnMDP(MyEntryMDP.Text, id);
                         }
                     }
                     if (MyEntryVILLE.Text != "" && MyEntryVILLE.Text != ville)
                     {
-                        Database.MyCantineSQL.setUneVille(MyEntryVILLE.Text, id);
+                        Database.MyProfil.setUneVille(MyEntryVILLE.Text, id);
                         if (MyEntryEMAIL.Text != "" && MyEntryEMAIL.Text != id)
                         {
-                            Database.MyCantineSQL.setUnEmail(MyEntryEMAIL.Text, id);
+                            Database.MyProfil.setUnEmail(MyEntryEMAIL.Text, id);
                             Application.Current.Properties["AppUser"] = MyEntryEMAIL.Text;
                             if (MyEntryMDP.Text != "" && MyEntryMDP.Text != id)
                             {
-                                Database.MyCantineSQL.setUnMDP(MyEntryMDP.Text, id);
+                                Database.MyProfil.setUnMDP(MyEntryMDP.Text, id);
                             }
                         }
                         if (MyEntryMDP.Text != "" && MyEntryMDP.Text != id)
                         {
-                            Database.MyCantineSQL.setUnMDP(MyEntryMDP.Text, id);
+                            Database.MyProfil.setUnMDP(MyEntryMDP.Text, id);
                         }
                     }
                     if (MyEntryEMAIL.Text != "" && MyEntryEMAIL.Text != id)
                     {
-                        Database.MyCantineSQL.setUnEmail(MyEntryEMAIL.Text, id);
+                        Database.MyProfil.setUnEmail(MyEntryEMAIL.Text, id);
                         Application.Current.Properties["AppUser"] = MyEntryEMAIL.Text;
                         value = Application.Current.Properties["AppUser"];
                         id = value.ToString();
                         if (MyEntryMDP.Text != "" && MyEntryMDP.Text != id)
                         {
-                            Database.MyCantineSQL.setUnMDP(MyEntryMDP.Text, id);
+                            Database.MyProfil.setUnMDP(MyEntryMDP.Text, id);
                         }
                     }
                     if (MyEntryMDP.Text != "" && MyEntryMDP.Text != id)
                     {
-                        Database.MyCantineSQL.setUnMDP(MyEntryMDP.Text, id);
+                        Database.MyProfil.setUnMDP(MyEntryMDP.Text, id);
                     }
                 }
                 if (MyEntryRue.Text != "" && MyEntryRue.Text != rue)
                 {
-                    Database.MyCantineSQL.setUneRue(MyEntryRue.Text, id);
+                    Database.MyProfil.setUneRue(MyEntryRue.Text, id);
                     if (MyEntryCP.Text != "" && MyEntryCP.Text != codpost)
                     {
-                        Database.MyCantineSQL.setUnCodePost(MyEntryCP.Text, id);
+                        Database.MyProfil.setUnCodePost(MyEntryCP.Text, id);
                         if (MyEntryVILLE.Text != "" && MyEntryVILLE.Text != ville)
                         {
-                            Database.MyCantineSQL.setUneVille(MyEntryVILLE.Text, id);
+                            Database.MyProfil.setUneVille(MyEntryVILLE.Text, id);
                             if (MyEntryEMAIL.Text != "" && MyEntryEMAIL.Text != id)
                             {
-                                Database.MyCantineSQL.setUnEmail(MyEntryEMAIL.Text, id);
+                                Database.MyProfil.setUnEmail(MyEntryEMAIL.Text, id);
                                 Application.Current.Properties["AppUser"] = MyEntryEMAIL.Text;
                                 value = Application.Current.Properties["AppUser"];
                                 id = value.ToString();
                                 if (MyEntryMDP.Text != "" && MyEntryMDP.Text != id)
                                 {
-                                    Database.MyCantineSQL.setUnMDP(MyEntryMDP.Text, id);
+                                    Database.MyProfil.setUnMDP(MyEntryMDP.Text, id);
                                 }
                             }
                         }
                         if (MyEntryMDP.Text != "" && MyEntryMDP.Text != id)
                         {
-                            Database.MyCantineSQL.setUnMDP(MyEntryMDP.Text, id);
+                            Database.MyProfil.setUnMDP(MyEntryMDP.Text, id);
                         }
                     }
                     if (MyEntryVILLE.Text != "" && MyEntryVILLE.Text != ville)
                     {
-                        Database.MyCantineSQL.setUneVille(MyEntryVILLE.Text, id);
+                        Database.MyProfil.setUneVille(MyEntryVILLE.Text, id);
                         if (MyEntryEMAIL.Text != "" && MyEntryEMAIL.Text != id)
                         {
-                            Database.MyCantineSQL.setUnEmail(MyEntryEMAIL.Text, id);
+                            Database.MyProfil.setUnEmail(MyEntryEMAIL.Text, id);
                             Application.Current.Properties["AppUser"] = MyEntryEMAIL.Text;
                             value = Application.Current.Properties["AppUser"];
                             id = value.ToString();
                             if (MyEntryMDP.Text != "" && MyEntryMDP.Text != id)
                             {
-                                Database.MyCantineSQL.setUnMDP(MyEntryMDP.Text, id);
+                                Database.MyProfil.setUnMDP(MyEntryMDP.Text, id);
                             }
                         }
                         if (MyEntryMDP.Text != "" && MyEntryMDP.Text != id)
                         {
-                            Database.MyCantineSQL.setUnMDP(MyEntryMDP.Text, id);
+                            Database.MyProfil.setUnMDP(MyEntryMDP.Text, id);
                         }
                     }
                     if (MyEntryEMAIL.Text != "" && MyEntryEMAIL.Text != id)
                     {
-                        Database.MyCantineSQL.setUnEmail(MyEntryEMAIL.Text, id);
+                        Database.MyProfil.setUnEmail(MyEntryEMAIL.Text, id);
                         Application.Current.Properties["AppUser"] = MyEntryEMAIL.Text;
                         value = Application.Current.Properties["AppUser"];
                         id = value.ToString();
                         if (MyEntryMDP.Text != "" && MyEntryMDP.Text != id)
                         {
-                            Database.MyCantineSQL.setUnMDP(MyEntryMDP.Text, id);
+                            Database.MyProfil.setUnMDP(MyEntryMDP.Text, id);
                         }
                     }
                     if (MyEntryMDP.Text != "" && MyEntryMDP.Text != id)
                     {
-                        Database.MyCantineSQL.setUnMDP(MyEntryMDP.Text, id);
+                        Database.MyProfil.setUnMDP(MyEntryMDP.Text, id);
                     }
                 }
                 if (MyEntryCP.Text != "" && MyEntryCP.Text != codpost)
                 {
-                    Database.MyCantineSQL.setUnCodePost(MyEntryCP.Text, id);
+                    Database.MyProfil.setUnCodePost(MyEntryCP.Text, id);
                     if (MyEntryVILLE.Text != "" && MyEntryVILLE.Text != ville)
                     {
-                        Database.MyCantineSQL.setUneVille(MyEntryVILLE.Text, id);
+                        Database.MyProfil.setUneVille(MyEntryVILLE.Text, id);
                         if (MyEntryEMAIL.Text != "" && MyEntryEMAIL.Text != id)
                         {
-                            Database.MyCantineSQL.setUnEmail(MyEntryEMAIL.Text, id);
+                            Database.MyProfil.setUnEmail(MyEntryEMAIL.Text, id);
                             Application.Current.Properties["AppUser"] = MyEntryEMAIL.Text;
                             value = Application.Current.Properties["AppUser"];
                             id = value.ToString();
                             if (MyEntryMDP.Text != "" && MyEntryMDP.Text != id)
                             {
-                                Database.MyCantineSQL.setUnMDP(MyEntryMDP.Text, id);
+                                Database.MyProfil.setUnMDP(MyEntryMDP.Text, id);
                             }
                         }
                     }
                     if (MyEntryMDP.Text != "" && MyEntryMDP.Text != id)
                     {
-                        Database.MyCantineSQL.setUnMDP(MyEntryMDP.Text, id);
+                        Database.MyProfil.setUnMDP(MyEntryMDP.Text, id);
                     }
                 }
                 if (MyEntryVILLE.Text != "" && MyEntryVILLE.Text != ville)
                 {
-                    Database.MyCantineSQL.setUneVille(MyEntryVILLE.Text, id);
+                    Database.MyProfil.setUneVille(MyEntryVILLE.Text, id);
                     if (MyEntryEMAIL.Text != "" && MyEntryEMAIL.Text != id)
                     {
-                        Database.MyCantineSQL.setUnEmail(MyEntryEMAIL.Text, id);
+                        Database.MyProfil.setUnEmail(MyEntryEMAIL.Text, id);
                         Application.Current.Properties["AppUser"] = MyEntryEMAIL.Text;
                         value = Application.Current.Properties["AppUser"];
                         id = value.ToString();
                         if (MyEntryMDP.Text != "" && MyEntryMDP.Text != id)
                         {
-                            Database.MyCantineSQL.setUnMDP(MyEntryMDP.Text, id);
+                            Database.MyProfil.setUnMDP(MyEntryMDP.Text, id);
                         }
                     }
                     if (MyEntryMDP.Text != "" && MyEntryMDP.Text != id)
                     {
-                        Database.MyCantineSQL.setUnMDP(MyEntryMDP.Text, id);
+                        Database.MyProfil.setUnMDP(MyEntryMDP.Text, id);
                     }
                 }
 
                 if (MyEntryEMAIL.Text != "" && MyEntryEMAIL.Text != id)
                 {
-                    Database.MyCantineSQL.setUnEmail(MyEntryEMAIL.Text, id);
+                    Database.MyProfil.setUnEmail(MyEntryEMAIL.Text, id);
                     Application.Current.Properties["AppUser"] = MyEntryEMAIL.Text;
                     value = Application.Current.Properties["AppUser"];
                     id = value.ToString();
                     if (MyEntryMDP.Text != "" && MyEntryMDP.Text != id)
                     {
-                        Database.MyCantineSQL.setUnMDP(MyEntryMDP.Text, id);
+                        Database.MyProfil.setUnMDP(MyEntryMDP.Text, id);
                     }
                 }
                 if (MyEntryMDP.Text != "" && MyEntryMDP.Text != id)
                 {
-                    Database.MyCantineSQL.setUnMDP(MyEntryMDP.Text, id);
+                    Database.MyProfil.setUnMDP(MyEntryMDP.Text, id);
                 }
                  if (MyEntryEMAIL.Text != "" && MyEntryEMAIL.Text != id)
                  {
-                     Database.MyCantineSQL.setUnEmail(MyEntryEMAIL.Text, id);
+                     Database.MyProfil.setUnEmail(MyEntryEMAIL.Text, id);
                      Application.Current.Properties["AppUser"] = MyEntryEMAIL.Text;
                      value = Application.Current.Properties["AppUser"];
                      id = value.ToString();
                     if (MyEntryMDP.Text != "" && MyEntryMDP.Text != mdp)
                     {
-                        Database.MyCantineSQL.setUnMDP(MyEntryMDP.Text, id);
+                        Database.MyProfil.setUnMDP(MyEntryMDP.Text, id);
                     }
                 }
                     await Navigation.PushAsync(new UserProfil());

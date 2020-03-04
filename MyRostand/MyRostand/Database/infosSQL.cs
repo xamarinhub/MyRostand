@@ -11,10 +11,10 @@ namespace MyRostand.Database
             List<string> infos = new List<string>();
 
             infos.Add("51.75.25.38");     //HOST  SERVEUR : 172.20.82.31
-            infos.Add("3306");         //PORT
+            infos.Add("3305");         //PORT
             infos.Add("myrostand");    //DATABASE NAME
-            infos.Add("toto");         //USER NAME
-            infos.Add("thomassio");             //USER PASSWORD
+            infos.Add("myrostand");         //USER NAME
+            infos.Add("mpmyrostand");             //USER PASSWORD
 
             return infos;
         }

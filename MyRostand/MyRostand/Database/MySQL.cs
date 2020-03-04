@@ -20,7 +20,7 @@ namespace MyRostand.Database
 
             // Connection String.
             string connString = "server=" + infos[0] + ";database=" + infos[2]
-                + ";port=" + 3306 + ";user = " + infos[3] + ";password = " + infos[4];
+                + ";port=" + infos[1] + ";user = " + infos[3] + ";password = " + infos[4];
 
             return connString;
         }
@@ -97,6 +97,29 @@ namespace MyRostand.Database
             }
         }
 
-        
+        //////////////////////////////////////////////////////////////////REQUETE CONNEXION///////////////////////////////////////////////////////////////
+        public static int ConnexionUser(string idUser, string idMdp)
+        {
+            int cpt = 0;
+
+            try
+            {
+                MySqlConnection cnx = MySQL.getCnx();
+                cnx.Ping();
+                string requete = "SELECT COUNT(UTI_ID) FROM utilisateur WHERE UTI_EMAIL = '" + idUser + "' AND UTI_MDP = '" + idMdp + "'  ";
+                MySqlCommand cmd = new MySqlCommand(requete, cnx);
+                var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    cpt = reader.GetInt32(0);
+                }
+                cnx.Close();
+                return cpt;
+            }
+            catch (MySqlException ex)
+            {
+                return cpt = 0;
+            }
+        }
     }
 }
